@@ -1,0 +1,167 @@
+{
+    "name": "CircleCI",
+    "description": "CircleCI???s continuous integration and delivery platform makes it easy for teams of all sizes to rapidly build and release quality software at scale.  Build for Linux, macOS, and Android, in the cloud or behind your firewall.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/28120-circleci.jpg",
+    "tags": [
+        "api service provider",
+        "continuous deployment",
+        "continuous integration",
+        "developers",
+        "have api",
+        "have swagger",
+        "orchestration",
+        "relative data",
+        "service api"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/circleci\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "CircleCI",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/28120-circleci.jpg",
+            "humanURL": "https:\/\/circleci.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/circleci-openapi.json"
+                },
+                {
+                    "type": "x-openapi",
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/circleci.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Website",
+            "url": "https:\/\/circleci.com"
+        },
+        {
+            "type": "Blog",
+            "url": "https:\/\/circleci.com\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "https:\/\/circleci.com\/blog\/feed.xml"
+        },
+        {
+            "type": "Case Studies",
+            "url": "https:\/\/circleci.com\/customers\/"
+        },
+        {
+            "type": "Change Logs",
+            "url": "https:\/\/circleci.com\/changelog\/"
+        },
+        {
+            "type": "Contact Form",
+            "url": "https:\/\/circleci.com\/contact\/"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/circle-ci"
+        },
+        {
+            "type": "Documentation",
+            "url": "https:\/\/circleci.com\/docs\/"
+        },
+        {
+            "type": "Email",
+            "url": "press@circleci.com"
+        },
+        {
+            "type": "Email",
+            "url": "billing@circleci.com"
+        },
+        {
+            "type": "Email",
+            "url": "privacy@circleci.com"
+        },
+        {
+            "type": "Email",
+            "url": "sayhi@circleci.com"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/circleci"
+        },
+        {
+            "type": "LinkedIn",
+            "url": "https:\/\/www.linkedin.com\/company\/circleci"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28120-2019-09-03-14-46-58.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28120-2019-09-03-19-25-36.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28120-2019-09-03-14-48-43.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28120-2019-09-03-14-48-55.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28120-2019-09-03-14-50-13.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28120-2019-09-04-02-10-15.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28120-2019-09-04-02-10-21.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/28120-2019-09-03-23-15-53.json"
+        },
+        {
+            "type": "Pricing",
+            "url": "https:\/\/circleci.com\/pricing\/"
+        },
+        {
+            "type": "Privacy Policy",
+            "url": "https:\/\/circleci.com\/privacy\/"
+        },
+        {
+            "type": "Registration",
+            "url": "https:\/\/circleci.com\/signup\/"
+        },
+        {
+            "type": "Status",
+            "url": "https:\/\/status.circleci.com\/"
+        },
+        {
+            "type": "Support",
+            "url": "https:\/\/support.circleci.com\/hc\/en-us"
+        },
+        {
+            "type": "Terms of Service",
+            "url": "https:\/\/circleci.com\/terms-of-service\/"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/circleci"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/circleci.com"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/circleci.com\/"
+        }
+    ]
+}
