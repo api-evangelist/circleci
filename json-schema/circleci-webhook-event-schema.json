@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://circleci.com/schemas/circleci/webhook-event.json",
+  "title": "CircleCI Webhook Event",
+  "description": "Schema for CircleCI outbound webhook event payloads delivered via HTTP POST when workflow or job events occur in CI/CD pipelines.",
+  "type": "object",
+  "required": ["id", "type", "happened_at", "webhook", "project", "organization", "pipeline"],
+  "discriminator": {
+    "propertyName": "type"
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the webhook delivery, used for deduplication"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["workflow-completed", "job-completed"],
+      "description": "The type of webhook event"
+    },
+    "happened_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the event occurred"
+    },
+    "webhook": {
+      "$ref": "#/$defs/WebhookReference"
+    },
+    "project": {
+      "$ref": "#/$defs/ProjectReference"
+    },
+    "organization": {
+      "$ref": "#/$defs/OrganizationReference"
+    },
+    "workflow": {
+      "$ref": "#/$defs/WorkflowReference"
+    },
+    "job": {
+      "$ref": "#/$defs/JobReference"
+    },
+    "pipeline": {
+      "$ref": "#/$defs/PipelineReference"
+    }
+  },
+  "$defs": {
+    "WebhookReference": {
+      "type": "object",
+      "description": "Reference to the webhook subscription that generated this delivery",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the webhook subscription"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the webhook subscription"
+        }
+      }
+    },
+    "ProjectReference": {
+      "type": "object",
+      "description": "The project associated with the event",
+      "required": ["id", "name", "slug"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the project"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the project (repository name)"
+        },
+        "slug": {
+          "type": "string",
+          "description": "The project slug in vcs-type/org-name/repo-name format",
+          "pattern": "^[^/]+/[^/]+/[^/]+$"
+        }
+      }
+    },
+    "OrganizationReference": {
+      "type": "object",
+      "description": "The organization that owns the project",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the organization"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the organization"
+        }
+      }
+    },
+    "WorkflowReference": {
+      "type": "object",
+      "description": "The workflow associated with the event",
+      "required": ["id", "name", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the workflow"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the workflow"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the workflow was created"
+        },
+        "stopped_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the workflow stopped"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to view the workflow in CircleCI"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["success", "failed", "error", "canceled", "unauthorized"],
+          "description": "The terminal status of the workflow"
+        }
+      }
+    },
+    "JobReference": {
+      "type": "object",
+      "description": "The job associated with the event (present only in job-completed events)",
+      "required": ["id", "name", "status", "number"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the job"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the job"
+        },
+        "number": {
+          "type": "integer",
+          "description": "The job number"
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the job started"
+        },
+        "stopped_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the job stopped"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["success", "failed", "canceled", "infrastructure_fail"],
+          "description": "The terminal status of the job"
+        }
+      }
+    },
+    "PipelineReference": {
+      "type": "object",
+      "description": "The pipeline associated with the event",
+      "required": ["id", "number", "created_at"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the pipeline"
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The pipeline number"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the pipeline was created"
+        },
+        "trigger": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of trigger that started the pipeline"
+            }
+          },
+          "description": "Trigger information"
+        },
+        "vcs": {
+          "type": "object",
+          "properties": {
+            "provider_name": {
+              "type": "string",
+              "description": "The VCS provider name"
+            },
+            "origin_repository_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "The origin repository URL"
+            },
+            "target_repository_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "The target repository URL"
+            },
+            "revision": {
+              "type": "string",
+              "description": "The VCS revision (commit SHA)"
+            },
+            "branch": {
+              "type": "string",
+              "description": "The branch name"
+            },
+            "tag": {
+              "type": "string",
+              "description": "The tag name"
+            },
+            "commit": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "type": "string",
+                  "description": "The commit message subject"
+                },
+                "body": {
+                  "type": "string",
+                  "description": "The commit message body"
+                },
+                "author": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Author name"
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "description": "Author email"
+                    }
+                  },
+                  "description": "Commit author"
+                },
+                "authored_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "When the commit was authored"
+                },
+                "committer": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Committer name"
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "description": "Committer email"
+                    }
+                  },
+                  "description": "Commit committer"
+                },
+                "committed_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "When the commit was committed"
+                }
+              },
+              "description": "Commit details"
+            }
+          },
+          "description": "VCS information"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://circleci.com/schemas/circleci/pipeline.json",
+  "title": "CircleCI Pipeline",
+  "description": "A CircleCI pipeline represents a full CI/CD execution triggered by a code change, API call, or schedule. It contains one or more workflows that organize and run jobs.",
+  "type": "object",
+  "required": ["id", "state", "number", "created_at"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the pipeline"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PipelineError"
+      },
+      "description": "Errors that occurred during pipeline setup"
+    },
+    "project_slug": {
+      "type": "string",
+      "description": "The project slug in vcs-slug/org-name/repo-name format",
+      "pattern": "^(gh|github|bb|bitbucket)/[^/]+/[^/]+$"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the pipeline was last updated"
+    },
+    "number": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The monotonically increasing pipeline number"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["created", "errored", "setup-pending", "setup", "pending"],
+      "description": "The current state of the pipeline"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the pipeline was created"
+    },
+    "trigger": {
+      "$ref": "#/$defs/Trigger"
+    },
+    "trigger_parameters": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Parameters passed when triggering the pipeline"
+    },
+    "vcs": {
+      "$ref": "#/$defs/VCSInfo"
+    }
+  },
+  "$defs": {
+    "PipelineError": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["config", "config-fetch", "timeout", "permission", "other"],
+          "description": "The type of error that occurred"
+        },
+        "message": {
+          "type": "string",
+          "description": "A human-readable error message"
+        }
+      },
+      "required": ["type", "message"]
+    },
+    "Trigger": {
+      "type": "object",
+      "description": "Information about what triggered the pipeline",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["webhook", "explicit", "api", "schedule"],
+          "description": "The type of trigger that started this pipeline"
+        },
+        "received_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the trigger was received"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        }
+      }
+    },
+    "Actor": {
+      "type": "object",
+      "description": "The user or system that triggered the pipeline",
+      "properties": {
+        "login": {
+          "type": "string",
+          "description": "The login name of the actor"
+        },
+        "avatar_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the actor's avatar"
+        }
+      }
+    },
+    "VCSInfo": {
+      "type": "object",
+      "description": "Version control system information associated with the pipeline",
+      "properties": {
+        "provider_name": {
+          "type": "string",
+          "enum": ["github", "bitbucket"],
+          "description": "The VCS provider name"
+        },
+        "origin_repository_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the origin repository"
+        },
+        "target_repository_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the target repository"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$",
+          "description": "The full SHA-1 commit hash"
+        },
+        "branch": {
+          "type": "string",
+          "description": "The branch name"
+        },
+        "tag": {
+          "type": "string",
+          "description": "The tag name, if applicable"
+        },
+        "commit": {
+          "$ref": "#/$defs/Commit"
+        }
+      }
+    },
+    "Commit": {
+      "type": "object",
+      "description": "Commit information associated with the pipeline",
+      "properties": {
+        "subject": {
+          "type": "string",
+          "description": "The commit message subject line"
+        },
+        "body": {
+          "type": "string",
+          "description": "The commit message body"
+        },
+        "author": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The commit author name"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "The commit author email"
+            }
+          },
+          "description": "The commit author"
+        },
+        "committer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The committer name"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "The committer email"
+            }
+          },
+          "description": "The committer"
+        }
+      }
+    }
+  }
+}

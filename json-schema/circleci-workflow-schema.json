@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://circleci.com/schemas/circleci/workflow.json",
+  "title": "CircleCI Workflow",
+  "description": "A CircleCI workflow organizes a set of jobs and defines the order, dependencies, and conditions under which they run within a pipeline.",
+  "type": "object",
+  "required": ["id", "name", "status", "pipeline_id", "created_at"],
+  "properties": {
+    "pipeline_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the pipeline this workflow belongs to"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the workflow"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the workflow as defined in the CircleCI configuration",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "project_slug": {
+      "type": "string",
+      "description": "The project slug in vcs-slug/org-name/repo-name format"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "running",
+        "not_run",
+        "failed",
+        "error",
+        "failing",
+        "on_hold",
+        "canceled",
+        "unauthorized"
+      ],
+      "description": "The current status of the workflow"
+    },
+    "started_by": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the user who started the workflow"
+    },
+    "pipeline_number": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The pipeline number"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the workflow was created"
+    },
+    "stopped_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When the workflow stopped, null if still running"
+    },
+    "tag": {
+      "type": "string",
+      "enum": ["setup"],
+      "description": "Tag for special workflow types like setup workflows"
+    }
+  }
+}

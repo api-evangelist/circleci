@@ -1,0 +1,197 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "circleci": "https://circleci.com/api/v2/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Pipeline": {
+      "@id": "circleci:Pipeline",
+      "@context": {
+        "id": "circleci:id",
+        "number": "circleci:number",
+        "state": "circleci:state",
+        "projectSlug": "circleci:project_slug",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "trigger": "circleci:trigger",
+        "vcs": "circleci:vcs"
+      }
+    },
+
+    "Workflow": {
+      "@id": "circleci:Workflow",
+      "@context": {
+        "id": "circleci:id",
+        "name": "schema:name",
+        "status": "circleci:status",
+        "pipelineId": "circleci:pipeline_id",
+        "pipelineNumber": "circleci:pipeline_number",
+        "projectSlug": "circleci:project_slug",
+        "startedBy": "circleci:started_by",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "stoppedAt": {
+          "@id": "circleci:stopped_at",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Job": {
+      "@id": "circleci:Job",
+      "@context": {
+        "id": "circleci:id",
+        "name": "schema:name",
+        "number": "circleci:number",
+        "status": "circleci:status",
+        "type": "circleci:job_type",
+        "webUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "startedAt": {
+          "@id": "circleci:started_at",
+          "@type": "xsd:dateTime"
+        },
+        "stoppedAt": {
+          "@id": "circleci:stopped_at",
+          "@type": "xsd:dateTime"
+        },
+        "duration": "circleci:duration",
+        "executor": "circleci:executor",
+        "parallelism": "circleci:parallelism",
+        "dependencies": {
+          "@id": "circleci:dependencies",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Project": {
+      "@id": "circleci:Project",
+      "@context": {
+        "id": "circleci:id",
+        "name": "schema:name",
+        "slug": "circleci:slug",
+        "organizationName": "schema:memberOf",
+        "organizationId": "circleci:organization_id",
+        "vcsInfo": "circleci:vcs_info",
+        "vcsUrl": {
+          "@id": "schema:codeRepository",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Context": {
+      "@id": "circleci:Context",
+      "@context": {
+        "id": "circleci:id",
+        "name": "schema:name",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Schedule": {
+      "@id": "circleci:Schedule",
+      "@context": {
+        "id": "circleci:id",
+        "name": "schema:name",
+        "description": "schema:description",
+        "timetable": "circleci:timetable",
+        "projectSlug": "circleci:project_slug",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Runner": {
+      "@id": "circleci:Runner",
+      "@context": {
+        "resourceClass": "circleci:resource_class",
+        "hostname": "circleci:hostname",
+        "name": "schema:name",
+        "version": "schema:softwareVersion",
+        "os": "schema:operatingSystem",
+        "firstConnected": {
+          "@id": "circleci:first_connected",
+          "@type": "xsd:dateTime"
+        },
+        "lastConnected": {
+          "@id": "circleci:last_connected",
+          "@type": "xsd:dateTime"
+        },
+        "lastUsed": {
+          "@id": "circleci:last_used",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Artifact": {
+      "@id": "circleci:Artifact",
+      "@context": {
+        "path": "circleci:path",
+        "nodeIndex": "circleci:node_index",
+        "url": {
+          "@id": "schema:contentUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "WebhookSubscription": {
+      "@id": "circleci:WebhookSubscription",
+      "@context": {
+        "id": "circleci:id",
+        "name": "schema:name",
+        "url": {
+          "@id": "circleci:webhook_url",
+          "@type": "@id"
+        },
+        "events": {
+          "@id": "circleci:events",
+          "@container": "@set"
+        },
+        "verifyTls": "circleci:verify_tls",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Organization": {
+      "@id": "circleci:Organization",
+      "@context": {
+        "id": "circleci:id",
+        "name": "schema:name",
+        "slug": "circleci:slug",
+        "vcsType": "circleci:vcs_type"
+      }
+    }
+  }
+}

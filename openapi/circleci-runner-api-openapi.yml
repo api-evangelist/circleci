@@ -1,0 +1,410 @@
+openapi: 3.1.0
+info:
+  title: CircleCI Self-Hosted Runner API
+  description: >-
+    The CircleCI Self-Hosted Runner API enables management and execution
+    of jobs on self-hosted runner infrastructure. It provides endpoints
+    for listing available runners, managing runner tasks, and querying
+    resource classes. The API is hosted separately from the main CircleCI
+    API at runner.circleci.com and supports multiple authentication
+    methods depending on the endpoint. Developers can use this API to
+    integrate self-hosted runner management into their infrastructure
+    automation workflows.
+  version: '3.0'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  termsOfService: https://circleci.com/terms-of-service/
+externalDocs:
+  description: CircleCI Self-Hosted Runner API Documentation
+  url: https://circleci.com/docs/runner-api/
+servers:
+  - url: https://runner.circleci.com/api/v3
+    description: CircleCI Runner API Production Server
+  - url: https://circleci.com/api/v3/runner
+    description: CircleCI Main API Runner Endpoints
+tags:
+  - name: Runner
+    description: >-
+      Endpoints for listing and querying self-hosted runners and their
+      status within a namespace or resource class.
+  - name: Runner Task
+    description: >-
+      Endpoints for querying task counts and managing tasks assigned to
+      self-hosted runners.
+  - name: Resource Class
+    description: >-
+      Endpoints for managing runner resource classes, which define the
+      compute resources available for self-hosted runner jobs.
+security:
+  - apiToken: []
+paths:
+  /runner:
+    get:
+      operationId: listRunners
+      summary: List self-hosted runners
+      description: >-
+        Retrieves a list of self-hosted runners filtered by namespace
+        or resource class. At least one filter parameter must be provided
+        to return results. Returns details including hostname, name,
+        connection timestamps, version, and resource class.
+      tags:
+        - Runner
+      parameters:
+        - name: namespace
+          in: query
+          description: >-
+            The namespace to filter runners by. Cannot be used
+            together with resource-class.
+          schema:
+            type: string
+        - name: resource-class
+          in: query
+          description: >-
+            The resource class to filter runners by. Cannot be used
+            together with namespace.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved runners
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Runner'
+                    description: List of runners
+        '400':
+          description: >-
+            Bad request - at least one filter parameter must be provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /runner/tasks:
+    get:
+      operationId: getUnclaimedTaskCount
+      summary: Get unclaimed task count
+      description: >-
+        Returns the number of unclaimed tasks for a given resource class.
+        This endpoint is scoped to a single resource class, so it must
+        be called per resource class to get totals across all classes.
+      tags:
+        - Runner Task
+      parameters:
+        - name: resource-class
+          in: query
+          required: true
+          description: The resource class to query unclaimed tasks for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved unclaimed task count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unclaimed_task_count:
+                    type: integer
+                    description: Number of unclaimed tasks for the resource class
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /runner/tasks/running:
+    get:
+      operationId: getRunningTaskCount
+      summary: Get running task count
+      description: >-
+        Returns the number of running tasks for a given resource class.
+        This endpoint is scoped to a single resource class, so it must
+        be called per resource class to get totals across all classes.
+      tags:
+        - Runner Task
+      parameters:
+        - name: resource-class
+          in: query
+          required: true
+          description: The resource class to query running tasks for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved running task count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  running_runner_tasks:
+                    type: integer
+                    description: Number of running tasks for the resource class
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /runner/resource-class:
+    get:
+      operationId: listResourceClasses
+      summary: List resource classes
+      description: >-
+        Returns a list of runner resource classes for the specified
+        namespace. Resource classes define the compute resources
+        available for self-hosted runner jobs.
+      tags:
+        - Resource Class
+      parameters:
+        - name: namespace
+          in: query
+          required: true
+          description: The namespace to list resource classes for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved resource classes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResourceClass'
+                    description: List of resource classes
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createResourceClass
+      summary: Create a resource class
+      description: >-
+        Creates a new resource class for the specified namespace. Returns
+        a resource class token that is only displayed once and cannot be
+        retrieved again. This token is used by runner agents to
+        authenticate.
+      tags:
+        - Resource Class
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - resource_class
+                - description
+              properties:
+                resource_class:
+                  type: string
+                  description: >-
+                    The resource class name in namespace/name format
+                  pattern: ^[a-z0-9-]+/[a-z0-9-]+$
+                description:
+                  type: string
+                  description: A description of the resource class
+      responses:
+        '200':
+          description: Resource class created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceClassCreation'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /runner/resource-class/{resource-class}:
+    get:
+      operationId: getResourceClass
+      summary: Get a resource class
+      description: >-
+        Returns details about a specific resource class.
+      tags:
+        - Resource Class
+      parameters:
+        - $ref: '#/components/parameters/ResourceClassParam'
+      responses:
+        '200':
+          description: Successfully retrieved resource class
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceClass'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Resource class not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteResourceClass
+      summary: Delete a resource class
+      description: >-
+        Deletes a resource class. This will prevent any runners using
+        this resource class from picking up new tasks.
+      tags:
+        - Resource Class
+      parameters:
+        - $ref: '#/components/parameters/ResourceClassParam'
+      responses:
+        '200':
+          description: Resource class deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Resource class not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: Circle-Token
+      description: >-
+        Personal API token for authenticating with the CircleCI Runner API.
+    resourceClassToken:
+      type: http
+      scheme: bearer
+      description: >-
+        Resource class token generated when creating a new resource class.
+        This token is only displayed once and cannot be retrieved again.
+  parameters:
+    ResourceClassParam:
+      name: resource-class
+      in: path
+      required: true
+      description: >-
+        The resource class in namespace/name format
+      schema:
+        type: string
+  schemas:
+    Runner:
+      type: object
+      properties:
+        resource_class:
+          type: string
+          description: >-
+            The resource class the runner belongs to in namespace/name format
+        hostname:
+          type: string
+          description: The hostname of the machine running the runner agent
+        name:
+          type: string
+          description: The name assigned to the runner
+        first_connected:
+          type: string
+          format: date-time
+          description: When the runner first connected to CircleCI
+        last_connected:
+          type: string
+          format: date-time
+          description: When the runner last connected to CircleCI
+        last_used:
+          type: string
+          format: date-time
+          description: When the runner last executed a task
+        version:
+          type: string
+          description: The version of the runner agent
+        ip:
+          type: string
+          description: The IP address of the runner
+        os:
+          type: string
+          description: The operating system of the runner
+        arch:
+          type: string
+          description: The CPU architecture of the runner
+    ResourceClass:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the resource class
+        resource_class:
+          type: string
+          description: >-
+            The resource class name in namespace/name format
+        description:
+          type: string
+          description: A description of the resource class
+    ResourceClassCreation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the resource class
+        resource_class:
+          type: string
+          description: >-
+            The resource class name in namespace/name format
+        description:
+          type: string
+          description: A description of the resource class
+        token:
+          type: string
+          description: >-
+            The resource class token. This is only displayed once and
+            cannot be retrieved again. Store it securely.
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message

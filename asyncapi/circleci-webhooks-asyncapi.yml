@@ -1,0 +1,362 @@
+asyncapi: 2.6.0
+info:
+  title: CircleCI Webhooks
+  description: >-
+    CircleCI Webhooks allow developers to receive real-time notifications
+    about events in their CI/CD pipelines by configuring HTTP callbacks.
+    Webhooks can be set up through project settings or the API to notify
+    external services when workflows and jobs complete, fail, or change
+    status. This enables integration with monitoring systems, chat
+    platforms, and custom automation workflows. Webhooks deliver JSON
+    payloads via HTTP POST to configured endpoint URLs, signed with
+    HMAC SHA256 for verification.
+  version: '1.0'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  license:
+    name: MIT
+  externalDocs:
+    description: CircleCI Webhooks Documentation
+    url: https://circleci.com/docs/webhooks/
+servers:
+  circleci:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      Your webhook endpoint URL. CircleCI sends HTTP POST requests
+      to this URL when events occur. The URL is configured when
+      creating a webhook subscription via project settings or the API.
+    variables:
+      webhookUrl:
+        description: The URL of your webhook receiver endpoint
+    security:
+      - hmacSignature: []
+channels:
+  /webhook:
+    description: >-
+      CircleCI delivers webhook events as HTTP POST requests with JSON
+      payloads to the configured endpoint URL. Each delivery includes
+      a circleci-signature header containing an HMAC SHA256 digest
+      of the request body for verification.
+    publish:
+      operationId: receiveCircleCIWebhook
+      summary: Receive CircleCI webhook events
+      description: >-
+        Receives webhook event notifications from CircleCI when
+        workflow or job events occur. Events are delivered as HTTP POST
+        requests with JSON payloads. Use the circleci-signature header
+        to verify the authenticity of the delivery.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/WorkflowCompleted'
+          - $ref: '#/components/messages/JobCompleted'
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      name: circleci-signature
+      in: header
+      description: >-
+        HMAC SHA256 signature of the webhook request body, sent in the
+        format v1=<hmac-sha256-digest>. Computed using the signing
+        secret configured when creating the webhook subscription. Use
+        this to verify the authenticity of incoming webhook deliveries.
+  messages:
+    WorkflowCompleted:
+      name: workflow-completed
+      title: Workflow Completed Event
+      summary: >-
+        Fired when all jobs in a workflow have finished running.
+      description: >-
+        This event is triggered when a workflow reaches a terminal state
+        (success, failed, error, canceled, or unauthorized). The payload
+        contains information about the workflow, its pipeline, the
+        project, the organization, and the trigger that started the
+        pipeline. Use this event to track workflow completion status
+        and trigger downstream automation.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WorkflowCompletedPayload'
+    JobCompleted:
+      name: job-completed
+      title: Job Completed Event
+      summary: >-
+        Fired when all steps in a job have completed.
+      description: >-
+        This event is triggered when a job reaches a terminal state
+        (success, failed, canceled, or infrastructure_fail). The payload
+        contains information about the specific job, the workflow it
+        belongs to, the pipeline, the project, and the organization.
+        Use this event for fine-grained tracking of individual job
+        outcomes within workflows.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/JobCompletedPayload'
+  schemas:
+    WorkflowCompletedPayload:
+      type: object
+      required:
+        - id
+        - type
+        - happened_at
+        - webhook
+        - project
+        - organization
+        - workflow
+        - pipeline
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            Unique identifier for this webhook delivery. Use this to
+            deduplicate events if the same delivery is received multiple
+            times.
+        type:
+          type: string
+          const: workflow-completed
+          description: The type of webhook event
+        happened_at:
+          type: string
+          format: date-time
+          description: >-
+            ISO 8601 timestamp of when the event occurred
+        webhook:
+          $ref: '#/components/schemas/WebhookReference'
+        project:
+          $ref: '#/components/schemas/ProjectReference'
+        organization:
+          $ref: '#/components/schemas/OrganizationReference'
+        workflow:
+          $ref: '#/components/schemas/WorkflowReference'
+        pipeline:
+          $ref: '#/components/schemas/PipelineReference'
+    JobCompletedPayload:
+      type: object
+      required:
+        - id
+        - type
+        - happened_at
+        - webhook
+        - project
+        - organization
+        - job
+        - workflow
+        - pipeline
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: >-
+            Unique identifier for this webhook delivery. Use this to
+            deduplicate events if the same delivery is received multiple
+            times.
+        type:
+          type: string
+          const: job-completed
+          description: The type of webhook event
+        happened_at:
+          type: string
+          format: date-time
+          description: >-
+            ISO 8601 timestamp of when the event occurred
+        webhook:
+          $ref: '#/components/schemas/WebhookReference'
+        project:
+          $ref: '#/components/schemas/ProjectReference'
+        organization:
+          $ref: '#/components/schemas/OrganizationReference'
+        job:
+          $ref: '#/components/schemas/JobReference'
+        workflow:
+          $ref: '#/components/schemas/WorkflowReference'
+        pipeline:
+          $ref: '#/components/schemas/PipelineReference'
+    WebhookReference:
+      type: object
+      description: Reference to the webhook subscription that generated this delivery
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the webhook subscription
+        name:
+          type: string
+          description: The name of the webhook subscription
+    ProjectReference:
+      type: object
+      description: The project associated with the event
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the project
+        name:
+          type: string
+          description: The name of the project (repository name)
+        slug:
+          type: string
+          description: >-
+            The project slug in vcs-type/org-name/repo-name format
+    OrganizationReference:
+      type: object
+      description: The organization that owns the project
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the organization
+        name:
+          type: string
+          description: The name of the organization
+    WorkflowReference:
+      type: object
+      description: The workflow associated with the event
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the workflow
+        name:
+          type: string
+          description: The name of the workflow
+        created_at:
+          type: string
+          format: date-time
+          description: When the workflow was created
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the workflow stopped
+        url:
+          type: string
+          format: uri
+          description: URL to view the workflow in the CircleCI web app
+        status:
+          type: string
+          enum:
+            - success
+            - failed
+            - error
+            - canceled
+            - unauthorized
+          description: The terminal status of the workflow
+    JobReference:
+      type: object
+      description: The job associated with the event
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the job
+        name:
+          type: string
+          description: The name of the job
+        number:
+          type: integer
+          description: The job number
+        started_at:
+          type: string
+          format: date-time
+          description: When the job started
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the job stopped
+        status:
+          type: string
+          enum:
+            - success
+            - failed
+            - canceled
+            - infrastructure_fail
+          description: The terminal status of the job
+    PipelineReference:
+      type: object
+      description: The pipeline associated with the event
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the pipeline
+        number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the pipeline was created
+        trigger:
+          type: object
+          properties:
+            type:
+              type: string
+              description: >-
+                The type of trigger that started the pipeline
+                (e.g., webhook, api, schedule)
+          description: Trigger information
+        vcs:
+          type: object
+          properties:
+            provider_name:
+              type: string
+              description: The VCS provider name
+            origin_repository_url:
+              type: string
+              format: uri
+              description: The origin repository URL
+            target_repository_url:
+              type: string
+              format: uri
+              description: The target repository URL
+            revision:
+              type: string
+              description: The VCS revision (commit SHA)
+            branch:
+              type: string
+              description: The branch name
+            tag:
+              type: string
+              description: The tag name, if applicable
+            commit:
+              type: object
+              properties:
+                subject:
+                  type: string
+                  description: The commit message subject
+                body:
+                  type: string
+                  description: The commit message body
+                author:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The commit author name
+                    email:
+                      type: string
+                      format: email
+                      description: The commit author email
+                  description: Commit author information
+                authored_at:
+                  type: string
+                  format: date-time
+                  description: When the commit was authored
+                committer:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The committer name
+                    email:
+                      type: string
+                      format: email
+                      description: The committer email
+                  description: Committer information
+                committed_at:
+                  type: string
+                  format: date-time
+                  description: When the commit was committed
+              description: Commit information
+          description: VCS information associated with the pipeline
