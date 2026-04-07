@@ -1,16 +1,18 @@
 aid: circleci
-url: https://raw.githubusercontent.com/api-evangelist/circleci/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/circleci/refs/heads/main/apis.yml
 modified: '2026-03-20'
 apis:
   - aid: circleci:rest-api-v2
-    name: CircleCI REST API v2
+    name: CircleCI REST API V2
     tags:
       - CI/CD
       - Continuous Integration
       - Pipelines
       - Workflows
       - DevOps
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://circleci.com/api/v2
     humanURL: https://circleci.com/docs/api/v2/
     properties:
@@ -28,13 +30,14 @@ apis:
       workflow management, artifact retrieval, and insights into build
       performance.
   - aid: circleci:rest-api-v1
-    name: CircleCI REST API v1
+    name: CircleCI REST API V1
     tags:
       - CI/CD
       - Continuous Integration
       - Legacy
       - Builds
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://circleci.com/api/v1.1
     humanURL: https://circleci.com/docs/api/v1/
     properties:
@@ -57,7 +60,8 @@ apis:
       - Runners
       - Self-Hosted
       - Infrastructure
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://runner.circleci.com
     humanURL: https://circleci.com/docs/runner-api/
     properties:
@@ -81,7 +85,8 @@ apis:
       - Webhooks
       - Events
       - Notifications
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://circleci.com/docs/webhooks/
     properties:
@@ -104,7 +109,8 @@ apis:
       - Configuration
       - Packages
       - Reusable
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://circleci.com/developer/orbs
     properties:
@@ -127,3 +133,5 @@ common:
     url: json-schema/circleci-workflow-schema.json
   - type: JSONSchema
     url: json-schema/circleci-webhook-event-schema.json
+description: >-
+  Download OpenAPI specification:.
