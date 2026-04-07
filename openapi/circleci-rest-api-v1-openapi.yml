@@ -21,25 +21,25 @@ servers:
   - url: https://circleci.com/api/v1.1
     description: CircleCI Production API v1.1
 tags:
-  - name: User
+  - name: Artifact
     description: >-
-      Endpoints for retrieving information about the authenticated user.
-  - name: Project
-    description: >-
-      Endpoints for listing followed projects and managing project settings.
+      Endpoints for listing and downloading build artifacts.
   - name: Build
     description: >-
       Endpoints for retrieving build details, triggering builds, retrying
       builds, and canceling builds.
-  - name: Artifact
+  - name: Project
     description: >-
-      Endpoints for listing and downloading build artifacts.
-  - name: Test Metadata
-    description: >-
-      Endpoints for retrieving test metadata collected during builds.
+      Endpoints for listing followed projects and managing project settings.
   - name: SSH Key
     description: >-
       Endpoints for managing SSH keys and checkout keys for projects.
+  - name: Test Metadata
+    description: >-
+      Endpoints for retrieving test metadata collected during builds.
+  - name: User
+    description: >-
+      Endpoints for retrieving information about the authenticated user.
 security:
   - apiToken: []
 paths:

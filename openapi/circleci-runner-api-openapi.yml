@@ -24,6 +24,10 @@ servers:
   - url: https://circleci.com/api/v3/runner
     description: CircleCI Main API Runner Endpoints
 tags:
+  - name: Resource Class
+    description: >-
+      Endpoints for managing runner resource classes, which define the
+      compute resources available for self-hosted runner jobs.
   - name: Runner
     description: >-
       Endpoints for listing and querying self-hosted runners and their
@@ -32,10 +36,6 @@ tags:
     description: >-
       Endpoints for querying task counts and managing tasks assigned to
       self-hosted runners.
-  - name: Resource Class
-    description: >-
-      Endpoints for managing runner resource classes, which define the
-      compute resources available for self-hosted runner jobs.
 security:
   - apiToken: []
 paths:

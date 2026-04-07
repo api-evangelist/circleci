@@ -29,26 +29,22 @@ tags:
     description: >-
       Endpoints for managing contexts, which are used to secure and share
       environment variables across projects.
-  - name: Pipeline
-    description: >-
-      Endpoints for triggering, retrieving, and managing pipelines and
-      their configurations.
-  - name: Workflow
-    description: >-
-      Endpoints for retrieving workflow details, managing workflow status,
-      and rerunning workflows.
-  - name: Job
-    description: >-
-      Endpoints for retrieving job details, artifacts, and test metadata
-      associated with pipeline jobs.
-  - name: Project
-    description: >-
-      Endpoints for managing project settings, checkout keys, and
-      environment variables.
   - name: Insights
     description: >-
       Endpoints for retrieving workflow and job metrics, summary data,
       and test performance insights.
+  - name: Job
+    description: >-
+      Endpoints for retrieving job details, artifacts, and test metadata
+      associated with pipeline jobs.
+  - name: Pipeline
+    description: >-
+      Endpoints for triggering, retrieving, and managing pipelines and
+      their configurations.
+  - name: Project
+    description: >-
+      Endpoints for managing project settings, checkout keys, and
+      environment variables.
   - name: Schedule
     description: >-
       Endpoints for creating, updating, and managing scheduled pipeline
@@ -61,18 +57,10 @@ tags:
     description: >-
       Endpoints for creating, updating, listing, and deleting outbound
       webhook subscriptions.
-  - name: OIDC Token Management
+  - name: Workflow
     description: >-
-      Endpoints for managing OpenID Connect identity tokens used in
-      CircleCI jobs.
-  - name: Policy Management
-    description: >-
-      Endpoints for managing organization-level policies for pipeline
-      configuration and security.
-  - name: Usage
-    description: >-
-      Endpoints for creating and retrieving usage reports for billing
-      and resource consumption tracking.
+      Endpoints for retrieving workflow details, managing workflow status,
+      and rerunning workflows.
 security:
   - apiToken: []
 paths:
