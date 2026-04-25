@@ -1,0 +1,105 @@
+extends:
+  - spectral:oas
+
+# Spectral linting rules tuned for CircleCI REST APIs.
+# Validates that OpenAPI specs follow the conventions described at
+# https://circleci.com/docs/api/v2/ — token-based auth via Circle-Token,
+# JSON responses, and resource-oriented v2 paths.
+rules:
+  circleci-info-contact:
+    description: API contact information must be present.
+    severity: error
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  circleci-info-license:
+    description: API license must be declared.
+    severity: warn
+    given: "$.info"
+    then:
+      field: license
+      function: truthy
+
+  circleci-server-https:
+    description: All server URLs must use HTTPS.
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  circleci-server-versioned:
+    description: REST v2 server URLs must include /api/v2.
+    severity: warn
+    given: "$.servers[?(@.url && @.url.indexOf('circleci.com') > -1)].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "/api/v[12](\\.\\d+)?$"
+
+  circleci-token-security:
+    description: A Circle-Token API key security scheme must be defined.
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      function: truthy
+
+  circleci-operation-tags:
+    description: Every operation must declare at least one tag.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  circleci-operation-summary:
+    description: Every operation must include a short summary.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  circleci-operation-id:
+    description: Every operation must declare a unique operationId.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  circleci-error-responses:
+    description: Mutating operations should declare 4xx/5xx error responses.
+    severity: warn
+    given: "$.paths[*][post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["400"]
+            - required: ["401"]
+            - required: ["403"]
+            - required: ["404"]
+            - required: ["422"]
+
+  circleci-pagination-cursor:
+    description: List endpoints should support page-token pagination.
+    severity: info
+    given: "$.paths[?(@property.match(/list$|projects$|workflows$|jobs$|pipelines$/))].get.parameters[*].name"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - page-token
+          - circle-token
+          - branch
+          - mine

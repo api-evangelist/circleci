@@ -1,6 +1,27 @@
 aid: circleci
+name: CircleCI
 url: https://raw.githubusercontent.com/api-evangelist/circleci/refs/heads/main/apis.yml
-modified: '2026-03-20'
+created: '2025-03-05'
+modified: '2026-04-23'
+type: Index
+access: 3rd-Party
+position: Consumer
+specificationVersion: '0.19'
+tags:
+  - CI/CD
+  - Continuous Integration
+  - Continuous Deployment
+  - DevOps
+  - Pipelines
+  - Workflows
+description: >-
+  CircleCI is a continuous integration and continuous delivery (CI/CD)
+  platform that automates software build, test, and deployment pipelines.
+  Their developer surface includes the REST API v2 (the recommended modern
+  interface), the legacy v1 REST API, a Self-Hosted Runner API, webhooks
+  for real-time event notifications, and the Orbs Registry of reusable
+  configuration packages. Authentication is via a personal or project
+  Circle-Token sent in the Circle-Token header; responses are JSON.
 apis:
   - aid: circleci:rest-api-v2
     name: CircleCI REST API V2
@@ -119,6 +140,24 @@ apis:
       processes, speed up project configuration, and integrate services like
       AWS, Docker, Slack, and Kubernetes into their CI/CD pipelines.
 common:
+  - type: Website
+    url: https://circleci.com/
+  - type: Portal
+    url: https://circleci.com/developer
+  - type: Documentation
+    url: https://circleci.com/docs/
+  - type: Status
+    url: https://status.circleci.com/
+  - type: Support
+    url: https://support.circleci.com/
+  - type: Blog
+    url: https://circleci.com/blog/
+  - type: Privacy Policy
+    url: https://circleci.com/privacy/
+  - type: Terms of Service
+    url: https://circleci.com/terms-of-service/
+  - type: Login
+    url: https://app.circleci.com/
   - type: JSON-LD
     url: json-ld/circleci-context.jsonld
   - type: JSONSchema
@@ -127,5 +166,10 @@ common:
     url: json-schema/circleci-workflow-schema.json
   - type: JSONSchema
     url: json-schema/circleci-webhook-event-schema.json
-description: >-
-  Download OpenAPI specification:.
+  - type: Spectral
+    url: spectral/circleci-spectral.yml
+  - type: Naftiko Capabilities
+    url: naftiko/circleci-capabilities.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

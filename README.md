@@ -96,14 +96,21 @@ CircleCI Orbs are shareable, reusable packages of CircleCI configuration that si
 
 ## Common Properties
 
+- [Website](https://circleci.com/)
 - [Portal](https://circleci.com/developer)
 - [Documentation](https://circleci.com/docs/)
-- [Website](https://circleci.com/)
-- [PrivacyPolicy](https://circleci.com/privacy/)
-- [TermsOfService](https://circleci.com/terms-of-service/)
+- [Status](https://status.circleci.com/)
 - [Support](https://support.circleci.com/)
 - [Blog](https://circleci.com/blog/)
+- [Privacy Policy](https://circleci.com/privacy/)
+- [Terms of Service](https://circleci.com/terms-of-service/)
 - [Login](https://app.circleci.com/)
+- [JSON-LD Context](json-ld/circleci-context.jsonld)
+- [Pipeline JSON Schema](json-schema/circleci-pipeline-schema.json)
+- [Workflow JSON Schema](json-schema/circleci-workflow-schema.json)
+- [Webhook Event JSON Schema](json-schema/circleci-webhook-event-schema.json)
+- [Spectral Ruleset](spectral/circleci-spectral.yml)
+- [Naftiko Capabilities](naftiko/circleci-capabilities.yml)
 
 ## Maintainers
 
