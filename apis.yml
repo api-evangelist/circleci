@@ -167,9 +167,9 @@ common:
   - type: JSONSchema
     url: json-schema/circleci-webhook-event-schema.json
   - type: Spectral
-    url: spectral/circleci-spectral.yml
+    url: rules/circleci-rules.yml
   - type: Naftiko Capabilities
-    url: naftiko/circleci-capabilities.yml
+    url: capabilities/circleci-capabilities.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

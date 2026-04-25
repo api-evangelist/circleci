@@ -109,8 +109,8 @@ CircleCI Orbs are shareable, reusable packages of CircleCI configuration that si
 - [Pipeline JSON Schema](json-schema/circleci-pipeline-schema.json)
 - [Workflow JSON Schema](json-schema/circleci-workflow-schema.json)
 - [Webhook Event JSON Schema](json-schema/circleci-webhook-event-schema.json)
-- [Spectral Ruleset](spectral/circleci-spectral.yml)
-- [Naftiko Capabilities](naftiko/circleci-capabilities.yml)
+- [Spectral Ruleset](rules/circleci-rules.yml)
+- [Naftiko Capabilities](capabilities/circleci-capabilities.yml)
 
 ## Maintainers
 
