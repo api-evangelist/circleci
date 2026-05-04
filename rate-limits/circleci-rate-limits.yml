@@ -1,0 +1,39 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: CircleCI
+providerId: circleci
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - CI/CD
+description: CircleCI v2 API rate limits per token.
+sources:
+  - https://circleci.com/pricing/
+  - https://circleci.com/docs/api-developers-guide/
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+limits:
+  - name: REST API v2
+    scope: user_token
+    metric: requests_per_minute
+    limit: 3000
+    timeFrame: minute
+    notes: Soft default; can be raised by support.
+  - name: Webhook deliveries
+    scope: project
+    metric: deliveries_per_second
+    limit: 100
+    timeFrame: second
+  - name: Build concurrency (Free)
+    scope: org
+    metric: concurrent_builds
+    limit: 30
+  - name: Build concurrency (Performance)
+    scope: org
+    metric: concurrent_builds
+    limit: 80

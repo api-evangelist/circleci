@@ -1,0 +1,122 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: CircleCI
+providerId: circleci
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - CI/CD
+  - DevOps
+description: 'CircleCI plans: Free / Performance / Scale.'
+sources:
+  - https://circleci.com/pricing/
+plans:
+  - id: circleci-free
+    name: Free
+    type: freemium
+    description: 30,000 free credits/month, 6,000 build minutes.
+    entries:
+      - label: Monthly credits
+        name: credits
+        type: quota
+        metric: credit
+        limit: 30000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Build minutes
+        name: minutes
+        type: quota
+        metric: minute
+        limit: 6000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Active users
+        name: users
+        type: quota
+        metric: user
+        limit: 5
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Docker, Windows, Linux, Arm, macOS, self-hosted runners
+      - name: 30x concurrency
+      - name: 2 GB storage
+      - name: 1 GB network
+  - id: circleci-performance
+    name: Performance
+    type: paid
+    description: From $15/month with 30,000 credits + $15 per 25,000 additional.
+    entries:
+      - label: Monthly base
+        name: base
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '15.00'
+        userMultiplied: false
+      - label: Credits included
+        name: credits
+        type: quota
+        metric: credit
+        limit: 30000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Additional credits per 25K
+        name: credits_extra
+        type: metered
+        metric: credit
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 25000
+        price: '15.00'
+        userMultiplied: false
+    elements:
+      - name: 5 active users included
+      - name: Larger resources
+      - name: 80x concurrency
+      - name: 5 GB network
+      - name: Optional 8x5 support
+      - name: Docker layer caching
+  - id: circleci-scale
+    name: Scale
+    type: enterprise
+    description: Custom (annual).
+    entries:
+      - label: Annual (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Customizable
+      - name: Enterprise controls
+      - name: Largest resource classes
+      - name: GPU
+      - name: 200 GB storage
+      - name: 50 GB network
+      - name: Optional 24/7 support
+      - name: SSO
+      - name: Config policies
