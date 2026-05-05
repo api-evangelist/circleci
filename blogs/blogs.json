@@ -1,0 +1,13 @@
+{
+  "repo": "circleci",
+  "feeds": [
+    {
+      "source": "https://circleci.com/blog/",
+      "feed_url": "https://circleci.com/blog/feed.xml",
+      "saved": 10,
+      "title": "The CircleCI Blog Feed | CircleCI"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:25:12Z"
+}
