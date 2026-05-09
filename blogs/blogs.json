@@ -4,10 +4,10 @@
     {
       "source": "https://circleci.com/blog/",
       "feed_url": "https://circleci.com/blog/feed.xml",
-      "saved": 10,
-      "title": "The CircleCI Blog Feed | CircleCI"
+      "title": "The CircleCI Blog Feed | CircleCI",
+      "saved": 1
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-03T23:25:12Z"
+  "post_count": 11,
+  "fetched": "2026-05-09T20:17:51Z"
 }
