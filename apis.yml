@@ -171,6 +171,16 @@ common:
     sources:
       - https://circleci.com/pricing/
     updated: '2026-05-04'
+  - type: Integrations
+    url: https://circleci.com/integrations/
+integrations:
+  - name: GitHub
+  - name: GitLab
+  - name: Bitbucket
+  - name: AWS
+  - name: GCP
+  - name: Azure
+  - name: Kubernetes
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
