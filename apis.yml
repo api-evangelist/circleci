@@ -126,19 +126,19 @@ common:
     url: https://circleci.com/developer
   - type: Documentation
     url: https://circleci.com/docs/
-  - type: Status
+  - type: StatusPage
     url: https://status.circleci.com/
   - type: Support
     url: https://support.circleci.com/
   - type: Blog
     url: https://circleci.com/blog/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://circleci.com/privacy/
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://circleci.com/terms-of-service/
   - type: Login
     url: https://app.circleci.com/
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/circleci-context.jsonld
   - type: JSONSchema
     url: json-schema/circleci-pipeline-schema.json
