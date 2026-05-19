@@ -1,0 +1,231 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI REST API v2 — Insights
+  description: 'CircleCI REST API v2 — Insights. 4 operations. Lead operation: Get project workflow metrics. Self-contained
+    Naftiko capability covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - Insights
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-api-v2-insights
+    baseUri: https://circleci.com/api/v2
+    description: CircleCI REST API v2 — Insights business capability. Self-contained, no shared references.
+    resources:
+    - name: insights-project-slug-workflows
+      path: /insights/{project-slug}/workflows
+      operations:
+      - name: getprojectworkflowmetrics
+        method: GET
+        description: Get project workflow metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: query
+          type: string
+          description: Filter by branch name
+        - name: reporting-window
+          in: query
+          type: string
+          description: The time window for metrics
+    - name: insights-project-slug-workflows-workflow-name
+      path: /insights/{project-slug}/workflows/{workflow-name}
+      operations:
+      - name: getworkflowruns
+        method: GET
+        description: Get recent runs of a workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workflow-name
+          in: path
+          type: string
+          description: The name of the workflow
+          required: true
+        - name: branch
+          in: query
+          type: string
+          description: Filter by branch name
+    - name: insights-project-slug-workflows-workflow-name-jobs
+      path: /insights/{project-slug}/workflows/{workflow-name}/jobs
+      operations:
+      - name: getworkflowjobmetrics
+        method: GET
+        description: Get workflow job metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workflow-name
+          in: path
+          type: string
+          description: The name of the workflow
+          required: true
+        - name: branch
+          in: query
+          type: string
+          description: Filter by branch name
+        - name: reporting-window
+          in: query
+          type: string
+          description: The time window for metrics
+    - name: insights-project-slug-workflows-workflow-name-test-metrics
+      path: /insights/{project-slug}/workflows/{workflow-name}/test-metrics
+      operations:
+      - name: getworkflowtestmetrics
+        method: GET
+        description: Get test metrics for a workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workflow-name
+          in: path
+          type: string
+          description: The name of the workflow
+          required: true
+    authentication:
+      type: apikey
+      key: Circle-Token
+      value: '{{env.CIRCLECI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-api-v2-insights-rest
+    port: 8080
+    description: REST adapter for CircleCI REST API v2 — Insights. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/insights/{project-slug}/workflows
+      name: insights-project-slug-workflows
+      description: REST surface for insights-project-slug-workflows.
+      operations:
+      - method: GET
+        name: getprojectworkflowmetrics
+        description: Get project workflow metrics
+        call: rest-api-v2-insights.getprojectworkflowmetrics
+        with:
+          branch: rest.branch
+          reporting-window: rest.reporting-window
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/insights/{project-slug}/workflows/{workflow-name}
+      name: insights-project-slug-workflows-workflow-name
+      description: REST surface for insights-project-slug-workflows-workflow-name.
+      operations:
+      - method: GET
+        name: getworkflowruns
+        description: Get recent runs of a workflow
+        call: rest-api-v2-insights.getworkflowruns
+        with:
+          workflow-name: rest.workflow-name
+          branch: rest.branch
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/insights/{project-slug}/workflows/{workflow-name}/jobs
+      name: insights-project-slug-workflows-workflow-name-jobs
+      description: REST surface for insights-project-slug-workflows-workflow-name-jobs.
+      operations:
+      - method: GET
+        name: getworkflowjobmetrics
+        description: Get workflow job metrics
+        call: rest-api-v2-insights.getworkflowjobmetrics
+        with:
+          workflow-name: rest.workflow-name
+          branch: rest.branch
+          reporting-window: rest.reporting-window
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/insights/{project-slug}/workflows/{workflow-name}/test-metrics
+      name: insights-project-slug-workflows-workflow-name-test-metrics
+      description: REST surface for insights-project-slug-workflows-workflow-name-test-metrics.
+      operations:
+      - method: GET
+        name: getworkflowtestmetrics
+        description: Get test metrics for a workflow
+        call: rest-api-v2-insights.getworkflowtestmetrics
+        with:
+          workflow-name: rest.workflow-name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-api-v2-insights-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI REST API v2 — Insights. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-project-workflow-metrics
+      description: Get project workflow metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-insights.getprojectworkflowmetrics
+      with:
+        branch: tools.branch
+        reporting-window: tools.reporting-window
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-recent-runs-workflow
+      description: Get recent runs of a workflow
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-insights.getworkflowruns
+      with:
+        workflow-name: tools.workflow-name
+        branch: tools.branch
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-workflow-job-metrics
+      description: Get workflow job metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-insights.getworkflowjobmetrics
+      with:
+        workflow-name: tools.workflow-name
+        branch: tools.branch
+        reporting-window: tools.reporting-window
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-test-metrics-workflow
+      description: Get test metrics for a workflow
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-insights.getworkflowtestmetrics
+      with:
+        workflow-name: tools.workflow-name
+      outputParameters:
+      - type: object
+        mapping: $.

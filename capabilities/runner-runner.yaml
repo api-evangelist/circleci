@@ -1,0 +1,85 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI Self-Hosted Runner API — Runner
+  description: 'CircleCI Self-Hosted Runner API — Runner. 1 operations. Lead operation: List self-hosted runners. Self-contained
+    Naftiko capability covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - Runner
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: runner-runner
+    baseUri: https://runner.circleci.com/api/v3
+    description: CircleCI Self-Hosted Runner API — Runner business capability. Self-contained, no shared references.
+    resources:
+    - name: runner
+      path: /runner
+      operations:
+      - name: listrunners
+        method: GET
+        description: List self-hosted runners
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: query
+          type: string
+          description: The namespace to filter runners by. Cannot be used together with resource-class.
+        - name: resource-class
+          in: query
+          type: string
+          description: The resource class to filter runners by. Cannot be used together with namespace.
+    authentication:
+      type: bearer
+      token: '{{env.CIRCLECI_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: runner-runner-rest
+    port: 8080
+    description: REST adapter for CircleCI Self-Hosted Runner API — Runner. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/runner
+      name: runner
+      description: REST surface for runner.
+      operations:
+      - method: GET
+        name: listrunners
+        description: List self-hosted runners
+        call: runner-runner.listrunners
+        with:
+          namespace: rest.namespace
+          resource-class: rest.resource-class
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: runner-runner-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI Self-Hosted Runner API — Runner. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-self-hosted-runners
+      description: List self-hosted runners
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runner-runner.listrunners
+      with:
+        namespace: tools.namespace
+        resource-class: tools.resource-class
+      outputParameters:
+      - type: object
+        mapping: $.

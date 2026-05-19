@@ -1,0 +1,320 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI REST API v1 — Build
+  description: 'CircleCI REST API v1 — Build. 7 operations. Lead operation: List builds for a project. Self-contained Naftiko
+    capability covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - Build
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-api-v1-build
+    baseUri: https://circleci.com/api/v1.1
+    description: CircleCI REST API v1 — Build business capability. Self-contained, no shared references.
+    resources:
+    - name: project-vcs-type-username-project
+      path: /project/{vcs-type}/{username}/{project}
+      operations:
+      - name: listprojectbuilds
+        method: GET
+        description: List builds for a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+          description: Filter builds by status
+        - name: limit
+          in: query
+          type: integer
+          description: Number of builds to return (max 100)
+        - name: offset
+          in: query
+          type: integer
+          description: Offset for pagination
+      - name: triggerbuild
+        method: POST
+        description: Trigger a new build
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: project-vcs-type-username-project-tree-branch
+      path: /project/{vcs-type}/{username}/{project}/tree/{branch}
+      operations:
+      - name: triggerbranchbuild
+        method: POST
+        description: Trigger a build on a branch
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: branch
+          in: path
+          type: string
+          description: The branch to build
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: project-vcs-type-username-project-build_num
+      path: /project/{vcs-type}/{username}/{project}/{build_num}
+      operations:
+      - name: getbuild
+        method: GET
+        description: Get build details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: project-vcs-type-username-project-build_num-cancel
+      path: /project/{vcs-type}/{username}/{project}/{build_num}/cancel
+      operations:
+      - name: cancelbuild
+        method: POST
+        description: Cancel a build
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: project-vcs-type-username-project-build_num-retry
+      path: /project/{vcs-type}/{username}/{project}/{build_num}/retry
+      operations:
+      - name: retrybuild
+        method: POST
+        description: Retry a build
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: recent-builds
+      path: /recent-builds
+      operations:
+      - name: listrecentbuilds
+        method: GET
+        description: List recent builds across all projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Number of builds to return (max 100)
+        - name: offset
+          in: query
+          type: integer
+          description: Offset for pagination
+    authentication:
+      type: apikey
+      key: Circle-Token
+      value: '{{env.CIRCLECI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-api-v1-build-rest
+    port: 8080
+    description: REST adapter for CircleCI REST API v1 — Build. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/project/{vcs-type}/{username}/{project}
+      name: project-vcs-type-username-project
+      description: REST surface for project-vcs-type-username-project.
+      operations:
+      - method: GET
+        name: listprojectbuilds
+        description: List builds for a project
+        call: rest-api-v1-build.listprojectbuilds
+        with:
+          filter: rest.filter
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: triggerbuild
+        description: Trigger a new build
+        call: rest-api-v1-build.triggerbuild
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{vcs-type}/{username}/{project}/tree/{branch}
+      name: project-vcs-type-username-project-tree-branch
+      description: REST surface for project-vcs-type-username-project-tree-branch.
+      operations:
+      - method: POST
+        name: triggerbranchbuild
+        description: Trigger a build on a branch
+        call: rest-api-v1-build.triggerbranchbuild
+        with:
+          branch: rest.branch
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{vcs-type}/{username}/{project}/{build-num}
+      name: project-vcs-type-username-project-build-num
+      description: REST surface for project-vcs-type-username-project-build_num.
+      operations:
+      - method: GET
+        name: getbuild
+        description: Get build details
+        call: rest-api-v1-build.getbuild
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{vcs-type}/{username}/{project}/{build-num}/cancel
+      name: project-vcs-type-username-project-build-num-cancel
+      description: REST surface for project-vcs-type-username-project-build_num-cancel.
+      operations:
+      - method: POST
+        name: cancelbuild
+        description: Cancel a build
+        call: rest-api-v1-build.cancelbuild
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{vcs-type}/{username}/{project}/{build-num}/retry
+      name: project-vcs-type-username-project-build-num-retry
+      description: REST surface for project-vcs-type-username-project-build_num-retry.
+      operations:
+      - method: POST
+        name: retrybuild
+        description: Retry a build
+        call: rest-api-v1-build.retrybuild
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/recent-builds
+      name: recent-builds
+      description: REST surface for recent-builds.
+      operations:
+      - method: GET
+        name: listrecentbuilds
+        description: List recent builds across all projects
+        call: rest-api-v1-build.listrecentbuilds
+        with:
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-api-v1-build-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI REST API v1 — Build. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-builds-project
+      description: List builds for a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v1-build.listprojectbuilds
+      with:
+        filter: tools.filter
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: trigger-new-build
+      description: Trigger a new build
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v1-build.triggerbuild
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: trigger-build-branch
+      description: Trigger a build on a branch
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v1-build.triggerbranchbuild
+      with:
+        branch: tools.branch
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-build-details
+      description: Get build details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v1-build.getbuild
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-build
+      description: Cancel a build
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v1-build.cancelbuild
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retry-build
+      description: Retry a build
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v1-build.retrybuild
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-recent-builds-across-all
+      description: List recent builds across all projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v1-build.listrecentbuilds
+      with:
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.

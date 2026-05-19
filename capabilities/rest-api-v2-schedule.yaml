@@ -1,0 +1,199 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI REST API v2 — Schedule
+  description: 'CircleCI REST API v2 — Schedule. 5 operations. Lead operation: List schedules for a project. Self-contained
+    Naftiko capability covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - Schedule
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-api-v2-schedule
+    baseUri: https://circleci.com/api/v2
+    description: CircleCI REST API v2 — Schedule business capability. Self-contained, no shared references.
+    resources:
+    - name: project-project-slug-schedule
+      path: /project/{project-slug}/schedule
+      operations:
+      - name: listschedules
+        method: GET
+        description: List schedules for a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createschedule
+        method: POST
+        description: Create a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: schedule-schedule-id
+      path: /schedule/{schedule-id}
+      operations:
+      - name: getschedule
+        method: GET
+        description: Get a schedule by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateschedule
+        method: PATCH
+        description: Update a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteschedule
+        method: DELETE
+        description: Delete a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Circle-Token
+      value: '{{env.CIRCLECI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-api-v2-schedule-rest
+    port: 8080
+    description: REST adapter for CircleCI REST API v2 — Schedule. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/project/{project-slug}/schedule
+      name: project-project-slug-schedule
+      description: REST surface for project-project-slug-schedule.
+      operations:
+      - method: GET
+        name: listschedules
+        description: List schedules for a project
+        call: rest-api-v2-schedule.listschedules
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createschedule
+        description: Create a schedule
+        call: rest-api-v2-schedule.createschedule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/schedule/{schedule-id}
+      name: schedule-schedule-id
+      description: REST surface for schedule-schedule-id.
+      operations:
+      - method: GET
+        name: getschedule
+        description: Get a schedule by ID
+        call: rest-api-v2-schedule.getschedule
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateschedule
+        description: Update a schedule
+        call: rest-api-v2-schedule.updateschedule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteschedule
+        description: Delete a schedule
+        call: rest-api-v2-schedule.deleteschedule
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-api-v2-schedule-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI REST API v2 — Schedule. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-schedules-project
+      description: List schedules for a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-schedule.listschedules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-schedule
+      description: Create a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v2-schedule.createschedule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-schedule-id
+      description: Get a schedule by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-schedule.getschedule
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-schedule
+      description: Update a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-schedule.updateschedule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-schedule
+      description: Delete a schedule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-api-v2-schedule.deleteschedule
+      outputParameters:
+      - type: object
+        mapping: $.

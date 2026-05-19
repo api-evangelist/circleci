@@ -1,0 +1,226 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI REST API v1 — SSH Key
+  description: 'CircleCI REST API v1 — SSH Key. 5 operations. Lead operation: List checkout keys. Self-contained Naftiko capability
+    covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - SSH Key
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-api-v1-ssh-key
+    baseUri: https://circleci.com/api/v1.1
+    description: CircleCI REST API v1 — SSH Key business capability. Self-contained, no shared references.
+    resources:
+    - name: project-vcs-type-username-project-checkout-key
+      path: /project/{vcs-type}/{username}/{project}/checkout-key
+      operations:
+      - name: listcheckoutkeys
+        method: GET
+        description: List checkout keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcheckoutkey
+        method: POST
+        description: Create a checkout key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: project-vcs-type-username-project-checkout-key-fingerprint
+      path: /project/{vcs-type}/{username}/{project}/checkout-key/{fingerprint}
+      operations:
+      - name: getcheckoutkey
+        method: GET
+        description: Get a checkout key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fingerprint
+          in: path
+          type: string
+          description: The fingerprint of the checkout key
+          required: true
+      - name: deletecheckoutkey
+        method: DELETE
+        description: Delete a checkout key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fingerprint
+          in: path
+          type: string
+          description: The fingerprint of the checkout key
+          required: true
+    - name: project-vcs-type-username-project-ssh-key
+      path: /project/{vcs-type}/{username}/{project}/ssh-key
+      operations:
+      - name: addsshkey
+        method: POST
+        description: Add an SSH key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Circle-Token
+      value: '{{env.CIRCLECI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-api-v1-ssh-key-rest
+    port: 8080
+    description: REST adapter for CircleCI REST API v1 — SSH Key. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/project/{vcs-type}/{username}/{project}/checkout-key
+      name: project-vcs-type-username-project-checkout-key
+      description: REST surface for project-vcs-type-username-project-checkout-key.
+      operations:
+      - method: GET
+        name: listcheckoutkeys
+        description: List checkout keys
+        call: rest-api-v1-ssh-key.listcheckoutkeys
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcheckoutkey
+        description: Create a checkout key
+        call: rest-api-v1-ssh-key.createcheckoutkey
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{vcs-type}/{username}/{project}/checkout-key/{fingerprint}
+      name: project-vcs-type-username-project-checkout-key-fingerprint
+      description: REST surface for project-vcs-type-username-project-checkout-key-fingerprint.
+      operations:
+      - method: GET
+        name: getcheckoutkey
+        description: Get a checkout key
+        call: rest-api-v1-ssh-key.getcheckoutkey
+        with:
+          fingerprint: rest.fingerprint
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecheckoutkey
+        description: Delete a checkout key
+        call: rest-api-v1-ssh-key.deletecheckoutkey
+        with:
+          fingerprint: rest.fingerprint
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{vcs-type}/{username}/{project}/ssh-key
+      name: project-vcs-type-username-project-ssh-key
+      description: REST surface for project-vcs-type-username-project-ssh-key.
+      operations:
+      - method: POST
+        name: addsshkey
+        description: Add an SSH key
+        call: rest-api-v1-ssh-key.addsshkey
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-api-v1-ssh-key-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI REST API v1 — SSH Key. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-checkout-keys
+      description: List checkout keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v1-ssh-key.listcheckoutkeys
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-checkout-key
+      description: Create a checkout key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v1-ssh-key.createcheckoutkey
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-checkout-key
+      description: Get a checkout key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v1-ssh-key.getcheckoutkey
+      with:
+        fingerprint: tools.fingerprint
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-checkout-key
+      description: Delete a checkout key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-api-v1-ssh-key.deletecheckoutkey
+      with:
+        fingerprint: tools.fingerprint
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-ssh-key
+      description: Add an SSH key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v1-ssh-key.addsshkey
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

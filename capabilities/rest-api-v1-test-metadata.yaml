@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI REST API v1 — Test Metadata
+  description: 'CircleCI REST API v1 — Test Metadata. 1 operations. Lead operation: List test metadata for a build. Self-contained
+    Naftiko capability covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - Test Metadata
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-api-v1-test-metadata
+    baseUri: https://circleci.com/api/v1.1
+    description: CircleCI REST API v1 — Test Metadata business capability. Self-contained, no shared references.
+    resources:
+    - name: project-vcs-type-username-project-build_num-tests
+      path: /project/{vcs-type}/{username}/{project}/{build_num}/tests
+      operations:
+      - name: listbuildtests
+        method: GET
+        description: List test metadata for a build
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Circle-Token
+      value: '{{env.CIRCLECI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-api-v1-test-metadata-rest
+    port: 8080
+    description: REST adapter for CircleCI REST API v1 — Test Metadata. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/project/{vcs-type}/{username}/{project}/{build-num}/tests
+      name: project-vcs-type-username-project-build-num-tests
+      description: REST surface for project-vcs-type-username-project-build_num-tests.
+      operations:
+      - method: GET
+        name: listbuildtests
+        description: List test metadata for a build
+        call: rest-api-v1-test-metadata.listbuildtests
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-api-v1-test-metadata-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI REST API v1 — Test Metadata. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-test-metadata-build
+      description: List test metadata for a build
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v1-test-metadata.listbuildtests
+      outputParameters:
+      - type: object
+        mapping: $.

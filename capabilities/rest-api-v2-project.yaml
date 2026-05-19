@@ -1,0 +1,340 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI REST API v2 — Project
+  description: 'CircleCI REST API v2 — Project. 9 operations. Lead operation: Get a project. Self-contained Naftiko capability
+    covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - Project
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-api-v2-project
+    baseUri: https://circleci.com/api/v2
+    description: CircleCI REST API v2 — Project business capability. Self-contained, no shared references.
+    resources:
+    - name: project-project-slug
+      path: /project/{project-slug}
+      operations:
+      - name: getproject
+        method: GET
+        description: Get a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: project-project-slug-checkout-key
+      path: /project/{project-slug}/checkout-key
+      operations:
+      - name: listcheckoutkeys
+        method: GET
+        description: List checkout keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcheckoutkey
+        method: POST
+        description: Create a checkout key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: project-project-slug-checkout-key-fingerprint
+      path: /project/{project-slug}/checkout-key/{fingerprint}
+      operations:
+      - name: getcheckoutkey
+        method: GET
+        description: Get a checkout key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletecheckoutkey
+        method: DELETE
+        description: Delete a checkout key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: project-project-slug-envvar
+      path: /project/{project-slug}/envvar
+      operations:
+      - name: listprojectenvironmentvariables
+        method: GET
+        description: List project environment variables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createprojectenvironmentvariable
+        method: POST
+        description: Create a project environment variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: project-project-slug-envvar-name
+      path: /project/{project-slug}/envvar/{name}
+      operations:
+      - name: getprojectenvironmentvariable
+        method: GET
+        description: Get a masked environment variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          description: The name of the environment variable
+          required: true
+      - name: deleteprojectenvironmentvariable
+        method: DELETE
+        description: Delete a project environment variable
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          description: The name of the environment variable
+          required: true
+    authentication:
+      type: apikey
+      key: Circle-Token
+      value: '{{env.CIRCLECI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-api-v2-project-rest
+    port: 8080
+    description: REST adapter for CircleCI REST API v2 — Project. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/project/{project-slug}
+      name: project-project-slug
+      description: REST surface for project-project-slug.
+      operations:
+      - method: GET
+        name: getproject
+        description: Get a project
+        call: rest-api-v2-project.getproject
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{project-slug}/checkout-key
+      name: project-project-slug-checkout-key
+      description: REST surface for project-project-slug-checkout-key.
+      operations:
+      - method: GET
+        name: listcheckoutkeys
+        description: List checkout keys
+        call: rest-api-v2-project.listcheckoutkeys
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcheckoutkey
+        description: Create a checkout key
+        call: rest-api-v2-project.createcheckoutkey
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{project-slug}/checkout-key/{fingerprint}
+      name: project-project-slug-checkout-key-fingerprint
+      description: REST surface for project-project-slug-checkout-key-fingerprint.
+      operations:
+      - method: GET
+        name: getcheckoutkey
+        description: Get a checkout key
+        call: rest-api-v2-project.getcheckoutkey
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecheckoutkey
+        description: Delete a checkout key
+        call: rest-api-v2-project.deletecheckoutkey
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{project-slug}/envvar
+      name: project-project-slug-envvar
+      description: REST surface for project-project-slug-envvar.
+      operations:
+      - method: GET
+        name: listprojectenvironmentvariables
+        description: List project environment variables
+        call: rest-api-v2-project.listprojectenvironmentvariables
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createprojectenvironmentvariable
+        description: Create a project environment variable
+        call: rest-api-v2-project.createprojectenvironmentvariable
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/project/{project-slug}/envvar/{name}
+      name: project-project-slug-envvar-name
+      description: REST surface for project-project-slug-envvar-name.
+      operations:
+      - method: GET
+        name: getprojectenvironmentvariable
+        description: Get a masked environment variable
+        call: rest-api-v2-project.getprojectenvironmentvariable
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteprojectenvironmentvariable
+        description: Delete a project environment variable
+        call: rest-api-v2-project.deleteprojectenvironmentvariable
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-api-v2-project-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI REST API v2 — Project. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-project
+      description: Get a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-project.getproject
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-checkout-keys
+      description: List checkout keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-project.listcheckoutkeys
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-checkout-key
+      description: Create a checkout key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v2-project.createcheckoutkey
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-checkout-key
+      description: Get a checkout key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-project.getcheckoutkey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-checkout-key
+      description: Delete a checkout key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-api-v2-project.deletecheckoutkey
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-project-environment-variables
+      description: List project environment variables
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-project.listprojectenvironmentvariables
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-project-environment-variable
+      description: Create a project environment variable
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v2-project.createprojectenvironmentvariable
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-masked-environment-variable
+      description: Get a masked environment variable
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-project.getprojectenvironmentvariable
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-project-environment-variable
+      description: Delete a project environment variable
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-api-v2-project.deleteprojectenvironmentvariable
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.

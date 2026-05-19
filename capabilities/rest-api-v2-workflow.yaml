@@ -1,0 +1,220 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI REST API v2 — Workflow
+  description: 'CircleCI REST API v2 — Workflow. 5 operations. Lead operation: Get a workflow by ID. Self-contained Naftiko
+    capability covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - Workflow
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-api-v2-workflow
+    baseUri: https://circleci.com/api/v2
+    description: CircleCI REST API v2 — Workflow business capability. Self-contained, no shared references.
+    resources:
+    - name: workflow-id
+      path: /workflow/{id}
+      operations:
+      - name: getworkflow
+        method: GET
+        description: Get a workflow by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-id-approve-approval_request_id
+      path: /workflow/{id}/approve/{approval_request_id}
+      operations:
+      - name: approveworkflowjob
+        method: POST
+        description: Approve a workflow job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: approval_request_id
+          in: path
+          type: string
+          description: The ID of the approval request to approve
+          required: true
+    - name: workflow-id-cancel
+      path: /workflow/{id}/cancel
+      operations:
+      - name: cancelworkflow
+        method: POST
+        description: Cancel a workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-id-job
+      path: /workflow/{id}/job
+      operations:
+      - name: listworkflowjobs
+        method: GET
+        description: List jobs for a workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: workflow-id-rerun
+      path: /workflow/{id}/rerun
+      operations:
+      - name: rerunworkflow
+        method: POST
+        description: Rerun a workflow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: Circle-Token
+      value: '{{env.CIRCLECI_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: rest-api-v2-workflow-rest
+    port: 8080
+    description: REST adapter for CircleCI REST API v2 — Workflow. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/workflow/{id}
+      name: workflow-id
+      description: REST surface for workflow-id.
+      operations:
+      - method: GET
+        name: getworkflow
+        description: Get a workflow by ID
+        call: rest-api-v2-workflow.getworkflow
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflow/{id}/approve/{approval-request-id}
+      name: workflow-id-approve-approval-request-id
+      description: REST surface for workflow-id-approve-approval_request_id.
+      operations:
+      - method: POST
+        name: approveworkflowjob
+        description: Approve a workflow job
+        call: rest-api-v2-workflow.approveworkflowjob
+        with:
+          approval_request_id: rest.approval_request_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflow/{id}/cancel
+      name: workflow-id-cancel
+      description: REST surface for workflow-id-cancel.
+      operations:
+      - method: POST
+        name: cancelworkflow
+        description: Cancel a workflow
+        call: rest-api-v2-workflow.cancelworkflow
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflow/{id}/job
+      name: workflow-id-job
+      description: REST surface for workflow-id-job.
+      operations:
+      - method: GET
+        name: listworkflowjobs
+        description: List jobs for a workflow
+        call: rest-api-v2-workflow.listworkflowjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/workflow/{id}/rerun
+      name: workflow-id-rerun
+      description: REST surface for workflow-id-rerun.
+      operations:
+      - method: POST
+        name: rerunworkflow
+        description: Rerun a workflow
+        call: rest-api-v2-workflow.rerunworkflow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-api-v2-workflow-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI REST API v2 — Workflow. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-workflow-id
+      description: Get a workflow by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-workflow.getworkflow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: approve-workflow-job
+      description: Approve a workflow job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v2-workflow.approveworkflowjob
+      with:
+        approval_request_id: tools.approval_request_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-workflow
+      description: Cancel a workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v2-workflow.cancelworkflow
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-jobs-workflow
+      description: List jobs for a workflow
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-api-v2-workflow.listworkflowjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rerun-workflow
+      description: Rerun a workflow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-api-v2-workflow.rerunworkflow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

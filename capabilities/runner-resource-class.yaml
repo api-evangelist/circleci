@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: CircleCI Self-Hosted Runner API — Resource Class
+  description: 'CircleCI Self-Hosted Runner API — Resource Class. 4 operations. Lead operation: List resource classes. Self-contained
+    Naftiko capability covering one Circleci business surface.'
+  tags:
+  - Circleci
+  - Resource Class
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CIRCLECI_API_KEY: CIRCLECI_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: runner-resource-class
+    baseUri: https://runner.circleci.com/api/v3
+    description: CircleCI Self-Hosted Runner API — Resource Class business capability. Self-contained, no shared references.
+    resources:
+    - name: runner-resource-class
+      path: /runner/resource-class
+      operations:
+      - name: listresourceclasses
+        method: GET
+        description: List resource classes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: query
+          type: string
+          description: The namespace to list resource classes for
+          required: true
+      - name: createresourceclass
+        method: POST
+        description: Create a resource class
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: runner-resource-class-resource-class
+      path: /runner/resource-class/{resource-class}
+      operations:
+      - name: getresourceclass
+        method: GET
+        description: Get a resource class
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteresourceclass
+        method: DELETE
+        description: Delete a resource class
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.CIRCLECI_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: runner-resource-class-rest
+    port: 8080
+    description: REST adapter for CircleCI Self-Hosted Runner API — Resource Class. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/runner/resource-class
+      name: runner-resource-class
+      description: REST surface for runner-resource-class.
+      operations:
+      - method: GET
+        name: listresourceclasses
+        description: List resource classes
+        call: runner-resource-class.listresourceclasses
+        with:
+          namespace: rest.namespace
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createresourceclass
+        description: Create a resource class
+        call: runner-resource-class.createresourceclass
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/runner/resource-class/{resource-class}
+      name: runner-resource-class-resource-class
+      description: REST surface for runner-resource-class-resource-class.
+      operations:
+      - method: GET
+        name: getresourceclass
+        description: Get a resource class
+        call: runner-resource-class.getresourceclass
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteresourceclass
+        description: Delete a resource class
+        call: runner-resource-class.deleteresourceclass
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: runner-resource-class-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for CircleCI Self-Hosted Runner API — Resource Class. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-resource-classes
+      description: List resource classes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runner-resource-class.listresourceclasses
+      with:
+        namespace: tools.namespace
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-resource-class
+      description: Create a resource class
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: runner-resource-class.createresourceclass
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-resource-class
+      description: Get a resource class
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: runner-resource-class.getresourceclass
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-resource-class
+      description: Delete a resource class
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: runner-resource-class.deleteresourceclass
+      outputParameters:
+      - type: object
+        mapping: $.
