@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookList",
+  "title": "WebhookList",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/WebhookInfo"
+      },
+      "description": "List of webhooks"
+    },
+    "next_page_token": {
+      "type": "string",
+      "description": "Token for retrieving the next page"
+    }
+  }
+}

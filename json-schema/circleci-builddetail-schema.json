@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BuildDetail",
+  "title": "BuildDetail",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Build"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The step name"
+              },
+              "actions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The action name"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "The action type"
+                    },
+                    "status": {
+                      "type": "string",
+                      "description": "The action status"
+                    },
+                    "start_time": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "When the action started"
+                    },
+                    "end_time": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "When the action ended"
+                    },
+                    "run_time_millis": {
+                      "type": "integer",
+                      "description": "Action run time in milliseconds"
+                    },
+                    "output_url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "URL to the action output"
+                    }
+                  }
+                },
+                "description": "Actions within the step"
+              }
+            }
+          },
+          "description": "Build steps"
+        },
+        "circle_yml": {
+          "type": "object",
+          "description": "The parsed CircleCI configuration"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Build messages"
+        },
+        "node": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "image_id": {
+                "type": "string",
+                "description": "The image ID used"
+              },
+              "port": {
+                "type": "integer",
+                "description": "The SSH port"
+              },
+              "public_ip_addr": {
+                "type": "string",
+                "description": "The public IP address"
+              },
+              "username": {
+                "type": "string",
+                "description": "The SSH username"
+              }
+            }
+          },
+          "description": "Node information for SSH access"
+        }
+      }
+    }
+  ]
+}

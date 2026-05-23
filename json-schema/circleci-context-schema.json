@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Context",
+  "title": "Context",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the context"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the context"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the context was created"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WorkflowJob",
+  "title": "WorkflowJob",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the job"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the job"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "build",
+        "approval"
+      ],
+      "description": "The type of job"
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the job"
+    },
+    "job_number": {
+      "type": "integer",
+      "description": "The job number"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the job started"
+    },
+    "stopped_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the job stopped"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "IDs of jobs this job depends on"
+    }
+  }
+}

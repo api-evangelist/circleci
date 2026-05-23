@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InsightsJobMetrics",
+  "title": "InsightsJobMetrics",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The job name"
+          },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "total_runs": {
+                "type": "integer",
+                "description": "Total number of runs"
+              },
+              "successful_runs": {
+                "type": "integer",
+                "description": "Number of successful runs"
+              },
+              "failed_runs": {
+                "type": "integer",
+                "description": "Number of failed runs"
+              },
+              "success_rate": {
+                "type": "number",
+                "format": "float",
+                "description": "Success rate as a decimal"
+              },
+              "duration_metrics": {
+                "type": "object",
+                "properties": {
+                  "min": {
+                    "type": "integer",
+                    "description": "Minimum duration"
+                  },
+                  "mean": {
+                    "type": "integer",
+                    "description": "Mean duration"
+                  },
+                  "median": {
+                    "type": "integer",
+                    "description": "Median duration"
+                  },
+                  "p95": {
+                    "type": "integer",
+                    "description": "95th percentile duration"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "description": "Maximum duration"
+                  }
+                },
+                "description": "Duration statistics"
+              },
+              "total_credits_used": {
+                "type": "integer",
+                "description": "Total credits consumed"
+              }
+            },
+            "description": "Job metrics"
+          }
+        }
+      },
+      "description": "List of job metric summaries"
+    },
+    "next_page_token": {
+      "type": "string",
+      "description": "Token for retrieving the next page"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PipelineCreation",
+  "title": "PipelineCreation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the new pipeline"
+    },
+    "state": {
+      "type": "string",
+      "description": "The state of the new pipeline"
+    },
+    "number": {
+      "type": "integer",
+      "description": "The pipeline number"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the pipeline was created"
+    }
+  }
+}

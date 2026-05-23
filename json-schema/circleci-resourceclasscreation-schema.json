@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ResourceClassCreation",
+  "title": "ResourceClassCreation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the resource class"
+    },
+    "resource_class": {
+      "type": "string",
+      "description": "The resource class name in namespace/name format"
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the resource class"
+    },
+    "token": {
+      "type": "string",
+      "description": "The resource class token. This is only displayed once and cannot be retrieved again. Store it securely."
+    }
+  }
+}

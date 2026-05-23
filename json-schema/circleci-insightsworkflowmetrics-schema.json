@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InsightsWorkflowMetrics",
+  "title": "InsightsWorkflowMetrics",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The workflow name"
+          },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "total_runs": {
+                "type": "integer",
+                "description": "Total number of runs"
+              },
+              "successful_runs": {
+                "type": "integer",
+                "description": "Number of successful runs"
+              },
+              "failed_runs": {
+                "type": "integer",
+                "description": "Number of failed runs"
+              },
+              "success_rate": {
+                "type": "number",
+                "format": "float",
+                "description": "Success rate as a decimal"
+              },
+              "duration_metrics": {
+                "type": "object",
+                "properties": {
+                  "min": {
+                    "type": "integer",
+                    "description": "Minimum duration in seconds"
+                  },
+                  "mean": {
+                    "type": "integer",
+                    "description": "Mean duration in seconds"
+                  },
+                  "median": {
+                    "type": "integer",
+                    "description": "Median duration in seconds"
+                  },
+                  "p95": {
+                    "type": "integer",
+                    "description": "95th percentile duration"
+                  },
+                  "max": {
+                    "type": "integer",
+                    "description": "Maximum duration in seconds"
+                  }
+                },
+                "description": "Duration statistics"
+              },
+              "total_credits_used": {
+                "type": "integer",
+                "description": "Total credits consumed"
+              }
+            },
+            "description": "Workflow metrics"
+          },
+          "window_start": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start of the reporting window"
+          },
+          "window_end": {
+            "type": "string",
+            "format": "date-time",
+            "description": "End of the reporting window"
+          }
+        }
+      },
+      "description": "List of workflow metric summaries"
+    },
+    "next_page_token": {
+      "type": "string",
+      "description": "Token for retrieving the next page"
+    }
+  }
+}

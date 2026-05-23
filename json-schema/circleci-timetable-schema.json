@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Timetable",
+  "title": "Timetable",
+  "type": "object",
+  "required": [
+    "per-hour",
+    "hours-of-day",
+    "days-of-week"
+  ],
+  "properties": {
+    "per-hour": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 60,
+      "description": "Number of times per hour to trigger"
+    },
+    "hours-of-day": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 23
+      },
+      "description": "Hours of the day to trigger (UTC)"
+    },
+    "days-of-week": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "MON",
+          "TUE",
+          "WED",
+          "THU",
+          "FRI",
+          "SAT",
+          "SUN"
+        ]
+      },
+      "description": "Days of the week to trigger"
+    },
+    "days-of-month": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 31
+      },
+      "description": "Days of the month to trigger"
+    },
+    "months": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "JAN",
+          "FEB",
+          "MAR",
+          "APR",
+          "MAY",
+          "JUN",
+          "JUL",
+          "AUG",
+          "SEP",
+          "OCT",
+          "NOV",
+          "DEC"
+        ]
+      },
+      "description": "Months to trigger"
+    }
+  }
+}

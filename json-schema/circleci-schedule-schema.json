@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Schedule",
+  "title": "Schedule",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the schedule"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the schedule"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the schedule"
+    },
+    "timetable": {
+      "$ref": "#/components/schemas/Timetable"
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Pipeline parameters for the schedule"
+    },
+    "project_slug": {
+      "type": "string",
+      "description": "The project slug"
+    },
+    "actor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The actor ID"
+        },
+        "login": {
+          "type": "string",
+          "description": "The actor login"
+        },
+        "name": {
+          "type": "string",
+          "description": "The actor name"
+        }
+      },
+      "description": "The user who created the schedule"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the schedule was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the schedule was last updated"
+    }
+  }
+}

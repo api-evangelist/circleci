@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Collaboration",
+  "title": "Collaboration",
+  "type": "object",
+  "properties": {
+    "vcs-type": {
+      "type": "string",
+      "description": "The VCS provider type"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the organization"
+    },
+    "avatar_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of the organization avatar"
+    },
+    "slug": {
+      "type": "string",
+      "description": "The organization slug"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the organization"
+    }
+  }
+}

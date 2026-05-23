@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TriggerPipelineRequest",
+  "title": "TriggerPipelineRequest",
+  "type": "object",
+  "properties": {
+    "branch": {
+      "type": "string",
+      "description": "The branch to build"
+    },
+    "tag": {
+      "type": "string",
+      "description": "The tag to build"
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Pipeline parameters as key-value pairs"
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Build",
+  "title": "Build",
+  "type": "object",
+  "properties": {
+    "vcs_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The VCS URL"
+    },
+    "build_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to view the build in CircleCI"
+    },
+    "build_num": {
+      "type": "integer",
+      "description": "The build number"
+    },
+    "branch": {
+      "type": "string",
+      "description": "The branch that was built"
+    },
+    "vcs_revision": {
+      "type": "string",
+      "description": "The VCS revision (commit SHA)"
+    },
+    "committer_name": {
+      "type": "string",
+      "description": "Name of the committer"
+    },
+    "committer_email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email of the committer"
+    },
+    "subject": {
+      "type": "string",
+      "description": "The commit message subject"
+    },
+    "body": {
+      "type": "string",
+      "description": "The commit message body"
+    },
+    "why": {
+      "type": "string",
+      "description": "Why the build was triggered"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "retried",
+        "canceled",
+        "infrastructure_fail",
+        "timedout",
+        "not_run",
+        "running",
+        "failed",
+        "queued",
+        "scheduled",
+        "not_running",
+        "no_tests",
+        "fixed",
+        "success"
+      ],
+      "description": "The build status"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "canceled",
+        "infrastructure_fail",
+        "timedout",
+        "failed",
+        "no_tests",
+        "success"
+      ],
+      "description": "The build outcome"
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the build started"
+    },
+    "stop_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the build stopped"
+    },
+    "build_time_millis": {
+      "type": "integer",
+      "description": "Total build time in milliseconds"
+    },
+    "queued_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the build was queued"
+    },
+    "lifecycle": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "scheduled",
+        "not_run",
+        "not_running",
+        "running",
+        "finished"
+      ],
+      "description": "The build lifecycle phase"
+    },
+    "username": {
+      "type": "string",
+      "description": "The organization or username"
+    },
+    "reponame": {
+      "type": "string",
+      "description": "The repository name"
+    }
+  }
+}

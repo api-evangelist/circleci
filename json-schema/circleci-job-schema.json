@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Job",
+  "title": "Job",
+  "type": "object",
+  "properties": {
+    "web_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to view the job in the CircleCI web app"
+    },
+    "project": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string",
+          "description": "The project slug"
+        },
+        "name": {
+          "type": "string",
+          "description": "The project name"
+        },
+        "external_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "External URL to the project"
+        }
+      },
+      "description": "The project this job belongs to"
+    },
+    "parallel_runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "description": "The parallel run index"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of this parallel run"
+          }
+        }
+      },
+      "description": "Parallel run information"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the job started"
+    },
+    "latest_workflow": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The workflow ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "The workflow name"
+        }
+      },
+      "description": "The latest workflow this job is part of"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the job"
+    },
+    "executor": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The executor type"
+        },
+        "resource_class": {
+          "type": "string",
+          "description": "The resource class"
+        }
+      },
+      "description": "The executor configuration"
+    },
+    "parallelism": {
+      "type": "integer",
+      "description": "The parallelism level"
+    },
+    "status": {
+      "type": "string",
+      "description": "The current status of the job"
+    },
+    "number": {
+      "type": "integer",
+      "description": "The job number"
+    },
+    "pipeline": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The pipeline ID"
+        }
+      },
+      "description": "The pipeline this job belongs to"
+    },
+    "duration": {
+      "type": "integer",
+      "description": "The duration of the job in milliseconds"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the job was created"
+    },
+    "stopped_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the job stopped"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InsightsTestMetrics",
+  "title": "InsightsTestMetrics",
+  "type": "object",
+  "properties": {
+    "average_test_count": {
+      "type": "integer",
+      "description": "Average number of tests per run"
+    },
+    "most_failed_tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "test_name": {
+            "type": "string",
+            "description": "Name of the test"
+          },
+          "classname": {
+            "type": "string",
+            "description": "Class name of the test"
+          },
+          "failed_runs": {
+            "type": "integer",
+            "description": "Number of failed runs"
+          },
+          "total_runs": {
+            "type": "integer",
+            "description": "Total runs of this test"
+          }
+        }
+      },
+      "description": "Most frequently failing tests"
+    },
+    "slowest_tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "test_name": {
+            "type": "string",
+            "description": "Name of the test"
+          },
+          "classname": {
+            "type": "string",
+            "description": "Class name of the test"
+          },
+          "p95_duration": {
+            "type": "number",
+            "format": "float",
+            "description": "95th percentile duration"
+          }
+        }
+      },
+      "description": "Slowest tests by duration"
+    },
+    "test_runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pipeline_number": {
+            "type": "integer",
+            "description": "The pipeline number"
+          },
+          "workflow_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The workflow ID"
+          },
+          "success_rate": {
+            "type": "number",
+            "format": "float",
+            "description": "Success rate of tests in this run"
+          },
+          "test_counts": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "integer",
+                "description": "Number of errored tests"
+              },
+              "failure": {
+                "type": "integer",
+                "description": "Number of failed tests"
+              },
+              "success": {
+                "type": "integer",
+                "description": "Number of successful tests"
+              },
+              "skipped": {
+                "type": "integer",
+                "description": "Number of skipped tests"
+              }
+            },
+            "description": "Test counts by result"
+          }
+        }
+      },
+      "description": "Recent test run summaries"
+    }
+  }
+}

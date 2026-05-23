@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RerunWorkflowResponse",
+  "title": "RerunWorkflowResponse",
+  "type": "object",
+  "properties": {
+    "workflow_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the rerun workflow"
+    }
+  }
+}

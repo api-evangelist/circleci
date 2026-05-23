@@ -1,0 +1,723 @@
+{
+  "provider": "CircleCI",
+  "providerId": "circleci",
+  "kind": "json-structure",
+  "description": "Structural overview of the CircleCI API surface; extracted from openapi/.",
+  "schemaCount": 42,
+  "operationCount": 49,
+  "schemas": [
+    {
+      "name": "User",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Collaboration",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Context",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ContextList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CreateContextRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name",
+        "owner"
+      ]
+    },
+    {
+      "name": "EnvironmentVariable",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "EnvironmentVariableList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Pipeline",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "PipelineList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "PipelineConfig",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "PipelineCreation",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "TriggerPipelineRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Project",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "CheckoutKey",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "CheckoutKeyList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ProjectEnvVar",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ProjectEnvVarList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Workflow",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "WorkflowList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "WorkflowJobList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "WorkflowJob",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "Job",
+      "type": "object",
+      "propertyCount": 14,
+      "required": []
+    },
+    {
+      "name": "RerunWorkflowResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ArtifactList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Artifact",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "TestList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "TestMetadata",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "Schedule",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "ScheduleList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Timetable",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "per-hour",
+        "hours-of-day",
+        "days-of-week"
+      ]
+    },
+    {
+      "name": "CreateScheduleRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "name",
+        "timetable",
+        "attribution-actor",
+        "parameters"
+      ]
+    },
+    {
+      "name": "UpdateScheduleRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "WebhookInfo",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "WebhookList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CreateWebhookRequest",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "name",
+        "url",
+        "events",
+        "scope",
+        "signing-secret"
+      ]
+    },
+    {
+      "name": "UpdateWebhookRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "InsightsWorkflowMetrics",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "InsightsWorkflowRuns",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "InsightsJobMetrics",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "InsightsTestMetrics",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "MessageResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/me",
+      "operationId": "getCurrentUser",
+      "summary": "Get current user",
+      "tags": [
+        "User"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/me/collaborations",
+      "operationId": "getCollaborations",
+      "summary": "List collaborations",
+      "tags": [
+        "User"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/context",
+      "operationId": "listContexts",
+      "summary": "List contexts",
+      "tags": [
+        "Context"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/context",
+      "operationId": "createContext",
+      "summary": "Create a context",
+      "tags": [
+        "Context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/context/{context-id}",
+      "operationId": "getContext",
+      "summary": "Get a context",
+      "tags": [
+        "Context"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/context/{context-id}",
+      "operationId": "deleteContext",
+      "summary": "Delete a context",
+      "tags": [
+        "Context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/context/{context-id}/environment-variable",
+      "operationId": "listContextEnvironmentVariables",
+      "summary": "List environment variables in a context",
+      "tags": [
+        "Context"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/context/{context-id}/environment-variable/{env-var-name}",
+      "operationId": "addOrUpdateContextEnvironmentVariable",
+      "summary": "Add or update an environment variable",
+      "tags": [
+        "Context"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/context/{context-id}/environment-variable/{env-var-name}",
+      "operationId": "deleteContextEnvironmentVariable",
+      "summary": "Remove an environment variable",
+      "tags": [
+        "Context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/pipeline",
+      "operationId": "listPipelines",
+      "summary": "List pipelines",
+      "tags": [
+        "Pipeline"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/pipeline/continue",
+      "operationId": "continuePipeline",
+      "summary": "Continue a pipeline",
+      "tags": [
+        "Pipeline"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/pipeline/{pipeline-id}",
+      "operationId": "getPipeline",
+      "summary": "Get a pipeline by ID",
+      "tags": [
+        "Pipeline"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/pipeline/{pipeline-id}/config",
+      "operationId": "getPipelineConfig",
+      "summary": "Get a pipeline's configuration",
+      "tags": [
+        "Pipeline"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/pipeline/{pipeline-id}/workflow",
+      "operationId": "listPipelineWorkflows",
+      "summary": "List workflows for a pipeline",
+      "tags": [
+        "Pipeline"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}",
+      "operationId": "getProject",
+      "summary": "Get a project",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/pipeline",
+      "operationId": "listProjectPipelines",
+      "summary": "List project pipelines",
+      "tags": [
+        "Pipeline"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/project/{project-slug}/pipeline",
+      "operationId": "triggerPipeline",
+      "summary": "Trigger a pipeline",
+      "tags": [
+        "Pipeline"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/pipeline/mine",
+      "operationId": "listMyProjectPipelines",
+      "summary": "List my project pipelines",
+      "tags": [
+        "Pipeline"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/checkout-key",
+      "operationId": "listCheckoutKeys",
+      "summary": "List checkout keys",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/project/{project-slug}/checkout-key",
+      "operationId": "createCheckoutKey",
+      "summary": "Create a checkout key",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/checkout-key/{fingerprint}",
+      "operationId": "getCheckoutKey",
+      "summary": "Get a checkout key",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/project/{project-slug}/checkout-key/{fingerprint}",
+      "operationId": "deleteCheckoutKey",
+      "summary": "Delete a checkout key",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/envvar",
+      "operationId": "listProjectEnvironmentVariables",
+      "summary": "List project environment variables",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/project/{project-slug}/envvar",
+      "operationId": "createProjectEnvironmentVariable",
+      "summary": "Create a project environment variable",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/envvar/{name}",
+      "operationId": "getProjectEnvironmentVariable",
+      "summary": "Get a masked environment variable",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/project/{project-slug}/envvar/{name}",
+      "operationId": "deleteProjectEnvironmentVariable",
+      "summary": "Delete a project environment variable",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/job/{job-number}",
+      "operationId": "getJob",
+      "summary": "Get job details",
+      "tags": [
+        "Job"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/project/{project-slug}/job/{job-number}/cancel",
+      "operationId": "cancelJob",
+      "summary": "Cancel a job",
+      "tags": [
+        "Job"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/{job-number}/artifacts",
+      "operationId": "listJobArtifacts",
+      "summary": "List artifacts for a job",
+      "tags": [
+        "Job"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/{job-number}/tests",
+      "operationId": "listJobTests",
+      "summary": "List test metadata for a job",
+      "tags": [
+        "Job"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workflow/{id}",
+      "operationId": "getWorkflow",
+      "summary": "Get a workflow by ID",
+      "tags": [
+        "Workflow"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workflow/{id}/approve/{approval_request_id}",
+      "operationId": "approveWorkflowJob",
+      "summary": "Approve a workflow job",
+      "tags": [
+        "Workflow"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workflow/{id}/cancel",
+      "operationId": "cancelWorkflow",
+      "summary": "Cancel a workflow",
+      "tags": [
+        "Workflow"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/workflow/{id}/rerun",
+      "operationId": "rerunWorkflow",
+      "summary": "Rerun a workflow",
+      "tags": [
+        "Workflow"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/workflow/{id}/job",
+      "operationId": "listWorkflowJobs",
+      "summary": "List jobs for a workflow",
+      "tags": [
+        "Workflow"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/insights/{project-slug}/workflows",
+      "operationId": "getProjectWorkflowMetrics",
+      "summary": "Get project workflow metrics",
+      "tags": [
+        "Insights"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/insights/{project-slug}/workflows/{workflow-name}",
+      "operationId": "getWorkflowRuns",
+      "summary": "Get recent runs of a workflow",
+      "tags": [
+        "Insights"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/insights/{project-slug}/workflows/{workflow-name}/jobs",
+      "operationId": "getWorkflowJobMetrics",
+      "summary": "Get workflow job metrics",
+      "tags": [
+        "Insights"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/insights/{project-slug}/workflows/{workflow-name}/test-metrics",
+      "operationId": "getWorkflowTestMetrics",
+      "summary": "Get test metrics for a workflow",
+      "tags": [
+        "Insights"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/project/{project-slug}/schedule",
+      "operationId": "listSchedules",
+      "summary": "List schedules for a project",
+      "tags": [
+        "Schedule"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/project/{project-slug}/schedule",
+      "operationId": "createSchedule",
+      "summary": "Create a schedule",
+      "tags": [
+        "Schedule"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/schedule/{schedule-id}",
+      "operationId": "getSchedule",
+      "summary": "Get a schedule by ID",
+      "tags": [
+        "Schedule"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/schedule/{schedule-id}",
+      "operationId": "deleteSchedule",
+      "summary": "Delete a schedule",
+      "tags": [
+        "Schedule"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/schedule/{schedule-id}",
+      "operationId": "updateSchedule",
+      "summary": "Update a schedule",
+      "tags": [
+        "Schedule"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhook",
+      "operationId": "listWebhooks",
+      "summary": "List webhooks",
+      "tags": [
+        "Webhook"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/webhook",
+      "operationId": "createWebhook",
+      "summary": "Create a webhook",
+      "tags": [
+        "Webhook"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/webhook/{webhook-id}",
+      "operationId": "getWebhook",
+      "summary": "Get a webhook by ID",
+      "tags": [
+        "Webhook"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/webhook/{webhook-id}",
+      "operationId": "updateWebhook",
+      "summary": "Update a webhook",
+      "tags": [
+        "Webhook"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhook/{webhook-id}",
+      "operationId": "deleteWebhook",
+      "summary": "Delete a webhook",
+      "tags": [
+        "Webhook"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PipelineConfig",
+  "title": "PipelineConfig",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string",
+      "description": "The source configuration"
+    },
+    "compiled": {
+      "type": "string",
+      "description": "The compiled configuration"
+    },
+    "setup-config": {
+      "type": "string",
+      "description": "The setup configuration"
+    },
+    "compiled-setup-config": {
+      "type": "string",
+      "description": "The compiled setup configuration"
+    }
+  }
+}

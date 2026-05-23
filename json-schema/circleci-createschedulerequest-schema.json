@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateScheduleRequest",
+  "title": "CreateScheduleRequest",
+  "type": "object",
+  "required": [
+    "name",
+    "timetable",
+    "attribution-actor",
+    "parameters"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the schedule"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the schedule"
+    },
+    "timetable": {
+      "$ref": "#/components/schemas/Timetable"
+    },
+    "attribution-actor": {
+      "type": "string",
+      "enum": [
+        "current",
+        "system"
+      ],
+      "description": "Who to attribute pipeline triggers to"
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Pipeline parameters for the schedule"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BuildSummary",
+  "title": "BuildSummary",
+  "type": "object",
+  "properties": {
+    "build_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to view the build"
+    },
+    "build_num": {
+      "type": "integer",
+      "description": "The build number"
+    },
+    "status": {
+      "type": "string",
+      "description": "The build status"
+    },
+    "vcs_revision": {
+      "type": "string",
+      "description": "The VCS revision"
+    }
+  }
+}

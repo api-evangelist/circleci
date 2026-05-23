@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateWebhookRequest",
+  "title": "CreateWebhookRequest",
+  "type": "object",
+  "required": [
+    "name",
+    "url",
+    "events",
+    "scope",
+    "signing-secret"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the webhook"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to deliver webhook payloads to"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "workflow-completed",
+          "job-completed"
+        ]
+      },
+      "description": "The events to subscribe to"
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The scope ID (project ID)"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "project"
+          ],
+          "description": "The scope type"
+        }
+      }
+    },
+    "signing-secret": {
+      "type": "string",
+      "description": "Secret used to generate HMAC signature"
+    },
+    "verify-tls": {
+      "type": "boolean",
+      "description": "Whether to verify TLS on delivery"
+    }
+  }
+}

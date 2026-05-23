@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ProjectEnvVar",
+  "title": "ProjectEnvVar",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the environment variable"
+    },
+    "value": {
+      "type": "string",
+      "description": "The masked value of the environment variable"
+    }
+  }
+}

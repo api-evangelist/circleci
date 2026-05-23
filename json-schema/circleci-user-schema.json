@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/User",
+  "title": "User",
+  "type": "object",
+  "properties": {
+    "login": {
+      "type": "string",
+      "description": "The login name of the user"
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the user"
+    },
+    "avatar_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the user avatar"
+    },
+    "admin": {
+      "type": "boolean",
+      "description": "Whether the user is an admin"
+    },
+    "all_emails": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "email"
+      },
+      "description": "All email addresses associated with the user"
+    },
+    "selected_email": {
+      "type": "string",
+      "format": "email",
+      "description": "The user selected email address"
+    },
+    "days_left_in_trial": {
+      "type": "integer",
+      "description": "Days remaining in trial"
+    },
+    "parallelism": {
+      "type": "integer",
+      "description": "Default parallelism setting"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the user account was created"
+    }
+  }
+}

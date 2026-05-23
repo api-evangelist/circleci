@@ -1,0 +1,23 @@
+name: CircleCI Domain Vocabulary
+provider: CircleCI
+providerId: circleci
+description: Tag-derived vocabulary for the CircleCI API surface; sourced from openapi/ tags.
+terms:
+- term: Context
+  description: Endpoints for managing contexts, which are used to secure and share environment variables across projects.
+- term: Insights
+  description: Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
+- term: Job
+  description: Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline jobs.
+- term: Pipeline
+  description: Endpoints for triggering, retrieving, and managing pipelines and their configurations.
+- term: Project
+  description: Endpoints for managing project settings, checkout keys, and environment variables.
+- term: Schedule
+  description: Endpoints for creating, updating, and managing scheduled pipeline triggers.
+- term: User
+  description: Endpoints for retrieving information about the current user and collaborations.
+- term: Webhook
+  description: Endpoints for creating, updating, listing, and deleting outbound webhook subscriptions.
+- term: Workflow
+  description: Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.

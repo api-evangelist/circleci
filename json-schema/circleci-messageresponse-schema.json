@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MessageResponse",
+  "title": "MessageResponse",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "A message describing the result of the operation"
+    }
+  }
+}

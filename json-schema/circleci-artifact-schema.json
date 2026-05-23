@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Artifact",
+  "title": "Artifact",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "The artifact path"
+    },
+    "pretty_path": {
+      "type": "string",
+      "description": "Human-readable artifact path"
+    },
+    "node_index": {
+      "type": "integer",
+      "description": "The node index that produced this artifact"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to download the artifact"
+    }
+  }
+}

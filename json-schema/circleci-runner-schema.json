@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Runner",
+  "title": "Runner",
+  "type": "object",
+  "properties": {
+    "resource_class": {
+      "type": "string",
+      "description": "The resource class the runner belongs to in namespace/name format"
+    },
+    "hostname": {
+      "type": "string",
+      "description": "The hostname of the machine running the runner agent"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name assigned to the runner"
+    },
+    "first_connected": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the runner first connected to CircleCI"
+    },
+    "last_connected": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the runner last connected to CircleCI"
+    },
+    "last_used": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the runner last executed a task"
+    },
+    "version": {
+      "type": "string",
+      "description": "The version of the runner agent"
+    },
+    "ip": {
+      "type": "string",
+      "description": "The IP address of the runner"
+    },
+    "os": {
+      "type": "string",
+      "description": "The operating system of the runner"
+    },
+    "arch": {
+      "type": "string",
+      "description": "The CPU architecture of the runner"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Project",
+  "title": "Project",
+  "type": "object",
+  "properties": {
+    "vcs_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The VCS URL of the project"
+    },
+    "followed": {
+      "type": "boolean",
+      "description": "Whether the user follows this project"
+    },
+    "username": {
+      "type": "string",
+      "description": "The organization or username"
+    },
+    "reponame": {
+      "type": "string",
+      "description": "The repository name"
+    },
+    "branches": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "recent_builds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildSummary"
+            },
+            "description": "Recent builds on this branch"
+          }
+        }
+      },
+      "description": "Branch information with recent builds"
+    }
+  }
+}

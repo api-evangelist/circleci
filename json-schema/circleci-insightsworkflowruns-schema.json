@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InsightsWorkflowRuns",
+  "title": "InsightsWorkflowRuns",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The workflow run ID"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the run"
+          },
+          "duration": {
+            "type": "integer",
+            "description": "Duration in seconds"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the run was created"
+          },
+          "stopped_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the run stopped"
+          },
+          "credits_used": {
+            "type": "integer",
+            "description": "Credits consumed by this run"
+          },
+          "branch": {
+            "type": "string",
+            "description": "The branch that was built"
+          }
+        }
+      },
+      "description": "List of workflow runs"
+    },
+    "next_page_token": {
+      "type": "string",
+      "description": "Token for retrieving the next page"
+    }
+  }
+}
