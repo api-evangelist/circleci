@@ -2,12 +2,17 @@
   "repo": "circleci",
   "feeds": [
     {
-      "source": "https://circleci.com/blog/",
+      "source": "https://circleci.com/blog/feed.xml",
       "feed_url": "https://circleci.com/blog/feed.xml",
-      "title": "The CircleCI Blog Feed | CircleCI",
-      "saved": 4
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://support.circleci.com/",
+      "error": "HTTPError"
     }
   ],
-  "post_count": 15,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 17,
+  "fetched": "2026-06-01T23:35:02Z"
 }
