@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI Self-Hosted Runner API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runner",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List self-hosted runners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runner.circleci.com/api/v3/runner",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "The namespace to filter runners by. Cannot be used together with resource-class."
+              },
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "query",
+                "description": "The resource class to filter runners by. Cannot be used together with namespace."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of self-hosted runners filtered by namespace or resource class. At least one filter parameter must be provided to return results. Returns details including hostname, name, connection timestamps, version, and resource class."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Runner Task",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get unclaimed task count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runner.circleci.com/api/v3/runner/tasks",
+            "params": [
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "query",
+                "description": "The resource class to query unclaimed tasks for"
+              }
+            ]
+          },
+          "docs": "Returns the number of unclaimed tasks for a given resource class. This endpoint is scoped to a single resource class, so it must be called per resource class to get totals across all classes."
+        },
+        {
+          "info": {
+            "name": "Get running task count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runner.circleci.com/api/v3/runner/tasks/running",
+            "params": [
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "query",
+                "description": "The resource class to query running tasks for"
+              }
+            ]
+          },
+          "docs": "Returns the number of running tasks for a given resource class. This endpoint is scoped to a single resource class, so it must be called per resource class to get totals across all classes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Resource Class",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List resource classes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runner.circleci.com/api/v3/runner/resource-class",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "The namespace to list resource classes for"
+              }
+            ]
+          },
+          "docs": "Returns a list of runner resource classes for the specified namespace. Resource classes define the compute resources available for self-hosted runner jobs."
+        },
+        {
+          "info": {
+            "name": "Create a resource class",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://runner.circleci.com/api/v3/runner/resource-class",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new resource class for the specified namespace. Returns a resource class token that is only displayed once and cannot be retrieved again. This token is used by runner agents to authenticate."
+        },
+        {
+          "info": {
+            "name": "Get a resource class",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://runner.circleci.com/api/v3/runner/resource-class/:resource-class",
+            "params": [
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "path",
+                "description": "The resource class in namespace/name format"
+              }
+            ]
+          },
+          "docs": "Returns details about a specific resource class."
+        },
+        {
+          "info": {
+            "name": "Delete a resource class",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://runner.circleci.com/api/v3/runner/resource-class/:resource-class",
+            "params": [
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "path",
+                "description": "The resource class in namespace/name format"
+              }
+            ]
+          },
+          "docs": "Deletes a resource class. This will prevent any runners using this resource class from picking up new tasks."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

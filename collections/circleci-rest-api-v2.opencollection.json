@@ -1,0 +1,1229 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v2",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/me"
+          },
+          "docs": "Returns information about the user associated with the authentication token used in the request."
+        },
+        {
+          "info": {
+            "name": "List collaborations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/me/collaborations"
+          },
+          "docs": "Returns a list of organizations and accounts the current user collaborates with."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Context",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contexts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/context",
+            "params": [
+              {
+                "name": "owner-id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the owner"
+              },
+              {
+                "name": "owner-slug",
+                "value": "",
+                "type": "query",
+                "description": "The slug for the owner"
+              },
+              {
+                "name": "owner-type",
+                "value": "",
+                "type": "query",
+                "description": "The type of the owner"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of contexts for a given owner, which can be an organization or account."
+        },
+        {
+          "info": {
+            "name": "Create a context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/context",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new context for sharing environment variables across projects."
+        },
+        {
+          "info": {
+            "name": "Get a context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/context/:context-id",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              }
+            ]
+          },
+          "docs": "Returns a specific context by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Delete a context",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v2/context/:context-id",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              }
+            ]
+          },
+          "docs": "Deletes a context and all of its associated environment variables."
+        },
+        {
+          "info": {
+            "name": "List environment variables in a context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/context/:context-id/environment-variable",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of environment variables associated with a specific context."
+        },
+        {
+          "info": {
+            "name": "Add or update an environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://circleci.com/api/v2/context/:context-id/environment-variable/:env-var-name",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              },
+              {
+                "name": "env-var-name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new environment variable or updates an existing one within the specified context."
+        },
+        {
+          "info": {
+            "name": "Remove an environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v2/context/:context-id/environment-variable/:env-var-name",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              },
+              {
+                "name": "env-var-name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Deletes an environment variable from the specified context."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pipeline",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/pipeline",
+            "params": [
+              {
+                "name": "org-slug",
+                "value": "",
+                "type": "query",
+                "description": "Organization slug in the form vcs-slug/org-name"
+              },
+              {
+                "name": "mine",
+                "value": "",
+                "type": "query",
+                "description": "Filter to only pipelines triggered by the current user"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns all pipelines for the most recently built projects you follow in the organization."
+        },
+        {
+          "info": {
+            "name": "Continue a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/pipeline/continue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Continues a pipeline from a setup workflow by providing configuration and pipeline parameters."
+        },
+        {
+          "info": {
+            "name": "Get a pipeline by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/pipeline/:pipeline-id",
+            "params": [
+              {
+                "name": "pipeline-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the pipeline"
+              }
+            ]
+          },
+          "docs": "Returns a pipeline by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Get a pipeline's configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/pipeline/:pipeline-id/config",
+            "params": [
+              {
+                "name": "pipeline-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the pipeline"
+              }
+            ]
+          },
+          "docs": "Returns the configuration source for a given pipeline."
+        },
+        {
+          "info": {
+            "name": "List workflows for a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/pipeline/:pipeline-id/workflow",
+            "params": [
+              {
+                "name": "pipeline-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the pipeline"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of workflows associated with a given pipeline."
+        },
+        {
+          "info": {
+            "name": "List project pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/pipeline",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "Filter pipelines by branch name"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of pipelines for a given project."
+        },
+        {
+          "info": {
+            "name": "Trigger a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/project/:project-slug/pipeline",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a new pipeline on the specified project. Optionally specify a branch, tag, or revision to build. Pipeline parameters can also be provided."
+        },
+        {
+          "info": {
+            "name": "List my project pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/pipeline/mine",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of pipelines for a project filtered to those triggered by the current user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Project",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ]
+          },
+          "docs": "Returns a project by its slug, which is a triplet of the VCS type, organization name, and repository name."
+        },
+        {
+          "info": {
+            "name": "List checkout keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/checkout-key",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of checkout keys for a given project."
+        },
+        {
+          "info": {
+            "name": "Create a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/project/:project-slug/checkout-key",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new checkout key for the specified project. Only deploy keys and user keys are supported."
+        },
+        {
+          "info": {
+            "name": "Get a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/checkout-key/:fingerprint",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "",
+                "type": "path",
+                "description": "The fingerprint of the checkout key"
+              }
+            ]
+          },
+          "docs": "Returns a checkout key by its fingerprint."
+        },
+        {
+          "info": {
+            "name": "Delete a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v2/project/:project-slug/checkout-key/:fingerprint",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "",
+                "type": "path",
+                "description": "The fingerprint of the checkout key"
+              }
+            ]
+          },
+          "docs": "Deletes a checkout key by its fingerprint."
+        },
+        {
+          "info": {
+            "name": "List project environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/envvar",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of masked environment variables for a given project."
+        },
+        {
+          "info": {
+            "name": "Create a project environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/project/:project-slug/envvar",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new environment variable for the specified project."
+        },
+        {
+          "info": {
+            "name": "Get a masked environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/envvar/:name",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Returns a masked environment variable by name for the specified project."
+        },
+        {
+          "info": {
+            "name": "Delete a project environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v2/project/:project-slug/envvar/:name",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Deletes an environment variable from the specified project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Job",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get job details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/job/:job-number",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "job-number",
+                "value": "",
+                "type": "path",
+                "description": "The number of the job"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific job, including its status, duration, and executor configuration."
+        },
+        {
+          "info": {
+            "name": "Cancel a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/project/:project-slug/job/:job-number/cancel",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "job-number",
+                "value": "",
+                "type": "path",
+                "description": "The number of the job"
+              }
+            ]
+          },
+          "docs": "Cancels a running job by its job number."
+        },
+        {
+          "info": {
+            "name": "List artifacts for a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/:job-number/artifacts",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "job-number",
+                "value": "",
+                "type": "path",
+                "description": "The number of the job"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of artifacts produced by a given job."
+        },
+        {
+          "info": {
+            "name": "List test metadata for a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/:job-number/tests",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "job-number",
+                "value": "",
+                "type": "path",
+                "description": "The number of the job"
+              }
+            ]
+          },
+          "docs": "Returns test metadata for a given job, collected from JUnit XML or similar test result files."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workflow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a workflow by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/workflow/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              }
+            ]
+          },
+          "docs": "Returns a workflow by its unique identifier, including its status, pipeline ID, and timing information."
+        },
+        {
+          "info": {
+            "name": "Approve a workflow job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/workflow/:id/approve/:approval_request_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              },
+              {
+                "name": "approval_request_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the approval request to approve"
+              }
+            ]
+          },
+          "docs": "Approves a pending approval job in a workflow, allowing the workflow to continue execution."
+        },
+        {
+          "info": {
+            "name": "Cancel a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/workflow/:id/cancel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              }
+            ]
+          },
+          "docs": "Cancels a running workflow and all of its running jobs."
+        },
+        {
+          "info": {
+            "name": "Rerun a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/workflow/:id/rerun",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reruns a workflow. Optionally, specific jobs can be selected for rerun, and SSH access can be enabled for debugging."
+        },
+        {
+          "info": {
+            "name": "List jobs for a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/workflow/:id/job",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              }
+            ]
+          },
+          "docs": "Returns a list of jobs associated with a given workflow."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project workflow metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/insights/:project-slug/workflows",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "Filter by branch name"
+              },
+              {
+                "name": "reporting-window",
+                "value": "",
+                "type": "query",
+                "description": "The time window for metrics"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns summary metrics for the workflows of a given project, including success rates, duration metrics, and throughput."
+        },
+        {
+          "info": {
+            "name": "Get recent runs of a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/insights/:project-slug/workflows/:workflow-name",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "workflow-name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the workflow"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "Filter by branch name"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns recent runs of a named workflow, containing status, duration, and credits consumed."
+        },
+        {
+          "info": {
+            "name": "Get workflow job metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/insights/:project-slug/workflows/:workflow-name/jobs",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "workflow-name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the workflow"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "Filter by branch name"
+              },
+              {
+                "name": "reporting-window",
+                "value": "",
+                "type": "query",
+                "description": "The time window for metrics"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns summary metrics for the jobs within a named workflow, including success rates and duration metrics."
+        },
+        {
+          "info": {
+            "name": "Get test metrics for a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/insights/:project-slug/workflows/:workflow-name/test-metrics",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "workflow-name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the workflow"
+              }
+            ]
+          },
+          "docs": "Returns test metrics for a named workflow, including most frequently failing tests and slowest tests."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schedule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List schedules for a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/project/:project-slug/schedule",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a list of scheduled pipeline triggers for a given project."
+        },
+        {
+          "info": {
+            "name": "Create a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/project/:project-slug/schedule",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a scheduled pipeline trigger for the specified project."
+        },
+        {
+          "info": {
+            "name": "Get a schedule by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/schedule/:schedule-id",
+            "params": [
+              {
+                "name": "schedule-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the schedule"
+              }
+            ]
+          },
+          "docs": "Returns a schedule by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://circleci.com/api/v2/schedule/:schedule-id",
+            "params": [
+              {
+                "name": "schedule-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the schedule"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing schedule with the provided parameters."
+        },
+        {
+          "info": {
+            "name": "Delete a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v2/schedule/:schedule-id",
+            "params": [
+              {
+                "name": "schedule-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the schedule"
+              }
+            ]
+          },
+          "docs": "Deletes a schedule by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhook",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/webhook",
+            "params": [
+              {
+                "name": "scope-id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the scope (project ID)"
+              },
+              {
+                "name": "scope-type",
+                "value": "",
+                "type": "query",
+                "description": "The type of scope"
+              }
+            ]
+          },
+          "docs": "Returns a list of outbound webhooks for the specified scope."
+        },
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v2/webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new outbound webhook for the specified scope."
+        },
+        {
+          "info": {
+            "name": "Get a webhook by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v2/webhook/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook"
+              }
+            ]
+          },
+          "docs": "Returns a webhook by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://circleci.com/api/v2/webhook/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook with the provided parameters."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v2/webhook/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook"
+              }
+            ]
+          },
+          "docs": "Deletes a webhook by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

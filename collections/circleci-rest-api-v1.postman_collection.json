@@ -1,0 +1,3998 @@
+{
+  "item": [
+    {
+      "id": "8cf89d53-077f-4f11-abee-90b304b90102",
+      "name": "Artifact",
+      "description": {
+        "content": "Endpoints for listing and downloading build artifacts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68e714cf-2e7e-41f5-bfd6-da02afd96098",
+          "name": "List artifacts for a build",
+          "request": {
+            "name": "List artifacts for a build",
+            "description": {
+              "content": "Returns a list of artifacts produced by the specified build.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                ":build_num",
+                "artifacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "build_num",
+                  "description": "(Required) The build number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22b81afe-4b2a-4e44-b05d-bfe81ec90e2b",
+              "name": "Successfully retrieved artifacts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"path\": \"string\",\n    \"pretty_path\": \"string\",\n    \"node_index\": 4773,\n    \"url\": \"http://Jz.kvpRSn\"\n  },\n  {\n    \"path\": \"string\",\n    \"pretty_path\": \"string\",\n    \"node_index\": 2687,\n    \"url\": \"http://SVAxysWTvnUrwJIqOXB.ewgpRz1y4Jrz3CD7HL7K\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5236686-fbef-4219-bc18-f98c8ce2e6f3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d0ca0b2-e7b6-4a89-b0fa-e30886f922a8",
+          "name": "List latest build artifacts",
+          "request": {
+            "name": "List latest build artifacts",
+            "description": {
+              "content": "Returns artifacts from the latest build of the project, optionally filtered by branch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                "latest",
+                "artifacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "branch",
+                  "value": "<string>",
+                  "description": "Filter artifacts by branch name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter artifacts by status"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0336440a-3592-4071-9c7b-09babd443d1c",
+              "name": "Successfully retrieved latest artifacts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "latest",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"path\": \"string\",\n    \"pretty_path\": \"string\",\n    \"node_index\": 4773,\n    \"url\": \"http://Jz.kvpRSn\"\n  },\n  {\n    \"path\": \"string\",\n    \"pretty_path\": \"string\",\n    \"node_index\": 2687,\n    \"url\": \"http://SVAxysWTvnUrwJIqOXB.ewgpRz1y4Jrz3CD7HL7K\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4554254-312e-4814-b822-045e82e6e999",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "latest",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ef479ca7-669d-4362-a7a2-c2a0724f1577",
+      "name": "Build",
+      "description": {
+        "content": "Endpoints for retrieving build details, triggering builds, retrying builds, and canceling builds.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "67ed65cb-af58-4cf1-b47f-dcef966df018",
+          "name": "List builds for a project",
+          "request": {
+            "name": "List builds for a project",
+            "description": {
+              "content": "Returns a list of the most recent builds for the specified project, with optional filtering by branch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter builds by status"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of builds to return (max 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3e221bb-8bd3-467a-8751-92bd57e67f84",
+              "name": "Successfully retrieved builds",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"vcs_url\": \"https://AOdkGDWMkecduietAmILFyvzFkXEBGWL.qmikhFBY4OnVwtZphlkzyG8I1PqjbQz7-N0fdbJlh7FetS7\",\n    \"build_url\": \"http://gHgNkky.tynv7-9GC+i26bzYk8cQPT.+EusfTFUDWR,zJiF5DHg4xy3GFt67EzUJ-6P6-yni6gr\",\n    \"build_num\": 9723,\n    \"branch\": \"string\",\n    \"vcs_revision\": \"string\",\n    \"committer_name\": \"string\",\n    \"committer_email\": \"JZW@TtfAAXJz.fsdg\",\n    \"subject\": \"string\",\n    \"body\": \"string\",\n    \"why\": \"string\",\n    \"status\": \"retried\",\n    \"outcome\": \"no_tests\",\n    \"start_time\": \"1967-06-02T10:31:03.369Z\",\n    \"stop_time\": \"2009-11-14T13:37:13.181Z\",\n    \"build_time_millis\": 3154,\n    \"queued_at\": \"2010-05-02T05:43:16.148Z\",\n    \"lifecycle\": \"running\",\n    \"username\": \"string\",\n    \"reponame\": \"string\"\n  },\n  {\n    \"vcs_url\": \"https://RAmHuJeVBlscSwQs.vtssjuJXkDHkWZFQhZGl54CaKKq9NnGolvG.6rcp.mw7v9o78AiKxCOGhZH1OaU2fYq4\",\n    \"build_url\": \"https://pdpqrxJJfHjyjseM.yfgHVcNz8fJUIdrWGM4fQiSVJWqAl8i3WecinHr.el6Jzq+k.nZe3zuijEvr\",\n    \"build_num\": 2248,\n    \"branch\": \"string\",\n    \"vcs_revision\": \"string\",\n    \"committer_name\": \"string\",\n    \"committer_email\": \"HpzE1LPLRyZ@rQYMqRaDSyAUvJEdHVfTLTQY.gn\",\n    \"subject\": \"string\",\n    \"body\": \"string\",\n    \"why\": \"string\",\n    \"status\": \"running\",\n    \"outcome\": \"infrastructure_fail\",\n    \"start_time\": \"1993-09-13T15:37:57.313Z\",\n    \"stop_time\": \"2008-09-13T13:58:42.056Z\",\n    \"build_time_millis\": 4618,\n    \"queued_at\": \"2018-03-05T20:15:52.176Z\",\n    \"lifecycle\": \"running\",\n    \"username\": \"string\",\n    \"reponame\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfa0296d-7933-46f1-ac04-ed5ed230c5d8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40f9178f-caea-491c-b079-f938e9a4b51e",
+          "name": "Trigger a new build",
+          "request": {
+            "name": "Trigger a new build",
+            "description": {
+              "content": "Triggers a new build for the specified project. Optionally specify a branch, revision, or build parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tag\": \"<string>\",\n  \"revision\": \"<string>\",\n  \"branch\": \"<string>\",\n  \"parallel\": \"<integer>\",\n  \"build_parameters\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2292078f-ed86-4fb9-b238-76b4f7a421b4",
+              "name": "Build triggered successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tag\": \"<string>\",\n  \"revision\": \"<string>\",\n  \"branch\": \"<string>\",\n  \"parallel\": \"<integer>\",\n  \"build_parameters\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"build_url\": \"https://KhiWTwVkwTptsKALfklWW.yapiXyrz3EKfSQ4J\",\n  \"build_num\": 2560,\n  \"status\": \"string\",\n  \"vcs_revision\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06719a2b-0f39-4142-8a34-dda44cc3cea8",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tag\": \"<string>\",\n  \"revision\": \"<string>\",\n  \"branch\": \"<string>\",\n  \"parallel\": \"<integer>\",\n  \"build_parameters\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7eb2bf1a-831a-4a73-8b3f-94ee979b8d23",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tag\": \"<string>\",\n  \"revision\": \"<string>\",\n  \"branch\": \"<string>\",\n  \"parallel\": \"<integer>\",\n  \"build_parameters\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2162976-3453-49bf-8df3-a6d78d7292a8",
+          "name": "Trigger a build on a branch",
+          "request": {
+            "name": "Trigger a build on a branch",
+            "description": {
+              "content": "Triggers a new build on the specified branch of the project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                "tree",
+                ":branch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "branch",
+                  "description": "(Required) The branch to build"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parallel\": \"<integer>\",\n  \"revision\": \"<string>\",\n  \"build_parameters\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d463eaf-0e16-44e5-b242-cce83d8fd78b",
+              "name": "Build triggered successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "tree",
+                    ":branch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "branch",
+                      "description": "(Required) The branch to build"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parallel\": \"<integer>\",\n  \"revision\": \"<string>\",\n  \"build_parameters\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"build_url\": \"https://KhiWTwVkwTptsKALfklWW.yapiXyrz3EKfSQ4J\",\n  \"build_num\": 2560,\n  \"status\": \"string\",\n  \"vcs_revision\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75070fd8-cb91-4bb5-9bc2-7ad9db14e0eb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "tree",
+                    ":branch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "branch",
+                      "description": "(Required) The branch to build"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parallel\": \"<integer>\",\n  \"revision\": \"<string>\",\n  \"build_parameters\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "925b7ab7-bd2a-4766-b5a8-189fb2504a6e",
+          "name": "Get build details",
+          "request": {
+            "name": "Get build details",
+            "description": {
+              "content": "Returns detailed information about a specific build, including its status, steps, and timing information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                ":build_num"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "build_num",
+                  "description": "(Required) The build number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "619ad7de-8b61-4c8e-a875-83f15786444c",
+              "name": "Successfully retrieved build details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vcs_url\": \"http://iGRw.jbvkR+hTe0ovaunqYBj0DE\",\n  \"build_url\": \"https://BwyjcI.jolnH0NyASzjidEMPLjMY3CKou7hH,NkQkRQM-i,BrmrYzBM81qI\",\n  \"build_num\": 757,\n  \"branch\": \"string\",\n  \"vcs_revision\": \"string\",\n  \"committer_name\": \"string\",\n  \"committer_email\": \"yIajwk3@ldJIKlMgEltd.lju\",\n  \"subject\": \"string\",\n  \"body\": \"string\",\n  \"why\": \"string\",\n  \"status\": \"not_run\",\n  \"outcome\": \"timedout\",\n  \"start_time\": \"1969-07-25T09:49:28.965Z\",\n  \"stop_time\": \"1953-08-02T12:53:49.271Z\",\n  \"build_time_millis\": 5100,\n  \"queued_at\": \"2006-01-28T19:06:25.667Z\",\n  \"lifecycle\": \"scheduled\",\n  \"username\": \"string\",\n  \"reponame\": \"string\",\n  \"steps\": [\n    {\n      \"name\": \"string\",\n      \"actions\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"start_time\": \"1976-12-02T20:11:47.779Z\",\n          \"end_time\": \"1983-10-09T13:39:13.952Z\",\n          \"run_time_millis\": 4028,\n          \"output_url\": \"https://IfeSWjmhGEfVoAAGPVbWlEXFRY.rfsshvbugMnji-xBHs4DTylffsZM\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"start_time\": \"1993-03-30T21:34:26.543Z\",\n          \"end_time\": \"1975-08-07T02:34:12.972Z\",\n          \"run_time_millis\": 1849,\n          \"output_url\": \"https://NxqUjXcSzAeLCdwUjjrFCMyphbR.zfpqMTAIlgjZka.kKkUsicy5ZqsSrrOjAWdce12tdJriqxTZPwxq5wY4u6GQ0-3v1EGxpKihtNn\"\n        }\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"actions\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"start_time\": \"2004-07-29T13:41:18.718Z\",\n          \"end_time\": \"1998-09-24T07:05:47.839Z\",\n          \"run_time_millis\": 286,\n          \"output_url\": \"https://S.pwKgWtmFjFNNnGOeUA4kAT-GRwiOTOf0T7fMI2t.JYWkD6IsAYYEt3Zm4wnhJjD-G\"\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"status\": \"string\",\n          \"start_time\": \"1989-03-15T16:15:53.790Z\",\n          \"end_time\": \"1981-02-04T01:19:12.894Z\",\n          \"run_time_millis\": 6399,\n          \"output_url\": \"http://NGYYhziaPtbP.uryiFYxvxtaPd+9cinfPOQGDv3lO5xJz,xVpllRIKjXR.lFdtCMLXeISJdZTVBwK\"\n        }\n      ]\n    }\n  ],\n  \"circle_yml\": {},\n  \"messages\": [\n    \"string\",\n    \"string\"\n  ],\n  \"node\": [\n    {\n      \"image_id\": \"string\",\n      \"port\": 6081,\n      \"public_ip_addr\": \"string\",\n      \"username\": \"string\"\n    },\n    {\n      \"image_id\": \"string\",\n      \"port\": 1083,\n      \"public_ip_addr\": \"string\",\n      \"username\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dec7a802-b195-4650-ae29-e1d7a0e17a01",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7624f86b-ac5e-4da0-902a-f081de69dec3",
+              "name": "Build not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be26665a-02d4-4bb4-88a3-d6f4c9db6a62",
+          "name": "Retry a build",
+          "request": {
+            "name": "Retry a build",
+            "description": {
+              "content": "Retries a build using the same configuration and revision as the original build.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                ":build_num",
+                "retry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "build_num",
+                  "description": "(Required) The build number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4d55baf-0ba2-4340-bf56-997f3bf824a6",
+              "name": "Build retried successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"build_url\": \"https://KhiWTwVkwTptsKALfklWW.yapiXyrz3EKfSQ4J\",\n  \"build_num\": 2560,\n  \"status\": \"string\",\n  \"vcs_revision\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "623b9519-3d4e-4def-86f3-5cd6557701d7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num",
+                    "retry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8044acf-7817-4a55-b5fe-c18b8a2ec7b0",
+          "name": "Cancel a build",
+          "request": {
+            "name": "Cancel a build",
+            "description": {
+              "content": "Cancels a running build.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                ":build_num",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "build_num",
+                  "description": "(Required) The build number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e0d1038-c564-42da-abff-e283d4093a17",
+              "name": "Build cancelled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"build_url\": \"https://KhiWTwVkwTptsKALfklWW.yapiXyrz3EKfSQ4J\",\n  \"build_num\": 2560,\n  \"status\": \"string\",\n  \"vcs_revision\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "512320d6-389f-47ca-8448-0583f3cfb334",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "587ec1b2-2962-49df-8559-9030d4daecdb",
+          "name": "List recent builds across all projects",
+          "request": {
+            "name": "List recent builds across all projects",
+            "description": {
+              "content": "Returns a list of the most recent builds across all followed projects for the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recent-builds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of builds to return (max 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "907e9ee3-eb71-44ea-89a0-3a7eb1d94e40",
+              "name": "Successfully retrieved recent builds",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recent-builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"vcs_url\": \"https://AOdkGDWMkecduietAmILFyvzFkXEBGWL.qmikhFBY4OnVwtZphlkzyG8I1PqjbQz7-N0fdbJlh7FetS7\",\n    \"build_url\": \"http://gHgNkky.tynv7-9GC+i26bzYk8cQPT.+EusfTFUDWR,zJiF5DHg4xy3GFt67EzUJ-6P6-yni6gr\",\n    \"build_num\": 9723,\n    \"branch\": \"string\",\n    \"vcs_revision\": \"string\",\n    \"committer_name\": \"string\",\n    \"committer_email\": \"JZW@TtfAAXJz.fsdg\",\n    \"subject\": \"string\",\n    \"body\": \"string\",\n    \"why\": \"string\",\n    \"status\": \"retried\",\n    \"outcome\": \"no_tests\",\n    \"start_time\": \"1967-06-02T10:31:03.369Z\",\n    \"stop_time\": \"2009-11-14T13:37:13.181Z\",\n    \"build_time_millis\": 3154,\n    \"queued_at\": \"2010-05-02T05:43:16.148Z\",\n    \"lifecycle\": \"running\",\n    \"username\": \"string\",\n    \"reponame\": \"string\"\n  },\n  {\n    \"vcs_url\": \"https://RAmHuJeVBlscSwQs.vtssjuJXkDHkWZFQhZGl54CaKKq9NnGolvG.6rcp.mw7v9o78AiKxCOGhZH1OaU2fYq4\",\n    \"build_url\": \"https://pdpqrxJJfHjyjseM.yfgHVcNz8fJUIdrWGM4fQiSVJWqAl8i3WecinHr.el6Jzq+k.nZe3zuijEvr\",\n    \"build_num\": 2248,\n    \"branch\": \"string\",\n    \"vcs_revision\": \"string\",\n    \"committer_name\": \"string\",\n    \"committer_email\": \"HpzE1LPLRyZ@rQYMqRaDSyAUvJEdHVfTLTQY.gn\",\n    \"subject\": \"string\",\n    \"body\": \"string\",\n    \"why\": \"string\",\n    \"status\": \"running\",\n    \"outcome\": \"infrastructure_fail\",\n    \"start_time\": \"1993-09-13T15:37:57.313Z\",\n    \"stop_time\": \"2008-09-13T13:58:42.056Z\",\n    \"build_time_millis\": 4618,\n    \"queued_at\": \"2018-03-05T20:15:52.176Z\",\n    \"lifecycle\": \"running\",\n    \"username\": \"string\",\n    \"reponame\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ec5879b-028a-4b53-80f2-fb82e6f6be6e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recent-builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "83145886-ece0-4ac0-8b2f-cbd42d8c1e83",
+      "name": "Project",
+      "description": {
+        "content": "Endpoints for listing followed projects and managing project settings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7595fde6-f842-4e8f-b3eb-643e6b7d23bd",
+          "name": "List followed projects",
+          "request": {
+            "name": "List followed projects",
+            "description": {
+              "content": "Returns a list of all projects the authenticated user follows, including recent build summaries for each project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2847b3d2-7b19-48ce-a640-e9998d43ac76",
+              "name": "Successfully retrieved projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"vcs_url\": \"https://e.tchiN4h.NLcCGGgjmk2af3cXPuIclnPcf8NaJL-2CiAluNi\",\n    \"followed\": false,\n    \"username\": \"string\",\n    \"reponame\": \"string\",\n    \"branches\": {\n      \"key_0\": {\n        \"recent_builds\": [\n          {\n            \"build_url\": \"http://ICvjjtZLaWmwBpIs.tkzt524Gxtm-MDSpkd+Y.A8XiuncK1hBuws,t,mS+SJAuW\",\n            \"build_num\": 1003,\n            \"status\": \"string\",\n            \"vcs_revision\": \"string\"\n          },\n          {\n            \"build_url\": \"https://UIqLhZGgg.jvuo5IEo8lUEug4YVM9dOqUq\",\n            \"build_num\": 1339,\n            \"status\": \"string\",\n            \"vcs_revision\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"vcs_url\": \"https://ueNudIIUkMJU.zkDmm-zmSZOBH1YNOyZaa,m0X1gzatTAj,djryyrzlL,oZKh5WAcMYmE0AIdOqWtbiutxat9PgeHyfJzLNNbeX\",\n    \"followed\": false,\n    \"username\": \"string\",\n    \"reponame\": \"string\",\n    \"branches\": {\n      \"key_0\": {\n        \"recent_builds\": [\n          {\n            \"build_url\": \"http://ijpfNfxwftmIAAlAOXWHGoscHDNTlA.fuwJBSfS1,SUJHemvBh\",\n            \"build_num\": 8104,\n            \"status\": \"string\",\n            \"vcs_revision\": \"string\"\n          },\n          {\n            \"build_url\": \"https://fYNuBAGhUWlTEHuYzsTFDWvOPly.twwQFTlU-YHUk+-gKpIJm1dp.YEZ.DwDbGsRyRM6J1H6ii,jpD\",\n            \"build_num\": 9144,\n            \"status\": \"string\",\n            \"vcs_revision\": \"string\"\n          }\n        ]\n      },\n      \"key_1\": {\n        \"recent_builds\": [\n          {\n            \"build_url\": \"https://tOtilpzZWKSCKalNnLmVtyvrwGkeAhugr.dhzU+xCLYqehqp+kw3QDzOIMwogNpGf\",\n            \"build_num\": 2292,\n            \"status\": \"string\",\n            \"vcs_revision\": \"string\"\n          },\n          {\n            \"build_url\": \"http://qAtqcptdyiOSOdDGniSKUtpvrAn.dawmojCUXSxyzGQOmXqzFZx+NM6mPDXCG6d6OFlsKDnBsH5LzfIP0vqtAB\",\n            \"build_num\": 4051,\n            \"status\": \"string\",\n            \"vcs_revision\": \"string\"\n          }\n        ]\n      },\n      \"key_2\": {\n        \"recent_builds\": [\n          {\n            \"build_url\": \"http://WsVzUkNnl.lmHUcq2+Y4pnCGJkejdrf0irasfG96eMZgR-BAhqZnMpbTh\",\n            \"build_num\": 2413,\n            \"status\": \"string\",\n            \"vcs_revision\": \"string\"\n          },\n          {\n            \"build_url\": \"http://XCbzGsTcPRiYZxFYRgYvafc.jjtcRgtJi8FwzqC5Gusr6-vz,MQyB9cEfeAByrAqIenF\",\n            \"build_num\": 2439,\n            \"status\": \"string\",\n            \"vcs_revision\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe86903b-e9d1-4794-8a50-7704615c2d3e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c40685e9-45be-44d7-9d24-3d0b45aef4b1",
+          "name": "Follow a project",
+          "request": {
+            "name": "Follow a project",
+            "description": {
+              "content": "Follows a project, adding it to the authenticated user's list of followed projects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                "follow"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8efc251f-3a19-46b6-ae94-88c13576e107",
+              "name": "Project followed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "follow"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"following\": true,\n  \"first_build\": {\n    \"build_url\": \"https://yprELPmyKQCbA.okmse-mFcSu5YRQNT7eUBJhUtUpngEPhmdGLu\",\n    \"build_num\": 5370,\n    \"status\": \"string\",\n    \"vcs_revision\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "143b7891-f70d-47fe-8086-1e522aa3b482",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "follow"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "af7f991e-1ac3-46f3-8177-cc77fdf268c2",
+      "name": "SSH Key",
+      "description": {
+        "content": "Endpoints for managing SSH keys and checkout keys for projects.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95bffc2d-e7bf-428a-8f98-415a66e25e14",
+          "name": "Add an SSH key",
+          "request": {
+            "name": "Add an SSH key",
+            "description": {
+              "content": "Adds an SSH key to the specified project for use in builds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                "ssh-key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostname\": \"<string>\",\n  \"private_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a6628949-a843-4a7e-aea7-5f47c126796c",
+              "name": "SSH key added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "ssh-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hostname\": \"<string>\",\n  \"private_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1293e760-c924-4201-a648-30d3cc27e445",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "ssh-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hostname\": \"<string>\",\n  \"private_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a4e4e3c-1035-46bf-a458-1cd8901d33dd",
+          "name": "List checkout keys",
+          "request": {
+            "name": "List checkout keys",
+            "description": {
+              "content": "Returns a list of checkout keys for the specified project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                "checkout-key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52aab72d-b022-4a6f-971b-f0b5e1bf3c8b",
+              "name": "Successfully retrieved checkout keys",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"public_key\": \"string\",\n    \"type\": \"deploy-key\",\n    \"fingerprint\": \"string\",\n    \"preferred\": false,\n    \"login\": \"string\",\n    \"time\": \"1972-06-24T12:33:07.047Z\"\n  },\n  {\n    \"public_key\": \"string\",\n    \"type\": \"deploy-key\",\n    \"fingerprint\": \"string\",\n    \"preferred\": false,\n    \"login\": \"string\",\n    \"time\": \"1951-08-04T01:46:45.604Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a20306dd-d21e-4a51-9e21-608ba9e8cbc7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c2d02f1-200e-40e9-8149-69f74c0ec3c4",
+          "name": "Create a checkout key",
+          "request": {
+            "name": "Create a checkout key",
+            "description": {
+              "content": "Creates a new checkout key for the specified project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                "checkout-key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5224514d-ef58-4846-8b98-f1ef3c2ce6f5",
+              "name": "Checkout key created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"public_key\": \"string\",\n  \"type\": \"deploy-key\",\n  \"fingerprint\": \"string\",\n  \"preferred\": true,\n  \"login\": \"string\",\n  \"time\": \"2004-11-23T13:56:42.434Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75069716-36b6-44aa-a2a3-9b2746feac8d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7261af68-0f61-4cfb-9525-de1b43742ce5",
+          "name": "Get a checkout key",
+          "request": {
+            "name": "Get a checkout key",
+            "description": {
+              "content": "Returns a checkout key by its fingerprint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                "checkout-key",
+                ":fingerprint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fingerprint",
+                  "description": "(Required) The fingerprint of the checkout key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7122c32a-7986-4d52-bda7-2622b5afad2f",
+              "name": "Successfully retrieved checkout key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key",
+                    ":fingerprint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fingerprint",
+                      "description": "(Required) The fingerprint of the checkout key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"public_key\": \"string\",\n  \"type\": \"deploy-key\",\n  \"fingerprint\": \"string\",\n  \"preferred\": true,\n  \"login\": \"string\",\n  \"time\": \"2004-11-23T13:56:42.434Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d0753bd-3375-464a-8624-8647414172ed",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key",
+                    ":fingerprint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fingerprint",
+                      "description": "(Required) The fingerprint of the checkout key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "309fa21f-3602-4eea-941d-eee8d8fec905",
+              "name": "Checkout key not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key",
+                    ":fingerprint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fingerprint",
+                      "description": "(Required) The fingerprint of the checkout key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79024a19-aadc-4cf2-bc59-2345a18761bf",
+          "name": "Delete a checkout key",
+          "request": {
+            "name": "Delete a checkout key",
+            "description": {
+              "content": "Deletes a checkout key by its fingerprint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                "checkout-key",
+                ":fingerprint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fingerprint",
+                  "description": "(Required) The fingerprint of the checkout key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9fcf2055-5119-4f3f-8dbc-3d4e94985cc8",
+              "name": "Checkout key deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key",
+                    ":fingerprint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fingerprint",
+                      "description": "(Required) The fingerprint of the checkout key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "871d9d37-016e-47d4-b9d9-697bd5c776d6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    "checkout-key",
+                    ":fingerprint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fingerprint",
+                      "description": "(Required) The fingerprint of the checkout key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "027078c9-cc31-4e49-8548-f8f968f1a9e4",
+      "name": "Test Metadata",
+      "description": {
+        "content": "Endpoints for retrieving test metadata collected during builds.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "36fb8b22-44a2-4e16-a684-0f3228f7b969",
+          "name": "List test metadata for a build",
+          "request": {
+            "name": "List test metadata for a build",
+            "description": {
+              "content": "Returns test metadata collected from the specified build, sourced from JUnit XML or similar test result files.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":vcs-type",
+                ":username",
+                ":project",
+                ":build_num",
+                "tests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vcs-type",
+                  "description": "(Required) The version control system type"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) The organization or user name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project",
+                  "description": "(Required) The repository name"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "build_num",
+                  "description": "(Required) The build number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e92e3359-e6ce-43b8-8770-445d6d0fdfd5",
+              "name": "Successfully retrieved test metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tests\": [\n    {\n      \"message\": \"string\",\n      \"file\": \"string\",\n      \"source\": \"string\",\n      \"run_time\": 181.6548552809494,\n      \"result\": \"success\",\n      \"name\": \"string\",\n      \"classname\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"file\": \"string\",\n      \"source\": \"string\",\n      \"run_time\": 9014.644700798219,\n      \"result\": \"failure\",\n      \"name\": \"string\",\n      \"classname\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb135f17-cc1b-4c2c-86eb-0726afa23a21",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":vcs-type",
+                    ":username",
+                    ":project",
+                    ":build_num",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vcs-type",
+                      "description": "(Required) The version control system type"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) The organization or user name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project",
+                      "description": "(Required) The repository name"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "build_num",
+                      "description": "(Required) The build number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6a96ed3b-58a8-4251-9cc7-144885b07805",
+      "name": "User",
+      "description": {
+        "content": "Endpoints for retrieving information about the authenticated user.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b69bdb84-48fb-4279-8a99-7fb45d7926c2",
+          "name": "Get authenticated user",
+          "request": {
+            "name": "Get authenticated user",
+            "description": {
+              "content": "Returns information about the currently authenticated user, including name, login, and avatar URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08d17602-f7e2-4f96-9472-bab27f75736d",
+              "name": "Successfully retrieved user information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"login\": \"string\",\n  \"name\": \"string\",\n  \"avatar_url\": \"http://lZZ.elco26UNf1tg6b8X0wiN3NpQonktJY0i.CgPOjlkapt9o69DJBRNs\",\n  \"admin\": false,\n  \"all_emails\": [\n    \"MkeW9k4zS@zRLpOdocyqWBgXqJrUXGG.tafz\",\n    \"zjL@NCaDqvswVTbhQVcSXXjitae.mpan\"\n  ],\n  \"selected_email\": \"hRbscXwjOB@oMecnV.eoay\",\n  \"days_left_in_trial\": 6240,\n  \"parallelism\": 7056,\n  \"created_at\": \"1999-11-21T13:26:05.147Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22ab9564-54d6-402f-9942-890d8c50c7b6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://circleci.com/api/v1.1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d9996806-96fb-46b4-9da3-53a89ed13171",
+    "name": "CircleCI REST API v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+      "type": "text/plain"
+    }
+  }
+}
