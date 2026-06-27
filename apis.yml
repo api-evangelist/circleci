@@ -180,7 +180,7 @@ common:
     updated: '2026-05-04'
   - type: Integrations
     url: https://circleci.com/integrations/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://circleci.com/llms.txt
 integrations:
   - name: GitHub
