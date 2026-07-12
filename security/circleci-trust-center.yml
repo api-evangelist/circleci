@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://trust.circleci.com/
+url: https://trust.circleci.com/
+certifications:
+- SOC 2
+- FedRAMP
+- GDPR
+- CSA STAR
+evidence:
+- source: https://trust.circleci.com/
+  keywords:
+  - soc 2
+  - fedramp
+  - trust center
+  - gdpr
+  - csa star

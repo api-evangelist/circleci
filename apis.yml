@@ -125,6 +125,14 @@ apis:
       and certified orbs. Developers can browse, publish, and consume orbs to automate repeated processes, speed up
       project configuration, and integrate services like AWS, Docker, Slack, and Kubernetes into their CI/CD pipelines.
 common:
+  - type: TrustCenter
+    url: security/circleci-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/circleci-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/circleci-domain-security.yml
+  - type: Authentication
+    url: authentication/circleci-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/circleci
   - type: LinkedIn
