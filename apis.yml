@@ -125,6 +125,8 @@ apis:
       and certified orbs. Developers can browse, publish, and consume orbs to automate repeated processes, speed up
       project configuration, and integrate services like AWS, Docker, Slack, and Kubernetes into their CI/CD pipelines.
 common:
+  - type: AgenticAccess
+    url: agentic-access/circleci-agentic-access.yml
   - type: TrustCenter
     url: security/circleci-trust-center.yml
   - type: VulnerabilityDisclosure
