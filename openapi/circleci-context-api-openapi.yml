@@ -1,0 +1,355 @@
+openapi: 3.1.0
+info:
+  title: CircleCI REST API v1 Artifact Context API
+  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
+  version: '1.1'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  termsOfService: https://circleci.com/terms-of-service/
+servers:
+- url: https://circleci.com/api/v1.1
+  description: CircleCI Production API v1.1
+security:
+- apiToken: []
+tags:
+- name: Context
+  description: Endpoints for managing contexts, which are used to secure and share environment variables across projects.
+paths:
+  /context:
+    get:
+      operationId: listContexts
+      summary: List contexts
+      description: Returns a paginated list of contexts for a given owner, which can be an organization or account.
+      tags:
+      - Context
+      parameters:
+      - $ref: '#/components/parameters/OwnerIdParam'
+      - $ref: '#/components/parameters/OwnerSlugParam'
+      - $ref: '#/components/parameters/OwnerTypeParam'
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved contexts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createContext
+      summary: Create a context
+      description: Creates a new context for sharing environment variables across projects.
+      tags:
+      - Context
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContextRequest'
+      responses:
+        '200':
+          description: Successfully created context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Context'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /context/{context-id}:
+    get:
+      operationId: getContext
+      summary: Get a context
+      description: Returns a specific context by its unique identifier.
+      tags:
+      - Context
+      parameters:
+      - $ref: '#/components/parameters/ContextIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Context'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Context not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteContext
+      summary: Delete a context
+      description: Deletes a context and all of its associated environment variables.
+      tags:
+      - Context
+      parameters:
+      - $ref: '#/components/parameters/ContextIdParam'
+      responses:
+        '200':
+          description: Successfully deleted context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Context not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /context/{context-id}/environment-variable:
+    get:
+      operationId: listContextEnvironmentVariables
+      summary: List environment variables in a context
+      description: Returns a paginated list of environment variables associated with a specific context.
+      tags:
+      - Context
+      parameters:
+      - $ref: '#/components/parameters/ContextIdParam'
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved environment variables
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentVariableList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /context/{context-id}/environment-variable/{env-var-name}:
+    put:
+      operationId: addOrUpdateContextEnvironmentVariable
+      summary: Add or update an environment variable
+      description: Creates a new environment variable or updates an existing one within the specified context.
+      tags:
+      - Context
+      parameters:
+      - $ref: '#/components/parameters/ContextIdParam'
+      - $ref: '#/components/parameters/EnvVarNameParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - value
+              properties:
+                value:
+                  type: string
+                  description: The value of the environment variable
+      responses:
+        '200':
+          description: Successfully added or updated environment variable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentVariable'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteContextEnvironmentVariable
+      summary: Remove an environment variable
+      description: Deletes an environment variable from the specified context.
+      tags:
+      - Context
+      parameters:
+      - $ref: '#/components/parameters/ContextIdParam'
+      - $ref: '#/components/parameters/EnvVarNameParam'
+      responses:
+        '200':
+          description: Successfully deleted environment variable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  parameters:
+    OwnerSlugParam:
+      name: owner-slug
+      in: query
+      description: The slug for the owner
+      schema:
+        type: string
+    OwnerTypeParam:
+      name: owner-type
+      in: query
+      description: The type of the owner
+      schema:
+        type: string
+        enum:
+        - account
+        - organization
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
+      schema:
+        type: string
+    EnvVarNameParam:
+      name: env-var-name
+      in: path
+      required: true
+      description: The name of the environment variable
+      schema:
+        type: string
+    OwnerIdParam:
+      name: owner-id
+      in: query
+      description: The unique identifier of the owner
+      schema:
+        type: string
+        format: uuid
+    ContextIdParam:
+      name: context-id
+      in: path
+      required: true
+      description: The unique identifier of the context
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    Context:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the context
+        name:
+          type: string
+          description: The name of the context
+        created_at:
+          type: string
+          format: date-time
+          description: When the context was created
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+    ContextList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Context'
+          description: List of contexts
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    EnvironmentVariableList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentVariable'
+          description: List of environment variables
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    EnvironmentVariable:
+      type: object
+      properties:
+        variable:
+          type: string
+          description: The name of the environment variable
+        created_at:
+          type: string
+          format: date-time
+          description: When the variable was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the variable was last updated
+        context_id:
+          type: string
+          format: uuid
+          description: The ID of the context this variable belongs to
+    CreateContextRequest:
+      type: object
+      required:
+      - name
+      - owner
+      properties:
+        name:
+          type: string
+          description: The name of the context
+        owner:
+          type: object
+          required:
+          - id
+          - type
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The owner ID
+            type:
+              type: string
+              enum:
+              - account
+              - organization
+              description: The owner type
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: Circle-Token
+      description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
+externalDocs:
+  description: CircleCI API v1 Reference
+  url: https://circleci.com/docs/api/v1/

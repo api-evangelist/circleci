@@ -1,0 +1,293 @@
+openapi: 3.1.0
+info:
+  title: CircleCI REST API v1 Artifact Workflow API
+  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
+  version: '1.1'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  termsOfService: https://circleci.com/terms-of-service/
+servers:
+- url: https://circleci.com/api/v1.1
+  description: CircleCI Production API v1.1
+security:
+- apiToken: []
+tags:
+- name: Workflow
+  description: Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.
+paths:
+  /workflow/{id}:
+    get:
+      operationId: getWorkflow
+      summary: Get a workflow by ID
+      description: Returns a workflow by its unique identifier, including its status, pipeline ID, and timing information.
+      tags:
+      - Workflow
+      parameters:
+      - $ref: '#/components/parameters/WorkflowIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflow
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Workflow not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}/approve/{approval_request_id}:
+    post:
+      operationId: approveWorkflowJob
+      summary: Approve a workflow job
+      description: Approves a pending approval job in a workflow, allowing the workflow to continue execution.
+      tags:
+      - Workflow
+      parameters:
+      - $ref: '#/components/parameters/WorkflowIdParam'
+      - name: approval_request_id
+        in: path
+        required: true
+        description: The ID of the approval request to approve
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '202':
+          description: Approval accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}/cancel:
+    post:
+      operationId: cancelWorkflow
+      summary: Cancel a workflow
+      description: Cancels a running workflow and all of its running jobs.
+      tags:
+      - Workflow
+      parameters:
+      - $ref: '#/components/parameters/WorkflowIdParam'
+      responses:
+        '202':
+          description: Workflow cancellation accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}/rerun:
+    post:
+      operationId: rerunWorkflow
+      summary: Rerun a workflow
+      description: Reruns a workflow. Optionally, specific jobs can be selected for rerun, and SSH access can be enabled for debugging.
+      tags:
+      - Workflow
+      parameters:
+      - $ref: '#/components/parameters/WorkflowIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobs:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                  description: List of job IDs to rerun. If empty, all jobs will be rerun.
+                from_failed:
+                  type: boolean
+                  description: Whether to rerun only from failed jobs
+                enable_ssh:
+                  type: boolean
+                  description: Whether to enable SSH access for the rerun
+                sparse_tree:
+                  type: boolean
+                  description: Whether to rerun only the specified jobs and their dependencies
+      responses:
+        '202':
+          description: Workflow rerun accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RerunWorkflowResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}/job:
+    get:
+      operationId: listWorkflowJobs
+      summary: List jobs for a workflow
+      description: Returns a list of jobs associated with a given workflow.
+      tags:
+      - Workflow
+      parameters:
+      - $ref: '#/components/parameters/WorkflowIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflow jobs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowJobList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    WorkflowJob:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the job
+        name:
+          type: string
+          description: The name of the job
+        type:
+          type: string
+          enum:
+          - build
+          - approval
+          description: The type of job
+        status:
+          type: string
+          description: The status of the job
+        job_number:
+          type: integer
+          description: The job number
+        started_at:
+          type: string
+          format: date-time
+          description: When the job started
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the job stopped
+        dependencies:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of jobs this job depends on
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    Workflow:
+      type: object
+      properties:
+        pipeline_id:
+          type: string
+          format: uuid
+          description: The ID of the pipeline this workflow belongs to
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the workflow
+        name:
+          type: string
+          description: The name of the workflow
+        project_slug:
+          type: string
+          description: The project slug
+        status:
+          type: string
+          enum:
+          - success
+          - running
+          - not_run
+          - failed
+          - error
+          - failing
+          - on_hold
+          - canceled
+          - unauthorized
+          description: The current status of the workflow
+        started_by:
+          type: string
+          format: uuid
+          description: The ID of the user who started the workflow
+        pipeline_number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the workflow was created
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the workflow stopped
+    WorkflowJobList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowJob'
+          description: List of workflow jobs
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    RerunWorkflowResponse:
+      type: object
+      properties:
+        workflow_id:
+          type: string
+          format: uuid
+          description: The ID of the rerun workflow
+  parameters:
+    WorkflowIdParam:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the workflow
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: Circle-Token
+      description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
+externalDocs:
+  description: CircleCI API v1 Reference
+  url: https://circleci.com/docs/api/v1/

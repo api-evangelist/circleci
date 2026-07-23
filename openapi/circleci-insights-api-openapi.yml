@@ -1,0 +1,418 @@
+openapi: 3.1.0
+info:
+  title: CircleCI REST API v1 Artifact Insights API
+  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
+  version: '1.1'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  termsOfService: https://circleci.com/terms-of-service/
+servers:
+- url: https://circleci.com/api/v1.1
+  description: CircleCI Production API v1.1
+security:
+- apiToken: []
+tags:
+- name: Insights
+  description: Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
+paths:
+  /insights/{project-slug}/workflows:
+    get:
+      operationId: getProjectWorkflowMetrics
+      summary: Get project workflow metrics
+      description: Returns summary metrics for the workflows of a given project, including success rates, duration metrics, and throughput.
+      tags:
+      - Insights
+      parameters:
+      - $ref: '#/components/parameters/ProjectSlugParam'
+      - name: branch
+        in: query
+        description: Filter by branch name
+        schema:
+          type: string
+      - name: reporting-window
+        in: query
+        description: The time window for metrics
+        schema:
+          type: string
+          enum:
+          - last-7-days
+          - last-30-days
+          - last-60-days
+          - last-90-days
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflow metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsWorkflowMetrics'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /insights/{project-slug}/workflows/{workflow-name}:
+    get:
+      operationId: getWorkflowRuns
+      summary: Get recent runs of a workflow
+      description: Returns recent runs of a named workflow, containing status, duration, and credits consumed.
+      tags:
+      - Insights
+      parameters:
+      - $ref: '#/components/parameters/ProjectSlugParam'
+      - name: workflow-name
+        in: path
+        required: true
+        description: The name of the workflow
+        schema:
+          type: string
+      - name: branch
+        in: query
+        description: Filter by branch name
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflow runs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsWorkflowRuns'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /insights/{project-slug}/workflows/{workflow-name}/jobs:
+    get:
+      operationId: getWorkflowJobMetrics
+      summary: Get workflow job metrics
+      description: Returns summary metrics for the jobs within a named workflow, including success rates and duration metrics.
+      tags:
+      - Insights
+      parameters:
+      - $ref: '#/components/parameters/ProjectSlugParam'
+      - name: workflow-name
+        in: path
+        required: true
+        description: The name of the workflow
+        schema:
+          type: string
+      - name: branch
+        in: query
+        description: Filter by branch name
+        schema:
+          type: string
+      - name: reporting-window
+        in: query
+        description: The time window for metrics
+        schema:
+          type: string
+          enum:
+          - last-7-days
+          - last-30-days
+          - last-60-days
+          - last-90-days
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved job metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsJobMetrics'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /insights/{project-slug}/workflows/{workflow-name}/test-metrics:
+    get:
+      operationId: getWorkflowTestMetrics
+      summary: Get test metrics for a workflow
+      description: Returns test metrics for a named workflow, including most frequently failing tests and slowest tests.
+      tags:
+      - Insights
+      parameters:
+      - $ref: '#/components/parameters/ProjectSlugParam'
+      - name: workflow-name
+        in: path
+        required: true
+        description: The name of the workflow
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved test metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsTestMetrics'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    InsightsJobMetrics:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The job name
+              metrics:
+                type: object
+                properties:
+                  total_runs:
+                    type: integer
+                    description: Total number of runs
+                  successful_runs:
+                    type: integer
+                    description: Number of successful runs
+                  failed_runs:
+                    type: integer
+                    description: Number of failed runs
+                  success_rate:
+                    type: number
+                    format: float
+                    description: Success rate as a decimal
+                  duration_metrics:
+                    type: object
+                    properties:
+                      min:
+                        type: integer
+                        description: Minimum duration
+                      mean:
+                        type: integer
+                        description: Mean duration
+                      median:
+                        type: integer
+                        description: Median duration
+                      p95:
+                        type: integer
+                        description: 95th percentile duration
+                      max:
+                        type: integer
+                        description: Maximum duration
+                    description: Duration statistics
+                  total_credits_used:
+                    type: integer
+                    description: Total credits consumed
+                description: Job metrics
+          description: List of job metric summaries
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    InsightsWorkflowRuns:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: The workflow run ID
+              status:
+                type: string
+                description: The status of the run
+              duration:
+                type: integer
+                description: Duration in seconds
+              created_at:
+                type: string
+                format: date-time
+                description: When the run was created
+              stopped_at:
+                type: string
+                format: date-time
+                description: When the run stopped
+              credits_used:
+                type: integer
+                description: Credits consumed by this run
+              branch:
+                type: string
+                description: The branch that was built
+          description: List of workflow runs
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    InsightsTestMetrics:
+      type: object
+      properties:
+        average_test_count:
+          type: integer
+          description: Average number of tests per run
+        most_failed_tests:
+          type: array
+          items:
+            type: object
+            properties:
+              test_name:
+                type: string
+                description: Name of the test
+              classname:
+                type: string
+                description: Class name of the test
+              failed_runs:
+                type: integer
+                description: Number of failed runs
+              total_runs:
+                type: integer
+                description: Total runs of this test
+          description: Most frequently failing tests
+        slowest_tests:
+          type: array
+          items:
+            type: object
+            properties:
+              test_name:
+                type: string
+                description: Name of the test
+              classname:
+                type: string
+                description: Class name of the test
+              p95_duration:
+                type: number
+                format: float
+                description: 95th percentile duration
+          description: Slowest tests by duration
+        test_runs:
+          type: array
+          items:
+            type: object
+            properties:
+              pipeline_number:
+                type: integer
+                description: The pipeline number
+              workflow_id:
+                type: string
+                format: uuid
+                description: The workflow ID
+              success_rate:
+                type: number
+                format: float
+                description: Success rate of tests in this run
+              test_counts:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Number of errored tests
+                  failure:
+                    type: integer
+                    description: Number of failed tests
+                  success:
+                    type: integer
+                    description: Number of successful tests
+                  skipped:
+                    type: integer
+                    description: Number of skipped tests
+                description: Test counts by result
+          description: Recent test run summaries
+    InsightsWorkflowMetrics:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The workflow name
+              metrics:
+                type: object
+                properties:
+                  total_runs:
+                    type: integer
+                    description: Total number of runs
+                  successful_runs:
+                    type: integer
+                    description: Number of successful runs
+                  failed_runs:
+                    type: integer
+                    description: Number of failed runs
+                  success_rate:
+                    type: number
+                    format: float
+                    description: Success rate as a decimal
+                  duration_metrics:
+                    type: object
+                    properties:
+                      min:
+                        type: integer
+                        description: Minimum duration in seconds
+                      mean:
+                        type: integer
+                        description: Mean duration in seconds
+                      median:
+                        type: integer
+                        description: Median duration in seconds
+                      p95:
+                        type: integer
+                        description: 95th percentile duration
+                      max:
+                        type: integer
+                        description: Maximum duration in seconds
+                    description: Duration statistics
+                  total_credits_used:
+                    type: integer
+                    description: Total credits consumed
+                description: Workflow metrics
+              window_start:
+                type: string
+                format: date-time
+                description: Start of the reporting window
+              window_end:
+                type: string
+                format: date-time
+                description: End of the reporting window
+          description: List of workflow metric summaries
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+  parameters:
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
+      schema:
+        type: string
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: Circle-Token
+      description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
+externalDocs:
+  description: CircleCI API v1 Reference
+  url: https://circleci.com/docs/api/v1/

@@ -1,0 +1,320 @@
+openapi: 3.1.0
+info:
+  title: CircleCI REST API v1 Artifact Webhook API
+  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
+  version: '1.1'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  termsOfService: https://circleci.com/terms-of-service/
+servers:
+- url: https://circleci.com/api/v1.1
+  description: CircleCI Production API v1.1
+security:
+- apiToken: []
+tags:
+- name: Webhook
+  description: Endpoints for creating, updating, listing, and deleting outbound webhook subscriptions.
+paths:
+  /webhook:
+    get:
+      operationId: listWebhooks
+      summary: List webhooks
+      description: Returns a list of outbound webhooks for the specified scope.
+      tags:
+      - Webhook
+      parameters:
+      - name: scope-id
+        in: query
+        required: true
+        description: The ID of the scope (project ID)
+        schema:
+          type: string
+          format: uuid
+      - name: scope-type
+        in: query
+        required: true
+        description: The type of scope
+        schema:
+          type: string
+          enum:
+          - project
+      responses:
+        '200':
+          description: Successfully retrieved webhooks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createWebhook
+      summary: Create a webhook
+      description: Creates a new outbound webhook for the specified scope.
+      tags:
+      - Webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '201':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookInfo'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /webhook/{webhook-id}:
+    get:
+      operationId: getWebhook
+      summary: Get a webhook by ID
+      description: Returns a webhook by its unique identifier.
+      tags:
+      - Webhook
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved webhook
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookInfo'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Webhook not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateWebhook
+      summary: Update a webhook
+      description: Updates an existing webhook with the provided parameters.
+      tags:
+      - Webhook
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookRequest'
+      responses:
+        '200':
+          description: Webhook updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookInfo'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook
+      description: Deletes a webhook by its unique identifier.
+      tags:
+      - Webhook
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdParam'
+      responses:
+        '200':
+          description: Webhook deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+    WebhookInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL the webhook delivers to
+        name:
+          type: string
+          description: The name of the webhook
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - workflow-completed
+            - job-completed
+          description: The events this webhook subscribes to
+        scope:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The scope ID
+            type:
+              type: string
+              description: The scope type
+          description: The scope of the webhook
+        signing-secret:
+          type: string
+          description: The signing secret for verifying webhook payloads
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS certificates
+        created-at:
+          type: string
+          format: date-time
+          description: When the webhook was created
+        updated-at:
+          type: string
+          format: date-time
+          description: When the webhook was last updated
+    UpdateWebhookRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL to deliver webhook payloads to
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - workflow-completed
+            - job-completed
+          description: The events to subscribe to
+        signing-secret:
+          type: string
+          description: Secret used to generate HMAC signature
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS on delivery
+    CreateWebhookRequest:
+      type: object
+      required:
+      - name
+      - url
+      - events
+      - scope
+      - signing-secret
+      properties:
+        name:
+          type: string
+          description: The name of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL to deliver webhook payloads to
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - workflow-completed
+            - job-completed
+          description: The events to subscribe to
+        scope:
+          type: object
+          required:
+          - id
+          - type
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The scope ID (project ID)
+            type:
+              type: string
+              enum:
+              - project
+              description: The scope type
+        signing-secret:
+          type: string
+          description: Secret used to generate HMAC signature
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS on delivery
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    WebhookList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookInfo'
+          description: List of webhooks
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+  parameters:
+    WebhookIdParam:
+      name: webhook-id
+      in: path
+      required: true
+      description: The unique identifier of the webhook
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: Circle-Token
+      description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
+externalDocs:
+  description: CircleCI API v1 Reference
+  url: https://circleci.com/docs/api/v1/

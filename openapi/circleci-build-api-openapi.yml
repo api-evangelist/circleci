@@ -1,0 +1,472 @@
+openapi: 3.1.0
+info:
+  title: CircleCI REST API v1 Artifact Build API
+  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
+  version: '1.1'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  termsOfService: https://circleci.com/terms-of-service/
+servers:
+- url: https://circleci.com/api/v1.1
+  description: CircleCI Production API v1.1
+security:
+- apiToken: []
+tags:
+- name: Build
+  description: Endpoints for retrieving build details, triggering builds, retrying builds, and canceling builds.
+paths:
+  /project/{vcs-type}/{username}/{project}:
+    get:
+      operationId: listProjectBuilds
+      summary: List builds for a project
+      description: Returns a list of the most recent builds for the specified project, with optional filtering by branch.
+      tags:
+      - Build
+      parameters:
+      - $ref: '#/components/parameters/VcsTypeParam'
+      - $ref: '#/components/parameters/UsernameParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - name: filter
+        in: query
+        description: Filter builds by status
+        schema:
+          type: string
+          enum:
+          - completed
+          - successful
+          - failed
+          - running
+      - name: limit
+        in: query
+        description: Number of builds to return (max 100)
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 30
+      - name: offset
+        in: query
+        description: Offset for pagination
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: Successfully retrieved builds
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Build'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: triggerBuild
+      summary: Trigger a new build
+      description: Triggers a new build for the specified project. Optionally specify a branch, revision, or build parameters.
+      tags:
+      - Build
+      parameters:
+      - $ref: '#/components/parameters/VcsTypeParam'
+      - $ref: '#/components/parameters/UsernameParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag:
+                  type: string
+                  description: The tag to build
+                revision:
+                  type: string
+                  description: The specific revision to build
+                branch:
+                  type: string
+                  description: The branch to build
+                parallel:
+                  type: integer
+                  description: Number of parallel containers
+                build_parameters:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Additional build parameters
+      responses:
+        '201':
+          description: Build triggered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildSummary'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /project/{vcs-type}/{username}/{project}/tree/{branch}:
+    post:
+      operationId: triggerBranchBuild
+      summary: Trigger a build on a branch
+      description: Triggers a new build on the specified branch of the project.
+      tags:
+      - Build
+      parameters:
+      - $ref: '#/components/parameters/VcsTypeParam'
+      - $ref: '#/components/parameters/UsernameParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - name: branch
+        in: path
+        required: true
+        description: The branch to build
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parallel:
+                  type: integer
+                  description: Number of parallel containers
+                revision:
+                  type: string
+                  description: The specific revision to build
+                build_parameters:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Additional build parameters
+      responses:
+        '201':
+          description: Build triggered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildSummary'
+        '401':
+          description: Unauthorized
+  /project/{vcs-type}/{username}/{project}/{build_num}:
+    get:
+      operationId: getBuild
+      summary: Get build details
+      description: Returns detailed information about a specific build, including its status, steps, and timing information.
+      tags:
+      - Build
+      parameters:
+      - $ref: '#/components/parameters/VcsTypeParam'
+      - $ref: '#/components/parameters/UsernameParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/BuildNumParam'
+      responses:
+        '200':
+          description: Successfully retrieved build details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildDetail'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Build not found
+  /project/{vcs-type}/{username}/{project}/{build_num}/retry:
+    post:
+      operationId: retryBuild
+      summary: Retry a build
+      description: Retries a build using the same configuration and revision as the original build.
+      tags:
+      - Build
+      parameters:
+      - $ref: '#/components/parameters/VcsTypeParam'
+      - $ref: '#/components/parameters/UsernameParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/BuildNumParam'
+      responses:
+        '200':
+          description: Build retried successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildSummary'
+        '401':
+          description: Unauthorized
+  /project/{vcs-type}/{username}/{project}/{build_num}/cancel:
+    post:
+      operationId: cancelBuild
+      summary: Cancel a build
+      description: Cancels a running build.
+      tags:
+      - Build
+      parameters:
+      - $ref: '#/components/parameters/VcsTypeParam'
+      - $ref: '#/components/parameters/UsernameParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/BuildNumParam'
+      responses:
+        '200':
+          description: Build cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildSummary'
+        '401':
+          description: Unauthorized
+  /recent-builds:
+    get:
+      operationId: listRecentBuilds
+      summary: List recent builds across all projects
+      description: Returns a list of the most recent builds across all followed projects for the authenticated user.
+      tags:
+      - Build
+      parameters:
+      - name: limit
+        in: query
+        description: Number of builds to return (max 100)
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 30
+      - name: offset
+        in: query
+        description: Offset for pagination
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: Successfully retrieved recent builds
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Build'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    Build:
+      type: object
+      properties:
+        vcs_url:
+          type: string
+          format: uri
+          description: The VCS URL
+        build_url:
+          type: string
+          format: uri
+          description: URL to view the build in CircleCI
+        build_num:
+          type: integer
+          description: The build number
+        branch:
+          type: string
+          description: The branch that was built
+        vcs_revision:
+          type: string
+          description: The VCS revision (commit SHA)
+        committer_name:
+          type: string
+          description: Name of the committer
+        committer_email:
+          type: string
+          format: email
+          description: Email of the committer
+        subject:
+          type: string
+          description: The commit message subject
+        body:
+          type: string
+          description: The commit message body
+        why:
+          type: string
+          description: Why the build was triggered
+        status:
+          type: string
+          enum:
+          - retried
+          - canceled
+          - infrastructure_fail
+          - timedout
+          - not_run
+          - running
+          - failed
+          - queued
+          - scheduled
+          - not_running
+          - no_tests
+          - fixed
+          - success
+          description: The build status
+        outcome:
+          type: string
+          enum:
+          - canceled
+          - infrastructure_fail
+          - timedout
+          - failed
+          - no_tests
+          - success
+          description: The build outcome
+        start_time:
+          type: string
+          format: date-time
+          description: When the build started
+        stop_time:
+          type: string
+          format: date-time
+          description: When the build stopped
+        build_time_millis:
+          type: integer
+          description: Total build time in milliseconds
+        queued_at:
+          type: string
+          format: date-time
+          description: When the build was queued
+        lifecycle:
+          type: string
+          enum:
+          - queued
+          - scheduled
+          - not_run
+          - not_running
+          - running
+          - finished
+          description: The build lifecycle phase
+        username:
+          type: string
+          description: The organization or username
+        reponame:
+          type: string
+          description: The repository name
+    BuildSummary:
+      type: object
+      properties:
+        build_url:
+          type: string
+          format: uri
+          description: URL to view the build
+        build_num:
+          type: integer
+          description: The build number
+        status:
+          type: string
+          description: The build status
+        vcs_revision:
+          type: string
+          description: The VCS revision
+    BuildDetail:
+      allOf:
+      - $ref: '#/components/schemas/Build'
+      - type: object
+        properties:
+          steps:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The step name
+                actions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The action name
+                      type:
+                        type: string
+                        description: The action type
+                      status:
+                        type: string
+                        description: The action status
+                      start_time:
+                        type: string
+                        format: date-time
+                        description: When the action started
+                      end_time:
+                        type: string
+                        format: date-time
+                        description: When the action ended
+                      run_time_millis:
+                        type: integer
+                        description: Action run time in milliseconds
+                      output_url:
+                        type: string
+                        format: uri
+                        description: URL to the action output
+                  description: Actions within the step
+            description: Build steps
+          circle_yml:
+            type: object
+            description: The parsed CircleCI configuration
+          messages:
+            type: array
+            items:
+              type: string
+            description: Build messages
+          node:
+            type: array
+            items:
+              type: object
+              properties:
+                image_id:
+                  type: string
+                  description: The image ID used
+                port:
+                  type: integer
+                  description: The SSH port
+                public_ip_addr:
+                  type: string
+                  description: The public IP address
+                username:
+                  type: string
+                  description: The SSH username
+            description: Node information for SSH access
+  parameters:
+    BuildNumParam:
+      name: build_num
+      in: path
+      required: true
+      description: The build number
+      schema:
+        type: integer
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      description: The repository name
+      schema:
+        type: string
+    VcsTypeParam:
+      name: vcs-type
+      in: path
+      required: true
+      description: The version control system type
+      schema:
+        type: string
+        enum:
+        - github
+        - bitbucket
+    UsernameParam:
+      name: username
+      in: path
+      required: true
+      description: The organization or user name
+      schema:
+        type: string
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: Circle-Token
+      description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
+externalDocs:
+  description: CircleCI API v1 Reference
+  url: https://circleci.com/docs/api/v1/

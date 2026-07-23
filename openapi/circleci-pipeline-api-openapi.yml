@@ -1,0 +1,490 @@
+openapi: 3.1.0
+info:
+  title: CircleCI REST API v1 Artifact Pipeline API
+  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
+  version: '1.1'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  termsOfService: https://circleci.com/terms-of-service/
+servers:
+- url: https://circleci.com/api/v1.1
+  description: CircleCI Production API v1.1
+security:
+- apiToken: []
+tags:
+- name: Pipeline
+  description: Endpoints for triggering, retrieving, and managing pipelines and their configurations.
+paths:
+  /pipeline:
+    get:
+      operationId: listPipelines
+      summary: List pipelines
+      description: Returns all pipelines for the most recently built projects you follow in the organization.
+      tags:
+      - Pipeline
+      parameters:
+      - name: org-slug
+        in: query
+        description: Organization slug in the form vcs-slug/org-name
+        schema:
+          type: string
+      - name: mine
+        in: query
+        description: Filter to only pipelines triggered by the current user
+        schema:
+          type: boolean
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipelines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline/continue:
+    post:
+      operationId: continuePipeline
+      summary: Continue a pipeline
+      description: Continues a pipeline from a setup workflow by providing configuration and pipeline parameters.
+      tags:
+      - Pipeline
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - continuation-key
+              - configuration
+              properties:
+                continuation-key:
+                  type: string
+                  description: A pipeline continuation key
+                configuration:
+                  type: string
+                  description: A configuration string for the pipeline
+                parameters:
+                  type: object
+                  description: Pipeline parameters as key-value pairs
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Pipeline continued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline/{pipeline-id}:
+    get:
+      operationId: getPipeline
+      summary: Get a pipeline by ID
+      description: Returns a pipeline by its unique identifier.
+      tags:
+      - Pipeline
+      parameters:
+      - $ref: '#/components/parameters/PipelineIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipeline
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Pipeline not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline/{pipeline-id}/config:
+    get:
+      operationId: getPipelineConfig
+      summary: Get a pipeline's configuration
+      description: Returns the configuration source for a given pipeline.
+      tags:
+      - Pipeline
+      parameters:
+      - $ref: '#/components/parameters/PipelineIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipeline configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineConfig'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline/{pipeline-id}/workflow:
+    get:
+      operationId: listPipelineWorkflows
+      summary: List workflows for a pipeline
+      description: Returns a paginated list of workflows associated with a given pipeline.
+      tags:
+      - Pipeline
+      parameters:
+      - $ref: '#/components/parameters/PipelineIdParam'
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/pipeline:
+    get:
+      operationId: listProjectPipelines
+      summary: List project pipelines
+      description: Returns a paginated list of pipelines for a given project.
+      tags:
+      - Pipeline
+      parameters:
+      - $ref: '#/components/parameters/ProjectSlugParam'
+      - name: branch
+        in: query
+        description: Filter pipelines by branch name
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipelines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: triggerPipeline
+      summary: Trigger a pipeline
+      description: Triggers a new pipeline on the specified project. Optionally specify a branch, tag, or revision to build. Pipeline parameters can also be provided.
+      tags:
+      - Pipeline
+      parameters:
+      - $ref: '#/components/parameters/ProjectSlugParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerPipelineRequest'
+      responses:
+        '201':
+          description: Pipeline triggered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineCreation'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/pipeline/mine:
+    get:
+      operationId: listMyProjectPipelines
+      summary: List my project pipelines
+      description: Returns a paginated list of pipelines for a project filtered to those triggered by the current user.
+      tags:
+      - Pipeline
+      parameters:
+      - $ref: '#/components/parameters/ProjectSlugParam'
+      - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipelines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    PipelineList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pipeline'
+          description: List of pipelines
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+    PipelineConfig:
+      type: object
+      properties:
+        source:
+          type: string
+          description: The source configuration
+        compiled:
+          type: string
+          description: The compiled configuration
+        setup-config:
+          type: string
+          description: The setup configuration
+        compiled-setup-config:
+          type: string
+          description: The compiled setup configuration
+    PipelineCreation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the new pipeline
+        state:
+          type: string
+          description: The state of the new pipeline
+        number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the pipeline was created
+    WorkflowList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+          description: List of workflows
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    TriggerPipelineRequest:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: The branch to build
+        tag:
+          type: string
+          description: The tag to build
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters as key-value pairs
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the pipeline
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error
+              message:
+                type: string
+                description: The error message
+          description: Errors that occurred during pipeline setup
+        project_slug:
+          type: string
+          description: The project slug
+        updated_at:
+          type: string
+          format: date-time
+          description: When the pipeline was last updated
+        number:
+          type: integer
+          description: The pipeline number
+        state:
+          type: string
+          enum:
+          - created
+          - errored
+          - setup-pending
+          - setup
+          - pending
+          description: The current state of the pipeline
+        created_at:
+          type: string
+          format: date-time
+          description: When the pipeline was created
+        trigger:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of trigger
+            received_at:
+              type: string
+              format: date-time
+              description: When the trigger was received
+            actor:
+              type: object
+              properties:
+                login:
+                  type: string
+                  description: The login of the actor
+                avatar_url:
+                  type: string
+                  format: uri
+                  description: The avatar URL of the actor
+          description: The trigger that started this pipeline
+        vcs:
+          type: object
+          properties:
+            provider_name:
+              type: string
+              description: The VCS provider name
+            origin_repository_url:
+              type: string
+              format: uri
+              description: The origin repository URL
+            target_repository_url:
+              type: string
+              format: uri
+              description: The target repository URL
+            revision:
+              type: string
+              description: The VCS revision
+            branch:
+              type: string
+              description: The VCS branch
+            tag:
+              type: string
+              description: The VCS tag
+          description: VCS information for this pipeline
+    Workflow:
+      type: object
+      properties:
+        pipeline_id:
+          type: string
+          format: uuid
+          description: The ID of the pipeline this workflow belongs to
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the workflow
+        name:
+          type: string
+          description: The name of the workflow
+        project_slug:
+          type: string
+          description: The project slug
+        status:
+          type: string
+          enum:
+          - success
+          - running
+          - not_run
+          - failed
+          - error
+          - failing
+          - on_hold
+          - canceled
+          - unauthorized
+          description: The current status of the workflow
+        started_by:
+          type: string
+          format: uuid
+          description: The ID of the user who started the workflow
+        pipeline_number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the workflow was created
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the workflow stopped
+  parameters:
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
+    PipelineIdParam:
+      name: pipeline-id
+      in: path
+      required: true
+      description: The unique identifier of the pipeline
+      schema:
+        type: string
+        format: uuid
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
+      schema:
+        type: string
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: Circle-Token
+      description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
+externalDocs:
+  description: CircleCI API v1 Reference
+  url: https://circleci.com/docs/api/v1/
