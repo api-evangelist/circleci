@@ -1,0 +1,254 @@
+{
+  "info": {
+    "_postman_id": "713e0af5-537a-4cd7-b167-e651db44a106",
+    "name": "CircleCI REST API v1 Artifact Runner API",
+    "description": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:21:07.000Z",
+    "updatedAt": "2026-07-28T01:21:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-713e0af5-537a-4cd7-b167-e651db44a106"
+  },
+  "item": [
+    {
+      "name": "runner",
+      "item": [
+        {
+          "name": "List self-hosted runners",
+          "id": "b25c8d55-ad68-43c1-976a-e232973686c6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/runner?namespace=<string>&resource-class=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runner"
+              ],
+              "query": [
+                {
+                  "description": "The namespace to filter runners by. Cannot be used together with resource-class.",
+                  "key": "namespace",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The resource class to filter runners by. Cannot be used together with namespace.",
+                  "key": "resource-class",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieves a list of self-hosted runners filtered by namespace or resource class. At least one filter parameter must be provided to return results. Returns details including hostname, name, connection timestamps, version, and resource class."
+          },
+          "response": [
+            {
+              "id": "071ce77e-2815-4e91-a00d-e1c5e1092b7b",
+              "name": "Successfully retrieved runners",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runner?namespace=<string>&resource-class=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runner"
+                  ],
+                  "query": [
+                    {
+                      "description": "The namespace to filter runners by. Cannot be used together with resource-class.",
+                      "key": "namespace",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The resource class to filter runners by. Cannot be used together with namespace.",
+                      "key": "resource-class",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"items\": [\n    {\n      \"resource_class\": \"<string>\",\n      \"hostname\": \"<string>\",\n      \"name\": \"<string>\",\n      \"first_connected\": \"<dateTime>\",\n      \"last_connected\": \"<dateTime>\",\n      \"last_used\": \"<dateTime>\",\n      \"version\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"os\": \"<string>\",\n      \"arch\": \"<string>\"\n    },\n    {\n      \"resource_class\": \"<string>\",\n      \"hostname\": \"<string>\",\n      \"name\": \"<string>\",\n      \"first_connected\": \"<dateTime>\",\n      \"last_connected\": \"<dateTime>\",\n      \"last_used\": \"<dateTime>\",\n      \"version\": \"<string>\",\n      \"ip\": \"<string>\",\n      \"os\": \"<string>\",\n      \"arch\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T01:21:08.000Z",
+              "updatedAt": "2026-07-28T01:21:08.000Z",
+              "uid": "35240-071ce77e-2815-4e91-a00d-e1c5e1092b7b"
+            },
+            {
+              "id": "59669528-9f7d-43fe-939d-97e7828cea40",
+              "name": "Bad request - at least one filter parameter must be provided",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runner?namespace=<string>&resource-class=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runner"
+                  ],
+                  "query": [
+                    {
+                      "description": "The namespace to filter runners by. Cannot be used together with resource-class.",
+                      "key": "namespace",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The resource class to filter runners by. Cannot be used together with namespace.",
+                      "key": "resource-class",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:21:08.000Z",
+              "updatedAt": "2026-07-28T01:21:08.000Z",
+              "uid": "35240-59669528-9f7d-43fe-939d-97e7828cea40"
+            },
+            {
+              "id": "a2d59643-b70f-4b8a-beea-85a13361ab15",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runner?namespace=<string>&resource-class=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runner"
+                  ],
+                  "query": [
+                    {
+                      "description": "The namespace to filter runners by. Cannot be used together with resource-class.",
+                      "key": "namespace",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The resource class to filter runners by. Cannot be used together with namespace.",
+                      "key": "resource-class",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:21:08.000Z",
+              "updatedAt": "2026-07-28T01:21:08.000Z",
+              "uid": "35240-a2d59643-b70f-4b8a-beea-85a13361ab15"
+            }
+          ],
+          "createdAt": "2026-07-28T01:21:08.000Z",
+          "updatedAt": "2026-07-28T01:21:08.000Z",
+          "uid": "35240-b25c8d55-ad68-43c1-976a-e232973686c6"
+        }
+      ],
+      "id": "8373b2cd-124a-4b22-a64b-93b7a9ff3a29",
+      "createdAt": "2026-07-28T01:21:08.000Z",
+      "updatedAt": "2026-07-28T01:21:08.000Z",
+      "uid": "35240-8373b2cd-124a-4b22-a64b-93b7a9ff3a29"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://circleci.com/api/v1.1"
+    }
+  ]
+}

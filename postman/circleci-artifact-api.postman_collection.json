@@ -1,0 +1,486 @@
+{
+  "info": {
+    "_postman_id": "2fdb1540-7e94-4a14-90a8-4270a6872e7c",
+    "name": "CircleCI REST API v1 Artifact API",
+    "description": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:21:08.000Z",
+    "updatedAt": "2026-07-28T01:21:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2fdb1540-7e94-4a14-90a8-4270a6872e7c"
+  },
+  "item": [
+    {
+      "name": "project",
+      "item": [
+        {
+          "name": "{vcs-type}",
+          "item": [
+            {
+              "name": "{username}",
+              "item": [
+                {
+                  "name": "{project}",
+                  "item": [
+                    {
+                      "name": "{build_num}",
+                      "item": [
+                        {
+                          "name": "artifacts",
+                          "item": [
+                            {
+                              "name": "List artifacts for a build",
+                              "id": "f033ad81-262b-434f-95df-33f83731dcdf",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/:build_num/artifacts",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "project",
+                                    ":vcs-type",
+                                    ":username",
+                                    ":project",
+                                    ":build_num",
+                                    "artifacts"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "820c8d2b-d563-4b5a-8271-0f80cf77af7f",
+                                      "key": "vcs-type",
+                                      "value": "github",
+                                      "description": "(Required) The version control system type"
+                                    },
+                                    {
+                                      "id": "b1ed9905-9649-437a-b8ac-297065329652",
+                                      "key": "username",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization or user name"
+                                    },
+                                    {
+                                      "id": "e23e8267-61ca-4715-a8ed-a6f364563d47",
+                                      "key": "project",
+                                      "value": "<string>",
+                                      "description": "(Required) The repository name"
+                                    },
+                                    {
+                                      "id": "3020a213-48e3-435b-bef9-e88a14a015be",
+                                      "key": "build_num",
+                                      "value": "<integer>",
+                                      "description": "(Required) The build number"
+                                    }
+                                  ]
+                                },
+                                "description": "Returns a list of artifacts produced by the specified build."
+                              },
+                              "response": [
+                                {
+                                  "id": "1bdfa481-8207-4a48-9ea8-dd5f563157aa",
+                                  "name": "Successfully retrieved artifacts",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Circle-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/:build_num/artifacts",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "project",
+                                        ":vcs-type",
+                                        ":username",
+                                        ":project",
+                                        ":build_num",
+                                        "artifacts"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "vcs-type"
+                                        },
+                                        {
+                                          "key": "username"
+                                        },
+                                        {
+                                          "key": "project"
+                                        },
+                                        {
+                                          "key": "build_num"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"path\": \"<string>\",\n    \"pretty_path\": \"<string>\",\n    \"node_index\": \"<integer>\",\n    \"url\": \"<uri>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"pretty_path\": \"<string>\",\n    \"node_index\": \"<integer>\",\n    \"url\": \"<uri>\"\n  }\n]",
+                                  "createdAt": "2026-07-28T01:21:09.000Z",
+                                  "updatedAt": "2026-07-28T01:21:09.000Z",
+                                  "uid": "35240-1bdfa481-8207-4a48-9ea8-dd5f563157aa"
+                                },
+                                {
+                                  "id": "dfcb5d63-d3d3-423f-95b1-8553c455fb08",
+                                  "name": "Unauthorized",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Circle-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/:build_num/artifacts",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "project",
+                                        ":vcs-type",
+                                        ":username",
+                                        ":project",
+                                        ":build_num",
+                                        "artifacts"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "vcs-type"
+                                        },
+                                        {
+                                          "key": "username"
+                                        },
+                                        {
+                                          "key": "project"
+                                        },
+                                        {
+                                          "key": "build_num"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T01:21:09.000Z",
+                                  "updatedAt": "2026-07-28T01:21:09.000Z",
+                                  "uid": "35240-dfcb5d63-d3d3-423f-95b1-8553c455fb08"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:21:09.000Z",
+                              "updatedAt": "2026-07-28T01:21:09.000Z",
+                              "uid": "35240-f033ad81-262b-434f-95df-33f83731dcdf"
+                            }
+                          ],
+                          "id": "a95d957c-f168-4f99-b5e9-3224f101d7e2",
+                          "createdAt": "2026-07-28T01:21:09.000Z",
+                          "updatedAt": "2026-07-28T01:21:09.000Z",
+                          "uid": "35240-a95d957c-f168-4f99-b5e9-3224f101d7e2"
+                        }
+                      ],
+                      "id": "0e7fd43b-0737-4dad-a9b8-5732209cbc82",
+                      "createdAt": "2026-07-28T01:21:09.000Z",
+                      "updatedAt": "2026-07-28T01:21:09.000Z",
+                      "uid": "35240-0e7fd43b-0737-4dad-a9b8-5732209cbc82"
+                    },
+                    {
+                      "name": "latest",
+                      "item": [
+                        {
+                          "name": "artifacts",
+                          "item": [
+                            {
+                              "name": "List latest build artifacts",
+                              "id": "16c2629c-aac4-40ec-b132-2b2b330b9bea",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/latest/artifacts?branch=<string>&filter=failed",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "project",
+                                    ":vcs-type",
+                                    ":username",
+                                    ":project",
+                                    "latest",
+                                    "artifacts"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Filter artifacts by branch name",
+                                      "key": "branch",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Filter artifacts by status",
+                                      "key": "filter",
+                                      "value": "failed"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "ef7f0c9f-02bc-4045-8b69-366a6a320847",
+                                      "key": "vcs-type",
+                                      "value": "github",
+                                      "description": "(Required) The version control system type"
+                                    },
+                                    {
+                                      "id": "55279ee0-a65d-407d-a086-a0cd0d0cf1f5",
+                                      "key": "username",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization or user name"
+                                    },
+                                    {
+                                      "id": "926be614-5a6b-447c-a41b-9925a6afbc80",
+                                      "key": "project",
+                                      "value": "<string>",
+                                      "description": "(Required) The repository name"
+                                    }
+                                  ]
+                                },
+                                "description": "Returns artifacts from the latest build of the project, optionally filtered by branch."
+                              },
+                              "response": [
+                                {
+                                  "id": "94b0d7e1-b319-4714-a7bd-55def44ececf",
+                                  "name": "Successfully retrieved latest artifacts",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Circle-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/latest/artifacts?branch=<string>&filter=failed",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "project",
+                                        ":vcs-type",
+                                        ":username",
+                                        ":project",
+                                        "latest",
+                                        "artifacts"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Filter artifacts by branch name",
+                                          "key": "branch",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Filter artifacts by status",
+                                          "key": "filter",
+                                          "value": "failed"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "vcs-type"
+                                        },
+                                        {
+                                          "key": "username"
+                                        },
+                                        {
+                                          "key": "project"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"path\": \"<string>\",\n    \"pretty_path\": \"<string>\",\n    \"node_index\": \"<integer>\",\n    \"url\": \"<uri>\"\n  },\n  {\n    \"path\": \"<string>\",\n    \"pretty_path\": \"<string>\",\n    \"node_index\": \"<integer>\",\n    \"url\": \"<uri>\"\n  }\n]",
+                                  "createdAt": "2026-07-28T01:21:09.000Z",
+                                  "updatedAt": "2026-07-28T01:21:09.000Z",
+                                  "uid": "35240-94b0d7e1-b319-4714-a7bd-55def44ececf"
+                                },
+                                {
+                                  "id": "84d3b530-43d0-48a0-8067-c1c03315562c",
+                                  "name": "Unauthorized",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "Circle-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/latest/artifacts?branch=<string>&filter=failed",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "project",
+                                        ":vcs-type",
+                                        ":username",
+                                        ":project",
+                                        "latest",
+                                        "artifacts"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Filter artifacts by branch name",
+                                          "key": "branch",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Filter artifacts by status",
+                                          "key": "filter",
+                                          "value": "failed"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "vcs-type"
+                                        },
+                                        {
+                                          "key": "username"
+                                        },
+                                        {
+                                          "key": "project"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T01:21:09.000Z",
+                                  "updatedAt": "2026-07-28T01:21:09.000Z",
+                                  "uid": "35240-84d3b530-43d0-48a0-8067-c1c03315562c"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:21:09.000Z",
+                              "updatedAt": "2026-07-28T01:21:09.000Z",
+                              "uid": "35240-16c2629c-aac4-40ec-b132-2b2b330b9bea"
+                            }
+                          ],
+                          "id": "519b97c3-889d-44dc-817b-15cbaa05704c",
+                          "createdAt": "2026-07-28T01:21:09.000Z",
+                          "updatedAt": "2026-07-28T01:21:09.000Z",
+                          "uid": "35240-519b97c3-889d-44dc-817b-15cbaa05704c"
+                        }
+                      ],
+                      "id": "7d85bc81-50c6-4af4-931b-9732cc7adb1f",
+                      "createdAt": "2026-07-28T01:21:09.000Z",
+                      "updatedAt": "2026-07-28T01:21:09.000Z",
+                      "uid": "35240-7d85bc81-50c6-4af4-931b-9732cc7adb1f"
+                    }
+                  ],
+                  "id": "52c21aea-2b1a-4b52-9e92-5ef5196a22b3",
+                  "createdAt": "2026-07-28T01:21:09.000Z",
+                  "updatedAt": "2026-07-28T01:21:09.000Z",
+                  "uid": "35240-52c21aea-2b1a-4b52-9e92-5ef5196a22b3"
+                }
+              ],
+              "id": "45e3cc15-d4f2-484a-bbf0-8982385e692d",
+              "createdAt": "2026-07-28T01:21:09.000Z",
+              "updatedAt": "2026-07-28T01:21:09.000Z",
+              "uid": "35240-45e3cc15-d4f2-484a-bbf0-8982385e692d"
+            }
+          ],
+          "id": "ac396eaf-07de-41f6-adae-92034e6a3ea6",
+          "createdAt": "2026-07-28T01:21:09.000Z",
+          "updatedAt": "2026-07-28T01:21:09.000Z",
+          "uid": "35240-ac396eaf-07de-41f6-adae-92034e6a3ea6"
+        }
+      ],
+      "id": "149e4825-19c4-48fd-9def-6001cdec9474",
+      "createdAt": "2026-07-28T01:21:09.000Z",
+      "updatedAt": "2026-07-28T01:21:09.000Z",
+      "uid": "35240-149e4825-19c4-48fd-9def-6001cdec9474"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://circleci.com/api/v1.1"
+    }
+  ]
+}

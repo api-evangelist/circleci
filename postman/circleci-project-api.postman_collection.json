@@ -1,0 +1,1903 @@
+{
+  "info": {
+    "_postman_id": "cf8bac93-4fb3-433d-8d29-a9ed4638ac23",
+    "name": "CircleCI REST API v1 Artifact Project API",
+    "description": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:21:14.000Z",
+    "updatedAt": "2026-07-28T01:21:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cf8bac93-4fb3-433d-8d29-a9ed4638ac23"
+  },
+  "item": [
+    {
+      "name": "projects",
+      "item": [
+        {
+          "name": "List followed projects",
+          "id": "9ea2c0c5-aaff-4770-905e-383f8c7be9c6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": "Returns a list of all projects the authenticated user follows, including recent build summaries for each project."
+          },
+          "response": [
+            {
+              "id": "8e426355-fee5-498e-aa50-140f8b47719b",
+              "name": "Successfully retrieved projects",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"vcs_url\": \"<uri>\",\n    \"followed\": \"<boolean>\",\n    \"username\": \"<string>\",\n    \"reponame\": \"<string>\",\n    \"branches\": {\n      \"laboris2_\": {\n        \"recent_builds\": [\n          {\n            \"build_url\": \"<uri>\",\n            \"build_num\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"vcs_revision\": \"<string>\"\n          },\n          {\n            \"build_url\": \"<uri>\",\n            \"build_num\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"vcs_revision\": \"<string>\"\n          }\n        ]\n      },\n      \"anim_27f\": {\n        \"recent_builds\": [\n          {\n            \"build_url\": \"<uri>\",\n            \"build_num\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"vcs_revision\": \"<string>\"\n          },\n          {\n            \"build_url\": \"<uri>\",\n            \"build_num\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"vcs_revision\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"vcs_url\": \"<uri>\",\n    \"followed\": \"<boolean>\",\n    \"username\": \"<string>\",\n    \"reponame\": \"<string>\",\n    \"branches\": {\n      \"Excepteur_0a\": {\n        \"recent_builds\": [\n          {\n            \"build_url\": \"<uri>\",\n            \"build_num\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"vcs_revision\": \"<string>\"\n          },\n          {\n            \"build_url\": \"<uri>\",\n            \"build_num\": \"<integer>\",\n            \"status\": \"<string>\",\n            \"vcs_revision\": \"<string>\"\n          }\n        ]\n      }\n    }\n  }\n]",
+              "createdAt": "2026-07-28T01:21:15.000Z",
+              "updatedAt": "2026-07-28T01:21:15.000Z",
+              "uid": "35240-8e426355-fee5-498e-aa50-140f8b47719b"
+            },
+            {
+              "id": "99a38994-fc5a-44b3-9543-89c79a5222bb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:21:15.000Z",
+              "updatedAt": "2026-07-28T01:21:15.000Z",
+              "uid": "35240-99a38994-fc5a-44b3-9543-89c79a5222bb"
+            }
+          ],
+          "createdAt": "2026-07-28T01:21:15.000Z",
+          "updatedAt": "2026-07-28T01:21:15.000Z",
+          "uid": "35240-9ea2c0c5-aaff-4770-905e-383f8c7be9c6"
+        }
+      ],
+      "id": "81427f76-ddba-4202-8d3e-262b8d993bbe",
+      "createdAt": "2026-07-28T01:21:15.000Z",
+      "updatedAt": "2026-07-28T01:21:15.000Z",
+      "uid": "35240-81427f76-ddba-4202-8d3e-262b8d993bbe"
+    },
+    {
+      "name": "project",
+      "item": [
+        {
+          "name": "{vcs-type}",
+          "item": [
+            {
+              "name": "{username}",
+              "item": [
+                {
+                  "name": "{project}",
+                  "item": [
+                    {
+                      "name": "follow",
+                      "item": [
+                        {
+                          "name": "Follow a project",
+                          "id": "424689f4-14b4-4c30-a749-04e5ea5b2120",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/follow",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":vcs-type",
+                                ":username",
+                                ":project",
+                                "follow"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ccfd3e21-960b-4370-bcc0-db32bf71df79",
+                                  "key": "vcs-type",
+                                  "value": "github",
+                                  "description": "(Required) The version control system type"
+                                },
+                                {
+                                  "id": "1459f684-5755-4c9c-9347-583a2436fa3e",
+                                  "key": "username",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization or user name"
+                                },
+                                {
+                                  "id": "14cf7099-c647-466f-8a89-09f651c2d252",
+                                  "key": "project",
+                                  "value": "<string>",
+                                  "description": "(Required) The repository name"
+                                }
+                              ]
+                            },
+                            "description": "Follows a project, adding it to the authenticated user's list of followed projects."
+                          },
+                          "response": [
+                            {
+                              "id": "fbc75193-86d6-4afd-b971-345cfc321b01",
+                              "name": "Project followed successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Circle-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/follow",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "project",
+                                    ":vcs-type",
+                                    ":username",
+                                    ":project",
+                                    "follow"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "vcs-type"
+                                    },
+                                    {
+                                      "key": "username"
+                                    },
+                                    {
+                                      "key": "project"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"following\": \"<boolean>\",\n  \"first_build\": {\n    \"build_url\": \"<uri>\",\n    \"build_num\": \"<integer>\",\n    \"status\": \"<string>\",\n    \"vcs_revision\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:21:15.000Z",
+                              "updatedAt": "2026-07-28T01:21:15.000Z",
+                              "uid": "35240-fbc75193-86d6-4afd-b971-345cfc321b01"
+                            },
+                            {
+                              "id": "b81742b6-f2e8-43e1-9eb2-ee8532afb868",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Circle-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/project/:vcs-type/:username/:project/follow",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "project",
+                                    ":vcs-type",
+                                    ":username",
+                                    ":project",
+                                    "follow"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "vcs-type"
+                                    },
+                                    {
+                                      "key": "username"
+                                    },
+                                    {
+                                      "key": "project"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T01:21:15.000Z",
+                              "updatedAt": "2026-07-28T01:21:15.000Z",
+                              "uid": "35240-b81742b6-f2e8-43e1-9eb2-ee8532afb868"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-424689f4-14b4-4c30-a749-04e5ea5b2120"
+                        }
+                      ],
+                      "id": "d0c9c47e-93b9-4c8a-a972-f39c1c77f768",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-d0c9c47e-93b9-4c8a-a972-f39c1c77f768"
+                    }
+                  ],
+                  "id": "0b9540c8-1aac-4af7-b58c-04ba8567170a",
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-0b9540c8-1aac-4af7-b58c-04ba8567170a"
+                }
+              ],
+              "id": "aa6c194b-d0a0-4d99-9ab6-5f940a04cd80",
+              "createdAt": "2026-07-28T01:21:15.000Z",
+              "updatedAt": "2026-07-28T01:21:15.000Z",
+              "uid": "35240-aa6c194b-d0a0-4d99-9ab6-5f940a04cd80"
+            }
+          ],
+          "id": "c1843a9e-3ced-48ed-a6d1-c6f7eda365be",
+          "createdAt": "2026-07-28T01:21:15.000Z",
+          "updatedAt": "2026-07-28T01:21:15.000Z",
+          "uid": "35240-c1843a9e-3ced-48ed-a6d1-c6f7eda365be"
+        },
+        {
+          "name": "{project-slug}",
+          "item": [
+            {
+              "name": "checkout-key",
+              "item": [
+                {
+                  "name": "{fingerprint}",
+                  "item": [
+                    {
+                      "name": "Get a checkout key",
+                      "id": "da9183de-795b-406b-a5c6-8ef2dcdc0fa0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/checkout-key/:fingerprint",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "checkout-key",
+                            ":fingerprint"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d6013813-d5ac-4de5-905c-9d85fec20ef3",
+                              "key": "project-slug",
+                              "value": "<string>",
+                              "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                            },
+                            {
+                              "id": "562100e9-2cd5-4150-a9b0-e5a70e101f3c",
+                              "key": "fingerprint",
+                              "value": "<string>",
+                              "description": "(Required) The fingerprint of the checkout key"
+                            }
+                          ]
+                        },
+                        "description": "Returns a checkout key by its fingerprint."
+                      },
+                      "response": [
+                        {
+                          "id": "1669d4e9-28a4-416d-bf76-3e6c1f7c8a07",
+                          "name": "Successfully retrieved checkout key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/checkout-key/:fingerprint",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "checkout-key",
+                                ":fingerprint"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "fingerprint"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"public-key\": \"<string>\",\n  \"type\": \"github-user-key\",\n  \"fingerprint\": \"<string>\",\n  \"preferred\": \"<boolean>\",\n  \"created-at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-1669d4e9-28a4-416d-bf76-3e6c1f7c8a07"
+                        },
+                        {
+                          "id": "5a2fc2d9-841a-42b0-8acd-505bdbd3cc02",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/checkout-key/:fingerprint",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "checkout-key",
+                                ":fingerprint"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "fingerprint"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-5a2fc2d9-841a-42b0-8acd-505bdbd3cc02"
+                        },
+                        {
+                          "id": "d193caec-fc8e-4dae-86b2-b09153d667e4",
+                          "name": "Checkout key not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/checkout-key/:fingerprint",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "checkout-key",
+                                ":fingerprint"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "fingerprint"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-d193caec-fc8e-4dae-86b2-b09153d667e4"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-da9183de-795b-406b-a5c6-8ef2dcdc0fa0"
+                    },
+                    {
+                      "name": "Delete a checkout key",
+                      "id": "162d256e-1a55-4895-81a3-3b726269307a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/checkout-key/:fingerprint",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "checkout-key",
+                            ":fingerprint"
+                          ],
+                          "variable": [
+                            {
+                              "id": "693b15f1-1b79-4636-9a51-04007895197b",
+                              "key": "project-slug",
+                              "value": "<string>",
+                              "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                            },
+                            {
+                              "id": "2a174a03-347e-4d28-bac8-8c0da8d90c30",
+                              "key": "fingerprint",
+                              "value": "<string>",
+                              "description": "(Required) The fingerprint of the checkout key"
+                            }
+                          ]
+                        },
+                        "description": "Deletes a checkout key by its fingerprint."
+                      },
+                      "response": [
+                        {
+                          "id": "f6240b65-80ec-4272-ba66-27c1c194d741",
+                          "name": "Successfully deleted checkout key",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/checkout-key/:fingerprint",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "checkout-key",
+                                ":fingerprint"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "fingerprint"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-f6240b65-80ec-4272-ba66-27c1c194d741"
+                        },
+                        {
+                          "id": "7c8580d1-8ba9-4df2-ba56-0806082a999d",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/checkout-key/:fingerprint",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "checkout-key",
+                                ":fingerprint"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "fingerprint"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-7c8580d1-8ba9-4df2-ba56-0806082a999d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-162d256e-1a55-4895-81a3-3b726269307a"
+                    }
+                  ],
+                  "id": "003b3ed1-673e-4fff-9951-d4058310ba2f",
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-003b3ed1-673e-4fff-9951-d4058310ba2f"
+                },
+                {
+                  "name": "List checkout keys",
+                  "id": "d9a34f23-2287-42b0-908c-79de6c993615",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:project-slug/checkout-key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":project-slug",
+                        "checkout-key"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d825b63f-8e80-4bca-ae66-ca7271026e7a",
+                          "key": "project-slug",
+                          "value": "<string>",
+                          "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of checkout keys for a given project."
+                  },
+                  "response": [
+                    {
+                      "id": "e2a87c39-4b10-4dcb-a52c-2f0f3af012a3",
+                      "name": "Successfully retrieved checkout keys",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/checkout-key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "checkout-key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"items\": [\n    {\n      \"public-key\": \"<string>\",\n      \"type\": \"deploy-key\",\n      \"fingerprint\": \"<string>\",\n      \"preferred\": \"<boolean>\",\n      \"created-at\": \"<dateTime>\"\n    },\n    {\n      \"public-key\": \"<string>\",\n      \"type\": \"deploy-key\",\n      \"fingerprint\": \"<string>\",\n      \"preferred\": \"<boolean>\",\n      \"created-at\": \"<dateTime>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-e2a87c39-4b10-4dcb-a52c-2f0f3af012a3"
+                    },
+                    {
+                      "id": "d6ae27e6-4526-4a03-921c-df6f9277742e",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/checkout-key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "checkout-key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-d6ae27e6-4526-4a03-921c-df6f9277742e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-d9a34f23-2287-42b0-908c-79de6c993615"
+                },
+                {
+                  "name": "Create a checkout key",
+                  "id": "998cfc25-81b9-4be8-a65e-2180166aef03",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"type\": \"user-key\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:project-slug/checkout-key",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":project-slug",
+                        "checkout-key"
+                      ],
+                      "variable": [
+                        {
+                          "id": "11478c62-4f34-406b-8ea3-0bd0287d4ae2",
+                          "key": "project-slug",
+                          "value": "<string>",
+                          "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                        }
+                      ]
+                    },
+                    "description": "Creates a new checkout key for the specified project. Only deploy keys and user keys are supported."
+                  },
+                  "response": [
+                    {
+                      "id": "5e4ae6b2-b006-41cd-b86b-1abbe8749358",
+                      "name": "Checkout key created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"user-key\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/checkout-key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "checkout-key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"public-key\": \"<string>\",\n  \"type\": \"github-user-key\",\n  \"fingerprint\": \"<string>\",\n  \"preferred\": \"<boolean>\",\n  \"created-at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-5e4ae6b2-b006-41cd-b86b-1abbe8749358"
+                    },
+                    {
+                      "id": "b800c54c-a35e-4309-8890-7f2fcad6b64c",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"user-key\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/checkout-key",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "checkout-key"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-b800c54c-a35e-4309-8890-7f2fcad6b64c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-998cfc25-81b9-4be8-a65e-2180166aef03"
+                }
+              ],
+              "id": "c5b33965-2ae5-4cf3-8d67-1a20a10e4f11",
+              "createdAt": "2026-07-28T01:21:15.000Z",
+              "updatedAt": "2026-07-28T01:21:15.000Z",
+              "uid": "35240-c5b33965-2ae5-4cf3-8d67-1a20a10e4f11"
+            },
+            {
+              "name": "envvar",
+              "item": [
+                {
+                  "name": "{name}",
+                  "item": [
+                    {
+                      "name": "Get a masked environment variable",
+                      "id": "ea4a946e-2a82-46db-ac90-b4172596d864",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/envvar/:name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "envvar",
+                            ":name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9908eab3-d5a7-4260-8d39-7a84b4d78dbc",
+                              "key": "project-slug",
+                              "value": "<string>",
+                              "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                            },
+                            {
+                              "id": "2f565db4-2970-445d-8c4a-d7d0d5ea187c",
+                              "key": "name",
+                              "value": "<string>",
+                              "description": "(Required) The name of the environment variable"
+                            }
+                          ]
+                        },
+                        "description": "Returns a masked environment variable by name for the specified project."
+                      },
+                      "response": [
+                        {
+                          "id": "d34f4ec9-9168-4a03-8256-ae333cb6b0cb",
+                          "name": "Successfully retrieved environment variable",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/envvar/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "envvar",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-d34f4ec9-9168-4a03-8256-ae333cb6b0cb"
+                        },
+                        {
+                          "id": "fc387a1a-7acd-4955-b4a2-03f3f4fefd81",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/envvar/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "envvar",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-fc387a1a-7acd-4955-b4a2-03f3f4fefd81"
+                        },
+                        {
+                          "id": "7f691ab2-3455-447d-a287-8a42863b4097",
+                          "name": "Environment variable not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/envvar/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "envvar",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-7f691ab2-3455-447d-a287-8a42863b4097"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-ea4a946e-2a82-46db-ac90-b4172596d864"
+                    },
+                    {
+                      "name": "Delete a project environment variable",
+                      "id": "63fedceb-64ee-4965-ac9d-5910b17a9414",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/envvar/:name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "envvar",
+                            ":name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "15db3e5a-2485-4c4e-a48b-ac653971ab12",
+                              "key": "project-slug",
+                              "value": "<string>",
+                              "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                            },
+                            {
+                              "id": "87241754-33ea-4265-a7ad-fbc84673972f",
+                              "key": "name",
+                              "value": "<string>",
+                              "description": "(Required) The name of the environment variable"
+                            }
+                          ]
+                        },
+                        "description": "Deletes an environment variable from the specified project."
+                      },
+                      "response": [
+                        {
+                          "id": "5c93ddb8-76b7-42f1-bd27-22441c8cca29",
+                          "name": "Successfully deleted environment variable",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/envvar/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "envvar",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-5c93ddb8-76b7-42f1-bd27-22441c8cca29"
+                        },
+                        {
+                          "id": "a04662bc-37f3-4226-8599-8a658df43faf",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/envvar/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "envvar",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:15.000Z",
+                          "updatedAt": "2026-07-28T01:21:15.000Z",
+                          "uid": "35240-a04662bc-37f3-4226-8599-8a658df43faf"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-63fedceb-64ee-4965-ac9d-5910b17a9414"
+                    }
+                  ],
+                  "id": "4ee73c47-33d1-4619-8635-031df5f8b2a6",
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-4ee73c47-33d1-4619-8635-031df5f8b2a6"
+                },
+                {
+                  "name": "List project environment variables",
+                  "id": "d63cf754-6aa1-4287-8bc6-4ffcee4e79ac",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:project-slug/envvar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":project-slug",
+                        "envvar"
+                      ],
+                      "variable": [
+                        {
+                          "id": "63c8091a-9a25-4594-96a4-3d73f211be4f",
+                          "key": "project-slug",
+                          "value": "<string>",
+                          "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of masked environment variables for a given project."
+                  },
+                  "response": [
+                    {
+                      "id": "c02c2e6e-749e-4458-afef-8edfa05eacea",
+                      "name": "Successfully retrieved environment variables",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/envvar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "envvar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-c02c2e6e-749e-4458-afef-8edfa05eacea"
+                    },
+                    {
+                      "id": "3418a3d0-7ee7-447b-b7b7-4707907f1930",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/envvar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "envvar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-3418a3d0-7ee7-447b-b7b7-4707907f1930"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-d63cf754-6aa1-4287-8bc6-4ffcee4e79ac"
+                },
+                {
+                  "name": "Create a project environment variable",
+                  "id": "a070abd0-f7fc-466c-aae1-239e904acdd1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:project-slug/envvar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":project-slug",
+                        "envvar"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1c8a20e2-3d17-4d6a-b86b-4913d99b17ea",
+                          "key": "project-slug",
+                          "value": "<string>",
+                          "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                        }
+                      ]
+                    },
+                    "description": "Creates a new environment variable for the specified project."
+                  },
+                  "response": [
+                    {
+                      "id": "693ada9e-272a-4002-8593-e47cac718646",
+                      "name": "Environment variable created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/envvar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "envvar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-693ada9e-272a-4002-8593-e47cac718646"
+                    },
+                    {
+                      "id": "47029676-2846-4cf8-b571-a718ae24c2fd",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/envvar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "envvar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:15.000Z",
+                      "updatedAt": "2026-07-28T01:21:15.000Z",
+                      "uid": "35240-47029676-2846-4cf8-b571-a718ae24c2fd"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-a070abd0-f7fc-466c-aae1-239e904acdd1"
+                }
+              ],
+              "id": "cd0586dd-8372-49e5-8483-037e867e9cd9",
+              "createdAt": "2026-07-28T01:21:15.000Z",
+              "updatedAt": "2026-07-28T01:21:15.000Z",
+              "uid": "35240-cd0586dd-8372-49e5-8483-037e867e9cd9"
+            },
+            {
+              "name": "Get a project",
+              "id": "c9849bab-c41f-4e8c-8683-0b8827587725",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/project/:project-slug",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "project",
+                    ":project-slug"
+                  ],
+                  "variable": [
+                    {
+                      "id": "3faa9f14-cd19-4401-b7f5-dd7bf4c95a29",
+                      "key": "project-slug",
+                      "value": "<string>",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    }
+                  ]
+                },
+                "description": "Returns a project by its slug, which is a triplet of the VCS type, organization name, and repository name."
+              },
+              "response": [
+                {
+                  "id": "06d7d048-9c4b-4c53-8ed7-f316f4a08c82",
+                  "name": "Successfully retrieved project",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:project-slug",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":project-slug"
+                      ],
+                      "variable": [
+                        {
+                          "key": "project-slug"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"slug\": \"<string>\",\n  \"name\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"organization_name\": \"<string>\",\n  \"organization_slug\": \"<string>\",\n  \"organization_id\": \"<uuid>\",\n  \"vcs_info\": {\n    \"vcs_url\": \"<uri>\",\n    \"provider\": \"<string>\",\n    \"default_branch\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-06d7d048-9c4b-4c53-8ed7-f316f4a08c82"
+                },
+                {
+                  "id": "72438329-2c8f-4d89-83c0-e59a3b088cc9",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:project-slug",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":project-slug"
+                      ],
+                      "variable": [
+                        {
+                          "key": "project-slug"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:15.000Z",
+                  "updatedAt": "2026-07-28T01:21:15.000Z",
+                  "uid": "35240-72438329-2c8f-4d89-83c0-e59a3b088cc9"
+                }
+              ],
+              "createdAt": "2026-07-28T01:21:15.000Z",
+              "updatedAt": "2026-07-28T01:21:15.000Z",
+              "uid": "35240-c9849bab-c41f-4e8c-8683-0b8827587725"
+            }
+          ],
+          "id": "0aae1030-dccd-48ac-b5a1-95f132ad7013",
+          "createdAt": "2026-07-28T01:21:15.000Z",
+          "updatedAt": "2026-07-28T01:21:15.000Z",
+          "uid": "35240-0aae1030-dccd-48ac-b5a1-95f132ad7013"
+        }
+      ],
+      "id": "6e104c1d-5be9-4863-9262-3519a3ca22b7",
+      "createdAt": "2026-07-28T01:21:15.000Z",
+      "updatedAt": "2026-07-28T01:21:15.000Z",
+      "uid": "35240-6e104c1d-5be9-4863-9262-3519a3ca22b7"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://circleci.com/api/v1.1"
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "info": {
+    "_postman_id": "b91f8b90-dba3-4065-a076-e496bc17b6b4",
+    "name": "CircleCI REST API v1 Artifact Runner Task API",
+    "description": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:21:17.000Z",
+    "updatedAt": "2026-07-28T01:21:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b91f8b90-dba3-4065-a076-e496bc17b6b4"
+  },
+  "item": [
+    {
+      "name": "runner",
+      "item": [
+        {
+          "name": "tasks",
+          "item": [
+            {
+              "name": "running",
+              "item": [
+                {
+                  "name": "Get running task count",
+                  "id": "732f2155-8fe2-4dbd-a2ec-904ea26054f9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runner/tasks/running?resource-class=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runner",
+                        "tasks",
+                        "running"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The resource class to query running tasks for",
+                          "key": "resource-class",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Returns the number of running tasks for a given resource class. This endpoint is scoped to a single resource class, so it must be called per resource class to get totals across all classes."
+                  },
+                  "response": [
+                    {
+                      "id": "63554357-e69a-4893-9d2d-272ab3e93840",
+                      "name": "Successfully retrieved running task count",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/runner/tasks/running?resource-class=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "runner",
+                            "tasks",
+                            "running"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The resource class to query running tasks for",
+                              "key": "resource-class",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"running_runner_tasks\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T01:21:17.000Z",
+                      "updatedAt": "2026-07-28T01:21:17.000Z",
+                      "uid": "35240-63554357-e69a-4893-9d2d-272ab3e93840"
+                    },
+                    {
+                      "id": "f4da75e7-2345-4235-971f-7215174721c1",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/runner/tasks/running?resource-class=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "runner",
+                            "tasks",
+                            "running"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The resource class to query running tasks for",
+                              "key": "resource-class",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:17.000Z",
+                      "updatedAt": "2026-07-28T01:21:17.000Z",
+                      "uid": "35240-f4da75e7-2345-4235-971f-7215174721c1"
+                    },
+                    {
+                      "id": "39b206a9-7778-4ad2-ad43-0d8c02b105f7",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/runner/tasks/running?resource-class=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "runner",
+                            "tasks",
+                            "running"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The resource class to query running tasks for",
+                              "key": "resource-class",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:17.000Z",
+                      "updatedAt": "2026-07-28T01:21:17.000Z",
+                      "uid": "35240-39b206a9-7778-4ad2-ad43-0d8c02b105f7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:17.000Z",
+                  "updatedAt": "2026-07-28T01:21:17.000Z",
+                  "uid": "35240-732f2155-8fe2-4dbd-a2ec-904ea26054f9"
+                }
+              ],
+              "id": "3c92d74b-caef-420b-b45c-2857ab535c6c",
+              "createdAt": "2026-07-28T01:21:17.000Z",
+              "updatedAt": "2026-07-28T01:21:17.000Z",
+              "uid": "35240-3c92d74b-caef-420b-b45c-2857ab535c6c"
+            },
+            {
+              "name": "Get unclaimed task count",
+              "id": "296b43b9-8a97-4e9e-8dc3-e0ca1303bc59",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runner/tasks?resource-class=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runner",
+                    "tasks"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The resource class to query unclaimed tasks for",
+                      "key": "resource-class",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns the number of unclaimed tasks for a given resource class. This endpoint is scoped to a single resource class, so it must be called per resource class to get totals across all classes."
+              },
+              "response": [
+                {
+                  "id": "5e5d62d7-338e-4070-a1ea-f9ba17b203bc",
+                  "name": "Successfully retrieved unclaimed task count",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runner/tasks?resource-class=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runner",
+                        "tasks"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The resource class to query unclaimed tasks for",
+                          "key": "resource-class",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"unclaimed_task_count\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:21:17.000Z",
+                  "updatedAt": "2026-07-28T01:21:17.000Z",
+                  "uid": "35240-5e5d62d7-338e-4070-a1ea-f9ba17b203bc"
+                },
+                {
+                  "id": "b4e86587-b006-48b1-b53b-5cc32e1d695e",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runner/tasks?resource-class=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runner",
+                        "tasks"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The resource class to query unclaimed tasks for",
+                          "key": "resource-class",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:17.000Z",
+                  "updatedAt": "2026-07-28T01:21:17.000Z",
+                  "uid": "35240-b4e86587-b006-48b1-b53b-5cc32e1d695e"
+                },
+                {
+                  "id": "35292636-5a23-475a-9d03-b4a1a5a1347e",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runner/tasks?resource-class=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runner",
+                        "tasks"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The resource class to query unclaimed tasks for",
+                          "key": "resource-class",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:17.000Z",
+                  "updatedAt": "2026-07-28T01:21:17.000Z",
+                  "uid": "35240-35292636-5a23-475a-9d03-b4a1a5a1347e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:21:17.000Z",
+              "updatedAt": "2026-07-28T01:21:17.000Z",
+              "uid": "35240-296b43b9-8a97-4e9e-8dc3-e0ca1303bc59"
+            }
+          ],
+          "id": "07f1a221-91e3-49ac-880c-f86b8e039a7f",
+          "createdAt": "2026-07-28T01:21:17.000Z",
+          "updatedAt": "2026-07-28T01:21:17.000Z",
+          "uid": "35240-07f1a221-91e3-49ac-880c-f86b8e039a7f"
+        }
+      ],
+      "id": "b05c94c1-e4eb-4953-8e0f-888002ef25ad",
+      "createdAt": "2026-07-28T01:21:17.000Z",
+      "updatedAt": "2026-07-28T01:21:17.000Z",
+      "uid": "35240-b05c94c1-e4eb-4953-8e0f-888002ef25ad"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://circleci.com/api/v1.1"
+    }
+  ]
+}

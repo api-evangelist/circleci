@@ -1,0 +1,1512 @@
+{
+  "info": {
+    "_postman_id": "5aff1eb3-5f94-4808-80a2-48a0bc8ff228",
+    "name": "CircleCI REST API v1 Artifact Pipeline API",
+    "description": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:21:13.000Z",
+    "updatedAt": "2026-07-28T01:21:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5aff1eb3-5f94-4808-80a2-48a0bc8ff228"
+  },
+  "item": [
+    {
+      "name": "pipeline",
+      "item": [
+        {
+          "name": "continue",
+          "item": [
+            {
+              "name": "Continue a pipeline",
+              "id": "aa4258e5-b6da-4fbe-9a4a-61fe217c045c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"continuation-key\": \"<string>\",\n  \"configuration\": \"<string>\",\n  \"parameters\": {\n    \"in1\": 38281208,\n    \"doloref7\": \"ipsum et dolor elit sed\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pipeline/continue",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pipeline",
+                    "continue"
+                  ]
+                },
+                "description": "Continues a pipeline from a setup workflow by providing configuration and pipeline parameters."
+              },
+              "response": [
+                {
+                  "id": "94db0226-e674-4dd1-a228-b5d5d6f0ff00",
+                  "name": "Pipeline continued successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"continuation-key\": \"<string>\",\n  \"configuration\": \"<string>\",\n  \"parameters\": {\n    \"in1\": 38281208,\n    \"doloref7\": \"ipsum et dolor elit sed\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/continue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        "continue"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-94db0226-e674-4dd1-a228-b5d5d6f0ff00"
+                },
+                {
+                  "id": "3c712dae-8f8d-451b-a3eb-e9ba4f706068",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"continuation-key\": \"<string>\",\n  \"configuration\": \"<string>\",\n  \"parameters\": {\n    \"in1\": 38281208,\n    \"doloref7\": \"ipsum et dolor elit sed\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/continue",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        "continue"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-3c712dae-8f8d-451b-a3eb-e9ba4f706068"
+                }
+              ],
+              "createdAt": "2026-07-28T01:21:14.000Z",
+              "updatedAt": "2026-07-28T01:21:14.000Z",
+              "uid": "35240-aa4258e5-b6da-4fbe-9a4a-61fe217c045c"
+            }
+          ],
+          "id": "0880efbb-54c3-480e-a110-5d50459bcb00",
+          "createdAt": "2026-07-28T01:21:14.000Z",
+          "updatedAt": "2026-07-28T01:21:14.000Z",
+          "uid": "35240-0880efbb-54c3-480e-a110-5d50459bcb00"
+        },
+        {
+          "name": "{pipeline-id}",
+          "item": [
+            {
+              "name": "config",
+              "item": [
+                {
+                  "name": "Get a pipeline's configuration",
+                  "id": "f8dbbf59-4ebd-460d-85b5-82a519300fa6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/:pipeline-id/config",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        ":pipeline-id",
+                        "config"
+                      ],
+                      "variable": [
+                        {
+                          "id": "eefaee75-c347-4c44-80f7-d473df2bfb61",
+                          "key": "pipeline-id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the pipeline"
+                        }
+                      ]
+                    },
+                    "description": "Returns the configuration source for a given pipeline."
+                  },
+                  "response": [
+                    {
+                      "id": "ec65268f-0b42-4163-96ff-ea92ef3993fc",
+                      "name": "Successfully retrieved pipeline configuration",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/pipeline/:pipeline-id/config",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "pipeline",
+                            ":pipeline-id",
+                            "config"
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"source\": \"<string>\",\n  \"compiled\": \"<string>\",\n  \"setup-config\": \"<string>\",\n  \"compiled-setup-config\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-ec65268f-0b42-4163-96ff-ea92ef3993fc"
+                    },
+                    {
+                      "id": "605b566d-9177-4d10-af4a-a6ca14fed999",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/pipeline/:pipeline-id/config",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "pipeline",
+                            ":pipeline-id",
+                            "config"
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-605b566d-9177-4d10-af4a-a6ca14fed999"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-f8dbbf59-4ebd-460d-85b5-82a519300fa6"
+                }
+              ],
+              "id": "44691d7a-ff26-4cfd-b8c0-454d99c57650",
+              "createdAt": "2026-07-28T01:21:14.000Z",
+              "updatedAt": "2026-07-28T01:21:14.000Z",
+              "uid": "35240-44691d7a-ff26-4cfd-b8c0-454d99c57650"
+            },
+            {
+              "name": "workflow",
+              "item": [
+                {
+                  "name": "List workflows for a pipeline",
+                  "id": "2b32d0f4-e783-496c-8bc0-aa24ea51729f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/:pipeline-id/workflow?page-token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        ":pipeline-id",
+                        "workflow"
+                      ],
+                      "query": [
+                        {
+                          "description": "Token for retrieving the next page of results",
+                          "key": "page-token",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "da20e51d-f344-456d-8cba-51f3ac46f91c",
+                          "key": "pipeline-id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the pipeline"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of workflows associated with a given pipeline."
+                  },
+                  "response": [
+                    {
+                      "id": "19f94214-941b-4bbc-90e9-c5c7e6dc5c49",
+                      "name": "Successfully retrieved workflows",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/pipeline/:pipeline-id/workflow?page-token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "pipeline",
+                            ":pipeline-id",
+                            "workflow"
+                          ],
+                          "query": [
+                            {
+                              "description": "Token for retrieving the next page of results",
+                              "key": "page-token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"items\": [\n    {\n      \"pipeline_id\": \"<uuid>\",\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"project_slug\": \"<string>\",\n      \"status\": \"not_run\",\n      \"started_by\": \"<uuid>\",\n      \"pipeline_number\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"stopped_at\": \"<dateTime>\"\n    },\n    {\n      \"pipeline_id\": \"<uuid>\",\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"project_slug\": \"<string>\",\n      \"status\": \"error\",\n      \"started_by\": \"<uuid>\",\n      \"pipeline_number\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"stopped_at\": \"<dateTime>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-19f94214-941b-4bbc-90e9-c5c7e6dc5c49"
+                    },
+                    {
+                      "id": "c5ee931b-051c-46a8-9802-d92cc03a9eaa",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/pipeline/:pipeline-id/workflow?page-token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "pipeline",
+                            ":pipeline-id",
+                            "workflow"
+                          ],
+                          "query": [
+                            {
+                              "description": "Token for retrieving the next page of results",
+                              "key": "page-token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "pipeline-id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-c5ee931b-051c-46a8-9802-d92cc03a9eaa"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-2b32d0f4-e783-496c-8bc0-aa24ea51729f"
+                }
+              ],
+              "id": "bf3ab425-27dc-49fe-aeda-6b81b076755f",
+              "createdAt": "2026-07-28T01:21:14.000Z",
+              "updatedAt": "2026-07-28T01:21:14.000Z",
+              "uid": "35240-bf3ab425-27dc-49fe-aeda-6b81b076755f"
+            },
+            {
+              "name": "Get a pipeline by ID",
+              "id": "54791874-5d2c-4506-a5ab-d81325ff9b35",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pipeline/:pipeline-id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pipeline",
+                    ":pipeline-id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "eb4438de-66d1-4fb7-97dc-921438b1f19f",
+                      "key": "pipeline-id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the pipeline"
+                    }
+                  ]
+                },
+                "description": "Returns a pipeline by its unique identifier."
+              },
+              "response": [
+                {
+                  "id": "d248b2df-686e-4245-8a91-c186aaeeda1e",
+                  "name": "Successfully retrieved pipeline",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/:pipeline-id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        ":pipeline-id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "pipeline-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"errors\": [\n    {\n      \"type\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ],\n  \"project_slug\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"number\": \"<integer>\",\n  \"state\": \"created\",\n  \"created_at\": \"<dateTime>\",\n  \"trigger\": {\n    \"type\": \"<string>\",\n    \"received_at\": \"<dateTime>\",\n    \"actor\": {\n      \"login\": \"<string>\",\n      \"avatar_url\": \"<uri>\"\n    }\n  },\n  \"vcs\": {\n    \"provider_name\": \"<string>\",\n    \"origin_repository_url\": \"<uri>\",\n    \"target_repository_url\": \"<uri>\",\n    \"revision\": \"<string>\",\n    \"branch\": \"<string>\",\n    \"tag\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-d248b2df-686e-4245-8a91-c186aaeeda1e"
+                },
+                {
+                  "id": "c93fe087-eb11-4a82-8cfc-ea6e317d4515",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/:pipeline-id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        ":pipeline-id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "pipeline-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-c93fe087-eb11-4a82-8cfc-ea6e317d4515"
+                },
+                {
+                  "id": "dfa73929-a662-43fd-bbbd-c219ea2abd37",
+                  "name": "Pipeline not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/:pipeline-id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        ":pipeline-id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "pipeline-id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-dfa73929-a662-43fd-bbbd-c219ea2abd37"
+                }
+              ],
+              "createdAt": "2026-07-28T01:21:14.000Z",
+              "updatedAt": "2026-07-28T01:21:14.000Z",
+              "uid": "35240-54791874-5d2c-4506-a5ab-d81325ff9b35"
+            }
+          ],
+          "id": "37d731f0-c72a-4b4a-9b95-daa12ad828fc",
+          "createdAt": "2026-07-28T01:21:14.000Z",
+          "updatedAt": "2026-07-28T01:21:14.000Z",
+          "uid": "35240-37d731f0-c72a-4b4a-9b95-daa12ad828fc"
+        },
+        {
+          "name": "List pipelines",
+          "id": "94714410-d1b8-473a-83ba-bcf722040229",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pipeline?org-slug=<string>&mine=<boolean>&page-token=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pipeline"
+              ],
+              "query": [
+                {
+                  "description": "Organization slug in the form vcs-slug/org-name",
+                  "key": "org-slug",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter to only pipelines triggered by the current user",
+                  "key": "mine",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Token for retrieving the next page of results",
+                  "key": "page-token",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns all pipelines for the most recently built projects you follow in the organization."
+          },
+          "response": [
+            {
+              "id": "99a4ad64-0d5c-497e-83b5-ac7087101c5e",
+              "name": "Successfully retrieved pipelines",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pipeline?org-slug=<string>&mine=<boolean>&page-token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pipeline"
+                  ],
+                  "query": [
+                    {
+                      "description": "Organization slug in the form vcs-slug/org-name",
+                      "key": "org-slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to only pipelines triggered by the current user",
+                      "key": "mine",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"<uuid>\",\n      \"errors\": [\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"project_slug\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"number\": \"<integer>\",\n      \"state\": \"pending\",\n      \"created_at\": \"<dateTime>\",\n      \"trigger\": {\n        \"type\": \"<string>\",\n        \"received_at\": \"<dateTime>\",\n        \"actor\": {\n          \"login\": \"<string>\",\n          \"avatar_url\": \"<uri>\"\n        }\n      },\n      \"vcs\": {\n        \"provider_name\": \"<string>\",\n        \"origin_repository_url\": \"<uri>\",\n        \"target_repository_url\": \"<uri>\",\n        \"revision\": \"<string>\",\n        \"branch\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"errors\": [\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"project_slug\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"number\": \"<integer>\",\n      \"state\": \"setup\",\n      \"created_at\": \"<dateTime>\",\n      \"trigger\": {\n        \"type\": \"<string>\",\n        \"received_at\": \"<dateTime>\",\n        \"actor\": {\n          \"login\": \"<string>\",\n          \"avatar_url\": \"<uri>\"\n        }\n      },\n      \"vcs\": {\n        \"provider_name\": \"<string>\",\n        \"origin_repository_url\": \"<uri>\",\n        \"target_repository_url\": \"<uri>\",\n        \"revision\": \"<string>\",\n        \"branch\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:21:14.000Z",
+              "updatedAt": "2026-07-28T01:21:14.000Z",
+              "uid": "35240-99a4ad64-0d5c-497e-83b5-ac7087101c5e"
+            },
+            {
+              "id": "196c2c34-845e-46d1-8e0e-2ac8d09044f6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/pipeline?org-slug=<string>&mine=<boolean>&page-token=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pipeline"
+                  ],
+                  "query": [
+                    {
+                      "description": "Organization slug in the form vcs-slug/org-name",
+                      "key": "org-slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter to only pipelines triggered by the current user",
+                      "key": "mine",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:21:14.000Z",
+              "updatedAt": "2026-07-28T01:21:14.000Z",
+              "uid": "35240-196c2c34-845e-46d1-8e0e-2ac8d09044f6"
+            }
+          ],
+          "createdAt": "2026-07-28T01:21:14.000Z",
+          "updatedAt": "2026-07-28T01:21:14.000Z",
+          "uid": "35240-94714410-d1b8-473a-83ba-bcf722040229"
+        }
+      ],
+      "id": "6c94296a-dd03-4f89-9b44-71515121ccaa",
+      "createdAt": "2026-07-28T01:21:14.000Z",
+      "updatedAt": "2026-07-28T01:21:14.000Z",
+      "uid": "35240-6c94296a-dd03-4f89-9b44-71515121ccaa"
+    },
+    {
+      "name": "project",
+      "item": [
+        {
+          "name": "{project-slug}",
+          "item": [
+            {
+              "name": "pipeline",
+              "item": [
+                {
+                  "name": "mine",
+                  "item": [
+                    {
+                      "name": "List my project pipelines",
+                      "id": "a21e89fd-a6c8-4390-932b-13fc9d0d91be",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/pipeline/mine?page-token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "pipeline",
+                            "mine"
+                          ],
+                          "query": [
+                            {
+                              "description": "Token for retrieving the next page of results",
+                              "key": "page-token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "445785a2-2b23-4f56-8862-6662afbcff42",
+                              "key": "project-slug",
+                              "value": "<string>",
+                              "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                            }
+                          ]
+                        },
+                        "description": "Returns a paginated list of pipelines for a project filtered to those triggered by the current user."
+                      },
+                      "response": [
+                        {
+                          "id": "79ee0174-af23-4c28-89ba-f22f8cbb18d1",
+                          "name": "Successfully retrieved pipelines",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/pipeline/mine?page-token=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "pipeline",
+                                "mine"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Token for retrieving the next page of results",
+                                  "key": "page-token",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"items\": [\n    {\n      \"id\": \"<uuid>\",\n      \"errors\": [\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"project_slug\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"number\": \"<integer>\",\n      \"state\": \"pending\",\n      \"created_at\": \"<dateTime>\",\n      \"trigger\": {\n        \"type\": \"<string>\",\n        \"received_at\": \"<dateTime>\",\n        \"actor\": {\n          \"login\": \"<string>\",\n          \"avatar_url\": \"<uri>\"\n        }\n      },\n      \"vcs\": {\n        \"provider_name\": \"<string>\",\n        \"origin_repository_url\": \"<uri>\",\n        \"target_repository_url\": \"<uri>\",\n        \"revision\": \"<string>\",\n        \"branch\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"errors\": [\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"project_slug\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"number\": \"<integer>\",\n      \"state\": \"setup\",\n      \"created_at\": \"<dateTime>\",\n      \"trigger\": {\n        \"type\": \"<string>\",\n        \"received_at\": \"<dateTime>\",\n        \"actor\": {\n          \"login\": \"<string>\",\n          \"avatar_url\": \"<uri>\"\n        }\n      },\n      \"vcs\": {\n        \"provider_name\": \"<string>\",\n        \"origin_repository_url\": \"<uri>\",\n        \"target_repository_url\": \"<uri>\",\n        \"revision\": \"<string>\",\n        \"branch\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:14.000Z",
+                          "updatedAt": "2026-07-28T01:21:14.000Z",
+                          "uid": "35240-79ee0174-af23-4c28-89ba-f22f8cbb18d1"
+                        },
+                        {
+                          "id": "c4b6a0ee-6ca0-4af1-8802-6c08d3738971",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/project/:project-slug/pipeline/mine?page-token=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "project",
+                                ":project-slug",
+                                "pipeline",
+                                "mine"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Token for retrieving the next page of results",
+                                  "key": "page-token",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:14.000Z",
+                          "updatedAt": "2026-07-28T01:21:14.000Z",
+                          "uid": "35240-c4b6a0ee-6ca0-4af1-8802-6c08d3738971"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-a21e89fd-a6c8-4390-932b-13fc9d0d91be"
+                    }
+                  ],
+                  "id": "b06c8576-48ad-4d69-bf8c-6c4b4c63e93a",
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-b06c8576-48ad-4d69-bf8c-6c4b4c63e93a"
+                },
+                {
+                  "name": "List project pipelines",
+                  "id": "94168c78-92e9-44bc-aac1-8171e8489fe7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:project-slug/pipeline?branch=<string>&page-token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":project-slug",
+                        "pipeline"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter pipelines by branch name",
+                          "key": "branch",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Token for retrieving the next page of results",
+                          "key": "page-token",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "85d28d05-c53d-4298-998c-83c8126a90d8",
+                          "key": "project-slug",
+                          "value": "<string>",
+                          "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of pipelines for a given project."
+                  },
+                  "response": [
+                    {
+                      "id": "41055cc8-9e03-4192-983b-b1eaa060e0b8",
+                      "name": "Successfully retrieved pipelines",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/pipeline?branch=<string>&page-token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "pipeline"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter pipelines by branch name",
+                              "key": "branch",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Token for retrieving the next page of results",
+                              "key": "page-token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"items\": [\n    {\n      \"id\": \"<uuid>\",\n      \"errors\": [\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"project_slug\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"number\": \"<integer>\",\n      \"state\": \"pending\",\n      \"created_at\": \"<dateTime>\",\n      \"trigger\": {\n        \"type\": \"<string>\",\n        \"received_at\": \"<dateTime>\",\n        \"actor\": {\n          \"login\": \"<string>\",\n          \"avatar_url\": \"<uri>\"\n        }\n      },\n      \"vcs\": {\n        \"provider_name\": \"<string>\",\n        \"origin_repository_url\": \"<uri>\",\n        \"target_repository_url\": \"<uri>\",\n        \"revision\": \"<string>\",\n        \"branch\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"errors\": [\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"message\": \"<string>\"\n        }\n      ],\n      \"project_slug\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"number\": \"<integer>\",\n      \"state\": \"setup\",\n      \"created_at\": \"<dateTime>\",\n      \"trigger\": {\n        \"type\": \"<string>\",\n        \"received_at\": \"<dateTime>\",\n        \"actor\": {\n          \"login\": \"<string>\",\n          \"avatar_url\": \"<uri>\"\n        }\n      },\n      \"vcs\": {\n        \"provider_name\": \"<string>\",\n        \"origin_repository_url\": \"<uri>\",\n        \"target_repository_url\": \"<uri>\",\n        \"revision\": \"<string>\",\n        \"branch\": \"<string>\",\n        \"tag\": \"<string>\"\n      }\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-41055cc8-9e03-4192-983b-b1eaa060e0b8"
+                    },
+                    {
+                      "id": "3a45d6bd-07b5-4a78-8741-ceeddde61b1c",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/pipeline?branch=<string>&page-token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "pipeline"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter pipelines by branch name",
+                              "key": "branch",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Token for retrieving the next page of results",
+                              "key": "page-token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-3a45d6bd-07b5-4a78-8741-ceeddde61b1c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-94168c78-92e9-44bc-aac1-8171e8489fe7"
+                },
+                {
+                  "name": "Trigger a pipeline",
+                  "id": "8636512e-9f15-4287-8ec0-0e06913bc3e4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"branch\": \"<string>\",\n  \"tag\": \"<string>\",\n  \"parameters\": {\n    \"Excepteur_b3c\": true,\n    \"mollit3\": \"sit quis\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/project/:project-slug/pipeline",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "project",
+                        ":project-slug",
+                        "pipeline"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8c33b0f1-edd1-4028-a97f-e609d687bf5b",
+                          "key": "project-slug",
+                          "value": "<string>",
+                          "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                        }
+                      ]
+                    },
+                    "description": "Triggers a new pipeline on the specified project. Optionally specify a branch, tag, or revision to build. Pipeline parameters can also be provided."
+                  },
+                  "response": [
+                    {
+                      "id": "9ea48b96-f63b-4619-9c2e-03c0cb8b5304",
+                      "name": "Pipeline triggered successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"branch\": \"<string>\",\n  \"tag\": \"<string>\",\n  \"parameters\": {\n    \"Excepteur_b3c\": true,\n    \"mollit3\": \"sit quis\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/pipeline",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "pipeline"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"state\": \"<string>\",\n  \"number\": \"<integer>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-9ea48b96-f63b-4619-9c2e-03c0cb8b5304"
+                    },
+                    {
+                      "id": "424da91f-9688-41df-b6d0-542351722fa3",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"branch\": \"<string>\",\n  \"tag\": \"<string>\",\n  \"parameters\": {\n    \"Excepteur_b3c\": true,\n    \"mollit3\": \"sit quis\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/pipeline",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "pipeline"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-424da91f-9688-41df-b6d0-542351722fa3"
+                    },
+                    {
+                      "id": "834a4727-fe88-4438-b910-585e029096cd",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"branch\": \"<string>\",\n  \"tag\": \"<string>\",\n  \"parameters\": {\n    \"Excepteur_b3c\": true,\n    \"mollit3\": \"sit quis\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/project/:project-slug/pipeline",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "project",
+                            ":project-slug",
+                            "pipeline"
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:14.000Z",
+                      "updatedAt": "2026-07-28T01:21:14.000Z",
+                      "uid": "35240-834a4727-fe88-4438-b910-585e029096cd"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:14.000Z",
+                  "updatedAt": "2026-07-28T01:21:14.000Z",
+                  "uid": "35240-8636512e-9f15-4287-8ec0-0e06913bc3e4"
+                }
+              ],
+              "id": "02b6a0d4-4005-4182-8648-94736223d2e0",
+              "createdAt": "2026-07-28T01:21:14.000Z",
+              "updatedAt": "2026-07-28T01:21:14.000Z",
+              "uid": "35240-02b6a0d4-4005-4182-8648-94736223d2e0"
+            }
+          ],
+          "id": "b827d725-9482-479e-a964-d15db7d06ba5",
+          "createdAt": "2026-07-28T01:21:14.000Z",
+          "updatedAt": "2026-07-28T01:21:14.000Z",
+          "uid": "35240-b827d725-9482-479e-a964-d15db7d06ba5"
+        }
+      ],
+      "id": "37cc094b-3eb1-4b78-9d9b-1ed5626c8138",
+      "createdAt": "2026-07-28T01:21:14.000Z",
+      "updatedAt": "2026-07-28T01:21:14.000Z",
+      "uid": "35240-37cc094b-3eb1-4b78-9d9b-1ed5626c8138"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://circleci.com/api/v1.1"
+    }
+  ]
+}

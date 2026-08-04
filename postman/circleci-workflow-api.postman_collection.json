@@ -1,0 +1,900 @@
+{
+  "info": {
+    "_postman_id": "6acc6656-0e57-4d8d-a623-35f92df63991",
+    "name": "CircleCI REST API v1 Artifact Workflow API",
+    "description": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:21:57.000Z",
+    "updatedAt": "2026-07-28T01:21:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6acc6656-0e57-4d8d-a623-35f92df63991"
+  },
+  "item": [
+    {
+      "name": "workflow",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "approve",
+              "item": [
+                {
+                  "name": "{approval_request_id}",
+                  "item": [
+                    {
+                      "name": "Approve a workflow job",
+                      "id": "42bfb0e1-1dee-4d0b-afff-04847456e938",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workflow/:id/approve/:approval_request_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workflow",
+                            ":id",
+                            "approve",
+                            ":approval_request_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "bc83be62-1e3a-4870-a522-500b046719eb",
+                              "key": "id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the workflow"
+                            },
+                            {
+                              "id": "8d8f5b35-f062-419e-9d87-e630832b5ccd",
+                              "key": "approval_request_id",
+                              "value": "<uuid>",
+                              "description": "(Required) The ID of the approval request to approve"
+                            }
+                          ]
+                        },
+                        "description": "Approves a pending approval job in a workflow, allowing the workflow to continue execution."
+                      },
+                      "response": [
+                        {
+                          "id": "d764adfd-a906-4920-83f3-06659b2232f3",
+                          "name": "Approval accepted",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workflow/:id/approve/:approval_request_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workflow",
+                                ":id",
+                                "approve",
+                                ":approval_request_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "approval_request_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:58.000Z",
+                          "updatedAt": "2026-07-28T01:21:58.000Z",
+                          "uid": "35240-d764adfd-a906-4920-83f3-06659b2232f3"
+                        },
+                        {
+                          "id": "808d1d27-cf6c-4a06-ab22-6d21fc8ff4f4",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/workflow/:id/approve/:approval_request_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "workflow",
+                                ":id",
+                                "approve",
+                                ":approval_request_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                },
+                                {
+                                  "key": "approval_request_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:58.000Z",
+                          "updatedAt": "2026-07-28T01:21:58.000Z",
+                          "uid": "35240-808d1d27-cf6c-4a06-ab22-6d21fc8ff4f4"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:21:58.000Z",
+                      "updatedAt": "2026-07-28T01:21:58.000Z",
+                      "uid": "35240-42bfb0e1-1dee-4d0b-afff-04847456e938"
+                    }
+                  ],
+                  "id": "4a5e372f-b004-4bdb-abbf-1dd0a0aa3212",
+                  "createdAt": "2026-07-28T01:21:58.000Z",
+                  "updatedAt": "2026-07-28T01:21:58.000Z",
+                  "uid": "35240-4a5e372f-b004-4bdb-abbf-1dd0a0aa3212"
+                }
+              ],
+              "id": "e8f09701-4b44-4a1c-82ba-7d0e6e123708",
+              "createdAt": "2026-07-28T01:21:58.000Z",
+              "updatedAt": "2026-07-28T01:21:58.000Z",
+              "uid": "35240-e8f09701-4b44-4a1c-82ba-7d0e6e123708"
+            },
+            {
+              "name": "cancel",
+              "item": [
+                {
+                  "name": "Cancel a workflow",
+                  "id": "0ba5ffdc-6c6f-4159-9043-b0d073accf05",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workflow/:id/cancel",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflow",
+                        ":id",
+                        "cancel"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a6cc42a2-8b19-47b6-94ec-7caa29414dae",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the workflow"
+                        }
+                      ]
+                    },
+                    "description": "Cancels a running workflow and all of its running jobs."
+                  },
+                  "response": [
+                    {
+                      "id": "0e0b58f2-771e-4cfe-9ace-95d51d436847",
+                      "name": "Workflow cancellation accepted",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workflow/:id/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workflow",
+                            ":id",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:58.000Z",
+                      "updatedAt": "2026-07-28T01:21:58.000Z",
+                      "uid": "35240-0e0b58f2-771e-4cfe-9ace-95d51d436847"
+                    },
+                    {
+                      "id": "a9de8b2d-024e-436b-a304-449c26684a91",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workflow/:id/cancel",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workflow",
+                            ":id",
+                            "cancel"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:58.000Z",
+                      "updatedAt": "2026-07-28T01:21:58.000Z",
+                      "uid": "35240-a9de8b2d-024e-436b-a304-449c26684a91"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:58.000Z",
+                  "updatedAt": "2026-07-28T01:21:58.000Z",
+                  "uid": "35240-0ba5ffdc-6c6f-4159-9043-b0d073accf05"
+                }
+              ],
+              "id": "d9f3a6f0-2e13-49f7-84ee-f59d4aa7767a",
+              "createdAt": "2026-07-28T01:21:58.000Z",
+              "updatedAt": "2026-07-28T01:21:58.000Z",
+              "uid": "35240-d9f3a6f0-2e13-49f7-84ee-f59d4aa7767a"
+            },
+            {
+              "name": "rerun",
+              "item": [
+                {
+                  "name": "Rerun a workflow",
+                  "id": "80f21720-6d2e-4809-8483-398bcc215f84",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"jobs\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"from_failed\": \"<boolean>\",\n  \"enable_ssh\": \"<boolean>\",\n  \"sparse_tree\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/workflow/:id/rerun",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflow",
+                        ":id",
+                        "rerun"
+                      ],
+                      "variable": [
+                        {
+                          "id": "760e894f-b0ce-4ed7-b50a-f87d62fffff4",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the workflow"
+                        }
+                      ]
+                    },
+                    "description": "Reruns a workflow. Optionally, specific jobs can be selected for rerun, and SSH access can be enabled for debugging."
+                  },
+                  "response": [
+                    {
+                      "id": "921341e7-c3b0-461e-b141-b90071d63f21",
+                      "name": "Workflow rerun accepted",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"jobs\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"from_failed\": \"<boolean>\",\n  \"enable_ssh\": \"<boolean>\",\n  \"sparse_tree\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workflow/:id/rerun",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workflow",
+                            ":id",
+                            "rerun"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"workflow_id\": \"<uuid>\"\n}",
+                      "createdAt": "2026-07-28T01:21:58.000Z",
+                      "updatedAt": "2026-07-28T01:21:58.000Z",
+                      "uid": "35240-921341e7-c3b0-461e-b141-b90071d63f21"
+                    },
+                    {
+                      "id": "25eb0c48-fbcb-478c-8848-abce5d55ab0c",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"jobs\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"from_failed\": \"<boolean>\",\n  \"enable_ssh\": \"<boolean>\",\n  \"sparse_tree\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/workflow/:id/rerun",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workflow",
+                            ":id",
+                            "rerun"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:58.000Z",
+                      "updatedAt": "2026-07-28T01:21:58.000Z",
+                      "uid": "35240-25eb0c48-fbcb-478c-8848-abce5d55ab0c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:58.000Z",
+                  "updatedAt": "2026-07-28T01:21:58.000Z",
+                  "uid": "35240-80f21720-6d2e-4809-8483-398bcc215f84"
+                }
+              ],
+              "id": "d62440e4-faf0-4983-9b57-d1772286c03b",
+              "createdAt": "2026-07-28T01:21:58.000Z",
+              "updatedAt": "2026-07-28T01:21:58.000Z",
+              "uid": "35240-d62440e4-faf0-4983-9b57-d1772286c03b"
+            },
+            {
+              "name": "job",
+              "item": [
+                {
+                  "name": "List jobs for a workflow",
+                  "id": "3f90f7ba-95e2-45b6-b758-36405bdc2129",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workflow/:id/job",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflow",
+                        ":id",
+                        "job"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1a24b9c2-65d7-4db7-957c-0052e0cf553f",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the workflow"
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of jobs associated with a given workflow."
+                  },
+                  "response": [
+                    {
+                      "id": "3d3efa04-90d9-457d-b0a1-f7736cfe3a66",
+                      "name": "Successfully retrieved workflow jobs",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workflow/:id/job",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workflow",
+                            ":id",
+                            "job"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"items\": [\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"type\": \"approval\",\n      \"status\": \"<string>\",\n      \"job_number\": \"<integer>\",\n      \"started_at\": \"<dateTime>\",\n      \"stopped_at\": \"<dateTime>\",\n      \"dependencies\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"type\": \"build\",\n      \"status\": \"<string>\",\n      \"job_number\": \"<integer>\",\n      \"started_at\": \"<dateTime>\",\n      \"stopped_at\": \"<dateTime>\",\n      \"dependencies\": [\n        \"<uuid>\",\n        \"<uuid>\"\n      ]\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:58.000Z",
+                      "updatedAt": "2026-07-28T01:21:58.000Z",
+                      "uid": "35240-3d3efa04-90d9-457d-b0a1-f7736cfe3a66"
+                    },
+                    {
+                      "id": "abc8e394-9e9b-49fe-8ab5-f683ff08ad0c",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/workflow/:id/job",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "workflow",
+                            ":id",
+                            "job"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:58.000Z",
+                      "updatedAt": "2026-07-28T01:21:58.000Z",
+                      "uid": "35240-abc8e394-9e9b-49fe-8ab5-f683ff08ad0c"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:58.000Z",
+                  "updatedAt": "2026-07-28T01:21:58.000Z",
+                  "uid": "35240-3f90f7ba-95e2-45b6-b758-36405bdc2129"
+                }
+              ],
+              "id": "1e7bdcc1-ac35-4f5f-9f79-90fd900dd8d9",
+              "createdAt": "2026-07-28T01:21:58.000Z",
+              "updatedAt": "2026-07-28T01:21:58.000Z",
+              "uid": "35240-1e7bdcc1-ac35-4f5f-9f79-90fd900dd8d9"
+            },
+            {
+              "name": "Get a workflow by ID",
+              "id": "77bb0034-f227-4828-ab87-206331a71182",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/workflow/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workflow",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "789d18b3-1a4c-4eb5-a6f5-f740172e2a0a",
+                      "key": "id",
+                      "value": "<uuid>",
+                      "description": "(Required) The unique identifier of the workflow"
+                    }
+                  ]
+                },
+                "description": "Returns a workflow by its unique identifier, including its status, pipeline ID, and timing information."
+              },
+              "response": [
+                {
+                  "id": "66e9c15b-de74-436d-95ab-adfc4f41abe9",
+                  "name": "Successfully retrieved workflow",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workflow/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflow",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"pipeline_id\": \"<uuid>\",\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"project_slug\": \"<string>\",\n  \"status\": \"success\",\n  \"started_by\": \"<uuid>\",\n  \"pipeline_number\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"stopped_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T01:21:58.000Z",
+                  "updatedAt": "2026-07-28T01:21:58.000Z",
+                  "uid": "35240-66e9c15b-de74-436d-95ab-adfc4f41abe9"
+                },
+                {
+                  "id": "75889047-b822-4923-baed-11e3a7df215d",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workflow/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflow",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:58.000Z",
+                  "updatedAt": "2026-07-28T01:21:58.000Z",
+                  "uid": "35240-75889047-b822-4923-baed-11e3a7df215d"
+                },
+                {
+                  "id": "6b39a3ef-f59d-48f5-af04-ad61681143f6",
+                  "name": "Workflow not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Circle-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/workflow/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "workflow",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:21:58.000Z",
+                  "updatedAt": "2026-07-28T01:21:58.000Z",
+                  "uid": "35240-6b39a3ef-f59d-48f5-af04-ad61681143f6"
+                }
+              ],
+              "createdAt": "2026-07-28T01:21:58.000Z",
+              "updatedAt": "2026-07-28T01:21:58.000Z",
+              "uid": "35240-77bb0034-f227-4828-ab87-206331a71182"
+            }
+          ],
+          "id": "f144b3bf-cc19-43d7-a266-5856d5a6a53a",
+          "createdAt": "2026-07-28T01:21:58.000Z",
+          "updatedAt": "2026-07-28T01:21:58.000Z",
+          "uid": "35240-f144b3bf-cc19-43d7-a266-5856d5a6a53a"
+        }
+      ],
+      "id": "52fcd1bd-a9de-4990-b26f-f4e293374e91",
+      "createdAt": "2026-07-28T01:21:58.000Z",
+      "updatedAt": "2026-07-28T01:21:58.000Z",
+      "uid": "35240-52fcd1bd-a9de-4990-b26f-f4e293374e91"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://circleci.com/api/v1.1"
+    }
+  ]
+}

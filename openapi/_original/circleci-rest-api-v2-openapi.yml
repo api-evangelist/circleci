@@ -1,0 +1,2758 @@
+openapi: 3.1.0
+info:
+  title: CircleCI REST API v2
+  description: >-
+    The CircleCI REST API v2 provides programmatic access to CircleCI
+    services for managing pipelines, projects, workflows, jobs, and users.
+    Developers can trigger pipelines, retrieve build status, manage
+    contexts and environment variables, and access usage reports. The API
+    uses token-based authentication via a Circle-Token header and returns
+    JSON responses. It supports operations for project configuration,
+    workflow management, artifact retrieval, and insights into build
+    performance.
+  version: '2.0'
+  contact:
+    name: CircleCI Support
+    url: https://support.circleci.com
+  termsOfService: https://circleci.com/terms-of-service/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+externalDocs:
+  description: CircleCI API v2 Documentation
+  url: https://circleci.com/docs/api/v2/
+servers:
+  - url: https://circleci.com/api/v2
+    description: CircleCI Production API
+tags:
+  - name: Context
+    description: >-
+      Endpoints for managing contexts, which are used to secure and share
+      environment variables across projects.
+  - name: Insights
+    description: >-
+      Endpoints for retrieving workflow and job metrics, summary data,
+      and test performance insights.
+  - name: Job
+    description: >-
+      Endpoints for retrieving job details, artifacts, and test metadata
+      associated with pipeline jobs.
+  - name: Pipeline
+    description: >-
+      Endpoints for triggering, retrieving, and managing pipelines and
+      their configurations.
+  - name: Project
+    description: >-
+      Endpoints for managing project settings, checkout keys, and
+      environment variables.
+  - name: Schedule
+    description: >-
+      Endpoints for creating, updating, and managing scheduled pipeline
+      triggers.
+  - name: User
+    description: >-
+      Endpoints for retrieving information about the current user and
+      collaborations.
+  - name: Webhook
+    description: >-
+      Endpoints for creating, updating, listing, and deleting outbound
+      webhook subscriptions.
+  - name: Workflow
+    description: >-
+      Endpoints for retrieving workflow details, managing workflow status,
+      and rerunning workflows.
+security:
+  - apiToken: []
+paths:
+  /me:
+    get:
+      operationId: getCurrentUser
+      summary: Get current user
+      description: >-
+        Returns information about the user associated with the
+        authentication token used in the request.
+      tags:
+        - User
+      responses:
+        '200':
+          description: Successfully retrieved user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized - invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /me/collaborations:
+    get:
+      operationId: getCollaborations
+      summary: List collaborations
+      description: >-
+        Returns a list of organizations and accounts the current user
+        collaborates with.
+      tags:
+        - User
+      responses:
+        '200':
+          description: Successfully retrieved collaborations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Collaboration'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /context:
+    get:
+      operationId: listContexts
+      summary: List contexts
+      description: >-
+        Returns a paginated list of contexts for a given owner, which can
+        be an organization or account.
+      tags:
+        - Context
+      parameters:
+        - $ref: '#/components/parameters/OwnerIdParam'
+        - $ref: '#/components/parameters/OwnerSlugParam'
+        - $ref: '#/components/parameters/OwnerTypeParam'
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved contexts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createContext
+      summary: Create a context
+      description: >-
+        Creates a new context for sharing environment variables across
+        projects.
+      tags:
+        - Context
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContextRequest'
+      responses:
+        '200':
+          description: Successfully created context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Context'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /context/{context-id}:
+    get:
+      operationId: getContext
+      summary: Get a context
+      description: >-
+        Returns a specific context by its unique identifier.
+      tags:
+        - Context
+      parameters:
+        - $ref: '#/components/parameters/ContextIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Context'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Context not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteContext
+      summary: Delete a context
+      description: >-
+        Deletes a context and all of its associated environment variables.
+      tags:
+        - Context
+      parameters:
+        - $ref: '#/components/parameters/ContextIdParam'
+      responses:
+        '200':
+          description: Successfully deleted context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Context not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /context/{context-id}/environment-variable:
+    get:
+      operationId: listContextEnvironmentVariables
+      summary: List environment variables in a context
+      description: >-
+        Returns a paginated list of environment variables associated
+        with a specific context.
+      tags:
+        - Context
+      parameters:
+        - $ref: '#/components/parameters/ContextIdParam'
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved environment variables
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentVariableList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /context/{context-id}/environment-variable/{env-var-name}:
+    put:
+      operationId: addOrUpdateContextEnvironmentVariable
+      summary: Add or update an environment variable
+      description: >-
+        Creates a new environment variable or updates an existing one
+        within the specified context.
+      tags:
+        - Context
+      parameters:
+        - $ref: '#/components/parameters/ContextIdParam'
+        - $ref: '#/components/parameters/EnvVarNameParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - value
+              properties:
+                value:
+                  type: string
+                  description: The value of the environment variable
+      responses:
+        '200':
+          description: Successfully added or updated environment variable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentVariable'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteContextEnvironmentVariable
+      summary: Remove an environment variable
+      description: >-
+        Deletes an environment variable from the specified context.
+      tags:
+        - Context
+      parameters:
+        - $ref: '#/components/parameters/ContextIdParam'
+        - $ref: '#/components/parameters/EnvVarNameParam'
+      responses:
+        '200':
+          description: Successfully deleted environment variable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline:
+    get:
+      operationId: listPipelines
+      summary: List pipelines
+      description: >-
+        Returns all pipelines for the most recently built projects you
+        follow in the organization.
+      tags:
+        - Pipeline
+      parameters:
+        - name: org-slug
+          in: query
+          description: Organization slug in the form vcs-slug/org-name
+          schema:
+            type: string
+        - name: mine
+          in: query
+          description: Filter to only pipelines triggered by the current user
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipelines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline/continue:
+    post:
+      operationId: continuePipeline
+      summary: Continue a pipeline
+      description: >-
+        Continues a pipeline from a setup workflow by providing
+        configuration and pipeline parameters.
+      tags:
+        - Pipeline
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - continuation-key
+                - configuration
+              properties:
+                continuation-key:
+                  type: string
+                  description: A pipeline continuation key
+                configuration:
+                  type: string
+                  description: A configuration string for the pipeline
+                parameters:
+                  type: object
+                  description: Pipeline parameters as key-value pairs
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Pipeline continued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline/{pipeline-id}:
+    get:
+      operationId: getPipeline
+      summary: Get a pipeline by ID
+      description: >-
+        Returns a pipeline by its unique identifier.
+      tags:
+        - Pipeline
+      parameters:
+        - $ref: '#/components/parameters/PipelineIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipeline
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pipeline'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Pipeline not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline/{pipeline-id}/config:
+    get:
+      operationId: getPipelineConfig
+      summary: Get a pipeline's configuration
+      description: >-
+        Returns the configuration source for a given pipeline.
+      tags:
+        - Pipeline
+      parameters:
+        - $ref: '#/components/parameters/PipelineIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipeline configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineConfig'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /pipeline/{pipeline-id}/workflow:
+    get:
+      operationId: listPipelineWorkflows
+      summary: List workflows for a pipeline
+      description: >-
+        Returns a paginated list of workflows associated with a
+        given pipeline.
+      tags:
+        - Pipeline
+      parameters:
+        - $ref: '#/components/parameters/PipelineIdParam'
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}:
+    get:
+      operationId: getProject
+      summary: Get a project
+      description: >-
+        Returns a project by its slug, which is a triplet of the VCS type,
+        organization name, and repository name.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+      responses:
+        '200':
+          description: Successfully retrieved project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/pipeline:
+    get:
+      operationId: listProjectPipelines
+      summary: List project pipelines
+      description: >-
+        Returns a paginated list of pipelines for a given project.
+      tags:
+        - Pipeline
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - name: branch
+          in: query
+          description: Filter pipelines by branch name
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipelines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: triggerPipeline
+      summary: Trigger a pipeline
+      description: >-
+        Triggers a new pipeline on the specified project. Optionally
+        specify a branch, tag, or revision to build. Pipeline parameters
+        can also be provided.
+      tags:
+        - Pipeline
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerPipelineRequest'
+      responses:
+        '201':
+          description: Pipeline triggered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineCreation'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/pipeline/mine:
+    get:
+      operationId: listMyProjectPipelines
+      summary: List my project pipelines
+      description: >-
+        Returns a paginated list of pipelines for a project filtered
+        to those triggered by the current user.
+      tags:
+        - Pipeline
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved pipelines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/checkout-key:
+    get:
+      operationId: listCheckoutKeys
+      summary: List checkout keys
+      description: >-
+        Returns a paginated list of checkout keys for a given project.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+      responses:
+        '200':
+          description: Successfully retrieved checkout keys
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutKeyList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createCheckoutKey
+      summary: Create a checkout key
+      description: >-
+        Creates a new checkout key for the specified project. Only
+        deploy keys and user keys are supported.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - deploy-key
+                    - user-key
+                  description: The type of checkout key to create
+      responses:
+        '201':
+          description: Checkout key created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutKey'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/checkout-key/{fingerprint}:
+    get:
+      operationId: getCheckoutKey
+      summary: Get a checkout key
+      description: >-
+        Returns a checkout key by its fingerprint.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - $ref: '#/components/parameters/FingerprintParam'
+      responses:
+        '200':
+          description: Successfully retrieved checkout key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutKey'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Checkout key not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteCheckoutKey
+      summary: Delete a checkout key
+      description: >-
+        Deletes a checkout key by its fingerprint.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - $ref: '#/components/parameters/FingerprintParam'
+      responses:
+        '200':
+          description: Successfully deleted checkout key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/envvar:
+    get:
+      operationId: listProjectEnvironmentVariables
+      summary: List project environment variables
+      description: >-
+        Returns a paginated list of masked environment variables for
+        a given project.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+      responses:
+        '200':
+          description: Successfully retrieved environment variables
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectEnvVarList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createProjectEnvironmentVariable
+      summary: Create a project environment variable
+      description: >-
+        Creates a new environment variable for the specified project.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - value
+              properties:
+                name:
+                  type: string
+                  description: The name of the environment variable
+                value:
+                  type: string
+                  description: The value of the environment variable
+      responses:
+        '201':
+          description: Environment variable created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectEnvVar'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/envvar/{name}:
+    get:
+      operationId: getProjectEnvironmentVariable
+      summary: Get a masked environment variable
+      description: >-
+        Returns a masked environment variable by name for the
+        specified project.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - name: name
+          in: path
+          required: true
+          description: The name of the environment variable
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved environment variable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectEnvVar'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Environment variable not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteProjectEnvironmentVariable
+      summary: Delete a project environment variable
+      description: >-
+        Deletes an environment variable from the specified project.
+      tags:
+        - Project
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - name: name
+          in: path
+          required: true
+          description: The name of the environment variable
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted environment variable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/job/{job-number}:
+    get:
+      operationId: getJob
+      summary: Get job details
+      description: >-
+        Returns detailed information about a specific job, including
+        its status, duration, and executor configuration.
+      tags:
+        - Job
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - $ref: '#/components/parameters/JobNumberParam'
+      responses:
+        '200':
+          description: Successfully retrieved job details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Job not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/job/{job-number}/cancel:
+    post:
+      operationId: cancelJob
+      summary: Cancel a job
+      description: >-
+        Cancels a running job by its job number.
+      tags:
+        - Job
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - $ref: '#/components/parameters/JobNumberParam'
+      responses:
+        '200':
+          description: Job cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/{job-number}/artifacts:
+    get:
+      operationId: listJobArtifacts
+      summary: List artifacts for a job
+      description: >-
+        Returns a paginated list of artifacts produced by a given job.
+      tags:
+        - Job
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - $ref: '#/components/parameters/JobNumberParam'
+      responses:
+        '200':
+          description: Successfully retrieved artifacts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/{job-number}/tests:
+    get:
+      operationId: listJobTests
+      summary: List test metadata for a job
+      description: >-
+        Returns test metadata for a given job, collected from JUnit XML
+        or similar test result files.
+      tags:
+        - Job
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - $ref: '#/components/parameters/JobNumberParam'
+      responses:
+        '200':
+          description: Successfully retrieved test metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}:
+    get:
+      operationId: getWorkflow
+      summary: Get a workflow by ID
+      description: >-
+        Returns a workflow by its unique identifier, including its
+        status, pipeline ID, and timing information.
+      tags:
+        - Workflow
+      parameters:
+        - $ref: '#/components/parameters/WorkflowIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflow
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Workflow not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}/approve/{approval_request_id}:
+    post:
+      operationId: approveWorkflowJob
+      summary: Approve a workflow job
+      description: >-
+        Approves a pending approval job in a workflow, allowing the
+        workflow to continue execution.
+      tags:
+        - Workflow
+      parameters:
+        - $ref: '#/components/parameters/WorkflowIdParam'
+        - name: approval_request_id
+          in: path
+          required: true
+          description: The ID of the approval request to approve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '202':
+          description: Approval accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}/cancel:
+    post:
+      operationId: cancelWorkflow
+      summary: Cancel a workflow
+      description: >-
+        Cancels a running workflow and all of its running jobs.
+      tags:
+        - Workflow
+      parameters:
+        - $ref: '#/components/parameters/WorkflowIdParam'
+      responses:
+        '202':
+          description: Workflow cancellation accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}/rerun:
+    post:
+      operationId: rerunWorkflow
+      summary: Rerun a workflow
+      description: >-
+        Reruns a workflow. Optionally, specific jobs can be selected
+        for rerun, and SSH access can be enabled for debugging.
+      tags:
+        - Workflow
+      parameters:
+        - $ref: '#/components/parameters/WorkflowIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobs:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                  description: >-
+                    List of job IDs to rerun. If empty, all jobs
+                    will be rerun.
+                from_failed:
+                  type: boolean
+                  description: Whether to rerun only from failed jobs
+                enable_ssh:
+                  type: boolean
+                  description: Whether to enable SSH access for the rerun
+                sparse_tree:
+                  type: boolean
+                  description: >-
+                    Whether to rerun only the specified jobs and
+                    their dependencies
+      responses:
+        '202':
+          description: Workflow rerun accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RerunWorkflowResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /workflow/{id}/job:
+    get:
+      operationId: listWorkflowJobs
+      summary: List jobs for a workflow
+      description: >-
+        Returns a list of jobs associated with a given workflow.
+      tags:
+        - Workflow
+      parameters:
+        - $ref: '#/components/parameters/WorkflowIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflow jobs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowJobList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /insights/{project-slug}/workflows:
+    get:
+      operationId: getProjectWorkflowMetrics
+      summary: Get project workflow metrics
+      description: >-
+        Returns summary metrics for the workflows of a given project,
+        including success rates, duration metrics, and throughput.
+      tags:
+        - Insights
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - name: branch
+          in: query
+          description: Filter by branch name
+          schema:
+            type: string
+        - name: reporting-window
+          in: query
+          description: The time window for metrics
+          schema:
+            type: string
+            enum:
+              - last-7-days
+              - last-30-days
+              - last-60-days
+              - last-90-days
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflow metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsWorkflowMetrics'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /insights/{project-slug}/workflows/{workflow-name}:
+    get:
+      operationId: getWorkflowRuns
+      summary: Get recent runs of a workflow
+      description: >-
+        Returns recent runs of a named workflow, containing status,
+        duration, and credits consumed.
+      tags:
+        - Insights
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - name: workflow-name
+          in: path
+          required: true
+          description: The name of the workflow
+          schema:
+            type: string
+        - name: branch
+          in: query
+          description: Filter by branch name
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved workflow runs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsWorkflowRuns'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /insights/{project-slug}/workflows/{workflow-name}/jobs:
+    get:
+      operationId: getWorkflowJobMetrics
+      summary: Get workflow job metrics
+      description: >-
+        Returns summary metrics for the jobs within a named workflow,
+        including success rates and duration metrics.
+      tags:
+        - Insights
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - name: workflow-name
+          in: path
+          required: true
+          description: The name of the workflow
+          schema:
+            type: string
+        - name: branch
+          in: query
+          description: Filter by branch name
+          schema:
+            type: string
+        - name: reporting-window
+          in: query
+          description: The time window for metrics
+          schema:
+            type: string
+            enum:
+              - last-7-days
+              - last-30-days
+              - last-60-days
+              - last-90-days
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved job metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsJobMetrics'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /insights/{project-slug}/workflows/{workflow-name}/test-metrics:
+    get:
+      operationId: getWorkflowTestMetrics
+      summary: Get test metrics for a workflow
+      description: >-
+        Returns test metrics for a named workflow, including most
+        frequently failing tests and slowest tests.
+      tags:
+        - Insights
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - name: workflow-name
+          in: path
+          required: true
+          description: The name of the workflow
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved test metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsightsTestMetrics'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /project/{project-slug}/schedule:
+    get:
+      operationId: listSchedules
+      summary: List schedules for a project
+      description: >-
+        Returns a list of scheduled pipeline triggers for a given project.
+      tags:
+        - Schedule
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+        - $ref: '#/components/parameters/PageTokenParam'
+      responses:
+        '200':
+          description: Successfully retrieved schedules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createSchedule
+      summary: Create a schedule
+      description: >-
+        Creates a scheduled pipeline trigger for the specified project.
+      tags:
+        - Schedule
+      parameters:
+        - $ref: '#/components/parameters/ProjectSlugParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduleRequest'
+      responses:
+        '201':
+          description: Schedule created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /schedule/{schedule-id}:
+    get:
+      operationId: getSchedule
+      summary: Get a schedule by ID
+      description: >-
+        Returns a schedule by its unique identifier.
+      tags:
+        - Schedule
+      parameters:
+        - $ref: '#/components/parameters/ScheduleIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Schedule not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      operationId: updateSchedule
+      summary: Update a schedule
+      description: >-
+        Updates an existing schedule with the provided parameters.
+      tags:
+        - Schedule
+      parameters:
+        - $ref: '#/components/parameters/ScheduleIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScheduleRequest'
+      responses:
+        '200':
+          description: Schedule updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteSchedule
+      summary: Delete a schedule
+      description: >-
+        Deletes a schedule by its unique identifier.
+      tags:
+        - Schedule
+      parameters:
+        - $ref: '#/components/parameters/ScheduleIdParam'
+      responses:
+        '200':
+          description: Schedule deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /webhook:
+    get:
+      operationId: listWebhooks
+      summary: List webhooks
+      description: >-
+        Returns a list of outbound webhooks for the specified scope.
+      tags:
+        - Webhook
+      parameters:
+        - name: scope-id
+          in: query
+          required: true
+          description: The ID of the scope (project ID)
+          schema:
+            type: string
+            format: uuid
+        - name: scope-type
+          in: query
+          required: true
+          description: The type of scope
+          schema:
+            type: string
+            enum:
+              - project
+      responses:
+        '200':
+          description: Successfully retrieved webhooks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createWebhook
+      summary: Create a webhook
+      description: >-
+        Creates a new outbound webhook for the specified scope.
+      tags:
+        - Webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '201':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookInfo'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /webhook/{webhook-id}:
+    get:
+      operationId: getWebhook
+      summary: Get a webhook by ID
+      description: >-
+        Returns a webhook by its unique identifier.
+      tags:
+        - Webhook
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdParam'
+      responses:
+        '200':
+          description: Successfully retrieved webhook
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookInfo'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Webhook not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateWebhook
+      summary: Update a webhook
+      description: >-
+        Updates an existing webhook with the provided parameters.
+      tags:
+        - Webhook
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookRequest'
+      responses:
+        '200':
+          description: Webhook updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookInfo'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook
+      description: >-
+        Deletes a webhook by its unique identifier.
+      tags:
+        - Webhook
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdParam'
+      responses:
+        '200':
+          description: Webhook deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: header
+      name: Circle-Token
+      description: >-
+        Personal API token for authenticating with the CircleCI API.
+        Generate tokens in your CircleCI account settings.
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        HTTP basic authentication using a personal API token as
+        the username with an empty password.
+  parameters:
+    ContextIdParam:
+      name: context-id
+      in: path
+      required: true
+      description: The unique identifier of the context
+      schema:
+        type: string
+        format: uuid
+    EnvVarNameParam:
+      name: env-var-name
+      in: path
+      required: true
+      description: The name of the environment variable
+      schema:
+        type: string
+    OwnerIdParam:
+      name: owner-id
+      in: query
+      description: The unique identifier of the owner
+      schema:
+        type: string
+        format: uuid
+    OwnerSlugParam:
+      name: owner-slug
+      in: query
+      description: The slug for the owner
+      schema:
+        type: string
+    OwnerTypeParam:
+      name: owner-type
+      in: query
+      description: The type of the owner
+      schema:
+        type: string
+        enum:
+          - account
+          - organization
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
+      schema:
+        type: string
+    PipelineIdParam:
+      name: pipeline-id
+      in: path
+      required: true
+      description: The unique identifier of the pipeline
+      schema:
+        type: string
+        format: uuid
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: >-
+        The project slug in the form vcs-slug/org-name/repo-name
+        (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
+    JobNumberParam:
+      name: job-number
+      in: path
+      required: true
+      description: The number of the job
+      schema:
+        type: integer
+    FingerprintParam:
+      name: fingerprint
+      in: path
+      required: true
+      description: The fingerprint of the checkout key
+      schema:
+        type: string
+    WorkflowIdParam:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the workflow
+      schema:
+        type: string
+        format: uuid
+    ScheduleIdParam:
+      name: schedule-id
+      in: path
+      required: true
+      description: The unique identifier of the schedule
+      schema:
+        type: string
+        format: uuid
+    WebhookIdParam:
+      name: webhook-id
+      in: path
+      required: true
+      description: The unique identifier of the webhook
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the user
+        login:
+          type: string
+          description: The login name of the user
+        name:
+          type: string
+          description: The display name of the user
+    Collaboration:
+      type: object
+      properties:
+        vcs-type:
+          type: string
+          description: The VCS provider type
+        name:
+          type: string
+          description: The name of the organization
+        avatar_url:
+          type: string
+          format: uri
+          description: The URL of the organization avatar
+        slug:
+          type: string
+          description: The organization slug
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the organization
+    Context:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the context
+        name:
+          type: string
+          description: The name of the context
+        created_at:
+          type: string
+          format: date-time
+          description: When the context was created
+    ContextList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Context'
+          description: List of contexts
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    CreateContextRequest:
+      type: object
+      required:
+        - name
+        - owner
+      properties:
+        name:
+          type: string
+          description: The name of the context
+        owner:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The owner ID
+            type:
+              type: string
+              enum:
+                - account
+                - organization
+              description: The owner type
+    EnvironmentVariable:
+      type: object
+      properties:
+        variable:
+          type: string
+          description: The name of the environment variable
+        created_at:
+          type: string
+          format: date-time
+          description: When the variable was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the variable was last updated
+        context_id:
+          type: string
+          format: uuid
+          description: The ID of the context this variable belongs to
+    EnvironmentVariableList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentVariable'
+          description: List of environment variables
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    Pipeline:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the pipeline
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of error
+              message:
+                type: string
+                description: The error message
+          description: Errors that occurred during pipeline setup
+        project_slug:
+          type: string
+          description: The project slug
+        updated_at:
+          type: string
+          format: date-time
+          description: When the pipeline was last updated
+        number:
+          type: integer
+          description: The pipeline number
+        state:
+          type: string
+          enum:
+            - created
+            - errored
+            - setup-pending
+            - setup
+            - pending
+          description: The current state of the pipeline
+        created_at:
+          type: string
+          format: date-time
+          description: When the pipeline was created
+        trigger:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of trigger
+            received_at:
+              type: string
+              format: date-time
+              description: When the trigger was received
+            actor:
+              type: object
+              properties:
+                login:
+                  type: string
+                  description: The login of the actor
+                avatar_url:
+                  type: string
+                  format: uri
+                  description: The avatar URL of the actor
+          description: The trigger that started this pipeline
+        vcs:
+          type: object
+          properties:
+            provider_name:
+              type: string
+              description: The VCS provider name
+            origin_repository_url:
+              type: string
+              format: uri
+              description: The origin repository URL
+            target_repository_url:
+              type: string
+              format: uri
+              description: The target repository URL
+            revision:
+              type: string
+              description: The VCS revision
+            branch:
+              type: string
+              description: The VCS branch
+            tag:
+              type: string
+              description: The VCS tag
+          description: VCS information for this pipeline
+    PipelineList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pipeline'
+          description: List of pipelines
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    PipelineConfig:
+      type: object
+      properties:
+        source:
+          type: string
+          description: The source configuration
+        compiled:
+          type: string
+          description: The compiled configuration
+        setup-config:
+          type: string
+          description: The setup configuration
+        compiled-setup-config:
+          type: string
+          description: The compiled setup configuration
+    PipelineCreation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the new pipeline
+        state:
+          type: string
+          description: The state of the new pipeline
+        number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the pipeline was created
+    TriggerPipelineRequest:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: The branch to build
+        tag:
+          type: string
+          description: The tag to build
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters as key-value pairs
+    Project:
+      type: object
+      properties:
+        slug:
+          type: string
+          description: The project slug
+        name:
+          type: string
+          description: The project name
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the project
+        organization_name:
+          type: string
+          description: The name of the organization
+        organization_slug:
+          type: string
+          description: The slug of the organization
+        organization_id:
+          type: string
+          format: uuid
+          description: The ID of the organization
+        vcs_info:
+          type: object
+          properties:
+            vcs_url:
+              type: string
+              format: uri
+              description: The VCS URL
+            provider:
+              type: string
+              description: The VCS provider
+            default_branch:
+              type: string
+              description: The default branch name
+          description: Version control system information
+    CheckoutKey:
+      type: object
+      properties:
+        public-key:
+          type: string
+          description: The public SSH key
+        type:
+          type: string
+          enum:
+            - deploy-key
+            - github-user-key
+          description: The type of checkout key
+        fingerprint:
+          type: string
+          description: The MD5 fingerprint of the key
+        preferred:
+          type: boolean
+          description: Whether this is the preferred checkout key
+        created-at:
+          type: string
+          format: date-time
+          description: When the key was created
+    CheckoutKeyList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckoutKey'
+          description: List of checkout keys
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    ProjectEnvVar:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the environment variable
+        value:
+          type: string
+          description: The masked value of the environment variable
+    ProjectEnvVarList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectEnvVar'
+          description: List of environment variables
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    Workflow:
+      type: object
+      properties:
+        pipeline_id:
+          type: string
+          format: uuid
+          description: The ID of the pipeline this workflow belongs to
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the workflow
+        name:
+          type: string
+          description: The name of the workflow
+        project_slug:
+          type: string
+          description: The project slug
+        status:
+          type: string
+          enum:
+            - success
+            - running
+            - not_run
+            - failed
+            - error
+            - failing
+            - on_hold
+            - canceled
+            - unauthorized
+          description: The current status of the workflow
+        started_by:
+          type: string
+          format: uuid
+          description: The ID of the user who started the workflow
+        pipeline_number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the workflow was created
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the workflow stopped
+    WorkflowList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+          description: List of workflows
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    WorkflowJobList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowJob'
+          description: List of workflow jobs
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    WorkflowJob:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the job
+        name:
+          type: string
+          description: The name of the job
+        type:
+          type: string
+          enum:
+            - build
+            - approval
+          description: The type of job
+        status:
+          type: string
+          description: The status of the job
+        job_number:
+          type: integer
+          description: The job number
+        started_at:
+          type: string
+          format: date-time
+          description: When the job started
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the job stopped
+        dependencies:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of jobs this job depends on
+    Job:
+      type: object
+      properties:
+        web_url:
+          type: string
+          format: uri
+          description: URL to view the job in the CircleCI web app
+        project:
+          type: object
+          properties:
+            slug:
+              type: string
+              description: The project slug
+            name:
+              type: string
+              description: The project name
+            external_url:
+              type: string
+              format: uri
+              description: External URL to the project
+          description: The project this job belongs to
+        parallel_runs:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+                description: The parallel run index
+              status:
+                type: string
+                description: The status of this parallel run
+          description: Parallel run information
+        started_at:
+          type: string
+          format: date-time
+          description: When the job started
+        latest_workflow:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The workflow ID
+            name:
+              type: string
+              description: The workflow name
+          description: The latest workflow this job is part of
+        name:
+          type: string
+          description: The name of the job
+        executor:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The executor type
+            resource_class:
+              type: string
+              description: The resource class
+          description: The executor configuration
+        parallelism:
+          type: integer
+          description: The parallelism level
+        status:
+          type: string
+          description: The current status of the job
+        number:
+          type: integer
+          description: The job number
+        pipeline:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The pipeline ID
+          description: The pipeline this job belongs to
+        duration:
+          type: integer
+          description: The duration of the job in milliseconds
+        created_at:
+          type: string
+          format: date-time
+          description: When the job was created
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the job stopped
+    RerunWorkflowResponse:
+      type: object
+      properties:
+        workflow_id:
+          type: string
+          format: uuid
+          description: The ID of the rerun workflow
+    ArtifactList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artifact'
+          description: List of artifacts
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    Artifact:
+      type: object
+      properties:
+        path:
+          type: string
+          description: The artifact path
+        node_index:
+          type: integer
+          description: The node index that produced this artifact
+        url:
+          type: string
+          format: uri
+          description: URL to download the artifact
+    TestList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestMetadata'
+          description: List of test metadata
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    TestMetadata:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The test message
+        source:
+          type: string
+          description: The source of the test
+        run_time:
+          type: string
+          description: The run time of the test
+        file:
+          type: string
+          description: The file containing the test
+        result:
+          type: string
+          description: The result of the test
+        name:
+          type: string
+          description: The name of the test
+        classname:
+          type: string
+          description: The class name of the test
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the schedule
+        name:
+          type: string
+          description: The name of the schedule
+        description:
+          type: string
+          description: The description of the schedule
+        timetable:
+          $ref: '#/components/schemas/Timetable'
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters for the schedule
+        project_slug:
+          type: string
+          description: The project slug
+        actor:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The actor ID
+            login:
+              type: string
+              description: The actor login
+            name:
+              type: string
+              description: The actor name
+          description: The user who created the schedule
+        created_at:
+          type: string
+          format: date-time
+          description: When the schedule was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the schedule was last updated
+    ScheduleList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
+          description: List of schedules
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    Timetable:
+      type: object
+      required:
+        - per-hour
+        - hours-of-day
+        - days-of-week
+      properties:
+        per-hour:
+          type: integer
+          minimum: 1
+          maximum: 60
+          description: Number of times per hour to trigger
+        hours-of-day:
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 23
+          description: Hours of the day to trigger (UTC)
+        days-of-week:
+          type: array
+          items:
+            type: string
+            enum:
+              - MON
+              - TUE
+              - WED
+              - THU
+              - FRI
+              - SAT
+              - SUN
+          description: Days of the week to trigger
+        days-of-month:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+            maximum: 31
+          description: Days of the month to trigger
+        months:
+          type: array
+          items:
+            type: string
+            enum:
+              - JAN
+              - FEB
+              - MAR
+              - APR
+              - MAY
+              - JUN
+              - JUL
+              - AUG
+              - SEP
+              - OCT
+              - NOV
+              - DEC
+          description: Months to trigger
+    CreateScheduleRequest:
+      type: object
+      required:
+        - name
+        - timetable
+        - attribution-actor
+        - parameters
+      properties:
+        name:
+          type: string
+          description: The name of the schedule
+        description:
+          type: string
+          description: The description of the schedule
+        timetable:
+          $ref: '#/components/schemas/Timetable'
+        attribution-actor:
+          type: string
+          enum:
+            - current
+            - system
+          description: Who to attribute pipeline triggers to
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters for the schedule
+    UpdateScheduleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the schedule
+        description:
+          type: string
+          description: The description of the schedule
+        timetable:
+          $ref: '#/components/schemas/Timetable'
+        attribution-actor:
+          type: string
+          enum:
+            - current
+            - system
+          description: Who to attribute pipeline triggers to
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters for the schedule
+    WebhookInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL the webhook delivers to
+        name:
+          type: string
+          description: The name of the webhook
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+              - workflow-completed
+              - job-completed
+          description: The events this webhook subscribes to
+        scope:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The scope ID
+            type:
+              type: string
+              description: The scope type
+          description: The scope of the webhook
+        signing-secret:
+          type: string
+          description: The signing secret for verifying webhook payloads
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS certificates
+        created-at:
+          type: string
+          format: date-time
+          description: When the webhook was created
+        updated-at:
+          type: string
+          format: date-time
+          description: When the webhook was last updated
+    WebhookList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookInfo'
+          description: List of webhooks
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    CreateWebhookRequest:
+      type: object
+      required:
+        - name
+        - url
+        - events
+        - scope
+        - signing-secret
+      properties:
+        name:
+          type: string
+          description: The name of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL to deliver webhook payloads to
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+              - workflow-completed
+              - job-completed
+          description: The events to subscribe to
+        scope:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The scope ID (project ID)
+            type:
+              type: string
+              enum:
+                - project
+              description: The scope type
+        signing-secret:
+          type: string
+          description: Secret used to generate HMAC signature
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS on delivery
+    UpdateWebhookRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL to deliver webhook payloads to
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+              - workflow-completed
+              - job-completed
+          description: The events to subscribe to
+        signing-secret:
+          type: string
+          description: Secret used to generate HMAC signature
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS on delivery
+    InsightsWorkflowMetrics:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The workflow name
+              metrics:
+                type: object
+                properties:
+                  total_runs:
+                    type: integer
+                    description: Total number of runs
+                  successful_runs:
+                    type: integer
+                    description: Number of successful runs
+                  failed_runs:
+                    type: integer
+                    description: Number of failed runs
+                  success_rate:
+                    type: number
+                    format: float
+                    description: Success rate as a decimal
+                  duration_metrics:
+                    type: object
+                    properties:
+                      min:
+                        type: integer
+                        description: Minimum duration in seconds
+                      mean:
+                        type: integer
+                        description: Mean duration in seconds
+                      median:
+                        type: integer
+                        description: Median duration in seconds
+                      p95:
+                        type: integer
+                        description: 95th percentile duration
+                      max:
+                        type: integer
+                        description: Maximum duration in seconds
+                    description: Duration statistics
+                  total_credits_used:
+                    type: integer
+                    description: Total credits consumed
+                description: Workflow metrics
+              window_start:
+                type: string
+                format: date-time
+                description: Start of the reporting window
+              window_end:
+                type: string
+                format: date-time
+                description: End of the reporting window
+          description: List of workflow metric summaries
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    InsightsWorkflowRuns:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: The workflow run ID
+              status:
+                type: string
+                description: The status of the run
+              duration:
+                type: integer
+                description: Duration in seconds
+              created_at:
+                type: string
+                format: date-time
+                description: When the run was created
+              stopped_at:
+                type: string
+                format: date-time
+                description: When the run stopped
+              credits_used:
+                type: integer
+                description: Credits consumed by this run
+              branch:
+                type: string
+                description: The branch that was built
+          description: List of workflow runs
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    InsightsJobMetrics:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The job name
+              metrics:
+                type: object
+                properties:
+                  total_runs:
+                    type: integer
+                    description: Total number of runs
+                  successful_runs:
+                    type: integer
+                    description: Number of successful runs
+                  failed_runs:
+                    type: integer
+                    description: Number of failed runs
+                  success_rate:
+                    type: number
+                    format: float
+                    description: Success rate as a decimal
+                  duration_metrics:
+                    type: object
+                    properties:
+                      min:
+                        type: integer
+                        description: Minimum duration
+                      mean:
+                        type: integer
+                        description: Mean duration
+                      median:
+                        type: integer
+                        description: Median duration
+                      p95:
+                        type: integer
+                        description: 95th percentile duration
+                      max:
+                        type: integer
+                        description: Maximum duration
+                    description: Duration statistics
+                  total_credits_used:
+                    type: integer
+                    description: Total credits consumed
+                description: Job metrics
+          description: List of job metric summaries
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    InsightsTestMetrics:
+      type: object
+      properties:
+        average_test_count:
+          type: integer
+          description: Average number of tests per run
+        most_failed_tests:
+          type: array
+          items:
+            type: object
+            properties:
+              test_name:
+                type: string
+                description: Name of the test
+              classname:
+                type: string
+                description: Class name of the test
+              failed_runs:
+                type: integer
+                description: Number of failed runs
+              total_runs:
+                type: integer
+                description: Total runs of this test
+          description: Most frequently failing tests
+        slowest_tests:
+          type: array
+          items:
+            type: object
+            properties:
+              test_name:
+                type: string
+                description: Name of the test
+              classname:
+                type: string
+                description: Class name of the test
+              p95_duration:
+                type: number
+                format: float
+                description: 95th percentile duration
+          description: Slowest tests by duration
+        test_runs:
+          type: array
+          items:
+            type: object
+            properties:
+              pipeline_number:
+                type: integer
+                description: The pipeline number
+              workflow_id:
+                type: string
+                format: uuid
+                description: The workflow ID
+              success_rate:
+                type: number
+                format: float
+                description: Success rate of tests in this run
+              test_counts:
+                type: object
+                properties:
+                  error:
+                    type: integer
+                    description: Number of errored tests
+                  failure:
+                    type: integer
+                    description: Number of failed tests
+                  success:
+                    type: integer
+                    description: Number of successful tests
+                  skipped:
+                    type: integer
+                    description: Number of skipped tests
+                description: Test counts by result
+          description: Recent test run summaries
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message

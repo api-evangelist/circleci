@@ -1,0 +1,839 @@
+{
+  "info": {
+    "_postman_id": "cd6e2ac8-3809-4a30-8320-eee7ea33a6c2",
+    "name": "CircleCI REST API v1 Artifact Insights API",
+    "description": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:21:11.000Z",
+    "updatedAt": "2026-07-28T01:21:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cd6e2ac8-3809-4a30-8320-eee7ea33a6c2"
+  },
+  "item": [
+    {
+      "name": "insights",
+      "item": [
+        {
+          "name": "{project-slug}",
+          "item": [
+            {
+              "name": "workflows",
+              "item": [
+                {
+                  "name": "{workflow-name}",
+                  "item": [
+                    {
+                      "name": "jobs",
+                      "item": [
+                        {
+                          "name": "Get workflow job metrics",
+                          "id": "d75026c6-0685-4c8e-bb4d-4963d0295544",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name/jobs?branch=<string>&reporting-window=last-7-days&page-token=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "insights",
+                                ":project-slug",
+                                "workflows",
+                                ":workflow-name",
+                                "jobs"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter by branch name",
+                                  "key": "branch",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The time window for metrics",
+                                  "key": "reporting-window",
+                                  "value": "last-7-days"
+                                },
+                                {
+                                  "description": "Token for retrieving the next page of results",
+                                  "key": "page-token",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "c0e276b2-abd9-4f58-ad7e-9c75d01a6927",
+                                  "key": "project-slug",
+                                  "value": "<string>",
+                                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                                },
+                                {
+                                  "id": "499da8a6-099b-49bb-b456-c26031368477",
+                                  "key": "workflow-name",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the workflow"
+                                }
+                              ]
+                            },
+                            "description": "Returns summary metrics for the jobs within a named workflow, including success rates and duration metrics."
+                          },
+                          "response": [
+                            {
+                              "id": "17476ffc-7506-402a-9846-f304d1ffd86d",
+                              "name": "Successfully retrieved job metrics",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Circle-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name/jobs?branch=<string>&reporting-window=last-7-days&page-token=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "insights",
+                                    ":project-slug",
+                                    "workflows",
+                                    ":workflow-name",
+                                    "jobs"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Filter by branch name",
+                                      "key": "branch",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "The time window for metrics",
+                                      "key": "reporting-window",
+                                      "value": "last-7-days"
+                                    },
+                                    {
+                                      "description": "Token for retrieving the next page of results",
+                                      "key": "page-token",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project-slug"
+                                    },
+                                    {
+                                      "key": "workflow-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"metrics\": {\n        \"total_runs\": \"<integer>\",\n        \"successful_runs\": \"<integer>\",\n        \"failed_runs\": \"<integer>\",\n        \"success_rate\": \"<float>\",\n        \"duration_metrics\": {\n          \"min\": \"<integer>\",\n          \"mean\": \"<integer>\",\n          \"median\": \"<integer>\",\n          \"p95\": \"<integer>\",\n          \"max\": \"<integer>\"\n        },\n        \"total_credits_used\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"metrics\": {\n        \"total_runs\": \"<integer>\",\n        \"successful_runs\": \"<integer>\",\n        \"failed_runs\": \"<integer>\",\n        \"success_rate\": \"<float>\",\n        \"duration_metrics\": {\n          \"min\": \"<integer>\",\n          \"mean\": \"<integer>\",\n          \"median\": \"<integer>\",\n          \"p95\": \"<integer>\",\n          \"max\": \"<integer>\"\n        },\n        \"total_credits_used\": \"<integer>\"\n      }\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:21:12.000Z",
+                              "updatedAt": "2026-07-28T01:21:12.000Z",
+                              "uid": "35240-17476ffc-7506-402a-9846-f304d1ffd86d"
+                            },
+                            {
+                              "id": "2c2d5b4a-72ed-4810-aef1-fe1ba24d3203",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Circle-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name/jobs?branch=<string>&reporting-window=last-7-days&page-token=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "insights",
+                                    ":project-slug",
+                                    "workflows",
+                                    ":workflow-name",
+                                    "jobs"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Filter by branch name",
+                                      "key": "branch",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "The time window for metrics",
+                                      "key": "reporting-window",
+                                      "value": "last-7-days"
+                                    },
+                                    {
+                                      "description": "Token for retrieving the next page of results",
+                                      "key": "page-token",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project-slug"
+                                    },
+                                    {
+                                      "key": "workflow-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:21:12.000Z",
+                              "updatedAt": "2026-07-28T01:21:12.000Z",
+                              "uid": "35240-2c2d5b4a-72ed-4810-aef1-fe1ba24d3203"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:21:12.000Z",
+                          "updatedAt": "2026-07-28T01:21:12.000Z",
+                          "uid": "35240-d75026c6-0685-4c8e-bb4d-4963d0295544"
+                        }
+                      ],
+                      "id": "6b860961-65bb-40ae-b06d-7686b733d0ce",
+                      "createdAt": "2026-07-28T01:21:12.000Z",
+                      "updatedAt": "2026-07-28T01:21:12.000Z",
+                      "uid": "35240-6b860961-65bb-40ae-b06d-7686b733d0ce"
+                    },
+                    {
+                      "name": "test-metrics",
+                      "item": [
+                        {
+                          "name": "Get test metrics for a workflow",
+                          "id": "3ff9ce4a-8cb9-4bc9-9412-e402f120755f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name/test-metrics",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "insights",
+                                ":project-slug",
+                                "workflows",
+                                ":workflow-name",
+                                "test-metrics"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "af1144f0-98ae-4197-afcd-4c2d24865ec3",
+                                  "key": "project-slug",
+                                  "value": "<string>",
+                                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                                },
+                                {
+                                  "id": "9072a60a-326d-4278-be2e-bef8c46b3653",
+                                  "key": "workflow-name",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the workflow"
+                                }
+                              ]
+                            },
+                            "description": "Returns test metrics for a named workflow, including most frequently failing tests and slowest tests."
+                          },
+                          "response": [
+                            {
+                              "id": "13ec7939-1c42-4217-ab14-5c8746caa9fa",
+                              "name": "Successfully retrieved test metrics",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Circle-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name/test-metrics",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "insights",
+                                    ":project-slug",
+                                    "workflows",
+                                    ":workflow-name",
+                                    "test-metrics"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project-slug"
+                                    },
+                                    {
+                                      "key": "workflow-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"average_test_count\": \"<integer>\",\n  \"most_failed_tests\": [\n    {\n      \"test_name\": \"<string>\",\n      \"classname\": \"<string>\",\n      \"failed_runs\": \"<integer>\",\n      \"total_runs\": \"<integer>\"\n    },\n    {\n      \"test_name\": \"<string>\",\n      \"classname\": \"<string>\",\n      \"failed_runs\": \"<integer>\",\n      \"total_runs\": \"<integer>\"\n    }\n  ],\n  \"slowest_tests\": [\n    {\n      \"test_name\": \"<string>\",\n      \"classname\": \"<string>\",\n      \"p95_duration\": \"<float>\"\n    },\n    {\n      \"test_name\": \"<string>\",\n      \"classname\": \"<string>\",\n      \"p95_duration\": \"<float>\"\n    }\n  ],\n  \"test_runs\": [\n    {\n      \"pipeline_number\": \"<integer>\",\n      \"workflow_id\": \"<uuid>\",\n      \"success_rate\": \"<float>\",\n      \"test_counts\": {\n        \"error\": \"<integer>\",\n        \"failure\": \"<integer>\",\n        \"success\": \"<integer>\",\n        \"skipped\": \"<integer>\"\n      }\n    },\n    {\n      \"pipeline_number\": \"<integer>\",\n      \"workflow_id\": \"<uuid>\",\n      \"success_rate\": \"<float>\",\n      \"test_counts\": {\n        \"error\": \"<integer>\",\n        \"failure\": \"<integer>\",\n        \"success\": \"<integer>\",\n        \"skipped\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:21:12.000Z",
+                              "updatedAt": "2026-07-28T01:21:12.000Z",
+                              "uid": "35240-13ec7939-1c42-4217-ab14-5c8746caa9fa"
+                            },
+                            {
+                              "id": "9f509581-090c-47af-842f-b5b668c06c6f",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Circle-Token",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name/test-metrics",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "insights",
+                                    ":project-slug",
+                                    "workflows",
+                                    ":workflow-name",
+                                    "test-metrics"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "project-slug"
+                                    },
+                                    {
+                                      "key": "workflow-name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:21:12.000Z",
+                              "updatedAt": "2026-07-28T01:21:12.000Z",
+                              "uid": "35240-9f509581-090c-47af-842f-b5b668c06c6f"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:21:12.000Z",
+                          "updatedAt": "2026-07-28T01:21:12.000Z",
+                          "uid": "35240-3ff9ce4a-8cb9-4bc9-9412-e402f120755f"
+                        }
+                      ],
+                      "id": "0eaef58b-b181-4596-bb7c-dced6a566d34",
+                      "createdAt": "2026-07-28T01:21:12.000Z",
+                      "updatedAt": "2026-07-28T01:21:12.000Z",
+                      "uid": "35240-0eaef58b-b181-4596-bb7c-dced6a566d34"
+                    },
+                    {
+                      "name": "Get recent runs of a workflow",
+                      "id": "900960d3-ec0f-466c-901b-efd7137cf1db",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name?branch=<string>&page-token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "insights",
+                            ":project-slug",
+                            "workflows",
+                            ":workflow-name"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by branch name",
+                              "key": "branch",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Token for retrieving the next page of results",
+                              "key": "page-token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "59bb1563-14ec-4ae4-8269-5ff903b01bc4",
+                              "key": "project-slug",
+                              "value": "<string>",
+                              "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                            },
+                            {
+                              "id": "c9ad222d-9ebb-469c-ab07-c54036dbbc64",
+                              "key": "workflow-name",
+                              "value": "<string>",
+                              "description": "(Required) The name of the workflow"
+                            }
+                          ]
+                        },
+                        "description": "Returns recent runs of a named workflow, containing status, duration, and credits consumed."
+                      },
+                      "response": [
+                        {
+                          "id": "2c4c3657-d354-4768-9bcd-5d8154779043",
+                          "name": "Successfully retrieved workflow runs",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name?branch=<string>&page-token=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "insights",
+                                ":project-slug",
+                                "workflows",
+                                ":workflow-name"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter by branch name",
+                                  "key": "branch",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Token for retrieving the next page of results",
+                                  "key": "page-token",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "workflow-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"items\": [\n    {\n      \"id\": \"<uuid>\",\n      \"status\": \"<string>\",\n      \"duration\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"stopped_at\": \"<dateTime>\",\n      \"credits_used\": \"<integer>\",\n      \"branch\": \"<string>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"status\": \"<string>\",\n      \"duration\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"stopped_at\": \"<dateTime>\",\n      \"credits_used\": \"<integer>\",\n      \"branch\": \"<string>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:12.000Z",
+                          "updatedAt": "2026-07-28T01:21:12.000Z",
+                          "uid": "35240-2c4c3657-d354-4768-9bcd-5d8154779043"
+                        },
+                        {
+                          "id": "1729ab9d-938d-409c-a7a7-9ef157bbfd16",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Circle-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/insights/:project-slug/workflows/:workflow-name?branch=<string>&page-token=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "insights",
+                                ":project-slug",
+                                "workflows",
+                                ":workflow-name"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter by branch name",
+                                  "key": "branch",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Token for retrieving the next page of results",
+                                  "key": "page-token",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "project-slug"
+                                },
+                                {
+                                  "key": "workflow-name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:21:12.000Z",
+                          "updatedAt": "2026-07-28T01:21:12.000Z",
+                          "uid": "35240-1729ab9d-938d-409c-a7a7-9ef157bbfd16"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:21:12.000Z",
+                      "updatedAt": "2026-07-28T01:21:12.000Z",
+                      "uid": "35240-900960d3-ec0f-466c-901b-efd7137cf1db"
+                    }
+                  ],
+                  "id": "9529331f-a24e-4894-a8f3-09b7224dfc0c",
+                  "createdAt": "2026-07-28T01:21:12.000Z",
+                  "updatedAt": "2026-07-28T01:21:12.000Z",
+                  "uid": "35240-9529331f-a24e-4894-a8f3-09b7224dfc0c"
+                },
+                {
+                  "name": "Get project workflow metrics",
+                  "id": "0d43f9bf-08de-4d98-95c6-5b76a246431d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/:project-slug/workflows?branch=<string>&reporting-window=last-7-days&page-token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        ":project-slug",
+                        "workflows"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter by branch name",
+                          "key": "branch",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The time window for metrics",
+                          "key": "reporting-window",
+                          "value": "last-7-days"
+                        },
+                        {
+                          "description": "Token for retrieving the next page of results",
+                          "key": "page-token",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "99655191-fee1-4e6f-8512-8f676877b624",
+                          "key": "project-slug",
+                          "value": "<string>",
+                          "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                        }
+                      ]
+                    },
+                    "description": "Returns summary metrics for the workflows of a given project, including success rates, duration metrics, and throughput."
+                  },
+                  "response": [
+                    {
+                      "id": "f6095200-b08a-4f08-9a89-4f33a19be915",
+                      "name": "Successfully retrieved workflow metrics",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/insights/:project-slug/workflows?branch=<string>&reporting-window=last-7-days&page-token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "insights",
+                            ":project-slug",
+                            "workflows"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by branch name",
+                              "key": "branch",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The time window for metrics",
+                              "key": "reporting-window",
+                              "value": "last-7-days"
+                            },
+                            {
+                              "description": "Token for retrieving the next page of results",
+                              "key": "page-token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"metrics\": {\n        \"total_runs\": \"<integer>\",\n        \"successful_runs\": \"<integer>\",\n        \"failed_runs\": \"<integer>\",\n        \"success_rate\": \"<float>\",\n        \"duration_metrics\": {\n          \"min\": \"<integer>\",\n          \"mean\": \"<integer>\",\n          \"median\": \"<integer>\",\n          \"p95\": \"<integer>\",\n          \"max\": \"<integer>\"\n        },\n        \"total_credits_used\": \"<integer>\"\n      },\n      \"window_start\": \"<dateTime>\",\n      \"window_end\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"metrics\": {\n        \"total_runs\": \"<integer>\",\n        \"successful_runs\": \"<integer>\",\n        \"failed_runs\": \"<integer>\",\n        \"success_rate\": \"<float>\",\n        \"duration_metrics\": {\n          \"min\": \"<integer>\",\n          \"mean\": \"<integer>\",\n          \"median\": \"<integer>\",\n          \"p95\": \"<integer>\",\n          \"max\": \"<integer>\"\n        },\n        \"total_credits_used\": \"<integer>\"\n      },\n      \"window_start\": \"<dateTime>\",\n      \"window_end\": \"<dateTime>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:12.000Z",
+                      "updatedAt": "2026-07-28T01:21:12.000Z",
+                      "uid": "35240-f6095200-b08a-4f08-9a89-4f33a19be915"
+                    },
+                    {
+                      "id": "8945ca68-0be9-4c38-b935-dc7e8b809ad6",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Circle-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/insights/:project-slug/workflows?branch=<string>&reporting-window=last-7-days&page-token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "insights",
+                            ":project-slug",
+                            "workflows"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by branch name",
+                              "key": "branch",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The time window for metrics",
+                              "key": "reporting-window",
+                              "value": "last-7-days"
+                            },
+                            {
+                              "description": "Token for retrieving the next page of results",
+                              "key": "page-token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "project-slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:21:12.000Z",
+                      "updatedAt": "2026-07-28T01:21:12.000Z",
+                      "uid": "35240-8945ca68-0be9-4c38-b935-dc7e8b809ad6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:21:12.000Z",
+                  "updatedAt": "2026-07-28T01:21:12.000Z",
+                  "uid": "35240-0d43f9bf-08de-4d98-95c6-5b76a246431d"
+                }
+              ],
+              "id": "e52a729c-53ca-46af-a184-80042e55972c",
+              "createdAt": "2026-07-28T01:21:12.000Z",
+              "updatedAt": "2026-07-28T01:21:12.000Z",
+              "uid": "35240-e52a729c-53ca-46af-a184-80042e55972c"
+            }
+          ],
+          "id": "5bfd35e3-e414-4be4-9357-d1160539b704",
+          "createdAt": "2026-07-28T01:21:12.000Z",
+          "updatedAt": "2026-07-28T01:21:12.000Z",
+          "uid": "35240-5bfd35e3-e414-4be4-9357-d1160539b704"
+        }
+      ],
+      "id": "180bd95e-2980-4a25-bb8b-7a27dc175a52",
+      "createdAt": "2026-07-28T01:21:12.000Z",
+      "updatedAt": "2026-07-28T01:21:12.000Z",
+      "uid": "35240-180bd95e-2980-4a25-bb8b-7a27dc175a52"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://circleci.com/api/v1.1"
+    }
+  ]
+}
