@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Schedule API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List schedules for a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/schedule",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a list of scheduled pipeline triggers for a given project."
+        },
+        {
+          "info": {
+            "name": "Create a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/schedule",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a scheduled pipeline trigger for the specified project."
+        },
+        {
+          "info": {
+            "name": "Get a schedule by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/schedule/:schedule-id",
+            "params": [
+              {
+                "name": "schedule-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the schedule"
+              }
+            ]
+          },
+          "docs": "Returns a schedule by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://circleci.com/api/v1.1/schedule/:schedule-id",
+            "params": [
+              {
+                "name": "schedule-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the schedule"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing schedule with the provided parameters."
+        },
+        {
+          "info": {
+            "name": "Delete a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v1.1/schedule/:schedule-id",
+            "params": [
+              {
+                "name": "schedule-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the schedule"
+              }
+            ]
+          },
+          "docs": "Deletes a schedule by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

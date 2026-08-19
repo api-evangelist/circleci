@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Test Metadata API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Test Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List test metadata for a build",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/:build_num/tests",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "build_num",
+                "value": "",
+                "type": "path",
+                "description": "The build number"
+              }
+            ]
+          },
+          "docs": "Returns test metadata collected from the specified build, sourced from JUnit XML or similar test result files."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Context API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Context",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contexts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/context",
+            "params": [
+              {
+                "name": "owner-id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the owner"
+              },
+              {
+                "name": "owner-slug",
+                "value": "",
+                "type": "query",
+                "description": "The slug for the owner"
+              },
+              {
+                "name": "owner-type",
+                "value": "",
+                "type": "query",
+                "description": "The type of the owner"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of contexts for a given owner, which can be an organization or account."
+        },
+        {
+          "info": {
+            "name": "Create a context",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/context",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new context for sharing environment variables across projects."
+        },
+        {
+          "info": {
+            "name": "Get a context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/context/:context-id",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              }
+            ]
+          },
+          "docs": "Returns a specific context by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Delete a context",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v1.1/context/:context-id",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              }
+            ]
+          },
+          "docs": "Deletes a context and all of its associated environment variables."
+        },
+        {
+          "info": {
+            "name": "List environment variables in a context",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/context/:context-id/environment-variable",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of environment variables associated with a specific context."
+        },
+        {
+          "info": {
+            "name": "Add or update an environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://circleci.com/api/v1.1/context/:context-id/environment-variable/:env-var-name",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              },
+              {
+                "name": "env-var-name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new environment variable or updates an existing one within the specified context."
+        },
+        {
+          "info": {
+            "name": "Remove an environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v1.1/context/:context-id/environment-variable/:env-var-name",
+            "params": [
+              {
+                "name": "context-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the context"
+              },
+              {
+                "name": "env-var-name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Deletes an environment variable from the specified context."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Workflow API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a workflow by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/workflow/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              }
+            ]
+          },
+          "docs": "Returns a workflow by its unique identifier, including its status, pipeline ID, and timing information."
+        },
+        {
+          "info": {
+            "name": "Approve a workflow job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/workflow/:id/approve/:approval_request_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              },
+              {
+                "name": "approval_request_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the approval request to approve"
+              }
+            ]
+          },
+          "docs": "Approves a pending approval job in a workflow, allowing the workflow to continue execution."
+        },
+        {
+          "info": {
+            "name": "Cancel a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/workflow/:id/cancel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              }
+            ]
+          },
+          "docs": "Cancels a running workflow and all of its running jobs."
+        },
+        {
+          "info": {
+            "name": "Rerun a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/workflow/:id/rerun",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reruns a workflow. Optionally, specific jobs can be selected for rerun, and SSH access can be enabled for debugging."
+        },
+        {
+          "info": {
+            "name": "List jobs for a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/workflow/:id/job",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the workflow"
+              }
+            ]
+          },
+          "docs": "Returns a list of jobs associated with a given workflow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,983 @@
+{
+  "item": [
+    {
+      "id": "0b4793c6-b6ce-4b02-b65e-a79bb2d3ae4b",
+      "name": "Schedule",
+      "description": {
+        "content": "Endpoints for creating, updating, and managing scheduled pipeline triggers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "65134ff5-cf57-49cf-a2cc-20dfb0ed41c2",
+          "name": "List schedules for a project",
+          "request": {
+            "name": "List schedules for a project",
+            "description": {
+              "content": "Returns a list of scheduled pipeline triggers for a given project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":project-slug",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page-token",
+                  "value": "<string>",
+                  "description": "Token for retrieving the next page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fccf54e4-c81d-4fbc-8c54-8bb747a7d7c3",
+              "name": "Successfully retrieved schedules",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"54f46f75-7505-fe00-0ec4-30b429e99dc4\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"timetable\": {\n        \"per-hour\": 3,\n        \"hours-of-day\": [\n          13,\n          17\n        ],\n        \"days-of-week\": [\n          \"MON\",\n          \"THU\"\n        ],\n        \"days-of-month\": [\n          13,\n          8\n        ],\n        \"months\": [\n          \"AUG\",\n          \"SEP\"\n        ]\n      },\n      \"parameters\": {\n        \"key_0\": 2555,\n        \"key_1\": 5728,\n        \"key_2\": 5147,\n        \"key_3\": 4697.139837896791\n      },\n      \"project_slug\": \"string\",\n      \"actor\": {\n        \"id\": \"f90c2cc4-8800-aa5d-fdd7-b013ca1550eb\",\n        \"login\": \"string\",\n        \"name\": \"string\"\n      },\n      \"created_at\": \"1971-03-23T10:37:39.156Z\",\n      \"updated_at\": \"1952-12-05T08:35:15.789Z\"\n    },\n    {\n      \"id\": \"63d97c66-132c-9280-37cc-261f1437a4fd\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"timetable\": {\n        \"per-hour\": 57,\n        \"hours-of-day\": [\n          19,\n          0\n        ],\n        \"days-of-week\": [\n          \"TUE\",\n          \"SAT\"\n        ],\n        \"days-of-month\": [\n          2,\n          22\n        ],\n        \"months\": [\n          \"APR\",\n          \"DEC\"\n        ]\n      },\n      \"parameters\": {\n        \"key_0\": \"string\"\n      },\n      \"project_slug\": \"string\",\n      \"actor\": {\n        \"id\": \"4d83dd73-5fb9-66c1-0d76-f9aa9f3dfeb4\",\n        \"login\": \"string\",\n        \"name\": \"string\"\n      },\n      \"created_at\": \"1970-07-21T06:15:36.097Z\",\n      \"updated_at\": \"2004-02-16T23:50:35.395Z\"\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95880d30-d694-413b-9f59-d771a0f71560",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5f0848e-b0c8-4f03-94bd-5b1577c12f82",
+          "name": "Create a schedule",
+          "request": {
+            "name": "Create a schedule",
+            "description": {
+              "content": "Creates a scheduled pipeline trigger for the specified project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":project-slug",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"timetable\": {\n    \"per-hour\": \"<integer>\",\n    \"hours-of-day\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"days-of-week\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"days-of-month\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"months\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"attribution-actor\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c3eb415-09cc-469f-b48d-470dcd97d2c0",
+              "name": "Schedule created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"timetable\": {\n    \"per-hour\": 59,\n    \"hours-of-day\": [\n      20,\n      4\n    ],\n    \"days-of-week\": [\n      \"FRI\",\n      \"SUN\"\n    ],\n    \"days-of-month\": [\n      2,\n      20\n    ],\n    \"months\": [\n      \"SEP\",\n      \"JUN\"\n    ]\n  },\n  \"attribution-actor\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": 7448.704729531104,\n    \"key_1\": 7096.08504228388\n  },\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"b0e4c03c-6de6-b596-6d58-6f380f532d59\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"timetable\": {\n    \"per-hour\": 25,\n    \"hours-of-day\": [\n      15,\n      3\n    ],\n    \"days-of-week\": [\n      \"SUN\",\n      \"FRI\"\n    ],\n    \"days-of-month\": [\n      12,\n      4\n    ],\n    \"months\": [\n      \"DEC\",\n      \"APR\"\n    ]\n  },\n  \"parameters\": {\n    \"key_0\": 6677.117095265787,\n    \"key_1\": 5560.943968521823,\n    \"key_2\": true,\n    \"key_3\": 8609.932570408502\n  },\n  \"project_slug\": \"string\",\n  \"actor\": {\n    \"id\": \"3d296ebf-7400-781c-be9e-64dee9ba24da\",\n    \"login\": \"string\",\n    \"name\": \"string\"\n  },\n  \"created_at\": \"2004-11-10T08:53:41.942Z\",\n  \"updated_at\": \"1997-04-10T03:32:14.811Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "572bd10b-afe6-415c-b929-a5d29a01e191",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"timetable\": {\n    \"per-hour\": 59,\n    \"hours-of-day\": [\n      20,\n      4\n    ],\n    \"days-of-week\": [\n      \"FRI\",\n      \"SUN\"\n    ],\n    \"days-of-month\": [\n      2,\n      20\n    ],\n    \"months\": [\n      \"SEP\",\n      \"JUN\"\n    ]\n  },\n  \"attribution-actor\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": 7448.704729531104,\n    \"key_1\": 7096.08504228388\n  },\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09c1a244-bdd6-4d87-ba54-8420e082a6ea",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"timetable\": {\n    \"per-hour\": 59,\n    \"hours-of-day\": [\n      20,\n      4\n    ],\n    \"days-of-week\": [\n      \"FRI\",\n      \"SUN\"\n    ],\n    \"days-of-month\": [\n      2,\n      20\n    ],\n    \"months\": [\n      \"SEP\",\n      \"JUN\"\n    ]\n  },\n  \"attribution-actor\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": 7448.704729531104,\n    \"key_1\": 7096.08504228388\n  },\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "390bf75b-085e-45cb-ae25-4275c3d44c95",
+          "name": "Get a schedule by ID",
+          "request": {
+            "name": "Get a schedule by ID",
+            "description": {
+              "content": "Returns a schedule by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                ":schedule-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "schedule-id",
+                  "description": "(Required) The unique identifier of the schedule"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5abcbf9-63e7-454f-8e74-c8f322f283e5",
+              "name": "Successfully retrieved schedule",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    ":schedule-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "schedule-id",
+                      "description": "(Required) The unique identifier of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"b0e4c03c-6de6-b596-6d58-6f380f532d59\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"timetable\": {\n    \"per-hour\": 25,\n    \"hours-of-day\": [\n      15,\n      3\n    ],\n    \"days-of-week\": [\n      \"SUN\",\n      \"FRI\"\n    ],\n    \"days-of-month\": [\n      12,\n      4\n    ],\n    \"months\": [\n      \"DEC\",\n      \"APR\"\n    ]\n  },\n  \"parameters\": {\n    \"key_0\": 6677.117095265787,\n    \"key_1\": 5560.943968521823,\n    \"key_2\": true,\n    \"key_3\": 8609.932570408502\n  },\n  \"project_slug\": \"string\",\n  \"actor\": {\n    \"id\": \"3d296ebf-7400-781c-be9e-64dee9ba24da\",\n    \"login\": \"string\",\n    \"name\": \"string\"\n  },\n  \"created_at\": \"2004-11-10T08:53:41.942Z\",\n  \"updated_at\": \"1997-04-10T03:32:14.811Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b310c19d-5e02-4afa-9826-c914daa8c3d2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    ":schedule-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "schedule-id",
+                      "description": "(Required) The unique identifier of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55933fb7-ccc7-4e80-bbe2-4033b5c5b263",
+              "name": "Schedule not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    ":schedule-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "schedule-id",
+                      "description": "(Required) The unique identifier of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09e8aa6b-354f-4f54-a986-a402617d29ca",
+          "name": "Update a schedule",
+          "request": {
+            "name": "Update a schedule",
+            "description": {
+              "content": "Updates an existing schedule with the provided parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                ":schedule-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "schedule-id",
+                  "description": "(Required) The unique identifier of the schedule"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"timetable\": {\n    \"per-hour\": \"<integer>\",\n    \"hours-of-day\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"days-of-week\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"days-of-month\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"months\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"attribution-actor\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": 9651,\n    \"key_1\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb725a7f-1a13-4c77-bd53-8bf3f3dc595a",
+              "name": "Schedule updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    ":schedule-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "schedule-id",
+                      "description": "(Required) The unique identifier of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"timetable\": {\n    \"per-hour\": 29,\n    \"hours-of-day\": [\n      16,\n      0\n    ],\n    \"days-of-week\": [\n      \"SAT\",\n      \"WED\"\n    ],\n    \"days-of-month\": [\n      1,\n      4\n    ],\n    \"months\": [\n      \"FEB\",\n      \"FEB\"\n    ]\n  },\n  \"attribution-actor\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8.859127709652803\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"b0e4c03c-6de6-b596-6d58-6f380f532d59\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"timetable\": {\n    \"per-hour\": 25,\n    \"hours-of-day\": [\n      15,\n      3\n    ],\n    \"days-of-week\": [\n      \"SUN\",\n      \"FRI\"\n    ],\n    \"days-of-month\": [\n      12,\n      4\n    ],\n    \"months\": [\n      \"DEC\",\n      \"APR\"\n    ]\n  },\n  \"parameters\": {\n    \"key_0\": 6677.117095265787,\n    \"key_1\": 5560.943968521823,\n    \"key_2\": true,\n    \"key_3\": 8609.932570408502\n  },\n  \"project_slug\": \"string\",\n  \"actor\": {\n    \"id\": \"3d296ebf-7400-781c-be9e-64dee9ba24da\",\n    \"login\": \"string\",\n    \"name\": \"string\"\n  },\n  \"created_at\": \"2004-11-10T08:53:41.942Z\",\n  \"updated_at\": \"1997-04-10T03:32:14.811Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e8250b1-57cc-401f-b468-2cee7b020899",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    ":schedule-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "schedule-id",
+                      "description": "(Required) The unique identifier of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"timetable\": {\n    \"per-hour\": 29,\n    \"hours-of-day\": [\n      16,\n      0\n    ],\n    \"days-of-week\": [\n      \"SAT\",\n      \"WED\"\n    ],\n    \"days-of-month\": [\n      1,\n      4\n    ],\n    \"months\": [\n      \"FEB\",\n      \"FEB\"\n    ]\n  },\n  \"attribution-actor\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8.859127709652803\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8792b011-8573-4db2-a3ad-04cc53760707",
+          "name": "Delete a schedule",
+          "request": {
+            "name": "Delete a schedule",
+            "description": {
+              "content": "Deletes a schedule by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule",
+                ":schedule-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "schedule-id",
+                  "description": "(Required) The unique identifier of the schedule"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3d2079ce-cc39-421f-9643-a4bc430636ec",
+              "name": "Schedule deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    ":schedule-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "schedule-id",
+                      "description": "(Required) The unique identifier of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "875c3d41-d85a-43b4-a6d9-9143376d74d5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule",
+                    ":schedule-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "schedule-id",
+                      "description": "(Required) The unique identifier of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://circleci.com/api/v1.1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1c89c227-6fef-45d4-be4e-4f7b4e28fe01",
+    "name": "CircleCI REST API v1 Artifact Schedule API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+      "type": "text/plain"
+    }
+  }
+}

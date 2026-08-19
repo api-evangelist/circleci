@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Resource Class API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resource Class",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List resource classes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/runner/resource-class",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "The namespace to list resource classes for"
+              }
+            ]
+          },
+          "docs": "Returns a list of runner resource classes for the specified namespace. Resource classes define the compute resources available for self-hosted runner jobs."
+        },
+        {
+          "info": {
+            "name": "Create a resource class",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/runner/resource-class",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new resource class for the specified namespace. Returns a resource class token that is only displayed once and cannot be retrieved again. This token is used by runner agents to authenticate."
+        },
+        {
+          "info": {
+            "name": "Get a resource class",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/runner/resource-class/:resource-class",
+            "params": [
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "path",
+                "description": "The resource class in namespace/name format"
+              }
+            ]
+          },
+          "docs": "Returns details about a specific resource class."
+        },
+        {
+          "info": {
+            "name": "Delete a resource class",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v1.1/runner/resource-class/:resource-class",
+            "params": [
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "path",
+                "description": "The resource class in namespace/name format"
+              }
+            ]
+          },
+          "docs": "Deletes a resource class. This will prevent any runners using this resource class from picking up new tasks."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

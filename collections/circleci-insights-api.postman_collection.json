@@ -1,0 +1,852 @@
+{
+  "item": [
+    {
+      "id": "2469df5e-64a5-4f8e-a5c5-474e82a0c761",
+      "name": "Insights",
+      "description": {
+        "content": "Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fddb500b-c1ea-4da8-9d5b-ccd0c5e801d4",
+          "name": "Get project workflow metrics",
+          "request": {
+            "name": "Get project workflow metrics",
+            "description": {
+              "content": "Returns summary metrics for the workflows of a given project, including success rates, duration metrics, and throughput.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "insights",
+                ":project-slug",
+                "workflows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "branch",
+                  "value": "<string>",
+                  "description": "Filter by branch name"
+                },
+                {
+                  "disabled": false,
+                  "key": "reporting-window",
+                  "value": "<string>",
+                  "description": "The time window for metrics"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-token",
+                  "value": "<string>",
+                  "description": "Token for retrieving the next page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76e285b6-7748-49e6-8704-518e7cdac356",
+              "name": "Successfully retrieved workflow metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    ":project-slug",
+                    "workflows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reporting-window",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"name\": \"string\",\n      \"metrics\": {\n        \"total_runs\": 7970,\n        \"successful_runs\": 5469,\n        \"failed_runs\": 4669,\n        \"success_rate\": 8299.901352471848,\n        \"duration_metrics\": {\n          \"min\": 1554,\n          \"mean\": 8761,\n          \"median\": 4886,\n          \"p95\": 5287,\n          \"max\": 2407\n        },\n        \"total_credits_used\": 2183\n      },\n      \"window_start\": \"2025-03-07T21:41:05.806Z\",\n      \"window_end\": \"1985-10-20T11:48:11.614Z\"\n    },\n    {\n      \"name\": \"string\",\n      \"metrics\": {\n        \"total_runs\": 4600,\n        \"successful_runs\": 4880,\n        \"failed_runs\": 4757,\n        \"success_rate\": 3027.69167022744,\n        \"duration_metrics\": {\n          \"min\": 5808,\n          \"mean\": 7261,\n          \"median\": 292,\n          \"p95\": 7109,\n          \"max\": 7943\n        },\n        \"total_credits_used\": 8847\n      },\n      \"window_start\": \"1952-12-21T11:17:38.534Z\",\n      \"window_end\": \"1969-04-28T10:22:09.461Z\"\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31110fe2-d719-466b-8748-87e63af947d1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    ":project-slug",
+                    "workflows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reporting-window",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c06bb6df-63a5-4394-9712-32ea0cd91713",
+          "name": "Get recent runs of a workflow",
+          "request": {
+            "name": "Get recent runs of a workflow",
+            "description": {
+              "content": "Returns recent runs of a named workflow, containing status, duration, and credits consumed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "insights",
+                ":project-slug",
+                "workflows",
+                ":workflow-name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "branch",
+                  "value": "<string>",
+                  "description": "Filter by branch name"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-token",
+                  "value": "<string>",
+                  "description": "Token for retrieving the next page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workflow-name",
+                  "description": "(Required) The name of the workflow"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26af6b29-435c-48a3-837b-bb3f6f9af70a",
+              "name": "Successfully retrieved workflow runs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    ":project-slug",
+                    "workflows",
+                    ":workflow-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow-name",
+                      "description": "(Required) The name of the workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"919473f3-fa97-a553-4767-dcdcb7038a0a\",\n      \"status\": \"string\",\n      \"duration\": 3824,\n      \"created_at\": \"2010-12-05T23:26:26.391Z\",\n      \"stopped_at\": \"1968-08-17T16:57:45.613Z\",\n      \"credits_used\": 7230,\n      \"branch\": \"string\"\n    },\n    {\n      \"id\": \"76d0370c-add9-8bed-2a83-269bbb1228f0\",\n      \"status\": \"string\",\n      \"duration\": 9856,\n      \"created_at\": \"1950-12-30T10:09:37.928Z\",\n      \"stopped_at\": \"2000-04-19T12:25:43.033Z\",\n      \"credits_used\": 6255,\n      \"branch\": \"string\"\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39cc9c22-ae3a-4b21-9941-2d45826e79ae",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    ":project-slug",
+                    "workflows",
+                    ":workflow-name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow-name",
+                      "description": "(Required) The name of the workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cce8097-aed8-4e96-a6b8-4bd96bfaeeca",
+          "name": "Get workflow job metrics",
+          "request": {
+            "name": "Get workflow job metrics",
+            "description": {
+              "content": "Returns summary metrics for the jobs within a named workflow, including success rates and duration metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "insights",
+                ":project-slug",
+                "workflows",
+                ":workflow-name",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "branch",
+                  "value": "<string>",
+                  "description": "Filter by branch name"
+                },
+                {
+                  "disabled": false,
+                  "key": "reporting-window",
+                  "value": "<string>",
+                  "description": "The time window for metrics"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-token",
+                  "value": "<string>",
+                  "description": "Token for retrieving the next page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workflow-name",
+                  "description": "(Required) The name of the workflow"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "83ee940e-4505-4025-9b51-79d8812b2f00",
+              "name": "Successfully retrieved job metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    ":project-slug",
+                    "workflows",
+                    ":workflow-name",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reporting-window",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow-name",
+                      "description": "(Required) The name of the workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"name\": \"string\",\n      \"metrics\": {\n        \"total_runs\": 7948,\n        \"successful_runs\": 5616,\n        \"failed_runs\": 8881,\n        \"success_rate\": 7027.592103182213,\n        \"duration_metrics\": {\n          \"min\": 5462,\n          \"mean\": 4108,\n          \"median\": 1340,\n          \"p95\": 1805,\n          \"max\": 660\n        },\n        \"total_credits_used\": 7906\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"metrics\": {\n        \"total_runs\": 1288,\n        \"successful_runs\": 7874,\n        \"failed_runs\": 1190,\n        \"success_rate\": 1195.1809712655404,\n        \"duration_metrics\": {\n          \"min\": 8790,\n          \"mean\": 6586,\n          \"median\": 5771,\n          \"p95\": 3373,\n          \"max\": 6368\n        },\n        \"total_credits_used\": 3120\n      }\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3cb48cd-ccfb-4822-8f70-ff984a02bc97",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    ":project-slug",
+                    "workflows",
+                    ":workflow-name",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "branch",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "reporting-window",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page-token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow-name",
+                      "description": "(Required) The name of the workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa15792f-d0f8-480c-baf8-a23b3ff9c718",
+          "name": "Get test metrics for a workflow",
+          "request": {
+            "name": "Get test metrics for a workflow",
+            "description": {
+              "content": "Returns test metrics for a named workflow, including most frequently failing tests and slowest tests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "insights",
+                ":project-slug",
+                "workflows",
+                ":workflow-name",
+                "test-metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workflow-name",
+                  "description": "(Required) The name of the workflow"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af2164e4-1267-482a-b6c5-6bf643fb5457",
+              "name": "Successfully retrieved test metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    ":project-slug",
+                    "workflows",
+                    ":workflow-name",
+                    "test-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow-name",
+                      "description": "(Required) The name of the workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"average_test_count\": 6755,\n  \"most_failed_tests\": [\n    {\n      \"test_name\": \"string\",\n      \"classname\": \"string\",\n      \"failed_runs\": 1262,\n      \"total_runs\": 4114\n    },\n    {\n      \"test_name\": \"string\",\n      \"classname\": \"string\",\n      \"failed_runs\": 6566,\n      \"total_runs\": 5212\n    }\n  ],\n  \"slowest_tests\": [\n    {\n      \"test_name\": \"string\",\n      \"classname\": \"string\",\n      \"p95_duration\": 1761.0656647234891\n    },\n    {\n      \"test_name\": \"string\",\n      \"classname\": \"string\",\n      \"p95_duration\": 2487.275074648276\n    }\n  ],\n  \"test_runs\": [\n    {\n      \"pipeline_number\": 6858,\n      \"workflow_id\": \"908b914d-9a2d-16a8-cbfc-04f3498ed1c4\",\n      \"success_rate\": 6560.0748492236535,\n      \"test_counts\": {\n        \"error\": 6399,\n        \"failure\": 8448,\n        \"success\": 1971,\n        \"skipped\": 6069\n      }\n    },\n    {\n      \"pipeline_number\": 5734,\n      \"workflow_id\": \"5a2b45f9-8c50-369d-f1fc-880d4d81ce8c\",\n      \"success_rate\": 7745.0794073649995,\n      \"test_counts\": {\n        \"error\": 98,\n        \"failure\": 4814,\n        \"success\": 6816,\n        \"skipped\": 2760\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98593cc1-d32e-42b3-80bd-ddd7a2413117",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    ":project-slug",
+                    "workflows",
+                    ":workflow-name",
+                    "test-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workflow-name",
+                      "description": "(Required) The name of the workflow"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://circleci.com/api/v1.1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2592f8cc-25b9-487c-b564-7638a1969330",
+    "name": "CircleCI REST API v1 Artifact Insights API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+      "type": "text/plain"
+    }
+  }
+}

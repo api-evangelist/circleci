@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Artifact",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List artifacts for a build",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/:build_num/artifacts",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "build_num",
+                "value": "",
+                "type": "path",
+                "description": "The build number"
+              }
+            ]
+          },
+          "docs": "Returns a list of artifacts produced by the specified build."
+        },
+        {
+          "info": {
+            "name": "List latest build artifacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/latest/artifacts",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "Filter artifacts by branch name"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter artifacts by status"
+              }
+            ]
+          },
+          "docs": "Returns artifacts from the latest build of the project, optionally filtered by branch."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

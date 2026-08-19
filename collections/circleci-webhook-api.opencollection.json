@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Webhook API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/webhook",
+            "params": [
+              {
+                "name": "scope-id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the scope (project ID)"
+              },
+              {
+                "name": "scope-type",
+                "value": "",
+                "type": "query",
+                "description": "The type of scope"
+              }
+            ]
+          },
+          "docs": "Returns a list of outbound webhooks for the specified scope."
+        },
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new outbound webhook for the specified scope."
+        },
+        {
+          "info": {
+            "name": "Get a webhook by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/webhook/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook"
+              }
+            ]
+          },
+          "docs": "Returns a webhook by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://circleci.com/api/v1.1/webhook/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook with the provided parameters."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v1.1/webhook/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook"
+              }
+            ]
+          },
+          "docs": "Deletes a webhook by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

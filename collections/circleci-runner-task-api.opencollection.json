@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Runner Task API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runner Task",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get unclaimed task count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/runner/tasks",
+            "params": [
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "query",
+                "description": "The resource class to query unclaimed tasks for"
+              }
+            ]
+          },
+          "docs": "Returns the number of unclaimed tasks for a given resource class. This endpoint is scoped to a single resource class, so it must be called per resource class to get totals across all classes."
+        },
+        {
+          "info": {
+            "name": "Get running task count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/runner/tasks/running",
+            "params": [
+              {
+                "name": "resource-class",
+                "value": "",
+                "type": "query",
+                "description": "The resource class to query running tasks for"
+              }
+            ]
+          },
+          "docs": "Returns the number of running tasks for a given resource class. This endpoint is scoped to a single resource class, so it must be called per resource class to get totals across all classes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

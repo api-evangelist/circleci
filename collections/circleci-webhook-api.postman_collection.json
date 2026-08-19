@@ -1,0 +1,927 @@
+{
+  "item": [
+    {
+      "id": "733944cc-19ca-4f42-92e1-27a498ec358b",
+      "name": "Webhook",
+      "description": {
+        "content": "Endpoints for creating, updating, listing, and deleting outbound webhook subscriptions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b06a3543-4516-4bb2-ae2c-28318b3ff872",
+          "name": "List webhooks",
+          "request": {
+            "name": "List webhooks",
+            "description": {
+              "content": "Returns a list of outbound webhooks for the specified scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope-id",
+                  "value": "<uuid>",
+                  "description": "(Required) The ID of the scope (project ID)"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope-type",
+                  "value": "<string>",
+                  "description": "(Required) The type of scope"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a250a6e0-7a10-4a09-87fb-93ad5b827232",
+              "name": "Successfully retrieved webhooks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "scope-type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"01fbafb1-f279-4a53-24f3-f9d018c989ea\",\n      \"url\": \"http://ZSEZlg.lupA+xYjmKSd6w9Kyo+TDFuv8Aee9xSbsuWMq94DkjDWZ42eKaotNUHF0,JqHYSxPS\",\n      \"name\": \"string\",\n      \"events\": [\n        \"job-completed\",\n        \"workflow-completed\"\n      ],\n      \"scope\": {\n        \"id\": \"7bf0e469-a2e1-cbeb-6bb5-275cb179dded\",\n        \"type\": \"string\"\n      },\n      \"signing-secret\": \"string\",\n      \"verify-tls\": true,\n      \"created-at\": \"2009-03-02T08:18:01.109Z\",\n      \"updated-at\": \"1953-04-24T05:48:28.852Z\"\n    },\n    {\n      \"id\": \"556367d0-1c04-9eef-b493-b8f2476d9f72\",\n      \"url\": \"https://foRHSEBTSdmriyvXNIpLqhNd.ihxdDgA4cbSHMkuG5VCS1\",\n      \"name\": \"string\",\n      \"events\": [\n        \"workflow-completed\",\n        \"workflow-completed\"\n      ],\n      \"scope\": {\n        \"id\": \"92c70825-3c0f-e6af-7c3a-0ab4d90f5b31\",\n        \"type\": \"string\"\n      },\n      \"signing-secret\": \"string\",\n      \"verify-tls\": true,\n      \"created-at\": \"1949-11-23T13:50:51.655Z\",\n      \"updated-at\": \"2023-05-20T18:48:04.693Z\"\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7567e09b-86ff-4d79-a017-e6741d3fe816",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope-id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "scope-type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb65b2e3-ae1d-444a-ac82-f8e41cdc989b",
+          "name": "Create a webhook",
+          "request": {
+            "name": "Create a webhook",
+            "description": {
+              "content": "Creates a new outbound webhook for the specified scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": {\n    \"id\": \"<uuid>\",\n    \"type\": \"<string>\"\n  },\n  \"signing-secret\": \"<string>\",\n  \"verify-tls\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8159018f-6ac2-498a-aace-9a51b0bd26a7",
+              "name": "Webhook created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": {\n    \"id\": \"<uuid>\",\n    \"type\": \"<string>\"\n  },\n  \"signing-secret\": \"<string>\",\n  \"verify-tls\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"07c79494-7f81-f99e-e585-c5aba0b7b04e\",\n  \"url\": \"https://SNTOnVntnRmAuquaViJZUPTsEzXOpbdR.xslx0rB8CzkoLMwhvkjUXBvLXtHIeBysN\",\n  \"name\": \"string\",\n  \"events\": [\n    \"job-completed\",\n    \"workflow-completed\"\n  ],\n  \"scope\": {\n    \"id\": \"518baab5-de04-d0d1-75ca-3bf88f7791f1\",\n    \"type\": \"string\"\n  },\n  \"signing-secret\": \"string\",\n  \"verify-tls\": true,\n  \"created-at\": \"1995-12-28T20:31:24.488Z\",\n  \"updated-at\": \"1983-07-02T14:22:14.461Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3beba844-24ca-48f4-84b4-579329d57f1b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": {\n    \"id\": \"<uuid>\",\n    \"type\": \"<string>\"\n  },\n  \"signing-secret\": \"<string>\",\n  \"verify-tls\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ca578c7-03de-4fb8-999f-3de9a1da1fb5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scope\": {\n    \"id\": \"<uuid>\",\n    \"type\": \"<string>\"\n  },\n  \"signing-secret\": \"<string>\",\n  \"verify-tls\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b547e69-7e22-4e41-8f98-d3a9298fc19e",
+          "name": "Get a webhook by ID",
+          "request": {
+            "name": "Get a webhook by ID",
+            "description": {
+              "content": "Returns a webhook by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhook",
+                ":webhook-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook-id",
+                  "description": "(Required) The unique identifier of the webhook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "17d9235b-1ed7-4dd6-975c-5006c50b23a0",
+              "name": "Successfully retrieved webhook",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook",
+                    ":webhook-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook-id",
+                      "description": "(Required) The unique identifier of the webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"07c79494-7f81-f99e-e585-c5aba0b7b04e\",\n  \"url\": \"https://SNTOnVntnRmAuquaViJZUPTsEzXOpbdR.xslx0rB8CzkoLMwhvkjUXBvLXtHIeBysN\",\n  \"name\": \"string\",\n  \"events\": [\n    \"job-completed\",\n    \"workflow-completed\"\n  ],\n  \"scope\": {\n    \"id\": \"518baab5-de04-d0d1-75ca-3bf88f7791f1\",\n    \"type\": \"string\"\n  },\n  \"signing-secret\": \"string\",\n  \"verify-tls\": true,\n  \"created-at\": \"1995-12-28T20:31:24.488Z\",\n  \"updated-at\": \"1983-07-02T14:22:14.461Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "764bc97a-7169-4369-8f1e-6c62fa145646",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook",
+                    ":webhook-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook-id",
+                      "description": "(Required) The unique identifier of the webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df0b0b04-5173-413b-8d76-7c13551daccb",
+              "name": "Webhook not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook",
+                    ":webhook-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook-id",
+                      "description": "(Required) The unique identifier of the webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87bef12b-bfc1-49b9-8343-8c8c48f2ed53",
+          "name": "Update a webhook",
+          "request": {
+            "name": "Update a webhook",
+            "description": {
+              "content": "Updates an existing webhook with the provided parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhook",
+                ":webhook-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook-id",
+                  "description": "(Required) The unique identifier of the webhook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"signing-secret\": \"<string>\",\n  \"verify-tls\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6339f7e5-2aa1-4279-9c6f-d3b894286de2",
+              "name": "Webhook updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook",
+                    ":webhook-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook-id",
+                      "description": "(Required) The unique identifier of the webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"signing-secret\": \"<string>\",\n  \"verify-tls\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"07c79494-7f81-f99e-e585-c5aba0b7b04e\",\n  \"url\": \"https://SNTOnVntnRmAuquaViJZUPTsEzXOpbdR.xslx0rB8CzkoLMwhvkjUXBvLXtHIeBysN\",\n  \"name\": \"string\",\n  \"events\": [\n    \"job-completed\",\n    \"workflow-completed\"\n  ],\n  \"scope\": {\n    \"id\": \"518baab5-de04-d0d1-75ca-3bf88f7791f1\",\n    \"type\": \"string\"\n  },\n  \"signing-secret\": \"string\",\n  \"verify-tls\": true,\n  \"created-at\": \"1995-12-28T20:31:24.488Z\",\n  \"updated-at\": \"1983-07-02T14:22:14.461Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee3e191f-f000-4757-8c51-0dc975dcc382",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook",
+                    ":webhook-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook-id",
+                      "description": "(Required) The unique identifier of the webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"signing-secret\": \"<string>\",\n  \"verify-tls\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c3d1f41-b5ca-45b9-bcd3-dc0acee7eccf",
+          "name": "Delete a webhook",
+          "request": {
+            "name": "Delete a webhook",
+            "description": {
+              "content": "Deletes a webhook by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhook",
+                ":webhook-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook-id",
+                  "description": "(Required) The unique identifier of the webhook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82ed8959-f5d3-4cd5-a700-64a7ba6876c3",
+              "name": "Webhook deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook",
+                    ":webhook-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook-id",
+                      "description": "(Required) The unique identifier of the webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77bd140e-32ca-44af-a46f-b0abc97dc8e6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhook",
+                    ":webhook-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook-id",
+                      "description": "(Required) The unique identifier of the webhook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://circleci.com/api/v1.1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "96ecb7d1-eb6e-4e51-a71b-f0ed8fd27a92",
+    "name": "CircleCI REST API v1 Artifact Webhook API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+      "type": "text/plain"
+    }
+  }
+}

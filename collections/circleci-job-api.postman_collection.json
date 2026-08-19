@@ -1,0 +1,813 @@
+{
+  "item": [
+    {
+      "id": "35eeebd9-7550-4c6b-80ab-39c8bb6363e5",
+      "name": "Job",
+      "description": {
+        "content": "Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline jobs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc8949fd-c7f4-4942-887b-245990807f24",
+          "name": "Get job details",
+          "request": {
+            "name": "Get job details",
+            "description": {
+              "content": "Returns detailed information about a specific job, including its status, duration, and executor configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":project-slug",
+                "job",
+                ":job-number"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "job-number",
+                  "description": "(Required) The number of the job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30ed5395-45c8-437a-aede-b46057d9a33e",
+              "name": "Successfully retrieved job details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "job",
+                    ":job-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"web_url\": \"https://pqu.joqPwMRT6jF4nHeTYZskpOoYZWicIjuFbC6uY1zZIuXScziOqSEZT2FVCG,PiRdT4eiyAs7c2g\",\n  \"project\": {\n    \"slug\": \"string\",\n    \"name\": \"string\",\n    \"external_url\": \"https://YynQnIzFKlMPNCGpwdAPZ.bhmmJeTP3XqD9jOhLKOzUx9b4sjntuJJmTY2vaU5ewJy\"\n  },\n  \"parallel_runs\": [\n    {\n      \"index\": 6876,\n      \"status\": \"string\"\n    },\n    {\n      \"index\": 8289,\n      \"status\": \"string\"\n    }\n  ],\n  \"started_at\": \"1987-05-21T00:15:41.180Z\",\n  \"latest_workflow\": {\n    \"id\": \"23cfef4a-353a-95ef-f2d4-f74cd92d712d\",\n    \"name\": \"string\"\n  },\n  \"name\": \"string\",\n  \"executor\": {\n    \"type\": \"string\",\n    \"resource_class\": \"string\"\n  },\n  \"parallelism\": 8521,\n  \"status\": \"string\",\n  \"number\": 961,\n  \"pipeline\": {\n    \"id\": \"2af01708-832c-d0d2-0ff8-e3ab5c70a7b8\"\n  },\n  \"duration\": 4616,\n  \"created_at\": \"2022-04-19T12:45:25.816Z\",\n  \"stopped_at\": \"1969-07-13T04:43:05.738Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5ce71df-56ff-41dd-998e-f5d662ac4e58",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "job",
+                    ":job-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ea76b6e-bbff-46fb-8eb7-b923bc2e8159",
+              "name": "Job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "job",
+                    ":job-number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0834e344-67ce-4468-87e4-0b6b3e284221",
+          "name": "Cancel a job",
+          "request": {
+            "name": "Cancel a job",
+            "description": {
+              "content": "Cancels a running job by its job number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":project-slug",
+                "job",
+                ":job-number",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "job-number",
+                  "description": "(Required) The number of the job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e1bf80e-0fff-4092-9c18-72ce3d2713f2",
+              "name": "Job cancelled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "job",
+                    ":job-number",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c418bbd7-898c-4769-81d0-277459570aac",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    "job",
+                    ":job-number",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "240af507-8a5a-4c8e-b5f9-24d1b86b41b4",
+          "name": "List artifacts for a job",
+          "request": {
+            "name": "List artifacts for a job",
+            "description": {
+              "content": "Returns a paginated list of artifacts produced by a given job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":project-slug",
+                ":job-number",
+                "artifacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "job-number",
+                  "description": "(Required) The number of the job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9f51ce5-fa1d-4d60-b354-e968cd6c4600",
+              "name": "Successfully retrieved artifacts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    ":job-number",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"path\": \"string\",\n      \"node_index\": 4829,\n      \"url\": \"https://UgJkKgZWdASRgN.xtusaXGH46fFk,r8\"\n    },\n    {\n      \"path\": \"string\",\n      \"node_index\": 1657,\n      \"url\": \"https://IQaNxcgnfHZJYAlHNZKSYZHKn.ggsax6UAwiUOJloqckik4.cILP65xWkH-Xz46b8b4DcYihENl.KeMpO3XsjHPzk-8ImLhFFVdJtR\"\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3d76329-79b6-457d-964e-c217bbcebd18",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    ":job-number",
+                    "artifacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08971dba-b41b-433e-99d0-e0565c01545a",
+          "name": "List test metadata for a job",
+          "request": {
+            "name": "List test metadata for a job",
+            "description": {
+              "content": "Returns test metadata for a given job, collected from JUnit XML or similar test result files.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "project",
+                ":project-slug",
+                ":job-number",
+                "tests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project-slug",
+                  "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "job-number",
+                  "description": "(Required) The number of the job"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f9a908b5-df7c-4a4b-9927-df070a44078a",
+              "name": "Successfully retrieved test metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    ":job-number",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"message\": \"string\",\n      \"source\": \"string\",\n      \"run_time\": \"string\",\n      \"file\": \"string\",\n      \"result\": \"string\",\n      \"name\": \"string\",\n      \"classname\": \"string\"\n    },\n    {\n      \"message\": \"string\",\n      \"source\": \"string\",\n      \"run_time\": \"string\",\n      \"file\": \"string\",\n      \"result\": \"string\",\n      \"name\": \"string\",\n      \"classname\": \"string\"\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c610feff-4ef4-4e8a-8020-fc1b90c93d78",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "project",
+                    ":project-slug",
+                    ":job-number",
+                    "tests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project-slug",
+                      "description": "(Required) The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job-number",
+                      "description": "(Required) The number of the job"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://circleci.com/api/v1.1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Circle-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9a0e1a04-ad87-41b5-ba57-9e14652c732f",
+    "name": "CircleCI REST API v1 Artifact Job API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",
+      "type": "text/plain"
+    }
+  }
+}

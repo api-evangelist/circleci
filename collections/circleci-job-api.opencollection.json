@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Job API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get job details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/job/:job-number",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "job-number",
+                "value": "",
+                "type": "path",
+                "description": "The number of the job"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific job, including its status, duration, and executor configuration."
+        },
+        {
+          "info": {
+            "name": "Cancel a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/job/:job-number/cancel",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "job-number",
+                "value": "",
+                "type": "path",
+                "description": "The number of the job"
+              }
+            ]
+          },
+          "docs": "Cancels a running job by its job number."
+        },
+        {
+          "info": {
+            "name": "List artifacts for a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/:job-number/artifacts",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "job-number",
+                "value": "",
+                "type": "path",
+                "description": "The number of the job"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of artifacts produced by a given job."
+        },
+        {
+          "info": {
+            "name": "List test metadata for a job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/:job-number/tests",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "job-number",
+                "value": "",
+                "type": "path",
+                "description": "The number of the job"
+              }
+            ]
+          },
+          "docs": "Returns test metadata for a given job, collected from JUnit XML or similar test result files."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

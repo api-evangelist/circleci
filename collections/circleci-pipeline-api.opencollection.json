@@ -1,0 +1,214 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Pipeline API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pipeline",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/pipeline",
+            "params": [
+              {
+                "name": "org-slug",
+                "value": "",
+                "type": "query",
+                "description": "Organization slug in the form vcs-slug/org-name"
+              },
+              {
+                "name": "mine",
+                "value": "",
+                "type": "query",
+                "description": "Filter to only pipelines triggered by the current user"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns all pipelines for the most recently built projects you follow in the organization."
+        },
+        {
+          "info": {
+            "name": "Continue a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/pipeline/continue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Continues a pipeline from a setup workflow by providing configuration and pipeline parameters."
+        },
+        {
+          "info": {
+            "name": "Get a pipeline by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/pipeline/:pipeline-id",
+            "params": [
+              {
+                "name": "pipeline-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the pipeline"
+              }
+            ]
+          },
+          "docs": "Returns a pipeline by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Get a pipeline's configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/pipeline/:pipeline-id/config",
+            "params": [
+              {
+                "name": "pipeline-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the pipeline"
+              }
+            ]
+          },
+          "docs": "Returns the configuration source for a given pipeline."
+        },
+        {
+          "info": {
+            "name": "List workflows for a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/pipeline/:pipeline-id/workflow",
+            "params": [
+              {
+                "name": "pipeline-id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the pipeline"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of workflows associated with a given pipeline."
+        },
+        {
+          "info": {
+            "name": "List project pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/pipeline",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "Filter pipelines by branch name"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of pipelines for a given project."
+        },
+        {
+          "info": {
+            "name": "Trigger a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/pipeline",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a new pipeline on the specified project. Optionally specify a branch, tag, or revision to build. Pipeline parameters can also be provided."
+        },
+        {
+          "info": {
+            "name": "List my project pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/pipeline/mine",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "page-token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of pipelines for a project filtered to those triggered by the current user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,201 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact SSH Key API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SSH Key",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add an SSH key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/ssh-key",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds an SSH key to the specified project for use in builds."
+        },
+        {
+          "info": {
+            "name": "List checkout keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/checkout-key",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              }
+            ]
+          },
+          "docs": "Returns a list of checkout keys for the specified project."
+        },
+        {
+          "info": {
+            "name": "Create a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/checkout-key",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new checkout key for the specified project."
+        },
+        {
+          "info": {
+            "name": "Get a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/checkout-key/:fingerprint",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "fingerprint",
+                "value": "",
+                "type": "path",
+                "description": "The fingerprint of the checkout key"
+              }
+            ]
+          },
+          "docs": "Returns a checkout key by its fingerprint."
+        },
+        {
+          "info": {
+            "name": "Delete a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/checkout-key/:fingerprint",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "fingerprint",
+                "value": "",
+                "type": "path",
+                "description": "The fingerprint of the checkout key"
+              }
+            ]
+          },
+          "docs": "Deletes a checkout key by its fingerprint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

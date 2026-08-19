@@ -1,43 +1,30 @@
 {
   "item": [
     {
-      "id": "978cb7ad-3148-40c3-a70f-a4b9eb1ede24",
-      "name": "Runner",
+      "id": "ea5e83df-8c80-4251-8a5a-3ddc110d2706",
+      "name": "User",
       "description": {
-        "content": "Endpoints for listing and querying self-hosted runners and their status within a namespace or resource class.",
+        "content": "Endpoints for retrieving information about the authenticated user.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "9c2e3def-4e31-451c-973d-7b4d1553c1c5",
-          "name": "List self-hosted runners",
+          "id": "68204cb2-c038-425b-8452-159cd9400ea7",
+          "name": "Get authenticated user",
           "request": {
-            "name": "List self-hosted runners",
+            "name": "Get authenticated user",
             "description": {
-              "content": "Retrieves a list of self-hosted runners filtered by namespace or resource class. At least one filter parameter must be provided to return results. Returns details including hostname, name, connection timestamps, version, and resource class.",
+              "content": "Returns information about the currently authenticated user, including name, login, and avatar URL.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "runner"
+                "me"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "namespace",
-                  "value": "<string>",
-                  "description": "The namespace to filter runners by. Cannot be used together with resource-class."
-                },
-                {
-                  "disabled": false,
-                  "key": "resource-class",
-                  "value": "<string>",
-                  "description": "The resource class to filter runners by. Cannot be used together with namespace."
-                }
-              ],
+              "query": [],
               "variable": []
             },
             "header": [
@@ -51,26 +38,17 @@
           },
           "response": [
             {
-              "id": "41d867f0-e410-40f3-a357-7c0114442237",
-              "name": "Successfully retrieved runners",
+              "id": "c890eeed-52ef-49f0-a7c2-053f63391dca",
+              "name": "Successfully retrieved user information",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "runner"
+                    "me"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "namespace",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "resource-class",
-                      "value": "<string>"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -98,31 +76,98 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"items\": [\n    {\n      \"resource_class\": \"string\",\n      \"hostname\": \"string\",\n      \"name\": \"string\",\n      \"first_connected\": \"1962-01-17T16:54:42.581Z\",\n      \"last_connected\": \"1996-05-12T23:35:29.841Z\",\n      \"last_used\": \"1958-02-24T20:42:56.374Z\",\n      \"version\": \"string\",\n      \"ip\": \"string\",\n      \"os\": \"string\",\n      \"arch\": \"string\"\n    },\n    {\n      \"resource_class\": \"string\",\n      \"hostname\": \"string\",\n      \"name\": \"string\",\n      \"first_connected\": \"1993-12-18T16:02:40.912Z\",\n      \"last_connected\": \"1953-10-22T23:29:33.240Z\",\n      \"last_used\": \"1994-06-03T04:47:00.109Z\",\n      \"version\": \"string\",\n      \"ip\": \"string\",\n      \"os\": \"string\",\n      \"arch\": \"string\"\n    }\n  ]\n}",
+              "body": "{\n  \"login\": \"string\",\n  \"name\": \"string\",\n  \"avatar_url\": \"https://fEBzSqPJFQVagisnZfnUNUOKFS.usfZd6S9LWWzSmcQzmaO\",\n  \"admin\": true,\n  \"all_emails\": [\n    \"mtyLj@KvPpOxvHsoPaGqZCxiyHWri.ic\",\n    \"nqsoo@piatoTFeAvE.erc\"\n  ],\n  \"selected_email\": \"PRNnk04@UjsmBSklmfEHpQDJiAheETqiIpuPccr.lu\",\n  \"days_left_in_trial\": 2862,\n  \"parallelism\": 9620,\n  \"created_at\": \"1965-05-22T08:46:16.531Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "9a769a28-0dbc-4850-9e28-c437631c5e61",
-              "name": "Bad request - at least one filter parameter must be provided",
+              "id": "53a0dd2a-65a3-4099-9070-46b0d07964f4",
+              "name": "Unauthorized",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "runner"
+                    "me"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "namespace",
-                      "value": "<string>"
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
                     },
-                    {
-                      "key": "resource-class",
-                      "value": "<string>"
-                    }
+                    "key": "Circle-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8575117c-c28f-4e5b-8559-3c1f004bdc73",
+          "name": "List collaborations",
+          "request": {
+            "name": "List collaborations",
+            "description": {
+              "content": "Returns a list of organizations and accounts the current user collaborates with.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "me",
+                "collaborations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bfbe154d-25b0-4b6c-991b-13fa3311a1cc",
+              "name": "Successfully retrieved collaborations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "me",
+                    "collaborations"
                   ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -142,39 +187,31 @@
                 "method": "GET",
                 "body": {}
               },
-              "status": "Bad Request",
-              "code": 400,
+              "status": "OK",
+              "code": 200,
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\"\n}",
+              "body": "[\n  {\n    \"vcs-type\": \"string\",\n    \"name\": \"string\",\n    \"avatar_url\": \"http://G.qbllsbLFAvRHKLoZxmKvMhgeIJKbke\",\n    \"slug\": \"string\",\n    \"id\": \"e0927c58-ccd0-7fe4-582a-0dce2900f1cc\"\n  },\n  {\n    \"vcs-type\": \"string\",\n    \"name\": \"string\",\n    \"avatar_url\": \"https://sNGkiaHbnZXru.zmuhJH\",\n    \"slug\": \"string\",\n    \"id\": \"801c4550-36c3-2302-d882-3e90218ae70b\"\n  }\n]",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f6e8072e-0239-46bb-ae6d-c47b0db915ea",
+              "id": "95bacb6a-8976-4ba3-ae69-576f6930fa8e",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "runner"
+                    "me",
+                    "collaborations"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "namespace",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "resource-class",
-                      "value": "<string>"
-                    }
-                  ],
+                  "query": [],
                   "variable": []
                 },
                 "header": [
@@ -242,8 +279,8 @@
     ]
   },
   "info": {
-    "_postman_id": "edde1c9f-68f4-4531-94b8-c33c51834171",
-    "name": "CircleCI REST API v1 Artifact Runner API",
+    "_postman_id": "199294bd-604d-4035-8f17-6af4b9d755d7",
+    "name": "CircleCI REST API v1 Artifact User API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.\n\nContact Support:\n Name: CircleCI Support",

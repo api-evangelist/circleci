@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact User API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/me"
+          },
+          "docs": "Returns information about the currently authenticated user, including name, login, and avatar URL."
+        },
+        {
+          "info": {
+            "name": "List collaborations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/me/collaborations"
+          },
+          "docs": "Returns a list of organizations and accounts the current user collaborates with."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

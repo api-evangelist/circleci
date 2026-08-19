@@ -1,0 +1,271 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Project API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Project",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List followed projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/projects"
+          },
+          "docs": "Returns a list of all projects the authenticated user follows, including recent build summaries for each project."
+        },
+        {
+          "info": {
+            "name": "Follow a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/follow",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              }
+            ]
+          },
+          "docs": "Follows a project, adding it to the authenticated user's list of followed projects."
+        },
+        {
+          "info": {
+            "name": "Get a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ]
+          },
+          "docs": "Returns a project by its slug, which is a triplet of the VCS type, organization name, and repository name."
+        },
+        {
+          "info": {
+            "name": "List checkout keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/checkout-key",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of checkout keys for a given project."
+        },
+        {
+          "info": {
+            "name": "Create a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/checkout-key",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new checkout key for the specified project. Only deploy keys and user keys are supported."
+        },
+        {
+          "info": {
+            "name": "Get a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/checkout-key/:fingerprint",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "",
+                "type": "path",
+                "description": "The fingerprint of the checkout key"
+              }
+            ]
+          },
+          "docs": "Returns a checkout key by its fingerprint."
+        },
+        {
+          "info": {
+            "name": "Delete a checkout key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/checkout-key/:fingerprint",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "fingerprint",
+                "value": "",
+                "type": "path",
+                "description": "The fingerprint of the checkout key"
+              }
+            ]
+          },
+          "docs": "Deletes a checkout key by its fingerprint."
+        },
+        {
+          "info": {
+            "name": "List project environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/envvar",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of masked environment variables for a given project."
+        },
+        {
+          "info": {
+            "name": "Create a project environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/envvar",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new environment variable for the specified project."
+        },
+        {
+          "info": {
+            "name": "Get a masked environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/envvar/:name",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Returns a masked environment variable by name for the specified project."
+        },
+        {
+          "info": {
+            "name": "Delete a project environment variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://circleci.com/api/v1.1/project/:project-slug/envvar/:name",
+            "params": [
+              {
+                "name": "project-slug",
+                "value": "",
+                "type": "path",
+                "description": "The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the environment variable"
+              }
+            ]
+          },
+          "docs": "Deletes an environment variable from the specified project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

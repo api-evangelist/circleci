@@ -1,0 +1,287 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CircleCI REST API v1 Artifact Build API",
+    "version": "1.1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Circle-Token",
+      "value": "{{Circle-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Build",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List builds for a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter builds by status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of builds to return (max 100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns a list of the most recent builds for the specified project, with optional filtering by branch."
+        },
+        {
+          "info": {
+            "name": "Trigger a new build",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a new build for the specified project. Optionally specify a branch, revision, or build parameters."
+        },
+        {
+          "info": {
+            "name": "Trigger a build on a branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/tree/:branch",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "path",
+                "description": "The branch to build"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a new build on the specified branch of the project."
+        },
+        {
+          "info": {
+            "name": "Get build details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/:build_num",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "build_num",
+                "value": "",
+                "type": "path",
+                "description": "The build number"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific build, including its status, steps, and timing information."
+        },
+        {
+          "info": {
+            "name": "Retry a build",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/:build_num/retry",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "build_num",
+                "value": "",
+                "type": "path",
+                "description": "The build number"
+              }
+            ]
+          },
+          "docs": "Retries a build using the same configuration and revision as the original build."
+        },
+        {
+          "info": {
+            "name": "Cancel a build",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/:build_num/cancel",
+            "params": [
+              {
+                "name": "vcs-type",
+                "value": "",
+                "type": "path",
+                "description": "The version control system type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The organization or user name"
+              },
+              {
+                "name": "project",
+                "value": "",
+                "type": "path",
+                "description": "The repository name"
+              },
+              {
+                "name": "build_num",
+                "value": "",
+                "type": "path",
+                "description": "The build number"
+              }
+            ]
+          },
+          "docs": "Cancels a running build."
+        },
+        {
+          "info": {
+            "name": "List recent builds across all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://circleci.com/api/v1.1/recent-builds",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of builds to return (max 100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Returns a list of the most recent builds across all followed projects for the authenticated user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
