@@ -60,6 +60,11 @@ apis:
   name: CircleCI Webhooks
   tags:
   - CI/CD
+  - Event
+  - Notification
+  - Webhook
+  tags_raw:
+  - CI/CD
   - Events
   - Notifications
   - Webhooks
@@ -117,6 +122,8 @@ apis:
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
+  - Builds
+  tags_raw:
   - Build
   properties:
   - type: OpenAPI
@@ -305,6 +312,8 @@ apis:
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
+  - Workflows
+  tags_raw:
   - Workflow
   properties:
   - type: OpenAPI
