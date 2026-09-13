@@ -41,6 +41,7 @@ tags:
   - DevOps
   - Pipelines
   - Workflows
+  - Developer Tools
 description: >-
   CircleCI is a continuous integration and continuous delivery (CI/CD) platform that automates software build, test, and
   deployment pipelines. Their developer surface includes the REST API v2 (the recommended modern interface), the legacy
