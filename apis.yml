@@ -29,25 +29,24 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/circleci.p
 name: CircleCI
 url: https://raw.githubusercontent.com/api-evangelist/circleci/refs/heads/main/apis.yml
 created: '2025-03-05'
-modified: '2026-05-19'
+modified: '2026-09-16'
 type: Index
 access: 3rd-Party
 position: Consuming
 specificationVersion: '0.23'
 tags:
-  - CI/CD
-  - Continuous Integration
-  - Continuous Deployment
-  - DevOps
-  - Pipelines
-  - Workflows
-  - Developer Tools
-description: >-
-  CircleCI is a continuous integration and continuous delivery (CI/CD) platform that automates software build, test, and
-  deployment pipelines. Their developer surface includes the REST API v2 (the recommended modern interface), the legacy
-  v1 REST API, a Self-Hosted Runner API, webhooks for real-time event notifications, and the Orbs Registry of reusable
-  configuration packages. Authentication is via a personal or project Circle-Token sent in the Circle-Token header;
-  responses are JSON.
+- CI/CD
+- Continuous Integration
+- Continuous Deployment
+- DevOps
+- Pipelines
+- Workflows
+- Developer Tools
+description: CircleCI is a continuous integration and continuous delivery (CI/CD) platform that automates
+  software build, test, and deployment pipelines. Their developer surface includes the REST API v2 (the
+  recommended modern interface), the legacy v1 REST API, a Self-Hosted Runner API, webhooks for real-time
+  event notifications, and the Orbs Registry of reusable configuration packages. Authentication is via
+  a personal or project Circle-Token sent in the Circle-Token header; responses are JSON.
 apis:
 - aid: circleci:runner-api
   name: CircleCI Self-Hosted Runner API
@@ -64,12 +63,11 @@ apis:
     type: Documentation
   - url: openapi/circleci-runner-api-openapi.yml
     type: OpenAPI
-  description: >-
-    The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted runner
-    infrastructure. It provides endpoints for listing available runners, managing runner tasks, and querying
-    resource classes. The API is hosted separately from the main CircleCI API at runner.circleci.com and
-    supports multiple authentication methods depending on the endpoint. Developers can use this API to
-    integrate self-hosted runner management into their infrastructure automation workflows.
+  description: The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted
+    runner infrastructure. It provides endpoints for listing available runners, managing runner tasks,
+    and querying resource classes. The API is hosted separately from the main CircleCI API at runner.circleci.com
+    and supports multiple authentication methods depending on the endpoint. Developers can use this API
+    to integrate self-hosted runner management into their infrastructure automation workflows.
 - aid: circleci:webhooks
   name: CircleCI Webhooks
   tags:
@@ -90,10 +88,9 @@ apis:
     type: Documentation
   - url: asyncapi/circleci-webhooks-asyncapi.yml
     type: AsyncAPI
-  description: >-
-    CircleCI Webhooks allow developers to receive real-time notifications about events in their CI/CD
-    pipelines by configuring HTTP callbacks. Webhooks can be set up through project settings to notify
-    external services when workflows and jobs complete, fail, or change status. This enables integration
+  description: CircleCI Webhooks allow developers to receive real-time notifications about events in their
+    CI/CD pipelines by configuring HTTP callbacks. Webhooks can be set up through project settings to
+    notify external services when workflows and jobs complete, fail, or change status. This enables integration
     with monitoring systems, chat platforms, and custom automation workflows. Webhooks deliver JSON payloads
     containing event details to configured endpoint URLs.
 - aid: circleci:orbs
@@ -109,12 +106,11 @@ apis:
   properties:
   - url: https://circleci.com/developer/orbs
     type: Documentation
-  description: >-
-    CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify build setup
-    and integration with third-party tools. The Orbs Registry on the CircleCI Developer Hub provides a
-    searchable catalog of community and certified orbs. Developers can browse, publish, and consume orbs
-    to automate repeated processes, speed up project configuration, and integrate services like AWS, Docker,
-    Slack, and Kubernetes into their CI/CD pipelines.
+  description: CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify
+    build setup and integration with third-party tools. The Orbs Registry on the CircleCI Developer Hub
+    provides a searchable catalog of community and certified orbs. Developers can browse, publish, and
+    consume orbs to automate repeated processes, speed up project configuration, and integrate services
+    like AWS, Docker, Slack, and Kubernetes into their CI/CD pipelines.
 - aid: circleci:circleci-artifact-api
   name: CircleCI Artifact API
   description: Endpoints for listing and downloading build artifacts.
@@ -131,8 +127,8 @@ apis:
     url: https://circleci.com/docs/api/v1/
 - aid: circleci:circleci-build-api
   name: CircleCI Build API
-  description: >-
-    Endpoints for retrieving build details, triggering builds, retrying builds, and canceling builds.
+  description: Endpoints for retrieving build details, triggering builds, retrying builds, and canceling
+    builds.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -148,8 +144,8 @@ apis:
     url: https://circleci.com/docs/api/v1/
 - aid: circleci:circleci-context-api
   name: CircleCI Context API
-  description: >-
-    Endpoints for managing contexts, which are used to secure and share environment variables across projects.
+  description: Endpoints for managing contexts, which are used to secure and share environment variables
+    across projects.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -163,8 +159,7 @@ apis:
     url: https://circleci.com/docs/api/v1/
 - aid: circleci:circleci-insights-api
   name: CircleCI Insights API
-  description: >-
-    Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
+  description: Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -178,8 +173,8 @@ apis:
     url: https://circleci.com/docs/api/v1/
 - aid: circleci:circleci-job-api
   name: CircleCI Job API
-  description: >-
-    Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline jobs.
+  description: Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline
+    jobs.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -221,9 +216,8 @@ apis:
     url: https://circleci.com/docs/api/v1/
 - aid: circleci:circleci-resource-class-api
   name: CircleCI Resource Class API
-  description: >-
-    Endpoints for managing runner resource classes, which define the compute resources available for self-hosted
-    runner jobs.
+  description: Endpoints for managing runner resource classes, which define the compute resources available
+    for self-hosted runner jobs.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -321,8 +315,7 @@ apis:
     url: https://circleci.com/docs/api/v1/
 - aid: circleci:circleci-workflow-api
   name: CircleCI Workflow API
-  description: >-
-    Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.
+  description: Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -337,83 +330,85 @@ apis:
   - type: Documentation
     url: https://circleci.com/docs/api/v1/
 common:
-  - type: PostmanWorkspace
-    url: https://www.postman.com/kinlaneapi/circleci/overview
-  - type: AgenticAccess
-    url: agentic-access/circleci-agentic-access.yml
-  - type: TrustCenter
-    url: security/circleci-trust-center.yml
-  - type: VulnerabilityDisclosure
-    url: security/circleci-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/circleci-domain-security.yml
-  - type: Authentication
-    url: authentication/circleci-authentication.yml
-  - type: GitHubOrganization
-    url: https://github.com/circleci
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/circleci
-  - type: Website
-    url: https://circleci.com/
-  - type: Portal
-    url: https://circleci.com/developer
-  - type: Documentation
-    url: https://circleci.com/docs/
-  - type: StatusPage
-    url: https://status.circleci.com/
-  - type: Support
-    url: https://support.circleci.com/
-  - type: Blog
-    url: https://circleci.com/blog/
-  - type: PrivacyPolicy
-    url: https://circleci.com/privacy/
-  - type: TermsOfService
-    url: https://circleci.com/terms-of-service/
-  - type: Login
-    url: https://app.circleci.com/
-  - type: JSONLD
-    url: json-ld/circleci-context.jsonld
-  - type: JSONSchema
-    url: json-schema/circleci-pipeline-schema.json
-  - type: JSONSchema
-    url: json-schema/circleci-workflow-schema.json
-  - type: JSONSchema
-    url: json-schema/circleci-webhook-event-schema.json
-  - type: Spectral
-    url: rules/circleci-rules.yml
-  - type: Features
-    data:
-      - 'Free: 30K credits/mo, 6K build minutes, 5 active users'
-      - 'Performance from $15/mo: 30K credits + $15/25K credits, 80x concurrency'
-      - 'Scale: custom annual, 200 GB storage, GPU, SSO, config policies'
-      - REST API v2 at circleci.com/api/v2
-      - Default 3,000 req/min API rate limit
-      - Self-hosted runners (Linux, Windows, macOS, Arm)
-      - Docker layer caching (Performance+)
-      - Orbs marketplace for reusable config
-      - Webhooks for pipeline events
-      - OAuth 2.0 + personal API tokens
-      - Test splitting and parallel execution
-      - GPU executors (Scale)
-      - Insights API for build analytics
-      - OIDC token federation for cloud auth
-      - Config policies for governance (Scale)
-      - SOC 2, FedRAMP Moderate (Scale)
-    sources:
-      - https://circleci.com/pricing/
-    updated: '2026-05-04'
-  - type: Integrations
-    url: https://circleci.com/integrations/
-  - type: LlmsText
-    url: https://circleci.com/llms.txt
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/circleci/overview
+- type: AgenticAccess
+  url: agentic-access/circleci-agentic-access.yml
+- type: TrustCenter
+  url: security/circleci-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/circleci-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/circleci-domain-security.yml
+- type: Authentication
+  url: authentication/circleci-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/circleci
+- type: LinkedIn
+  url: https://www.linkedin.com/company/circleci
+- type: Website
+  url: https://circleci.com/
+- type: Portal
+  url: https://circleci.com/developer
+- type: Documentation
+  url: https://circleci.com/docs/
+- type: StatusPage
+  url: https://status.circleci.com/
+- type: Support
+  url: https://support.circleci.com/
+- type: Blog
+  url: https://circleci.com/blog/
+- type: PrivacyPolicy
+  url: https://circleci.com/privacy/
+- type: TermsOfService
+  url: https://circleci.com/terms-of-service/
+- type: Login
+  url: https://app.circleci.com/
+- type: JSONLD
+  url: json-ld/circleci-context.jsonld
+- type: JSONSchema
+  url: json-schema/circleci-pipeline-schema.json
+- type: JSONSchema
+  url: json-schema/circleci-workflow-schema.json
+- type: JSONSchema
+  url: json-schema/circleci-webhook-event-schema.json
+- type: Spectral
+  url: rules/circleci-rules.yml
+- type: Features
+  data:
+  - 'Free: 30K credits/mo, 6K build minutes, 5 active users'
+  - 'Performance from $15/mo: 30K credits + $15/25K credits, 80x concurrency'
+  - 'Scale: custom annual, 200 GB storage, GPU, SSO, config policies'
+  - REST API v2 at circleci.com/api/v2
+  - Default 3,000 req/min API rate limit
+  - Self-hosted runners (Linux, Windows, macOS, Arm)
+  - Docker layer caching (Performance+)
+  - Orbs marketplace for reusable config
+  - Webhooks for pipeline events
+  - OAuth 2.0 + personal API tokens
+  - Test splitting and parallel execution
+  - GPU executors (Scale)
+  - Insights API for build analytics
+  - OIDC token federation for cloud auth
+  - Config policies for governance (Scale)
+  - SOC 2, FedRAMP Moderate (Scale)
+  sources:
+  - https://circleci.com/pricing/
+  updated: '2026-05-04'
+- type: Integrations
+  url: https://circleci.com/integrations/
+- type: LlmsText
+  url: https://circleci.com/llms.txt
 integrations:
-  - name: GitHub
-  - name: GitLab
-  - name: Bitbucket
-  - name: AWS
-  - name: GCP
-  - name: Azure
-  - name: Kubernetes
+- name: GitHub
+- name: GitLab
+- name: Bitbucket
+- name: AWS
+- name: GCP
+- name: Azure
+- name: Kubernetes
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-aliases:
+- CircleCI
