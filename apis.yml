@@ -192,6 +192,8 @@ apis:
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
+  - Pipelines
+  tags_raw:
   - Pipeline
   properties:
   - type: OpenAPI
