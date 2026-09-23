@@ -1,15 +1,18 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CircleCI REST API v1 Artifact Insights API
-  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
-  version: '1.1'
+  title: CircleCI REST API v2 Insights API
+  description: The CircleCI REST API v2 provides programmatic access to CircleCI services for managing pipelines, projects, workflows, jobs, and users. Developers can trigger pipelines, retrieve build status, manage contexts and environment variables, and access usage reports. The API uses token-based authentication via a Circle-Token header and returns JSON responses. It supports operations for project configuration, workflow management, artifact retrieval, and insights into build performance.
+  version: '2.0'
   contact:
     name: CircleCI Support
     url: https://support.circleci.com
   termsOfService: https://circleci.com/terms-of-service/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
 servers:
-- url: https://circleci.com/api/v1.1
-  description: CircleCI Production API v1.1
+- url: https://circleci.com/api/v2
+  description: CircleCI Production API
 security:
 - apiToken: []
 tags:
@@ -162,60 +165,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    InsightsJobMetrics:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The job name
-              metrics:
-                type: object
-                properties:
-                  total_runs:
-                    type: integer
-                    description: Total number of runs
-                  successful_runs:
-                    type: integer
-                    description: Number of successful runs
-                  failed_runs:
-                    type: integer
-                    description: Number of failed runs
-                  success_rate:
-                    type: number
-                    format: float
-                    description: Success rate as a decimal
-                  duration_metrics:
-                    type: object
-                    properties:
-                      min:
-                        type: integer
-                        description: Minimum duration
-                      mean:
-                        type: integer
-                        description: Mean duration
-                      median:
-                        type: integer
-                        description: Median duration
-                      p95:
-                        type: integer
-                        description: 95th percentile duration
-                      max:
-                        type: integer
-                        description: Maximum duration
-                    description: Duration statistics
-                  total_credits_used:
-                    type: integer
-                    description: Total credits consumed
-                description: Job metrics
-          description: List of job metric summaries
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
     InsightsWorkflowRuns:
       type: object
       properties:
@@ -252,12 +201,6 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
     InsightsTestMetrics:
       type: object
       properties:
@@ -393,6 +336,66 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    InsightsJobMetrics:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The job name
+              metrics:
+                type: object
+                properties:
+                  total_runs:
+                    type: integer
+                    description: Total number of runs
+                  successful_runs:
+                    type: integer
+                    description: Number of successful runs
+                  failed_runs:
+                    type: integer
+                    description: Number of failed runs
+                  success_rate:
+                    type: number
+                    format: float
+                    description: Success rate as a decimal
+                  duration_metrics:
+                    type: object
+                    properties:
+                      min:
+                        type: integer
+                        description: Minimum duration
+                      mean:
+                        type: integer
+                        description: Mean duration
+                      median:
+                        type: integer
+                        description: Median duration
+                      p95:
+                        type: integer
+                        description: 95th percentile duration
+                      max:
+                        type: integer
+                        description: Maximum duration
+                    description: Duration statistics
+                  total_credits_used:
+                    type: integer
+                    description: Total credits consumed
+                description: Job metrics
+          description: List of job metric summaries
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
   parameters:
     ProjectSlugParam:
       name: project-slug
@@ -412,7 +415,11 @@ components:
       type: apiKey
       in: header
       name: Circle-Token
-      description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
+      description: Personal API token for authenticating with the CircleCI API. Generate tokens in your CircleCI account settings.
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP basic authentication using a personal API token as the username with an empty password.
 externalDocs:
-  description: CircleCI API v1 Reference
-  url: https://circleci.com/docs/api/v1/
+  description: CircleCI API v2 Documentation
+  url: https://circleci.com/docs/api/v2/

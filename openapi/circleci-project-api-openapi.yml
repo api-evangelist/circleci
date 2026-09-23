@@ -1,15 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CircleCI REST API v1 Artifact Project API
-  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
-  version: '1.1'
+  title: Circleci Project API
   contact:
     name: CircleCI Support
     url: https://support.circleci.com
   termsOfService: https://circleci.com/terms-of-service/
+  version: '1.0'
+  description: 'Operations tagged Project across 2 of this provider''s published API definitions: circleci-rest-api-v1-openapi.yml, circleci-rest-api-v2-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://circleci.com/api/v1.1
   description: CircleCI Production API v1.1
+- url: https://circleci.com/api/v2
+  description: CircleCI Production API
 security:
 - apiToken: []
 tags:
@@ -34,6 +36,9 @@ paths:
                   $ref: '#/components/schemas/Project'
         '401':
           description: Unauthorized
+    servers:
+    - url: https://circleci.com/api/v1.1
+      description: CircleCI Production API v1.1
   /project/{vcs-type}/{username}/{project}/follow:
     post:
       operationId: followProject
@@ -60,6 +65,9 @@ paths:
                     $ref: '#/components/schemas/BuildSummary'
         '401':
           description: Unauthorized
+    servers:
+    - url: https://circleci.com/api/v1.1
+      description: CircleCI Production API v1.1
   /project/{project-slug}:
     get:
       operationId: getProject
@@ -82,6 +90,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    servers:
+    - url: https://circleci.com/api/v2
+      description: CircleCI Production API
   /project/{project-slug}/checkout-key:
     get:
       operationId: listCheckoutKeys
@@ -140,6 +151,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    servers:
+    - url: https://circleci.com/api/v2
+      description: CircleCI Production API
   /project/{project-slug}/checkout-key/{fingerprint}:
     get:
       operationId: getCheckoutKey
@@ -191,6 +205,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    servers:
+    - url: https://circleci.com/api/v2
+      description: CircleCI Production API
   /project/{project-slug}/envvar:
     get:
       operationId: listProjectEnvironmentVariables
@@ -250,6 +267,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    servers:
+    - url: https://circleci.com/api/v2
+      description: CircleCI Production API
   /project/{project-slug}/envvar/{name}:
     get:
       operationId: getProjectEnvironmentVariable
@@ -311,34 +331,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+    servers:
+    - url: https://circleci.com/api/v2
+      description: CircleCI Production API
 components:
   schemas:
-    CheckoutKeyList:
+    BuildSummary:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CheckoutKey'
-          description: List of checkout keys
-        next_page_token:
+        build_url:
           type: string
-          description: Token for retrieving the next page
-    MessageResponse:
+          format: uri
+          description: URL to view the build
+        build_num:
+          type: integer
+          description: The build number
+        status:
+          type: string
+          description: The build status
+        vcs_revision:
+          type: string
+          description: The VCS revision
+    Project:
       type: object
       properties:
-        message:
+        vcs_url:
           type: string
-          description: A message describing the result of the operation
-    ProjectEnvVar:
-      type: object
-      properties:
-        name:
+          format: uri
+          description: The VCS URL of the project
+        followed:
+          type: boolean
+          description: Whether the user follows this project
+        username:
           type: string
-          description: The name of the environment variable
-        value:
+          description: The organization or username
+        reponame:
           type: string
-          description: The masked value of the environment variable
+          description: The repository name
+        branches:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              recent_builds:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildSummary'
+                description: Recent builds on this branch
+          description: Branch information with recent builds
     CheckoutKey:
       type: object
       properties:
@@ -361,22 +401,6 @@ components:
           type: string
           format: date-time
           description: When the key was created
-    BuildSummary:
-      type: object
-      properties:
-        build_url:
-          type: string
-          format: uri
-          description: URL to view the build
-        build_num:
-          type: integer
-          description: The build number
-        status:
-          type: string
-          description: The build status
-        vcs_revision:
-          type: string
-          description: The VCS revision
     Project_2:
       type: object
       properties:
@@ -414,39 +438,21 @@ components:
               type: string
               description: The default branch name
           description: Version control system information
-    ErrorResponse:
+    ProjectEnvVar:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the environment variable
+        value:
+          type: string
+          description: The masked value of the environment variable
+    MessageResponse:
       type: object
       properties:
         message:
           type: string
-          description: A human-readable error message
-    Project:
-      type: object
-      properties:
-        vcs_url:
-          type: string
-          format: uri
-          description: The VCS URL of the project
-        followed:
-          type: boolean
-          description: Whether the user follows this project
-        username:
-          type: string
-          description: The organization or username
-        reponame:
-          type: string
-          description: The repository name
-        branches:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              recent_builds:
-                type: array
-                items:
-                  $ref: '#/components/schemas/BuildSummary'
-                description: Recent builds on this branch
-          description: Branch information with recent builds
+          description: A message describing the result of the operation
     ProjectEnvVarList:
       type: object
       properties:
@@ -458,21 +464,24 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
+    CheckoutKeyList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckoutKey'
+          description: List of checkout keys
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
   parameters:
-    ProjectParam:
-      name: project
-      in: path
-      required: true
-      description: The repository name
-      schema:
-        type: string
-    ProjectSlugParam:
-      name: project-slug
-      in: path
-      required: true
-      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
-      schema:
-        type: string
     VcsTypeParam:
       name: vcs-type
       in: path
@@ -483,6 +492,13 @@ components:
         enum:
         - github
         - bitbucket
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      description: The repository name
+      schema:
+        type: string
     UsernameParam:
       name: username
       in: path
@@ -497,12 +513,23 @@ components:
       description: The fingerprint of the checkout key
       schema:
         type: string
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       type: apiKey
       in: header
       name: Circle-Token
       description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
-externalDocs:
-  description: CircleCI API v1 Reference
-  url: https://circleci.com/docs/api/v1/
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP basic authentication using a personal API token as the username with an empty password.
+x-refined-from:
+- circleci-rest-api-v1-openapi.yml
+- circleci-rest-api-v2-openapi.yml

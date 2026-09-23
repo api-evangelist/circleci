@@ -1,44 +1,58 @@
 {
   "provider": "circleci",
   "sources": [
-    "circleci-artifact-api-openapi.yml",
-    "circleci-build-api-openapi.yml",
-    "circleci-context-api-openapi.yml",
-    "circleci-insights-api-openapi.yml",
-    "circleci-job-api-openapi.yml",
-    "circleci-pipeline-api-openapi.yml",
-    "circleci-project-api-openapi.yml",
+    "_original/circleci-rest-api-v1-openapi.yml",
+    "_original/circleci-rest-api-v2-openapi.yml",
     "circleci-resource-class-api-openapi.yml",
     "circleci-runner-api-openapi.yml",
-    "circleci-runner-task-api-openapi.yml",
-    "circleci-schedule-api-openapi.yml",
-    "circleci-ssh-key-api-openapi.yml",
-    "circleci-test-metadata-api-openapi.yml",
-    "circleci-user-api-openapi.yml",
-    "circleci-webhook-api-openapi.yml",
-    "circleci-workflow-api-openapi.yml"
+    "circleci-runner-task-api-openapi.yml"
   ],
   "outputs": [
     "circleci-artifact-api-openapi.yml",
     "circleci-build-api-openapi.yml",
+    "circleci-project-api-openapi.yml",
+    "circleci-ssh-key-api-openapi.yml",
+    "circleci-test-metadata-api-openapi.yml",
+    "circleci-user-api-openapi.yml",
     "circleci-context-api-openapi.yml",
     "circleci-insights-api-openapi.yml",
     "circleci-job-api-openapi.yml",
     "circleci-pipeline-api-openapi.yml",
-    "circleci-project-api-openapi.yml",
+    "circleci-schedule-api-openapi.yml",
+    "circleci-webhook-api-openapi.yml",
+    "circleci-workflow-api-openapi.yml",
     "circleci-resource-class-api-openapi.yml",
     "circleci-runner-api-openapi.yml",
-    "circleci-runner-task-api-openapi.yml",
-    "circleci-schedule-api-openapi.yml",
-    "circleci-ssh-key-api-openapi.yml",
-    "circleci-test-metadata-api-openapi.yml",
-    "circleci-user-api-openapi.yml",
-    "circleci-webhook-api-openapi.yml",
-    "circleci-workflow-api-openapi.yml"
+    "circleci-runner-task-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "circleci-resource-class-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /runner/resource-class get, /runner/resource-class post, /runner/resource-class/{resource-class} delete); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "circleci-runner-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /runner get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "circleci-runner-task-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /runner/tasks get, /runner/tasks/running get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "circleci-rest-api-v1-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "circleci-rest-api-v2-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Project' spans 2 source specs (circleci-rest-api-v1-openapi.yml, circleci-rest-api-v2-openapi.yml): per-path servers applied",
+    "tag 'User' spans 2 source specs (circleci-rest-api-v1-openapi.yml, circleci-rest-api-v2-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "circleci-artifact-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-build-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-context-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-insights-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-job-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-pipeline-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-project-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-schedule-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-ssh-key-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-test-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-webhook-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "circleci-workflow-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,15 +1,18 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CircleCI REST API v1 Artifact Pipeline API
-  description: The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
-  version: '1.1'
+  title: CircleCI REST API v2 Pipeline API
+  description: The CircleCI REST API v2 provides programmatic access to CircleCI services for managing pipelines, projects, workflows, jobs, and users. Developers can trigger pipelines, retrieve build status, manage contexts and environment variables, and access usage reports. The API uses token-based authentication via a Circle-Token header and returns JSON responses. It supports operations for project configuration, workflow management, artifact retrieval, and insights into build performance.
+  version: '2.0'
   contact:
     name: CircleCI Support
     url: https://support.circleci.com
   termsOfService: https://circleci.com/terms-of-service/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
 servers:
-- url: https://circleci.com/api/v1.1
-  description: CircleCI Production API v1.1
+- url: https://circleci.com/api/v2
+  description: CircleCI Production API
 security:
 - apiToken: []
 tags:
@@ -246,85 +249,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PipelineList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Pipeline'
-          description: List of pipelines
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    MessageResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing the result of the operation
-    PipelineConfig:
-      type: object
-      properties:
-        source:
-          type: string
-          description: The source configuration
-        compiled:
-          type: string
-          description: The compiled configuration
-        setup-config:
-          type: string
-          description: The setup configuration
-        compiled-setup-config:
-          type: string
-          description: The compiled setup configuration
-    PipelineCreation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the new pipeline
-        state:
-          type: string
-          description: The state of the new pipeline
-        number:
-          type: integer
-          description: The pipeline number
-        created_at:
-          type: string
-          format: date-time
-          description: When the pipeline was created
-    WorkflowList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workflow'
-          description: List of workflows
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-    TriggerPipelineRequest:
-      type: object
-      properties:
-        branch:
-          type: string
-          description: The branch to build
-        tag:
-          type: string
-          description: The tag to build
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Pipeline parameters as key-value pairs
     Pipeline:
       type: object
       properties:
@@ -412,6 +336,25 @@ components:
               type: string
               description: The VCS tag
           description: VCS information for this pipeline
+    TriggerPipelineRequest:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: The branch to build
+        tag:
+          type: string
+          description: The tag to build
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters as key-value pairs
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
     Workflow:
       type: object
       properties:
@@ -457,6 +400,66 @@ components:
           type: string
           format: date-time
           description: When the workflow stopped
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    PipelineCreation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the new pipeline
+        state:
+          type: string
+          description: The state of the new pipeline
+        number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the pipeline was created
+    WorkflowList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+          description: List of workflows
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    PipelineConfig:
+      type: object
+      properties:
+        source:
+          type: string
+          description: The source configuration
+        compiled:
+          type: string
+          description: The compiled configuration
+        setup-config:
+          type: string
+          description: The setup configuration
+        compiled-setup-config:
+          type: string
+          description: The compiled setup configuration
+    PipelineList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pipeline'
+          description: List of pipelines
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
   parameters:
     ProjectSlugParam:
       name: project-slug
@@ -484,7 +487,11 @@ components:
       type: apiKey
       in: header
       name: Circle-Token
-      description: Personal API token for authenticating with the CircleCI API. Can also be passed as a query parameter.
+      description: Personal API token for authenticating with the CircleCI API. Generate tokens in your CircleCI account settings.
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP basic authentication using a personal API token as the username with an empty password.
 externalDocs:
-  description: CircleCI API v1 Reference
-  url: https://circleci.com/docs/api/v1/
+  description: CircleCI API v2 Documentation
+  url: https://circleci.com/docs/api/v2/
