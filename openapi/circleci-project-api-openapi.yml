@@ -335,6 +335,45 @@ paths:
     - url: https://circleci.com/api/v2
       description: CircleCI Production API
 components:
+  parameters:
+    VcsTypeParam:
+      name: vcs-type
+      in: path
+      required: true
+      description: The version control system type
+      schema:
+        type: string
+        enum:
+        - github
+        - bitbucket
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      description: The repository name
+      schema:
+        type: string
+    UsernameParam:
+      name: username
+      in: path
+      required: true
+      description: The organization or user name
+      schema:
+        type: string
+    FingerprintParam:
+      name: fingerprint
+      in: path
+      required: true
+      description: The fingerprint of the checkout key
+      schema:
+        type: string
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
   schemas:
     BuildSummary:
       type: object
@@ -401,6 +440,49 @@ components:
           type: string
           format: date-time
           description: When the key was created
+    ProjectEnvVar:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the environment variable
+        value:
+          type: string
+          description: The masked value of the environment variable
+    CheckoutKeyList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckoutKey'
+          description: List of checkout keys
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    ProjectEnvVarList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectEnvVar'
+          description: List of environment variables
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
     Project_2:
       type: object
       properties:
@@ -438,88 +520,6 @@ components:
               type: string
               description: The default branch name
           description: Version control system information
-    ProjectEnvVar:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the environment variable
-        value:
-          type: string
-          description: The masked value of the environment variable
-    MessageResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing the result of the operation
-    ProjectEnvVarList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectEnvVar'
-          description: List of environment variables
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    CheckoutKeyList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CheckoutKey'
-          description: List of checkout keys
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-  parameters:
-    VcsTypeParam:
-      name: vcs-type
-      in: path
-      required: true
-      description: The version control system type
-      schema:
-        type: string
-        enum:
-        - github
-        - bitbucket
-    ProjectParam:
-      name: project
-      in: path
-      required: true
-      description: The repository name
-      schema:
-        type: string
-    UsernameParam:
-      name: username
-      in: path
-      required: true
-      description: The organization or user name
-      schema:
-        type: string
-    FingerprintParam:
-      name: fingerprint
-      in: path
-      required: true
-      description: The fingerprint of the checkout key
-      schema:
-        type: string
-    ProjectSlugParam:
-      name: project-slug
-      in: path
-      required: true
-      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
-      schema:
-        type: string
   securitySchemes:
     apiToken:
       type: apiKey

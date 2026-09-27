@@ -144,6 +144,22 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ResourceClassCreation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the resource class
+        resource_class:
+          type: string
+          description: The resource class name in namespace/name format
+        description:
+          type: string
+          description: A description of the resource class
+        token:
+          type: string
+          description: The resource class token. This is only displayed once and cannot be retrieved again. Store it securely.
     ResourceClass:
       type: object
       properties:
@@ -163,22 +179,6 @@ components:
         message:
           type: string
           description: A human-readable error message
-    ResourceClassCreation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the resource class
-        resource_class:
-          type: string
-          description: The resource class name in namespace/name format
-        description:
-          type: string
-          description: A description of the resource class
-        token:
-          type: string
-          description: The resource class token. This is only displayed once and cannot be retrieved again. Store it securely.
   parameters:
     ResourceClassParam:
       name: resource-class

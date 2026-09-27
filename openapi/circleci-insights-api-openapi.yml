@@ -165,42 +165,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    InsightsWorkflowRuns:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-                description: The workflow run ID
-              status:
-                type: string
-                description: The status of the run
-              duration:
-                type: integer
-                description: Duration in seconds
-              created_at:
-                type: string
-                format: date-time
-                description: When the run was created
-              stopped_at:
-                type: string
-                format: date-time
-                description: When the run stopped
-              credits_used:
-                type: integer
-                description: Credits consumed by this run
-              branch:
-                type: string
-                description: The branch that was built
-          description: List of workflow runs
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
     InsightsTestMetrics:
       type: object
       properties:
@@ -336,6 +300,42 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
+    InsightsWorkflowRuns:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: The workflow run ID
+              status:
+                type: string
+                description: The status of the run
+              duration:
+                type: integer
+                description: Duration in seconds
+              created_at:
+                type: string
+                format: date-time
+                description: When the run was created
+              stopped_at:
+                type: string
+                format: date-time
+                description: When the run stopped
+              credits_used:
+                type: integer
+                description: Credits consumed by this run
+              branch:
+                type: string
+                description: The branch that was built
+          description: List of workflow runs
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
     ErrorResponse:
       type: object
       properties:
@@ -397,17 +397,17 @@ components:
           type: string
           description: Token for retrieving the next page
   parameters:
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
+      schema:
+        type: string
     ProjectSlugParam:
       name: project-slug
       in: path
       required: true
       description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
-      schema:
-        type: string
-    PageTokenParam:
-      name: page-token
-      in: query
-      description: Token for retrieving the next page of results
       schema:
         type: string
   securitySchemes:

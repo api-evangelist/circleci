@@ -76,23 +76,6 @@ paths:
         '401':
           description: Unauthorized
 components:
-  schemas:
-    Artifact:
-      type: object
-      properties:
-        path:
-          type: string
-          description: The artifact path
-        pretty_path:
-          type: string
-          description: Human-readable artifact path
-        node_index:
-          type: integer
-          description: The node index that produced this artifact
-        url:
-          type: string
-          format: uri
-          description: URL to download the artifact
   parameters:
     VcsTypeParam:
       name: vcs-type
@@ -125,6 +108,23 @@ components:
       description: The organization or user name
       schema:
         type: string
+  schemas:
+    Artifact:
+      type: object
+      properties:
+        path:
+          type: string
+          description: The artifact path
+        pretty_path:
+          type: string
+          description: Human-readable artifact path
+        node_index:
+          type: integer
+          description: The node index that produced this artifact
+        url:
+          type: string
+          format: uri
+          description: URL to download the artifact
   securitySchemes:
     apiToken:
       type: apiKey

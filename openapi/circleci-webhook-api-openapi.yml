@@ -163,15 +163,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  parameters:
-    WebhookIdParam:
-      name: webhook-id
-      in: path
-      required: true
-      description: The unique identifier of the webhook
-      schema:
-        type: string
-        format: uuid
   schemas:
     UpdateWebhookRequest:
       type: object
@@ -197,12 +188,57 @@ components:
         verify-tls:
           type: boolean
           description: Whether to verify TLS on delivery
-    MessageResponse:
+    ErrorResponse:
       type: object
       properties:
         message:
           type: string
-          description: A message describing the result of the operation
+          description: A human-readable error message
+    CreateWebhookRequest:
+      type: object
+      required:
+      - name
+      - url
+      - events
+      - scope
+      - signing-secret
+      properties:
+        name:
+          type: string
+          description: The name of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL to deliver webhook payloads to
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - workflow-completed
+            - job-completed
+          description: The events to subscribe to
+        scope:
+          type: object
+          required:
+          - id
+          - type
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The scope ID (project ID)
+            type:
+              type: string
+              enum:
+              - project
+              description: The scope type
+        signing-secret:
+          type: string
+          description: Secret used to generate HMAC signature
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS on delivery
     WebhookInfo:
       type: object
       properties:
@@ -250,12 +286,6 @@ components:
           type: string
           format: date-time
           description: When the webhook was last updated
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
     WebhookList:
       type: object
       properties:
@@ -267,51 +297,21 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
-    CreateWebhookRequest:
+    MessageResponse:
       type: object
-      required:
-      - name
-      - url
-      - events
-      - scope
-      - signing-secret
       properties:
-        name:
+        message:
           type: string
-          description: The name of the webhook
-        url:
-          type: string
-          format: uri
-          description: The URL to deliver webhook payloads to
-        events:
-          type: array
-          items:
-            type: string
-            enum:
-            - workflow-completed
-            - job-completed
-          description: The events to subscribe to
-        scope:
-          type: object
-          required:
-          - id
-          - type
-          properties:
-            id:
-              type: string
-              format: uuid
-              description: The scope ID (project ID)
-            type:
-              type: string
-              enum:
-              - project
-              description: The scope type
-        signing-secret:
-          type: string
-          description: Secret used to generate HMAC signature
-        verify-tls:
-          type: boolean
-          description: Whether to verify TLS on delivery
+          description: A message describing the result of the operation
+  parameters:
+    WebhookIdParam:
+      name: webhook-id
+      in: path
+      required: true
+      description: The unique identifier of the webhook
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     apiToken:
       type: apiKey

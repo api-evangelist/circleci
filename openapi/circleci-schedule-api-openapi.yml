@@ -152,28 +152,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  parameters:
-    ScheduleIdParam:
-      name: schedule-id
-      in: path
-      required: true
-      description: The unique identifier of the schedule
-      schema:
-        type: string
-        format: uuid
-    ProjectSlugParam:
-      name: project-slug
-      in: path
-      required: true
-      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
-      schema:
-        type: string
-    PageTokenParam:
-      name: page-token
-      in: query
-      description: Token for retrieving the next page of results
-      schema:
-        type: string
   schemas:
     CreateScheduleRequest:
       type: object
@@ -182,96 +160,6 @@ components:
       - timetable
       - attribution-actor
       - parameters
-      properties:
-        name:
-          type: string
-          description: The name of the schedule
-        description:
-          type: string
-          description: The description of the schedule
-        timetable:
-          $ref: '#/components/schemas/Timetable'
-        attribution-actor:
-          type: string
-          enum:
-          - current
-          - system
-          description: Who to attribute pipeline triggers to
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Pipeline parameters for the schedule
-    MessageResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing the result of the operation
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-    Timetable:
-      type: object
-      required:
-      - per-hour
-      - hours-of-day
-      - days-of-week
-      properties:
-        per-hour:
-          type: integer
-          minimum: 1
-          maximum: 60
-          description: Number of times per hour to trigger
-        hours-of-day:
-          type: array
-          items:
-            type: integer
-            minimum: 0
-            maximum: 23
-          description: Hours of the day to trigger (UTC)
-        days-of-week:
-          type: array
-          items:
-            type: string
-            enum:
-            - MON
-            - TUE
-            - WED
-            - THU
-            - FRI
-            - SAT
-            - SUN
-          description: Days of the week to trigger
-        days-of-month:
-          type: array
-          items:
-            type: integer
-            minimum: 1
-            maximum: 31
-          description: Days of the month to trigger
-        months:
-          type: array
-          items:
-            type: string
-            enum:
-            - JAN
-            - FEB
-            - MAR
-            - APR
-            - MAY
-            - JUN
-            - JUL
-            - AUG
-            - SEP
-            - OCT
-            - NOV
-            - DEC
-          description: Months to trigger
-    UpdateScheduleRequest:
-      type: object
       properties:
         name:
           type: string
@@ -335,6 +223,63 @@ components:
           type: string
           format: date-time
           description: When the schedule was last updated
+    Timetable:
+      type: object
+      required:
+      - per-hour
+      - hours-of-day
+      - days-of-week
+      properties:
+        per-hour:
+          type: integer
+          minimum: 1
+          maximum: 60
+          description: Number of times per hour to trigger
+        hours-of-day:
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 23
+          description: Hours of the day to trigger (UTC)
+        days-of-week:
+          type: array
+          items:
+            type: string
+            enum:
+            - MON
+            - TUE
+            - WED
+            - THU
+            - FRI
+            - SAT
+            - SUN
+          description: Days of the week to trigger
+        days-of-month:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+            maximum: 31
+          description: Days of the month to trigger
+        months:
+          type: array
+          items:
+            type: string
+            enum:
+            - JAN
+            - FEB
+            - MAR
+            - APR
+            - MAY
+            - JUN
+            - JUL
+            - AUG
+            - SEP
+            - OCT
+            - NOV
+            - DEC
+          description: Months to trigger
     ScheduleList:
       type: object
       properties:
@@ -346,6 +291,61 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    UpdateScheduleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the schedule
+        description:
+          type: string
+          description: The description of the schedule
+        timetable:
+          $ref: '#/components/schemas/Timetable'
+        attribution-actor:
+          type: string
+          enum:
+          - current
+          - system
+          description: Who to attribute pipeline triggers to
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters for the schedule
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+  parameters:
+    ScheduleIdParam:
+      name: schedule-id
+      in: path
+      required: true
+      description: The unique identifier of the schedule
+      schema:
+        type: string
+        format: uuid
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
+      schema:
+        type: string
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       type: apiKey

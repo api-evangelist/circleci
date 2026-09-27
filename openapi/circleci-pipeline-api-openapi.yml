@@ -249,6 +249,85 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    PipelineCreation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the new pipeline
+        state:
+          type: string
+          description: The state of the new pipeline
+        number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the pipeline was created
+    Workflow:
+      type: object
+      properties:
+        pipeline_id:
+          type: string
+          format: uuid
+          description: The ID of the pipeline this workflow belongs to
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the workflow
+        name:
+          type: string
+          description: The name of the workflow
+        project_slug:
+          type: string
+          description: The project slug
+        status:
+          type: string
+          enum:
+          - success
+          - running
+          - not_run
+          - failed
+          - error
+          - failing
+          - on_hold
+          - canceled
+          - unauthorized
+          description: The current status of the workflow
+        started_by:
+          type: string
+          format: uuid
+          description: The ID of the user who started the workflow
+        pipeline_number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the workflow was created
+        stopped_at:
+          type: string
+          format: date-time
+          description: When the workflow stopped
+    WorkflowList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+          description: List of workflows
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
     Pipeline:
       type: object
       properties:
@@ -336,101 +415,14 @@ components:
               type: string
               description: The VCS tag
           description: VCS information for this pipeline
-    TriggerPipelineRequest:
-      type: object
-      properties:
-        branch:
-          type: string
-          description: The branch to build
-        tag:
-          type: string
-          description: The tag to build
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Pipeline parameters as key-value pairs
-    MessageResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing the result of the operation
-    Workflow:
-      type: object
-      properties:
-        pipeline_id:
-          type: string
-          format: uuid
-          description: The ID of the pipeline this workflow belongs to
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the workflow
-        name:
-          type: string
-          description: The name of the workflow
-        project_slug:
-          type: string
-          description: The project slug
-        status:
-          type: string
-          enum:
-          - success
-          - running
-          - not_run
-          - failed
-          - error
-          - failing
-          - on_hold
-          - canceled
-          - unauthorized
-          description: The current status of the workflow
-        started_by:
-          type: string
-          format: uuid
-          description: The ID of the user who started the workflow
-        pipeline_number:
-          type: integer
-          description: The pipeline number
-        created_at:
-          type: string
-          format: date-time
-          description: When the workflow was created
-        stopped_at:
-          type: string
-          format: date-time
-          description: When the workflow stopped
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-    PipelineCreation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the new pipeline
-        state:
-          type: string
-          description: The state of the new pipeline
-        number:
-          type: integer
-          description: The pipeline number
-        created_at:
-          type: string
-          format: date-time
-          description: When the pipeline was created
-    WorkflowList:
+    PipelineList:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/Workflow'
-          description: List of workflows
+            $ref: '#/components/schemas/Pipeline'
+          description: List of pipelines
         next_page_token:
           type: string
           description: Token for retrieving the next page
@@ -449,25 +441,26 @@ components:
         compiled-setup-config:
           type: string
           description: The compiled setup configuration
-    PipelineList:
+    MessageResponse:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Pipeline'
-          description: List of pipelines
-        next_page_token:
+        message:
           type: string
-          description: Token for retrieving the next page
+          description: A message describing the result of the operation
+    TriggerPipelineRequest:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: The branch to build
+        tag:
+          type: string
+          description: The tag to build
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters as key-value pairs
   parameters:
-    ProjectSlugParam:
-      name: project-slug
-      in: path
-      required: true
-      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
-      schema:
-        type: string
     PipelineIdParam:
       name: pipeline-id
       in: path
@@ -480,6 +473,13 @@ components:
       name: page-token
       in: query
       description: Token for retrieving the next page of results
+      schema:
+        type: string
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
       schema:
         type: string
   securitySchemes:
