@@ -165,6 +165,24 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    RerunWorkflowResponse:
+      type: object
+      properties:
+        workflow_id:
+          type: string
+          format: uuid
+          description: The ID of the rerun workflow
+    WorkflowJobList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowJob'
+          description: List of workflow jobs
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
     WorkflowJob:
       type: object
       properties:
@@ -246,36 +264,18 @@ components:
           type: string
           format: date-time
           description: When the workflow stopped
-    RerunWorkflowResponse:
-      type: object
-      properties:
-        workflow_id:
-          type: string
-          format: uuid
-          description: The ID of the rerun workflow
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
     MessageResponse:
       type: object
       properties:
         message:
           type: string
           description: A message describing the result of the operation
-    WorkflowJobList:
+    ErrorResponse:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkflowJob'
-          description: List of workflow jobs
-        next_page_token:
+        message:
           type: string
-          description: Token for retrieving the next page
+          description: A human-readable error message
   parameters:
     WorkflowIdParam:
       name: id

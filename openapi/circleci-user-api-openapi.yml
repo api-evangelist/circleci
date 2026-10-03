@@ -100,6 +100,19 @@ components:
           type: string
           format: date-time
           description: When the user account was created
+    User_2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the user
+        login:
+          type: string
+          description: The login name of the user
+        name:
+          type: string
+          description: The display name of the user
     Collaboration:
       type: object
       properties:
@@ -126,19 +139,6 @@ components:
         message:
           type: string
           description: A human-readable error message
-    User_2:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the user
-        login:
-          type: string
-          description: The login name of the user
-        name:
-          type: string
-          description: The display name of the user
   securitySchemes:
     apiToken:
       type: apiKey

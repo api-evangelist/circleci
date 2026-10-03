@@ -336,6 +336,13 @@ paths:
       description: CircleCI Production API
 components:
   parameters:
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      description: The repository name
+      schema:
+        type: string
     VcsTypeParam:
       name: vcs-type
       in: path
@@ -346,13 +353,6 @@ components:
         enum:
         - github
         - bitbucket
-    ProjectParam:
-      name: project
-      in: path
-      required: true
-      description: The repository name
-      schema:
-        type: string
     UsernameParam:
       name: username
       in: path
@@ -360,18 +360,18 @@ components:
       description: The organization or user name
       schema:
         type: string
-    FingerprintParam:
-      name: fingerprint
-      in: path
-      required: true
-      description: The fingerprint of the checkout key
-      schema:
-        type: string
     ProjectSlugParam:
       name: project-slug
       in: path
       required: true
       description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
+    FingerprintParam:
+      name: fingerprint
+      in: path
+      required: true
+      description: The fingerprint of the checkout key
       schema:
         type: string
   schemas:
@@ -418,54 +418,6 @@ components:
                   $ref: '#/components/schemas/BuildSummary'
                 description: Recent builds on this branch
           description: Branch information with recent builds
-    CheckoutKey:
-      type: object
-      properties:
-        public-key:
-          type: string
-          description: The public SSH key
-        type:
-          type: string
-          enum:
-          - deploy-key
-          - github-user-key
-          description: The type of checkout key
-        fingerprint:
-          type: string
-          description: The MD5 fingerprint of the key
-        preferred:
-          type: boolean
-          description: Whether this is the preferred checkout key
-        created-at:
-          type: string
-          format: date-time
-          description: When the key was created
-    ProjectEnvVar:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the environment variable
-        value:
-          type: string
-          description: The masked value of the environment variable
-    CheckoutKeyList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CheckoutKey'
-          description: List of checkout keys
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
     ProjectEnvVarList:
       type: object
       properties:
@@ -477,12 +429,17 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
-    MessageResponse:
+    CheckoutKeyList:
       type: object
       properties:
-        message:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckoutKey'
+          description: List of checkout keys
+        next_page_token:
           type: string
-          description: A message describing the result of the operation
+          description: Token for retrieving the next page
     Project_2:
       type: object
       properties:
@@ -520,6 +477,49 @@ components:
               type: string
               description: The default branch name
           description: Version control system information
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+    ProjectEnvVar:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the environment variable
+        value:
+          type: string
+          description: The masked value of the environment variable
+    CheckoutKey:
+      type: object
+      properties:
+        public-key:
+          type: string
+          description: The public SSH key
+        type:
+          type: string
+          enum:
+          - deploy-key
+          - github-user-key
+          description: The type of checkout key
+        fingerprint:
+          type: string
+          description: The MD5 fingerprint of the key
+        preferred:
+          type: boolean
+          description: Whether this is the preferred checkout key
+        created-at:
+          type: string
+          format: date-time
+          description: When the key was created
   securitySchemes:
     apiToken:
       type: apiKey

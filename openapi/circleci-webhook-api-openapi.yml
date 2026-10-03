@@ -164,36 +164,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    UpdateWebhookRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the webhook
-        url:
-          type: string
-          format: uri
-          description: The URL to deliver webhook payloads to
-        events:
-          type: array
-          items:
-            type: string
-            enum:
-            - workflow-completed
-            - job-completed
-          description: The events to subscribe to
-        signing-secret:
-          type: string
-          description: Secret used to generate HMAC signature
-        verify-tls:
-          type: boolean
-          description: Whether to verify TLS on delivery
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
     CreateWebhookRequest:
       type: object
       required:
@@ -239,6 +209,17 @@ components:
         verify-tls:
           type: boolean
           description: Whether to verify TLS on delivery
+    WebhookList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookInfo'
+          description: List of webhooks
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
     WebhookInfo:
       type: object
       properties:
@@ -286,23 +267,42 @@ components:
           type: string
           format: date-time
           description: When the webhook was last updated
-    WebhookList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookInfo'
-          description: List of webhooks
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
     MessageResponse:
       type: object
       properties:
         message:
           type: string
           description: A message describing the result of the operation
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
+    UpdateWebhookRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL to deliver webhook payloads to
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - workflow-completed
+            - job-completed
+          description: The events to subscribe to
+        signing-secret:
+          type: string
+          description: Secret used to generate HMAC signature
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS on delivery
   parameters:
     WebhookIdParam:
       name: webhook-id
