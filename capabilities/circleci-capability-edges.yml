@@ -1,0 +1,98 @@
+slug: circleci
+provider: CircleCI
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 9
+edges:
+- tag: Build
+  spec_file: circleci-build-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.9
+  evidence: POST /project/{vcs-type}/{username}/{project}  triggerBuild  Trigger a new build; retryBuild;
+    cancelBuild
+  reason: Triggering, retrying and cancelling CI builds is core continuous integration pipeline management.
+- tag: Pipeline
+  spec_file: circleci-pipeline-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.9
+  evidence: POST /project/{project-slug}/pipeline  triggerPipeline  Trigger a pipeline
+  reason: Direct management of CI/CD pipelines, their configuration and workflows.
+- tag: Artifact
+  spec_file: circleci-artifact-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.85
+  evidence: GET /project/{vcs-type}/{username}/{project}/{build_num}/artifacts  listBuildArtifacts  List
+    artifacts for a build
+  reason: Build artefacts produced by CI pipelines; maps directly to Continuous Integration Management
+    which covers 'build pipelines, artefact production'.
+- tag: Context
+  spec_file: circleci-context-api-openapi.yml
+  capability_id: BC-4210.60
+  capability_id_l1: BC-4210
+  capability_name: Configuration & Secrets Management
+  confidence: 0.8
+  evidence: PUT /context/{context-id}/environment-variable/{env-var-name}  addOrUpdateContextEnvironmentVariable
+  reason: Contexts are containers of environment variables/secrets consumed by pipelines, i.e. configuration
+    and secrets management for the build/release toolchain.
+- tag: Job
+  spec_file: circleci-job-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.8
+  evidence: GET /project/{project-slug}/job/{job-number}  getJob  Get job details; cancelJob; listJobArtifacts
+  reason: Jobs are units of the CI pipeline run; retrieving, cancelling and fetching artefacts/test metadata
+    is continuous integration management.
+- tag: Test Metadata
+  spec_file: circleci-test-metadata-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.75
+  evidence: GET /project/{vcs-type}/{username}/{project}/{build_num}/tests  listBuildTests  List test
+    metadata for a build; schema TestMetadata
+  reason: The single operation exposes automated test results produced by a CI build, which is test-suite
+    stewardship / quality engineering evidence for a software product rather than any generic capability.
+- tag: Workflow
+  spec_file: circleci-workflow-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.75
+  evidence: POST /workflow/{id}/rerun  rerunWorkflow; POST /workflow/{id}/cancel  cancelWorkflow; GET
+    /workflow/{id}/job  listWorkflowJobs
+  reason: Workflows here are CI pipeline executions on a CI/CD platform (approve, cancel, rerun, list
+    jobs), i.e. build pipeline orchestration, not business process workflow.
+- tag: Schedule
+  spec_file: circleci-schedule-api-openapi.yml
+  capability_id: BC-4210.10
+  capability_id_l1: BC-4210
+  capability_name: Continuous Integration Management
+  confidence: 0.72
+  evidence: POST /project/{project-slug}/schedule  createSchedule  Create a schedule
+  reason: Scheduled triggering of CI pipelines for a project; part of continuous integration pipeline
+    operation.
+- tag: Project
+  spec_file: circleci-project-api-openapi.yml
+  capability_id: BC-4210
+  capability_id_l1: BC-4210
+  capability_name: Software Release & Deployment Management
+  confidence: 0.7
+  evidence: GET /project/{project-slug}/envvar  listProjectEnvironmentVariables; createCheckoutKey
+  reason: 'Project-level CI configuration: checkout keys and environment variables for pipelines; clearly
+    release/deployment tooling but spans config/secrets and general project setup.'

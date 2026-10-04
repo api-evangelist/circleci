@@ -1,5 +1,4 @@
 aid: circleci
-
 deliveryModel:
   model: saas
   open_source: false
@@ -12,7 +11,6 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
-
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -27,25 +25,15 @@ accessModel:
   - security
   generated: '2026-09-03'
   method: derived
-
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/circleci.png
-
 name: CircleCI
-
 url: https://raw.githubusercontent.com/api-evangelist/circleci/refs/heads/main/apis.yml
-
 created: '2025-03-05'
-
 modified: '2026-09-16'
-
 type: Index
-
 access: 3rd-Party
-
 position: Consuming
-
 specificationVersion: '0.23'
-
 tags:
 - CI/CD
 - Continuous Integration
@@ -54,16 +42,14 @@ tags:
 - Pipelines
 - Workflows
 - Developer Tools
-
-description: CircleCI is a continuous integration and continuous delivery (CI/CD) platform that automates software build, test, and deployment
-  pipelines. Their developer surface includes the REST API v2 (the recommended modern interface), the legacy v1 REST API, a Self-Hosted Runner
-  API, webhooks for real-time event notifications, and the Orbs Registry of reusable configuration packages. Authentication is via a personal
-  or project Circle-Token sent in the Circle-Token header; responses are JSON.
-
+description: CircleCI is a continuous integration and continuous delivery (CI/CD) platform that automates
+  software build, test, and deployment pipelines. Their developer surface includes the REST API v2 (the
+  recommended modern interface), the legacy v1 REST API, a Self-Hosted Runner API, webhooks for real-time
+  event notifications, and the Orbs Registry of reusable configuration packages. Authentication is via
+  a personal or project Circle-Token sent in the Circle-Token header; responses are JSON.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
-
 common:
 - type: FinOps
   url: finops/circleci-finops.yml
@@ -190,7 +176,9 @@ common:
   url: https://circleci.com/integrations/
 - type: LlmsText
   url: https://circleci.com/llms.txt
-
+- type: CapabilityMap
+  url: capabilities/circleci-capability-edges.yml
+  name: CircleCI Business Capability Map
 apis:
 - aid: circleci:runner-api
   name: CircleCI Self-Hosted Runner API
@@ -209,10 +197,11 @@ apis:
     type: OpenAPI
   - type: JSONSchema
     url: json-schema/circleci-runner-schema.json
-  description: The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted runner infrastructure. It provides
-    endpoints for listing available runners, managing runner tasks, and querying resource classes. The API is hosted separately from the main
-    CircleCI API at runner.circleci.com and supports multiple authentication methods depending on the endpoint. Developers can use this API to
-    integrate self-hosted runner management into their infrastructure automation workflows.
+  description: The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted
+    runner infrastructure. It provides endpoints for listing available runners, managing runner tasks,
+    and querying resource classes. The API is hosted separately from the main CircleCI API at runner.circleci.com
+    and supports multiple authentication methods depending on the endpoint. Developers can use this API
+    to integrate self-hosted runner management into their infrastructure automation workflows.
 - aid: circleci:webhooks
   name: CircleCI Webhooks
   tags:
@@ -233,10 +222,11 @@ apis:
     type: Documentation
   - url: asyncapi/circleci-webhooks-asyncapi.yml
     type: AsyncAPI
-  description: CircleCI Webhooks allow developers to receive real-time notifications about events in their CI/CD pipelines by configuring HTTP
-    callbacks. Webhooks can be set up through project settings to notify external services when workflows and jobs complete, fail, or change status.
-    This enables integration with monitoring systems, chat platforms, and custom automation workflows. Webhooks deliver JSON payloads containing
-    event details to configured endpoint URLs.
+  description: CircleCI Webhooks allow developers to receive real-time notifications about events in their
+    CI/CD pipelines by configuring HTTP callbacks. Webhooks can be set up through project settings to
+    notify external services when workflows and jobs complete, fail, or change status. This enables integration
+    with monitoring systems, chat platforms, and custom automation workflows. Webhooks deliver JSON payloads
+    containing event details to configured endpoint URLs.
 - aid: circleci:orbs
   name: CircleCI Orbs Registry
   tags:
@@ -250,10 +240,11 @@ apis:
   properties:
   - url: https://circleci.com/developer/orbs
     type: Documentation
-  description: CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify build setup and integration with third-party
-    tools. The Orbs Registry on the CircleCI Developer Hub provides a searchable catalog of community and certified orbs. Developers can browse,
-    publish, and consume orbs to automate repeated processes, speed up project configuration, and integrate services like AWS, Docker, Slack,
-    and Kubernetes into their CI/CD pipelines.
+  description: CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify
+    build setup and integration with third-party tools. The Orbs Registry on the CircleCI Developer Hub
+    provides a searchable catalog of community and certified orbs. Developers can browse, publish, and
+    consume orbs to automate repeated processes, speed up project configuration, and integrate services
+    like AWS, Docker, Slack, and Kubernetes into their CI/CD pipelines.
 - aid: circleci:circleci-artifact-api
   name: CircleCI Artifact API
   description: Endpoints for listing and downloading build artifacts.
@@ -272,7 +263,8 @@ apis:
     url: json-schema/circleci-artifact-schema.json
 - aid: circleci:circleci-build-api
   name: CircleCI Build API
-  description: Endpoints for retrieving build details, triggering builds, retrying builds, and canceling builds.
+  description: Endpoints for retrieving build details, triggering builds, retrying builds, and canceling
+    builds.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -294,7 +286,8 @@ apis:
     url: json-schema/circleci-build-summary-schema.json
 - aid: circleci:circleci-context-api
   name: CircleCI Context API
-  description: Endpoints for managing contexts, which are used to secure and share environment variables across projects.
+  description: Endpoints for managing contexts, which are used to secure and share environment variables
+    across projects.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -342,7 +335,8 @@ apis:
     url: json-schema/circleci-insights-workflow-runs-schema.json
 - aid: circleci:circleci-job-api
   name: CircleCI Job API
-  description: Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline jobs.
+  description: Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline
+    jobs.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -418,7 +412,8 @@ apis:
     url: json-schema/circleci-checkout-key-list-schema.json
 - aid: circleci:circleci-resource-class-api
   name: CircleCI Resource Class API
-  description: Endpoints for managing runner resource classes, which define the compute resources available for self-hosted runner jobs.
+  description: Endpoints for managing runner resource classes, which define the compute resources available
+    for self-hosted runner jobs.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -570,7 +565,6 @@ apis:
     url: json-schema/circleci-rerun-workflow-response-schema.json
   - type: JSONSchema
     url: json-schema/circleci-message-response-schema.json
-
 integrations:
 - name: GitHub
 - name: GitLab
@@ -579,7 +573,6 @@ integrations:
 - name: GCP
 - name: Azure
 - name: Kubernetes
-
 x-aliases:
 - CircleCI
 x-enrichment:
