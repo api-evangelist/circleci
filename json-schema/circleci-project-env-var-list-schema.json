@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/circleci/main/json-schema/circleci-project-env-var-list-schema.json",
+  "title": "ProjectEnvVarList",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/circleci-project-api-openapi.yml#/components/schemas/ProjectEnvVarList",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ProjectEnvVar"
+      },
+      "description": "List of environment variables"
+    },
+    "next_page_token": {
+      "type": "string",
+      "description": "Token for retrieving the next page"
+    }
+  },
+  "$defs": {
+    "ProjectEnvVar": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the environment variable"
+        },
+        "value": {
+          "type": "string",
+          "description": "The masked value of the environment variable"
+        }
+      }
+    }
+  }
+}

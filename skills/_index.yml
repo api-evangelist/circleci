@@ -1,0 +1,29 @@
+generated: '2026-10-04'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/circleci-pipeline-api-openapi.yml
+skills:
+- file: skills/circleci-manage-workflow.md
+  name: circleci-manage-workflow
+  api: openapi/circleci-workflow-api-openapi.yml
+  operations:
+  - getWorkflow
+  - listWorkflowJobs
+  - approveWorkflowJob
+  - cancelWorkflow
+  - rerunWorkflow
+- file: skills/circleci-job-management.md
+  name: circleci-job-management
+  api: openapi/circleci-job-api-openapi.yml
+  operations:
+  - getJob
+  - cancelJob
+- file: skills/circleci-webhook-management.md
+  name: circleci-webhook-management
+  api: openapi/circleci-webhook-api-openapi.yml
+  operations:
+  - createWebhook
+  - listWebhooks
+  - getWebhook
+  - updateWebhook
+  - deleteWebhook

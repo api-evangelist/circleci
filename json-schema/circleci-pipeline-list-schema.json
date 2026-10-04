@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/circleci/main/json-schema/circleci-pipeline-list-schema.json",
+  "title": "PipelineList",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/circleci-pipeline-api-openapi.yml#/components/schemas/PipelineList",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Pipeline"
+      },
+      "description": "List of pipelines"
+    },
+    "next_page_token": {
+      "type": "string",
+      "description": "Token for retrieving the next page"
+    }
+  },
+  "$defs": {
+    "Pipeline": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the pipeline"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "The type of error"
+              },
+              "message": {
+                "type": "string",
+                "description": "The error message"
+              }
+            }
+          },
+          "description": "Errors that occurred during pipeline setup"
+        },
+        "project_slug": {
+          "type": "string",
+          "description": "The project slug"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the pipeline was last updated"
+        },
+        "number": {
+          "type": "integer",
+          "description": "The pipeline number"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "created",
+            "errored",
+            "setup-pending",
+            "setup",
+            "pending"
+          ],
+          "description": "The current state of the pipeline"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the pipeline was created"
+        },
+        "trigger": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "The type of trigger"
+            },
+            "received_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the trigger was received"
+            },
+            "actor": {
+              "type": "object",
+              "properties": {
+                "login": {
+                  "type": "string",
+                  "description": "The login of the actor"
+                },
+                "avatar_url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "The avatar URL of the actor"
+                }
+              }
+            }
+          },
+          "description": "The trigger that started this pipeline"
+        },
+        "vcs": {
+          "type": "object",
+          "properties": {
+            "provider_name": {
+              "type": "string",
+              "description": "The VCS provider name"
+            },
+            "origin_repository_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "The origin repository URL"
+            },
+            "target_repository_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "The target repository URL"
+            },
+            "revision": {
+              "type": "string",
+              "description": "The VCS revision"
+            },
+            "branch": {
+              "type": "string",
+              "description": "The VCS branch"
+            },
+            "tag": {
+              "type": "string",
+              "description": "The VCS tag"
+            }
+          },
+          "description": "VCS information for this pipeline"
+        }
+      }
+    }
+  }
+}

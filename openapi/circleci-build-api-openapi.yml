@@ -343,22 +343,6 @@ components:
         reponame:
           type: string
           description: The repository name
-    BuildSummary:
-      type: object
-      properties:
-        build_url:
-          type: string
-          format: uri
-          description: URL to view the build
-        build_num:
-          type: integer
-          description: The build number
-        status:
-          type: string
-          description: The build status
-        vcs_revision:
-          type: string
-          description: The VCS revision
     BuildDetail:
       allOf:
       - $ref: '#/components/schemas/Build'
@@ -429,12 +413,35 @@ components:
                   type: string
                   description: The SSH username
             description: Node information for SSH access
+    BuildSummary:
+      type: object
+      properties:
+        build_url:
+          type: string
+          format: uri
+          description: URL to view the build
+        build_num:
+          type: integer
+          description: The build number
+        status:
+          type: string
+          description: The build status
+        vcs_revision:
+          type: string
+          description: The VCS revision
   parameters:
     ProjectParam:
       name: project
       in: path
       required: true
       description: The repository name
+      schema:
+        type: string
+    UsernameParam:
+      name: username
+      in: path
+      required: true
+      description: The organization or user name
       schema:
         type: string
     VcsTypeParam:
@@ -447,13 +454,6 @@ components:
         enum:
         - github
         - bitbucket
-    UsernameParam:
-      name: username
-      in: path
-      required: true
-      description: The organization or user name
-      schema:
-        type: string
     BuildNumParam:
       name: build_num
       in: path

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/circleci/main/json-schema/circleci-project-2-schema.json",
+  "title": "Project_2",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/circleci-project-api-openapi.yml#/components/schemas/Project_2",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "The project slug"
+    },
+    "name": {
+      "type": "string",
+      "description": "The project name"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The unique identifier of the project"
+    },
+    "organization_name": {
+      "type": "string",
+      "description": "The name of the organization"
+    },
+    "organization_slug": {
+      "type": "string",
+      "description": "The slug of the organization"
+    },
+    "organization_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of the organization"
+    },
+    "vcs_info": {
+      "type": "object",
+      "properties": {
+        "vcs_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The VCS URL"
+        },
+        "provider": {
+          "type": "string",
+          "description": "The VCS provider"
+        },
+        "default_branch": {
+          "type": "string",
+          "description": "The default branch name"
+        }
+      },
+      "description": "Version control system information"
+    }
+  }
+}

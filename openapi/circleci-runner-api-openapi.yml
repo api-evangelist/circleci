@@ -61,6 +61,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
     Runner:
       type: object
       properties:
@@ -97,12 +103,6 @@ components:
         arch:
           type: string
           description: The CPU architecture of the runner
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
   securitySchemes:
     apiToken:
       type: apiKey

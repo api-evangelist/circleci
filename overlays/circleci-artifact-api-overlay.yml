@@ -1,0 +1,5 @@
+generated: "2026-10-04"
+method: derived
+type: Overlay
+openapi: "../openapi/circleci-artifact-api-openapi.yml"
+actions: []

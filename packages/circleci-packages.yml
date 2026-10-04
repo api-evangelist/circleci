@@ -1,0 +1,33 @@
+generated: '2026-10-04'
+method: probed
+generator: harvest-packages.py
+source: registry metadata endpoints (registry.npmjs.org, pypi.org, rubygems.org, api.nuget.org, packagist.org, crates.io)
+ownership_rule: 'official: true only when the registry metadata (homepage, repository, author, URLs) names the provider''s domain (agentic-access/circleci-agentic-access.yml,
+  authentication/circleci-authentication.yml, circleci.com, json-ld/circleci-context.jsonld, json-schema/circleci-pipeline-schema.json, json-schema/circleci-webhook-event-schema.json,
+  json-schema/circleci-workflow-schema.json, linkedin.com, postman.com, rules/circleci-rules.yml, security/circleci-domain-security.yml, security/circleci-trust-center.yml,
+  security/circleci-vulnerability-disclosure.yml) or its accepted GitHub org.'
+packages:
+- name: circleci
+  registry: npm
+  url: https://www.npmjs.com/package/circleci
+  language: JavaScript
+  official: true
+  version: 0.3.3
+  published: '2017-03-29'
+  evidence: metadata names circleci.com
+- name: circleci
+  registry: pypi
+  url: https://pypi.org/project/circleci/
+  language: Python
+  official: true
+  version: 1.2.2
+  published: '2019-03-10'
+  evidence: metadata names circleci.com
+- name: circleci
+  registry: rubygems
+  url: https://rubygems.org/gems/circleci
+  language: Ruby
+  official: false
+  version: 2.1.0
+  published: '2022-08-03'
+  evidence: 'name match only: the metadata names neither the provider''s domain nor its GitHub org'

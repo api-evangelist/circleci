@@ -16,7 +16,7 @@ info:
     url: https://support.circleci.com
   license:
     name: MIT
-  externalDocs:
+  x-externalDocs:
     description: CircleCI Webhooks Documentation
     url: https://circleci.com/docs/webhooks/
 servers:

@@ -1,4 +1,5 @@
 aid: circleci
+
 deliveryModel:
   model: saas
   open_source: false
@@ -11,6 +12,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -25,15 +27,25 @@ accessModel:
   - security
   generated: '2026-09-03'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/circleci.png
+
 name: CircleCI
+
 url: https://raw.githubusercontent.com/api-evangelist/circleci/refs/heads/main/apis.yml
+
 created: '2025-03-05'
+
 modified: '2026-09-16'
+
 type: Index
+
 access: 3rd-Party
+
 position: Consuming
+
 specificationVersion: '0.23'
+
 tags:
 - CI/CD
 - Continuous Integration
@@ -42,296 +54,73 @@ tags:
 - Pipelines
 - Workflows
 - Developer Tools
-description: CircleCI is a continuous integration and continuous delivery (CI/CD) platform that automates
-  software build, test, and deployment pipelines. Their developer surface includes the REST API v2 (the
-  recommended modern interface), the legacy v1 REST API, a Self-Hosted Runner API, webhooks for real-time
-  event notifications, and the Orbs Registry of reusable configuration packages. Authentication is via
-  a personal or project Circle-Token sent in the Circle-Token header; responses are JSON.
-apis:
-- aid: circleci:runner-api
-  name: CircleCI Self-Hosted Runner API
-  tags:
-  - CI/CD
-  - Infrastructure
-  - Runners
-  - Self-Hosted
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://runner.circleci.com
-  humanURL: https://circleci.com/docs/runner-api/
-  properties:
-  - url: https://circleci.com/docs/runner-api/
-    type: Documentation
-  - url: openapi/circleci-runner-api-openapi.yml
-    type: OpenAPI
-  description: The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted
-    runner infrastructure. It provides endpoints for listing available runners, managing runner tasks,
-    and querying resource classes. The API is hosted separately from the main CircleCI API at runner.circleci.com
-    and supports multiple authentication methods depending on the endpoint. Developers can use this API
-    to integrate self-hosted runner management into their infrastructure automation workflows.
-- aid: circleci:webhooks
-  name: CircleCI Webhooks
-  tags:
-  - CI/CD
-  - Event
-  - Notification
-  - Webhook
-  tags_raw:
-  - CI/CD
-  - Events
-  - Notifications
-  - Webhooks
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.example.com
-  humanURL: https://circleci.com/docs/webhooks/
-  properties:
-  - url: https://circleci.com/docs/webhooks/
-    type: Documentation
-  - url: asyncapi/circleci-webhooks-asyncapi.yml
-    type: AsyncAPI
-  description: CircleCI Webhooks allow developers to receive real-time notifications about events in their
-    CI/CD pipelines by configuring HTTP callbacks. Webhooks can be set up through project settings to
-    notify external services when workflows and jobs complete, fail, or change status. This enables integration
-    with monitoring systems, chat platforms, and custom automation workflows. Webhooks deliver JSON payloads
-    containing event details to configured endpoint URLs.
-- aid: circleci:orbs
-  name: CircleCI Orbs Registry
-  tags:
-  - CI/CD
-  - Configuration
-  - Packages
-  - Reusable
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.example.com
-  humanURL: https://circleci.com/developer/orbs
-  properties:
-  - url: https://circleci.com/developer/orbs
-    type: Documentation
-  description: CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify
-    build setup and integration with third-party tools. The Orbs Registry on the CircleCI Developer Hub
-    provides a searchable catalog of community and certified orbs. Developers can browse, publish, and
-    consume orbs to automate repeated processes, speed up project configuration, and integrate services
-    like AWS, Docker, Slack, and Kubernetes into their CI/CD pipelines.
-- aid: circleci:circleci-artifact-api
-  name: CircleCI Artifact API
-  description: Endpoints for listing and downloading build artifacts.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Artifact
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-artifact-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-build-api
-  name: CircleCI Build API
-  description: Endpoints for retrieving build details, triggering builds, retrying builds, and canceling
-    builds.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Builds
-  tags_raw:
-  - Build
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-build-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-context-api
-  name: CircleCI Context API
-  description: Endpoints for managing contexts, which are used to secure and share environment variables
-    across projects.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Context
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-context-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-insights-api
-  name: CircleCI Insights API
-  description: Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Insights
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-insights-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-job-api
-  name: CircleCI Job API
-  description: Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline
-    jobs.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Job
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-job-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-pipeline-api
-  name: CircleCI Pipeline API
-  description: Endpoints for triggering, retrieving, and managing pipelines and their configurations.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Pipelines
-  tags_raw:
-  - Pipeline
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-pipeline-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-project-api
-  name: CircleCI Project API
-  description: Endpoints for listing followed projects and managing project settings.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Project
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-project-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-resource-class-api
-  name: CircleCI Resource Class API
-  description: Endpoints for managing runner resource classes, which define the compute resources available
-    for self-hosted runner jobs.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Resource Class
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-resource-class-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-runner-task-api
-  name: CircleCI Runner Task API
-  description: Endpoints for querying task counts and managing tasks assigned to self-hosted runners.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Runner Task
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-runner-task-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-schedule-api
-  name: CircleCI Schedule API
-  description: Endpoints for creating, updating, and managing scheduled pipeline triggers.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Schedule
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-schedule-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-ssh-key-api
-  name: CircleCI SSH Key API
-  description: Endpoints for managing SSH keys and checkout keys for projects.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - SSH Key
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-ssh-key-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-test-metadata-api
-  name: CircleCI Test Metadata API
-  description: Endpoints for retrieving test metadata collected during builds.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Test Metadata
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-test-metadata-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-user-api
-  name: CircleCI User API
-  description: Endpoints for retrieving information about the authenticated user.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - User
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-user-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-webhook-api
-  name: CircleCI Webhook API
-  description: Endpoints for creating, updating, listing, and deleting outbound webhook subscriptions.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Webhook
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-webhook-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
-- aid: circleci:circleci-workflow-api
-  name: CircleCI Workflow API
-  description: Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.
-  humanURL: https://circleci.com/docs/api/v2/
-  baseURL: https://circleci.com/api/v2
-  tags:
-  - Workflows
-  tags_raw:
-  - Workflow
-  properties:
-  - type: OpenAPI
-    url: openapi/circleci-workflow-api-openapi.yml
-  - type: Documentation
-    url: https://circleci.com/docs/api/v2/
-  - type: Documentation
-    url: https://circleci.com/docs/api/v1/
+
+description: CircleCI is a continuous integration and continuous delivery (CI/CD) platform that automates software build, test, and deployment
+  pipelines. Their developer surface includes the REST API v2 (the recommended modern interface), the legacy v1 REST API, a Self-Hosted Runner
+  API, webhooks for real-time event notifications, and the Orbs Registry of reusable configuration packages. Authentication is via a personal
+  or project Circle-Token sent in the Circle-Token header; responses are JSON.
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
 common:
+- type: FinOps
+  url: finops/circleci-finops.yml
+- type: RateLimits
+  url: rate-limits/circleci-rate-limits.yml
+- type: Plans
+  url: plans/circleci-plans-pricing.yml
+- type: Spectral
+  url: rules/circleci-jsonschema-spectral-rules.yml
+- type: Spectral
+  url: rules/circleci-asyncapi-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/circleci-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/circleci-webhooks.yml
+- type: Webhooks
+  url: asyncapi/circleci-webhooks-asyncapi.yml
+- type: DataModel
+  url: data-model/circleci-data-model.yml
+- type: CLI
+  url: cli/circleci-cli.yml
+- type: ChangeLog
+  url: changelog/circleci-changelog.yml
+- type: Compliance
+  url: https://trust.circleci.com/
+- type: ErrorCatalog
+  url: errors/circleci-problem-types.yml
+- type: Conformance
+  url: conformance/circleci-conformance.yml
+- type: Overlay
+  url: overlays/circleci-artifact-api-overlay.yml
+- type: LLMsTxt
+  url: llms/circleci-llms.txt
+- type: MCPServer
+  url: mcp/circleci-mcp.yml
+- type: WellKnown
+  url: well-known/circleci-well-known.yml
+- type: Hosts
+  url: hosts/circleci-hosts.yml
+- type: Vendors
+  url: vendors/circleci-vendors.yml
+- type: SDKs
+  url: packages/circleci-packages.yml
+- type: Packages
+  url: packages/circleci-packages.yml
+- type: Security
+  url: https://circleci.com/security/
+- type: Pricing
+  url: https://circleci.com/pricing/
+- type: Newsroom
+  url: https://circleci.com/newsroom/
+- type: ChangeLog
+  url: https://circleci.com/changelog/
+- type: APIReference
+  url: https://circleci.com/docs/guides/getting-started/getting-started/
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/circleci/overview
 - type: AgenticAccess
@@ -401,6 +190,387 @@ common:
   url: https://circleci.com/integrations/
 - type: LlmsText
   url: https://circleci.com/llms.txt
+
+apis:
+- aid: circleci:runner-api
+  name: CircleCI Self-Hosted Runner API
+  tags:
+  - CI/CD
+  - Infrastructure
+  - Runners
+  - Self-Hosted
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://runner.circleci.com
+  humanURL: https://circleci.com/docs/runner-api/
+  properties:
+  - url: https://circleci.com/docs/runner-api/
+    type: Documentation
+  - url: openapi/circleci-runner-api-openapi.yml
+    type: OpenAPI
+  - type: JSONSchema
+    url: json-schema/circleci-runner-schema.json
+  description: The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted runner infrastructure. It provides
+    endpoints for listing available runners, managing runner tasks, and querying resource classes. The API is hosted separately from the main
+    CircleCI API at runner.circleci.com and supports multiple authentication methods depending on the endpoint. Developers can use this API to
+    integrate self-hosted runner management into their infrastructure automation workflows.
+- aid: circleci:webhooks
+  name: CircleCI Webhooks
+  tags:
+  - CI/CD
+  - Event
+  - Notification
+  - Webhook
+  tags_raw:
+  - CI/CD
+  - Events
+  - Notifications
+  - Webhooks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.example.com
+  humanURL: https://circleci.com/docs/webhooks/
+  properties:
+  - url: https://circleci.com/docs/webhooks/
+    type: Documentation
+  - url: asyncapi/circleci-webhooks-asyncapi.yml
+    type: AsyncAPI
+  description: CircleCI Webhooks allow developers to receive real-time notifications about events in their CI/CD pipelines by configuring HTTP
+    callbacks. Webhooks can be set up through project settings to notify external services when workflows and jobs complete, fail, or change status.
+    This enables integration with monitoring systems, chat platforms, and custom automation workflows. Webhooks deliver JSON payloads containing
+    event details to configured endpoint URLs.
+- aid: circleci:orbs
+  name: CircleCI Orbs Registry
+  tags:
+  - CI/CD
+  - Configuration
+  - Packages
+  - Reusable
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  baseURL: https://api.example.com
+  humanURL: https://circleci.com/developer/orbs
+  properties:
+  - url: https://circleci.com/developer/orbs
+    type: Documentation
+  description: CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify build setup and integration with third-party
+    tools. The Orbs Registry on the CircleCI Developer Hub provides a searchable catalog of community and certified orbs. Developers can browse,
+    publish, and consume orbs to automate repeated processes, speed up project configuration, and integrate services like AWS, Docker, Slack,
+    and Kubernetes into their CI/CD pipelines.
+- aid: circleci:circleci-artifact-api
+  name: CircleCI Artifact API
+  description: Endpoints for listing and downloading build artifacts.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Artifact
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-artifact-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-artifact-schema.json
+- aid: circleci:circleci-build-api
+  name: CircleCI Build API
+  description: Endpoints for retrieving build details, triggering builds, retrying builds, and canceling builds.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Builds
+  tags_raw:
+  - Build
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-build-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-build-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-build-detail-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-build-summary-schema.json
+- aid: circleci:circleci-context-api
+  name: CircleCI Context API
+  description: Endpoints for managing contexts, which are used to secure and share environment variables across projects.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Context
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-context-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-environment-variable-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-create-context-request-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-context-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-environment-variable-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-context-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-message-response-schema.json
+- aid: circleci:circleci-insights-api
+  name: CircleCI Insights API
+  description: Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-insights-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-insights-test-metrics-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-insights-workflow-metrics-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-insights-job-metrics-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-insights-workflow-runs-schema.json
+- aid: circleci:circleci-job-api
+  name: CircleCI Job API
+  description: Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline jobs.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Job
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-job-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-job-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-test-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-artifact-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-message-response-schema.json
+- aid: circleci:circleci-pipeline-api
+  name: CircleCI Pipeline API
+  description: Endpoints for triggering, retrieving, and managing pipelines and their configurations.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Pipelines
+  tags_raw:
+  - Pipeline
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-pipeline-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-pipeline-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-pipeline-creation-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-pipeline-config-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-trigger-pipeline-request-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-pipeline-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-workflow-list-schema.json
+- aid: circleci:circleci-project-api
+  name: CircleCI Project API
+  description: Endpoints for listing followed projects and managing project settings.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Project
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-project-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-project-2-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-project-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-checkout-key-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-build-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-project-env-var-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-checkout-key-list-schema.json
+- aid: circleci:circleci-resource-class-api
+  name: CircleCI Resource Class API
+  description: Endpoints for managing runner resource classes, which define the compute resources available for self-hosted runner jobs.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Resource Class
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-resource-class-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-resource-class-creation-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-resource-class-schema.json
+- aid: circleci:circleci-runner-task-api
+  name: CircleCI Runner Task API
+  description: Endpoints for querying task counts and managing tasks assigned to self-hosted runners.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Runner Task
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-runner-task-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+- aid: circleci:circleci-schedule-api
+  name: CircleCI Schedule API
+  description: Endpoints for creating, updating, and managing scheduled pipeline triggers.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Schedule
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-schedule-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-create-schedule-request-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-update-schedule-request-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-schedule-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-message-response-schema.json
+- aid: circleci:circleci-ssh-key-api
+  name: CircleCI SSH Key API
+  description: Endpoints for managing SSH keys and checkout keys for projects.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - SSH Key
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-ssh-key-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-checkout-key-schema.json
+- aid: circleci:circleci-test-metadata-api
+  name: CircleCI Test Metadata API
+  description: Endpoints for retrieving test metadata collected during builds.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Test Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-test-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-test-metadata-schema.json
+- aid: circleci:circleci-user-api
+  name: CircleCI User API
+  description: Endpoints for retrieving information about the authenticated user.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-user-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-user-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-collaboration-schema.json
+- aid: circleci:circleci-webhook-api
+  name: CircleCI Webhook API
+  description: Endpoints for creating, updating, listing, and deleting outbound webhook subscriptions.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Webhook
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-webhook-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-webhook-info-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-create-webhook-request-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-update-webhook-request-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-webhook-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-message-response-schema.json
+- aid: circleci:circleci-workflow-api
+  name: CircleCI Workflow API
+  description: Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.
+  humanURL: https://circleci.com/docs/api/v2/
+  baseURL: https://circleci.com/api/v2
+  tags:
+  - Workflows
+  tags_raw:
+  - Workflow
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-workflow-api-openapi.yml
+  - type: Documentation
+    url: https://circleci.com/docs/api/v2/
+  - type: Documentation
+    url: https://circleci.com/docs/api/v1/
+  - type: JSONSchema
+    url: json-schema/circleci-workflow-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-workflow-job-list-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-rerun-workflow-response-schema.json
+  - type: JSONSchema
+    url: json-schema/circleci-message-response-schema.json
+
 integrations:
 - name: GitHub
 - name: GitLab
@@ -409,8 +579,12 @@ integrations:
 - name: GCP
 - name: Azure
 - name: Kubernetes
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+
 x-aliases:
 - CircleCI
+x-enrichment:
+  date: '2026-10-04'
+  status: enriched
+  artifacts_added: 49
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

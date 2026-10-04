@@ -1,0 +1,68 @@
+generated: '2026-10-04'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://circleci.com/docs/guides/toolkit/circleci-cli/index.md
+sources:
+- https://circleci.com/docs/guides/toolkit/circleci-cli/index.md
+- https://cli.circleci.com/llms.txt
+- https://circleci.com/docs/guides/optimize/use-the-circleci-cli-to-split-tests/
+- https://circleci.com/docs/reference/environment-cli-usage-guide/
+install:
+- method: Homebrew (macOS or Linux)
+  command: brew install circleci
+- method: WinGet (Windows)
+  command: winget install --id CircleCI.CLI
+- method: apt (Debian, Ubuntu, Mint, Raspberry Pi)
+  command: 'curl -1sLf ''https://packages.circleci.com/public/setup.deb.sh'' | sudo -E bash
+
+    sudo apt install circleci'
+- method: dnf (Fedora, RHEL, SUSE, Amazon)
+  command: 'curl -1sLf ''https://packages.circleci.com/public/setup.rpm.sh'' | sudo -E bash
+
+    sudo dnf install circleci'
+- method: Snap (Linux)
+  command: 'sudo snap install circleci
+
+    sudo snap connect circleci:password-manager-service'
+commands:
+- group: auth
+  commands:
+  - login
+  - me
+  - logout
+- group: run
+  commands:
+  - list
+  - get
+  - oidc
+  - release
+  - task
+  - step
+- group: config
+  commands:
+  - validate
+- group: project
+  commands:
+  - link
+- group: mcp
+  commands:
+  - claude enable
+  - cursor enable
+  - vscode enable
+  - start
+  - stream
+  - disable
+- group: setting
+  commands:
+  - set telemetry off
+- group: env
+  commands:
+  - subst
+- group: tests
+  commands:
+  - glob
+  - split
+  - run
+binary: circleci
+docs: https://circleci.com/docs/guides/toolkit/circleci-cli/index.md
+note: 1 extracted row(s) were dropped because their quote was not on the page.

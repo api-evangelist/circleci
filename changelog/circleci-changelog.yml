@@ -1,0 +1,45 @@
+generated: '2026-10-04'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://circleci.com/changelog/
+sources:
+- https://circleci.com/changelog/
+- https://circleci.com/docs/guides/orchestrate/migrate-scheduled-workflows-to-schedule-triggers/
+- https://circleci.com/docs/guides/migrate/migration-intro/
+- https://circleci.com/docs/guides/execution-managed/next-gen-migration-guide/
+entries:
+- breaking: false
+  highlights:
+  - The Xcode 27.2 Beta 2 image is now available to be used in CircleCI pipelines.
+  - The full manifest of installed software can be found here.
+  date: '2026-09-29'
+- breaking: false
+  highlights:
+  - Following our Xcode image retention policy, Xcode 14.3.1, 26.3.0, 26.2.0, and 26.1.1 have been marked as deprecated and will be removed on
+    October 30th, 2026.
+  - We will be performing 24 hour brownouts from 00:00:01 to 23:59:59 UTC during which these images will be unavailable.
+  date: '2026-09-29'
+- breaking: false
+  highlights:
+  - CircleCI now supports running GitHub Actions YAML-defined workflows directly on CircleCI compute.
+  - This is an open preview release. Some GitHub Actions features are not yet supported, and Linux runners are currently the only supported execution
+    environment.
+  date: '2026-09-22'
+- breaking: false
+  highlights:
+  - CircleCI will end support for Bitbucket Data Center (BBDC) as a VCS integration on October 1, 2026.
+  - 'Impact: Pipelines connected to a Bitbucket Data Center instance will stop functioning after October 1, 2026.'
+  date: '2026-09-22'
+- breaking: false
+  highlights:
+  - The Xcode 27.1 Beta 1 image is now available to be used in CircleCI pipelines.
+  - The full manifest of installed software can be found here.
+  date: '2026-09-21'
+- breaking: false
+  highlights:
+  - We’ve updated how pipeline errors are returned in the CircleCI API.
+  - Previously, related lines from a single config error were returned as separate objects in the errors array; now they are consolidated into
+    a single object with lines separated by a newline character.
+  date: '2026-09-21'
+note: Versioning scheme and current version are not specified on the changelog page.
+docs: https://circleci.com/changelog/

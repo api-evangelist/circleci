@@ -143,14 +143,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  parameters:
-    ResourceClassParam:
-      name: resource-class
-      in: path
-      required: true
-      description: The resource class in namespace/name format
-      schema:
-        type: string
   schemas:
     ResourceClass:
       type: object
@@ -187,6 +179,14 @@ components:
         message:
           type: string
           description: A human-readable error message
+  parameters:
+    ResourceClassParam:
+      name: resource-class
+      in: path
+      required: true
+      description: The resource class in namespace/name format
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       type: apiKey

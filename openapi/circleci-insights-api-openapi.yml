@@ -165,6 +165,102 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    InsightsJobMetrics:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The job name
+              metrics:
+                type: object
+                properties:
+                  total_runs:
+                    type: integer
+                    description: Total number of runs
+                  successful_runs:
+                    type: integer
+                    description: Number of successful runs
+                  failed_runs:
+                    type: integer
+                    description: Number of failed runs
+                  success_rate:
+                    type: number
+                    format: float
+                    description: Success rate as a decimal
+                  duration_metrics:
+                    type: object
+                    properties:
+                      min:
+                        type: integer
+                        description: Minimum duration
+                      mean:
+                        type: integer
+                        description: Mean duration
+                      median:
+                        type: integer
+                        description: Median duration
+                      p95:
+                        type: integer
+                        description: 95th percentile duration
+                      max:
+                        type: integer
+                        description: Maximum duration
+                    description: Duration statistics
+                  total_credits_used:
+                    type: integer
+                    description: Total credits consumed
+                description: Job metrics
+          description: List of job metric summaries
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    InsightsWorkflowRuns:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: The workflow run ID
+              status:
+                type: string
+                description: The status of the run
+              duration:
+                type: integer
+                description: Duration in seconds
+              created_at:
+                type: string
+                format: date-time
+                description: When the run was created
+              stopped_at:
+                type: string
+                format: date-time
+                description: When the run stopped
+              credits_used:
+                type: integer
+                description: Credits consumed by this run
+              branch:
+                type: string
+                description: The branch that was built
+          description: List of workflow runs
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
     InsightsWorkflowMetrics:
       type: object
       properties:
@@ -224,102 +320,6 @@ components:
                 format: date-time
                 description: End of the reporting window
           description: List of workflow metric summaries
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    InsightsWorkflowRuns:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-                description: The workflow run ID
-              status:
-                type: string
-                description: The status of the run
-              duration:
-                type: integer
-                description: Duration in seconds
-              created_at:
-                type: string
-                format: date-time
-                description: When the run was created
-              stopped_at:
-                type: string
-                format: date-time
-                description: When the run stopped
-              credits_used:
-                type: integer
-                description: Credits consumed by this run
-              branch:
-                type: string
-                description: The branch that was built
-          description: List of workflow runs
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-    InsightsJobMetrics:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: The job name
-              metrics:
-                type: object
-                properties:
-                  total_runs:
-                    type: integer
-                    description: Total number of runs
-                  successful_runs:
-                    type: integer
-                    description: Number of successful runs
-                  failed_runs:
-                    type: integer
-                    description: Number of failed runs
-                  success_rate:
-                    type: number
-                    format: float
-                    description: Success rate as a decimal
-                  duration_metrics:
-                    type: object
-                    properties:
-                      min:
-                        type: integer
-                        description: Minimum duration
-                      mean:
-                        type: integer
-                        description: Mean duration
-                      median:
-                        type: integer
-                        description: Median duration
-                      p95:
-                        type: integer
-                        description: 95th percentile duration
-                      max:
-                        type: integer
-                        description: Maximum duration
-                    description: Duration statistics
-                  total_credits_used:
-                    type: integer
-                    description: Total credits consumed
-                description: Job metrics
-          description: List of job metric summaries
         next_page_token:
           type: string
           description: Token for retrieving the next page

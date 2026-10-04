@@ -164,62 +164,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    CreateWebhookRequest:
-      type: object
-      required:
-      - name
-      - url
-      - events
-      - scope
-      - signing-secret
-      properties:
-        name:
-          type: string
-          description: The name of the webhook
-        url:
-          type: string
-          format: uri
-          description: The URL to deliver webhook payloads to
-        events:
-          type: array
-          items:
-            type: string
-            enum:
-            - workflow-completed
-            - job-completed
-          description: The events to subscribe to
-        scope:
-          type: object
-          required:
-          - id
-          - type
-          properties:
-            id:
-              type: string
-              format: uuid
-              description: The scope ID (project ID)
-            type:
-              type: string
-              enum:
-              - project
-              description: The scope type
-        signing-secret:
-          type: string
-          description: Secret used to generate HMAC signature
-        verify-tls:
-          type: boolean
-          description: Whether to verify TLS on delivery
-    WebhookList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookInfo'
-          description: List of webhooks
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
     WebhookInfo:
       type: object
       properties:
@@ -267,12 +211,17 @@ components:
           type: string
           format: date-time
           description: When the webhook was last updated
-    MessageResponse:
+    WebhookList:
       type: object
       properties:
-        message:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookInfo'
+          description: List of webhooks
+        next_page_token:
           type: string
-          description: A message describing the result of the operation
+          description: Token for retrieving the next page
     ErrorResponse:
       type: object
       properties:
@@ -297,6 +246,57 @@ components:
             - workflow-completed
             - job-completed
           description: The events to subscribe to
+        signing-secret:
+          type: string
+          description: Secret used to generate HMAC signature
+        verify-tls:
+          type: boolean
+          description: Whether to verify TLS on delivery
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+    CreateWebhookRequest:
+      type: object
+      required:
+      - name
+      - url
+      - events
+      - scope
+      - signing-secret
+      properties:
+        name:
+          type: string
+          description: The name of the webhook
+        url:
+          type: string
+          format: uri
+          description: The URL to deliver webhook payloads to
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+            - workflow-completed
+            - job-completed
+          description: The events to subscribe to
+        scope:
+          type: object
+          required:
+          - id
+          - type
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The scope ID (project ID)
+            type:
+              type: string
+              enum:
+              - project
+              description: The scope type
         signing-secret:
           type: string
           description: Secret used to generate HMAC signature

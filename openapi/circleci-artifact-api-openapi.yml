@@ -84,6 +84,13 @@ components:
       description: The repository name
       schema:
         type: string
+    UsernameParam:
+      name: username
+      in: path
+      required: true
+      description: The organization or user name
+      schema:
+        type: string
     VcsTypeParam:
       name: vcs-type
       in: path
@@ -94,13 +101,6 @@ components:
         enum:
         - github
         - bitbucket
-    UsernameParam:
-      name: username
-      in: path
-      required: true
-      description: The organization or user name
-      schema:
-        type: string
     BuildNumParam:
       name: build_num
       in: path

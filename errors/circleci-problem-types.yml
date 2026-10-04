@@ -1,0 +1,45 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/circleci-artifact-api-openapi.yml
+- openapi/circleci-build-api-openapi.yml
+- openapi/circleci-context-api-openapi.yml
+- openapi/circleci-insights-api-openapi.yml
+- openapi/circleci-job-api-openapi.yml
+- openapi/circleci-pipeline-api-openapi.yml
+- openapi/circleci-project-api-openapi.yml
+- openapi/circleci-resource-class-api-openapi.yml
+- openapi/circleci-runner-api-openapi.yml
+- openapi/circleci-runner-task-api-openapi.yml
+- openapi/circleci-schedule-api-openapi.yml
+- openapi/circleci-ssh-key-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: ErrorResponse
+coverage:
+  operations: 73
+  statuses_declared: 3
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad request
+  operations: 10
+  media_types:
+  - application/json
+  schema: ErrorResponse
+- status: 401
+  title: Unauthorized
+  description: Unauthorized
+  operations: 72
+  media_types:
+  - application/json
+  schema: ErrorResponse
+- status: 404
+  title: Not Found
+  description: Context not found
+  operations: 13
+  media_types:
+  - application/json
+  schema: ErrorResponse

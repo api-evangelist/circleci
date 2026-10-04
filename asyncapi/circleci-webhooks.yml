@@ -1,0 +1,22 @@
+generated: '2026-10-04'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://circleci.com/docs/reference/outbound-webhooks-reference/
+sources:
+- https://circleci.com/docs/reference/outbound-webhooks-reference/
+- https://circleci.com/docs/guides/integration/outbound-webhooks/
+- https://circleci.com/docs/guides/orchestrate/custom-webhooks/
+- https://circleci.com/docs/guides/integration/slack-integration/
+description: CircleCI outbound webhooks deliver event notifications for workflow and job completions.
+events:
+- event: workflow-completed
+  description: A workflow has reached a terminal state.
+- event: job-completed
+  description: A job has reached a terminal state.
+delivery:
+  auth: Optional secret token; each request includes a `circleci-signature` header containing a versioned HMAC‑SHA256 signature of the request
+    body.
+  signature: The `circleci-signature` header is a comma‑separated list of versioned signatures, e.g. `v1=...`. Only the latest version (v1) is
+    used.
+  retries: If the receiving server does not return a 2xx response or does not respond within 10 seconds, CircleCI will retry the delivery later.
+docs: https://circleci.com/docs/reference/outbound-webhooks-reference/

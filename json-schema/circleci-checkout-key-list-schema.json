@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/circleci/main/json-schema/circleci-checkout-key-list-schema.json",
+  "title": "CheckoutKeyList",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/circleci-project-api-openapi.yml#/components/schemas/CheckoutKeyList",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CheckoutKey"
+      },
+      "description": "List of checkout keys"
+    },
+    "next_page_token": {
+      "type": "string",
+      "description": "Token for retrieving the next page"
+    }
+  },
+  "$defs": {
+    "CheckoutKey": {
+      "type": "object",
+      "properties": {
+        "public-key": {
+          "type": "string",
+          "description": "The public SSH key"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "deploy-key",
+            "github-user-key"
+          ],
+          "description": "The type of checkout key"
+        },
+        "fingerprint": {
+          "type": "string",
+          "description": "The MD5 fingerprint of the key"
+        },
+        "preferred": {
+          "type": "boolean",
+          "description": "Whether this is the preferred checkout key"
+        },
+        "created-at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the key was created"
+        }
+      }
+    }
+  }
+}

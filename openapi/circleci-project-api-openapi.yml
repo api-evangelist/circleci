@@ -335,62 +335,7 @@ paths:
     - url: https://circleci.com/api/v2
       description: CircleCI Production API
 components:
-  parameters:
-    ProjectParam:
-      name: project
-      in: path
-      required: true
-      description: The repository name
-      schema:
-        type: string
-    VcsTypeParam:
-      name: vcs-type
-      in: path
-      required: true
-      description: The version control system type
-      schema:
-        type: string
-        enum:
-        - github
-        - bitbucket
-    UsernameParam:
-      name: username
-      in: path
-      required: true
-      description: The organization or user name
-      schema:
-        type: string
-    ProjectSlugParam:
-      name: project-slug
-      in: path
-      required: true
-      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
-      schema:
-        type: string
-    FingerprintParam:
-      name: fingerprint
-      in: path
-      required: true
-      description: The fingerprint of the checkout key
-      schema:
-        type: string
   schemas:
-    BuildSummary:
-      type: object
-      properties:
-        build_url:
-          type: string
-          format: uri
-          description: URL to view the build
-        build_num:
-          type: integer
-          description: The build number
-        status:
-          type: string
-          description: The build status
-        vcs_revision:
-          type: string
-          description: The VCS revision
     Project:
       type: object
       properties:
@@ -418,28 +363,44 @@ components:
                   $ref: '#/components/schemas/BuildSummary'
                 description: Recent builds on this branch
           description: Branch information with recent builds
-    ProjectEnvVarList:
+    BuildSummary:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectEnvVar'
-          description: List of environment variables
-        next_page_token:
+        build_url:
           type: string
-          description: Token for retrieving the next page
-    CheckoutKeyList:
+          format: uri
+          description: URL to view the build
+        build_num:
+          type: integer
+          description: The build number
+        status:
+          type: string
+          description: The build status
+        vcs_revision:
+          type: string
+          description: The VCS revision
+    CheckoutKey:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CheckoutKey'
-          description: List of checkout keys
-        next_page_token:
+        public-key:
           type: string
-          description: Token for retrieving the next page
+          description: The public SSH key
+        type:
+          type: string
+          enum:
+          - deploy-key
+          - github-user-key
+          description: The type of checkout key
+        fingerprint:
+          type: string
+          description: The MD5 fingerprint of the key
+        preferred:
+          type: boolean
+          description: Whether this is the preferred checkout key
+        created-at:
+          type: string
+          format: date-time
+          description: When the key was created
     Project_2:
       type: object
       properties:
@@ -477,6 +438,28 @@ components:
               type: string
               description: The default branch name
           description: Version control system information
+    ProjectEnvVarList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectEnvVar'
+          description: List of environment variables
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    CheckoutKeyList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckoutKey'
+          description: List of checkout keys
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
     ErrorResponse:
       type: object
       properties:
@@ -498,28 +481,45 @@ components:
         value:
           type: string
           description: The masked value of the environment variable
-    CheckoutKey:
-      type: object
-      properties:
-        public-key:
-          type: string
-          description: The public SSH key
-        type:
-          type: string
-          enum:
-          - deploy-key
-          - github-user-key
-          description: The type of checkout key
-        fingerprint:
-          type: string
-          description: The MD5 fingerprint of the key
-        preferred:
-          type: boolean
-          description: Whether this is the preferred checkout key
-        created-at:
-          type: string
-          format: date-time
-          description: When the key was created
+  parameters:
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      description: The repository name
+      schema:
+        type: string
+    UsernameParam:
+      name: username
+      in: path
+      required: true
+      description: The organization or user name
+      schema:
+        type: string
+    VcsTypeParam:
+      name: vcs-type
+      in: path
+      required: true
+      description: The version control system type
+      schema:
+        type: string
+        enum:
+        - github
+        - bitbucket
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
+    FingerprintParam:
+      name: fingerprint
+      in: path
+      required: true
+      description: The fingerprint of the checkout key
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       type: apiKey

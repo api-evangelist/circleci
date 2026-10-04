@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/circleci/main/json-schema/circleci-test-metadata-schema.json",
+  "title": "TestMetadata",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/circleci-test-metadata-api-openapi.yml#/components/schemas/TestMetadata",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "The test message"
+    },
+    "file": {
+      "type": "string",
+      "description": "The file containing the test"
+    },
+    "source": {
+      "type": "string",
+      "description": "The source of the test"
+    },
+    "run_time": {
+      "type": "number",
+      "format": "float",
+      "description": "The run time of the test in seconds"
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failure",
+        "skipped"
+      ],
+      "description": "The test result"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the test"
+    },
+    "classname": {
+      "type": "string",
+      "description": "The class name of the test"
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/circleci/main/json-schema/circleci-update-schedule-request-schema.json",
+  "title": "UpdateScheduleRequest",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/circleci-schedule-api-openapi.yml#/components/schemas/UpdateScheduleRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the schedule"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the schedule"
+    },
+    "timetable": {
+      "$ref": "#/$defs/Timetable"
+    },
+    "attribution-actor": {
+      "type": "string",
+      "enum": [
+        "current",
+        "system"
+      ],
+      "description": "Who to attribute pipeline triggers to"
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Pipeline parameters for the schedule"
+    }
+  },
+  "$defs": {
+    "Timetable": {
+      "type": "object",
+      "required": [
+        "per-hour",
+        "hours-of-day",
+        "days-of-week"
+      ],
+      "properties": {
+        "per-hour": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60,
+          "description": "Number of times per hour to trigger"
+        },
+        "hours-of-day": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "description": "Hours of the day to trigger (UTC)"
+        },
+        "days-of-week": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "MON",
+              "TUE",
+              "WED",
+              "THU",
+              "FRI",
+              "SAT",
+              "SUN"
+            ]
+          },
+          "description": "Days of the week to trigger"
+        },
+        "days-of-month": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          },
+          "description": "Days of the month to trigger"
+        },
+        "months": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "JAN",
+              "FEB",
+              "MAR",
+              "APR",
+              "MAY",
+              "JUN",
+              "JUL",
+              "AUG",
+              "SEP",
+              "OCT",
+              "NOV",
+              "DEC"
+            ]
+          },
+          "description": "Months to trigger"
+        }
+      }
+    }
+  }
+}
