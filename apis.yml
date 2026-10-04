@@ -332,6 +332,9 @@ apis:
   - type: Documentation
     url: https://circleci.com/docs/api/v1/
 common:
+- type: CapabilityMap
+  url: capabilities/circleci-capability-edges.yml
+  name: CircleCI Business Capability Map
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/circleci/overview
 - type: AgenticAccess
