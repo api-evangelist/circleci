@@ -1,0 +1,38 @@
+generated: '2026-10-13'
+method: searched
+checked:
+- https://aws.amazon.com/marketplace/
+- https://azuremarketplace.microsoft.com/
+marketplace_apps: []
+edges:
+- partner_name: AWS Marketplace
+  partner: amazon-web-services
+  partner_match: aggregator
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=0827b1d5-3d04-4465-90ef-489192128ff8
+  listing_count: 2
+  apps:
+  - CircleCI - Cloud-Hosted CICD - FREE TRIAL
+  - CircleCI - Cloud-Hosted CICD - ANNUAL PLAN
+  seller_name: CircleCI
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
+- partner_name: Microsoft Azure Marketplace
+  partner: microsoft-azure
+  partner_match: aggregator
+  type: marketplace
+  marketplace: azure-marketplace
+  channel: distribution
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=CircleCI
+  listing_count: 1
+  apps:
+  - CircleCI Enterprise BETA
+  seller_name: CircleCI
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
