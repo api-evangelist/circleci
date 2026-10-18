@@ -271,7 +271,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: circleci-fivetran
   label: Fivetran
@@ -297,7 +297,7 @@
     - connectors/applications/circleci
     vendor_link: https://circleci.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: circleci-meltano
   label: Meltano
@@ -329,5 +329,5 @@
     - gold
     - unknown
     builder: 'community (Meltano Hub variant maintainers: meltanolabs, sisudata)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
