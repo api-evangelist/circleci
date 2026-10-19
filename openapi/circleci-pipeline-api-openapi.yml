@@ -294,49 +294,6 @@ components:
           type: string
           format: date-time
           description: When the workflow stopped
-    WorkflowList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workflow'
-          description: List of workflows
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    PipelineConfig:
-      type: object
-      properties:
-        source:
-          type: string
-          description: The source configuration
-        compiled:
-          type: string
-          description: The compiled configuration
-        setup-config:
-          type: string
-          description: The setup configuration
-        compiled-setup-config:
-          type: string
-          description: The compiled setup configuration
-    PipelineCreation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the new pipeline
-        state:
-          type: string
-          description: The state of the new pipeline
-        number:
-          type: integer
-          description: The pipeline number
-        created_at:
-          type: string
-          format: date-time
-          description: When the pipeline was created
     ErrorResponse:
       type: object
       properties:
@@ -430,19 +387,34 @@ components:
               type: string
               description: The VCS tag
           description: VCS information for this pipeline
-    TriggerPipelineRequest:
+    PipelineCreation:
       type: object
       properties:
-        branch:
+        id:
           type: string
-          description: The branch to build
-        tag:
+          format: uuid
+          description: The unique identifier of the new pipeline
+        state:
           type: string
-          description: The tag to build
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Pipeline parameters as key-value pairs
+          description: The state of the new pipeline
+        number:
+          type: integer
+          description: The pipeline number
+        created_at:
+          type: string
+          format: date-time
+          description: When the pipeline was created
+    WorkflowList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workflow'
+          description: List of workflows
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
     MessageResponse:
       type: object
       properties:
@@ -460,12 +432,39 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
+    PipelineConfig:
+      type: object
+      properties:
+        source:
+          type: string
+          description: The source configuration
+        compiled:
+          type: string
+          description: The compiled configuration
+        setup-config:
+          type: string
+          description: The setup configuration
+        compiled-setup-config:
+          type: string
+          description: The compiled setup configuration
+    TriggerPipelineRequest:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: The branch to build
+        tag:
+          type: string
+          description: The tag to build
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters as key-value pairs
   parameters:
-    ProjectSlugParam:
-      name: project-slug
-      in: path
-      required: true
-      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
       schema:
         type: string
     PipelineIdParam:
@@ -476,10 +475,11 @@ components:
       schema:
         type: string
         format: uuid
-    PageTokenParam:
-      name: page-token
-      in: query
-      description: Token for retrieving the next page of results
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
       schema:
         type: string
   securitySchemes:

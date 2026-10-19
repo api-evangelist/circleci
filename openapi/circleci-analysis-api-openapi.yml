@@ -1,0 +1,812 @@
+openapi: 3.2.0
+info:
+  title: CircleCI API V3 Analysis API
+  version: '3.0'
+  description: 'CircleCI''s V3 API. Every route is served under `/api/v3` on `https://circleci.com`.
+
+
+    No standard is implemented. V3 takes the ideas that work from established API designs and
+
+    combines them into one coherent whole, but it is not JSON:API, not `problem+json`, and not HAL.
+
+    Familiar names like `data`, `attributes`, `source.pointer` and `filter[...]` carry no behaviour
+
+    from those specs. Take everything from this document, and do not use a standard-conformant client
+
+    library.
+
+
+    ## Conventions
+
+
+    ### Auth
+
+
+    `Authorization: Bearer `. A token in a query parameter is rejected.
+
+
+    ### Ids
+
+
+    Ids are UUIDs, never slugs or names. Some collections resolve a slug via `filter[slug]`.
+
+
+    ### One resource
+
+
+    `{"data": {"id", "attributes", "references"}}`. Each entry in `references` is an `id`, or an array
+
+    of them, sometimes carrying a nested `attributes` object of denormalised fields from the referenced
+
+    resource. Read the operation''s schema for which fields those are, and fetch the resource itself for
+
+    anything not listed - there is no way to request more inline.
+
+
+    ### A collection
+
+
+    `{"data": [...], "page": {"next", "prev"}}`. `page.next` and `page.prev` are opaque cursor values,
+
+    not URLs - send one back as `page[cursor]`, unmodified, and stop when `page.next` is `null`.
+
+    `page[limit]` bounds are per-operation, and out of range is a 400, not a clamp.
+
+
+    ### Scoping
+
+
+    Scoping uses `filter[...]`. Most list operations require a scope filter such as `filter[org_id]` or
+
+    `filter[project_id]` and return 400 without it, so read the operation''s parameters.
+
+
+    ### Methods
+
+
+    `GET` reads, `POST` creates and performs named actions and partial updates, `PUT` replaces in full,
+
+    `DELETE` removes. There is no `PATCH`.
+
+
+    ### Retrying
+
+
+    `GET`, `PUT` and `DELETE` are idempotent. V3 aims for idempotent `POST` wherever an operation
+
+    allows it, but never assume a given `POST` is replayable: retrying one that timed out can create a
+
+    second resource or fire an action twice. Retry a `POST` only if its own description says it is
+
+    idempotent - otherwise re-read the collection to find out whether the first attempt landed.
+
+
+    ### Destructive operations
+
+
+    `DELETE`, and `POST` actions such as `cancel`, `delete`, `revoke` and `purge`, take effect
+
+    immediately and normally cannot be undone. Treat them as irreversible: no operation here reverses
+
+    another, and there is no dry-run mode. Where recovery is possible at all it is a support matter,
+
+    not an API call.
+
+
+    ### Errors
+
+
+    Errors return a single `error` object, never an `errors` array:
+
+    `{"error": {"type", "id", "title", "detail", "source"}}`. Branch on the status code; every member
+
+    is optional. `error.type`, where present, separates causes within one status and is a bare token,
+
+    not a URI. Never branch on `title` or `detail`. Quote `error.id` in support requests. Invalid input
+
+    is always 400, never 422.
+
+
+    ### Rate limits
+
+
+    On 429, wait the `Retry-After` seconds, then back off exponentially. Responses carry
+
+    `RateLimit-Policy` and `RateLimit`, the policy and the current state against it
+
+    (IETF draft-ietf-httpapi-ratelimit-headers). Limits are per route and are not published: read the
+
+    headers rather than assuming a figure.
+
+
+    ### Caching
+
+
+    Responses carry an `ETag` and a `Cache-Control` directive. Where a response has an `ETag`, send it
+
+    back as `If-None-Match` to make the request conditional and get a 304 when nothing has changed.
+
+
+    ### Deprecation
+
+
+    A deprecated operation is marked `deprecated: true` and its responses carry `Deprecation`, whose
+
+    value is `true` (RFC 9745), `Sunset`, the HTTP-date when the endpoint will be removed (RFC 8594),
+
+    and `Link` with `rel="deprecation"`, pointing at the migration documentation (RFC 8288). Migrate
+
+    before the `Sunset` date. A removed route returns 410, permanently.
+
+
+    ### Additions
+
+
+    Response fields are added without a version change. Ignore members you do not recognise rather
+
+    than failing to parse.'
+servers:
+- url: https://circleci.com
+security:
+- bearer_token: []
+tags:
+- name: Analysis
+  description: Credit spend aggregated by job, workflow or pipeline.
+paths:
+  /api/v3/analysis/charges:
+    post:
+      operationId: post-analysis-charges
+      tags:
+      - Analysis
+      summary: Returns entities ranked by what they were charged
+      description: 'EXPERIMENTAL — field names, request and response shapes, and pagination may change without notice; do not depend on this endpoint in production clients.
+
+
+        The required analysis field selects what charges are grouped by: charge.job, charge.workflow or charge.pipeline.
+
+
+        Each result is one entity name within one project, carrying the credits it was charged, the number of runs those credits are spread across, and the credits per run. A run is one instance of the entity: charge.job counts jobs, charge.workflow counts workflows, charge.pipeline counts pipelines.
+
+
+        Other dimensions of a charge are filters rather than groupings, so slice by them through filter: actor.id, actor.external_slug, resource.class and charge.type, alongside job, workflow and pipeline values.
+
+
+        The optional order_by field accepts [asc|desc]; the direction falls back to a per-field default.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                analysis:
+                  type: string
+                filter:
+                  type: string
+                order_by:
+                  type: string
+                page:
+                  type: object
+                  properties:
+                    cursor:
+                      type: string
+                    limit:
+                      type: integer
+                  required:
+                  - cursor
+                  - limit
+                scope:
+                  type: object
+                  properties:
+                    from:
+                      type: string
+                      format: date-time
+                    project_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                    to:
+                      type: string
+                      format: date-time
+                  required:
+                  - from
+                  - project_ids
+                  - to
+              required:
+              - analysis
+              - filter
+              - order_by
+              - page
+              - scope
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            credits:
+                              type: integer
+                            credits_per_run:
+                              type: number
+                            name:
+                              type: string
+                            runs:
+                              type: integer
+                          required:
+                          - credits
+                          - credits_per_run
+                          - name
+                          - runs
+                        references:
+                          type: object
+                          properties:
+                            project:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - id
+                          required:
+                          - project
+                      required:
+                      - attributes
+                      - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/analysis/jobs:
+    post:
+      operationId: post-analysis-jobs
+      tags:
+      - Analysis
+      summary: Returns aggregated job results across runs
+      description: 'EXPERIMENTAL — field names, request and response shapes, and pagination may change without notice; do not depend on this endpoint in production clients.
+
+
+        Each result is one job (project + workflow + job name) within the requested projects and time window.
+
+
+        flaky_test_count counts distinct tests that flaked, not flake occurrences. A test is flaky when it failed and passed within the same pipeline.
+
+
+        Results come from pre-aggregated data: whole UTC days are read from a day-grain aggregate and the partial days at either end of the window from an hour-grain one. The lower bound widens to the start of the hour it falls in, and the aggregates trail real time by roughly an hour.
+
+
+        The optional order_by field accepts [asc|desc]; the direction falls back to a per-field default.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: string
+                order_by:
+                  type: string
+                page:
+                  type: object
+                  properties:
+                    cursor:
+                      type: string
+                    limit:
+                      type: integer
+                  required:
+                  - cursor
+                  - limit
+                scope:
+                  type: object
+                  properties:
+                    from:
+                      type: string
+                      format: date-time
+                    project_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                    to:
+                      type: string
+                      format: date-time
+                  required:
+                  - from
+                  - project_ids
+                  - to
+              required:
+              - filter
+              - order_by
+              - page
+              - scope
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            duration:
+                              type: object
+                              properties:
+                                avg_ms:
+                                  type: integer
+                              required:
+                              - avg_ms
+                            flaky_test_count:
+                              type: integer
+                            name:
+                              type: string
+                            success_rate:
+                              type: number
+                            test_count:
+                              type: integer
+                            workflow_name:
+                              type: string
+                          required:
+                          - duration
+                          - flaky_test_count
+                          - name
+                          - success_rate
+                          - test_count
+                          - workflow_name
+                        references:
+                          type: object
+                          properties:
+                            project:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - id
+                          required:
+                          - project
+                      required:
+                      - attributes
+                      - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/analysis/tests:
+    post:
+      operationId: post-analysis-tests
+      tags:
+      - Analysis
+      summary: Returns aggregated test results across runs
+      description: 'EXPERIMENTAL — field names, request and response shapes, and pagination may change without notice; do not depend on this endpoint in production clients.
+
+
+        Each result is one test (project + workflow + job + classname + file + name) within the requested projects and time window.
+
+
+        The window is half-open, [from, to): an execution starting exactly on from is included, one starting exactly on to is not.
+
+
+        total_count is the number of non-skipped executions of the test in the window. flaky_count is the number of recorded flakes: executions that failed within a pipeline where the same test also passed. It reports the same figure the test_flake.pipeline metric reports for the same test and window. Repeated failures within one job attempt are recorded as a single flake. Skipped executions are excluded from every attribute, so a test that only ever skipped in the window is omitted.
+
+
+        Results come from pre-aggregated data: whole UTC days are read from a day-grain aggregate and the partial days at either end of the window from an hour-grain one. The lower bound widens to the start of the hour it falls in, and the aggregates trail real time by roughly an hour.
+
+
+        The optional order_by field accepts [asc|desc]; the direction falls back to a per-field default.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: string
+                order_by:
+                  type: string
+                page:
+                  type: object
+                  properties:
+                    cursor:
+                      type: string
+                    limit:
+                      type: integer
+                  required:
+                  - cursor
+                  - limit
+                scope:
+                  type: object
+                  properties:
+                    from:
+                      type: string
+                      format: date-time
+                    project_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                    to:
+                      type: string
+                      format: date-time
+                  required:
+                  - from
+                  - project_ids
+                  - to
+              required:
+              - filter
+              - order_by
+              - page
+              - scope
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            classname:
+                              type: string
+                            duration:
+                              type: object
+                              properties:
+                                avg_ms:
+                                  type: integer
+                              required:
+                              - avg_ms
+                            file:
+                              type: string
+                            flaky_count:
+                              type: integer
+                            job_name:
+                              type: string
+                            name:
+                              type: string
+                            success_rate:
+                              type: number
+                            total_count:
+                              type: integer
+                            workflow_name:
+                              type: string
+                          required:
+                          - classname
+                          - duration
+                          - file
+                          - flaky_count
+                          - job_name
+                          - name
+                          - success_rate
+                          - total_count
+                          - workflow_name
+                        references:
+                          type: object
+                          properties:
+                            project:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - id
+                          required:
+                          - project
+                      required:
+                      - attributes
+                      - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/analysis/usage:
+    post:
+      operationId: post-analysis-usage
+      tags:
+      - Analysis
+      summary: Returns entities ranked by the resources they consumed
+      description: 'EXPERIMENTAL — field names, request and response shapes, and pagination may change without notice; do not depend on this endpoint in production clients.
+
+
+        The time window selects the jobs that completed inside it. The required analysis field picks the granularity: usage.job, usage.workflow or usage.pipeline.
+
+
+        Each result is one entity name within one project. avg_cpu_used and avg_memory_bytes are means over that entity''s samples, so they weight by run duration; peak_cpu_used and peak_memory_bytes are the largest single sample, not a concurrent total. cpu_utilization and ram_utilization are those means over what was allocated, where 1 is fully consumed and a low value means over-provisioned. network_bytes_received and network_bytes_transmitted are totals across runs. runs counts the entity''s instances — jobs, workflows or pipelines per the granularity.
+
+
+        A pipeline is named only by its configuration, so usage.pipeline reports pipelines that carry no name together under an empty name.
+
+
+        Other dimensions are filters rather than groupings, so slice by them through filter: resource.class, resource.executor, resource.cpu (cores), resource.ram (mebibytes, unlike the *_memory_bytes attributes), parallel_execution.number, and job, workflow and pipeline values.
+
+
+        The optional order_by field accepts [asc|desc]; the direction falls back to a per-field default.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                analysis:
+                  type: string
+                filter:
+                  type: string
+                order_by:
+                  type: string
+                page:
+                  type: object
+                  properties:
+                    cursor:
+                      type: string
+                    limit:
+                      type: integer
+                  required:
+                  - cursor
+                  - limit
+                scope:
+                  type: object
+                  properties:
+                    from:
+                      type: string
+                      format: date-time
+                    project_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                    to:
+                      type: string
+                      format: date-time
+                  required:
+                  - from
+                  - project_ids
+                  - to
+              required:
+              - analysis
+              - filter
+              - order_by
+              - page
+              - scope
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            avg_cpu_used:
+                              type: number
+                            avg_memory_bytes:
+                              type: number
+                            cpu_utilization:
+                              type: number
+                            name:
+                              type: string
+                            network_bytes_received:
+                              type: integer
+                            network_bytes_transmitted:
+                              type: integer
+                            peak_cpu_used:
+                              type: number
+                            peak_memory_bytes:
+                              type: integer
+                            ram_utilization:
+                              type: number
+                            runs:
+                              type: integer
+                          required:
+                          - avg_cpu_used
+                          - avg_memory_bytes
+                          - cpu_utilization
+                          - name
+                          - network_bytes_received
+                          - network_bytes_transmitted
+                          - peak_cpu_used
+                          - peak_memory_bytes
+                          - ram_utilization
+                          - runs
+                        references:
+                          type: object
+                          properties:
+                            project:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - id
+                          required:
+                          - project
+                      required:
+                      - attributes
+                      - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+components:
+  responses:
+    InternalError:
+      description: Internal server error. Safe to retry with backoff; quote error.id when reporting it.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limited. Wait the Retry-After header's seconds, then retry with backoff.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing, invalid or expired token. Do not retry without a new token.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden - authenticated but not permitted to perform this action. Do not retry.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      properties:
+        detail:
+          description: Human-readable explanation specific to this occurrence.
+          type: string
+        id:
+          description: Unique identifier for this occurrence. Include it when reporting the problem so support can find the failure.
+          type: string
+        source:
+          description: Identifies the origin of the error in the request.
+          properties:
+            error:
+              description: Underlying parser/validation error message.
+              type: string
+            offset:
+              description: Byte offset in the JSON input where the error was detected.
+              format: int64
+              type: integer
+            pointer:
+              description: JSON Pointer (RFC 6901) to the field that caused the error.
+              type: string
+          type: object
+        title:
+          description: Short, human-readable summary of the problem.
+          type: string
+        type:
+          description: 'Low-cardinality machine-readable error type, present only where an operation sets one explicitly - absent is normal, so branch on the HTTP status first and use this to tell causes apart within one status. A bare token, never a URI to dereference. The value set is open, so treat an unrecognised value as a generic failure for the status. Request-parsing errors use: syntax_error, empty_input, unknown_field, invalid_structure, invalid_format, type_mismatch, validation_error, invalid_route, invalid_path_param.'
+          type: string
+      type: object
+  securitySchemes:
+    bearer_token:
+      scheme: bearer
+      type: http

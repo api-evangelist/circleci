@@ -248,6 +248,38 @@ paths:
         '401':
           description: Unauthorized
 components:
+  parameters:
+    BuildNumParam:
+      name: build_num
+      in: path
+      required: true
+      description: The build number
+      schema:
+        type: integer
+    UsernameParam:
+      name: username
+      in: path
+      required: true
+      description: The organization or user name
+      schema:
+        type: string
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      description: The repository name
+      schema:
+        type: string
+    VcsTypeParam:
+      name: vcs-type
+      in: path
+      required: true
+      description: The version control system type
+      schema:
+        type: string
+        enum:
+        - github
+        - bitbucket
   schemas:
     Build:
       type: object
@@ -429,38 +461,6 @@ components:
         vcs_revision:
           type: string
           description: The VCS revision
-  parameters:
-    ProjectParam:
-      name: project
-      in: path
-      required: true
-      description: The repository name
-      schema:
-        type: string
-    UsernameParam:
-      name: username
-      in: path
-      required: true
-      description: The organization or user name
-      schema:
-        type: string
-    VcsTypeParam:
-      name: vcs-type
-      in: path
-      required: true
-      description: The version control system type
-      schema:
-        type: string
-        enum:
-        - github
-        - bitbucket
-    BuildNumParam:
-      name: build_num
-      in: path
-      required: true
-      description: The build number
-      schema:
-        type: integer
   securitySchemes:
     apiToken:
       type: apiKey

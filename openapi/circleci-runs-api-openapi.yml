@@ -1,0 +1,1714 @@
+openapi: 3.2.0
+info:
+  title: CircleCI API V3 Runs API
+  version: '3.0'
+  description: 'CircleCI''s V3 API. Every route is served under `/api/v3` on `https://circleci.com`.
+
+
+    No standard is implemented. V3 takes the ideas that work from established API designs and
+
+    combines them into one coherent whole, but it is not JSON:API, not `problem+json`, and not HAL.
+
+    Familiar names like `data`, `attributes`, `source.pointer` and `filter[...]` carry no behaviour
+
+    from those specs. Take everything from this document, and do not use a standard-conformant client
+
+    library.
+
+
+    ## Conventions
+
+
+    ### Auth
+
+
+    `Authorization: Bearer `. A token in a query parameter is rejected.
+
+
+    ### Ids
+
+
+    Ids are UUIDs, never slugs or names. Some collections resolve a slug via `filter[slug]`.
+
+
+    ### One resource
+
+
+    `{"data": {"id", "attributes", "references"}}`. Each entry in `references` is an `id`, or an array
+
+    of them, sometimes carrying a nested `attributes` object of denormalised fields from the referenced
+
+    resource. Read the operation''s schema for which fields those are, and fetch the resource itself for
+
+    anything not listed - there is no way to request more inline.
+
+
+    ### A collection
+
+
+    `{"data": [...], "page": {"next", "prev"}}`. `page.next` and `page.prev` are opaque cursor values,
+
+    not URLs - send one back as `page[cursor]`, unmodified, and stop when `page.next` is `null`.
+
+    `page[limit]` bounds are per-operation, and out of range is a 400, not a clamp.
+
+
+    ### Scoping
+
+
+    Scoping uses `filter[...]`. Most list operations require a scope filter such as `filter[org_id]` or
+
+    `filter[project_id]` and return 400 without it, so read the operation''s parameters.
+
+
+    ### Methods
+
+
+    `GET` reads, `POST` creates and performs named actions and partial updates, `PUT` replaces in full,
+
+    `DELETE` removes. There is no `PATCH`.
+
+
+    ### Retrying
+
+
+    `GET`, `PUT` and `DELETE` are idempotent. V3 aims for idempotent `POST` wherever an operation
+
+    allows it, but never assume a given `POST` is replayable: retrying one that timed out can create a
+
+    second resource or fire an action twice. Retry a `POST` only if its own description says it is
+
+    idempotent - otherwise re-read the collection to find out whether the first attempt landed.
+
+
+    ### Destructive operations
+
+
+    `DELETE`, and `POST` actions such as `cancel`, `delete`, `revoke` and `purge`, take effect
+
+    immediately and normally cannot be undone. Treat them as irreversible: no operation here reverses
+
+    another, and there is no dry-run mode. Where recovery is possible at all it is a support matter,
+
+    not an API call.
+
+
+    ### Errors
+
+
+    Errors return a single `error` object, never an `errors` array:
+
+    `{"error": {"type", "id", "title", "detail", "source"}}`. Branch on the status code; every member
+
+    is optional. `error.type`, where present, separates causes within one status and is a bare token,
+
+    not a URI. Never branch on `title` or `detail`. Quote `error.id` in support requests. Invalid input
+
+    is always 400, never 422.
+
+
+    ### Rate limits
+
+
+    On 429, wait the `Retry-After` seconds, then back off exponentially. Responses carry
+
+    `RateLimit-Policy` and `RateLimit`, the policy and the current state against it
+
+    (IETF draft-ietf-httpapi-ratelimit-headers). Limits are per route and are not published: read the
+
+    headers rather than assuming a figure.
+
+
+    ### Caching
+
+
+    Responses carry an `ETag` and a `Cache-Control` directive. Where a response has an `ETag`, send it
+
+    back as `If-None-Match` to make the request conditional and get a 304 when nothing has changed.
+
+
+    ### Deprecation
+
+
+    A deprecated operation is marked `deprecated: true` and its responses carry `Deprecation`, whose
+
+    value is `true` (RFC 9745), `Sunset`, the HTTP-date when the endpoint will be removed (RFC 8594),
+
+    and `Link` with `rel="deprecation"`, pointing at the migration documentation (RFC 8288). Migrate
+
+    before the `Sunset` date. A removed route returns 410, permanently.
+
+
+    ### Additions
+
+
+    Response fields are added without a version change. Ignore members you do not recognise rather
+
+    than failing to parse.'
+servers:
+- url: https://circleci.com
+security:
+- bearer_token: []
+tags:
+- name: Runs
+  description: Runs record each trigger firing and group the workflows they produce. A run carries VCS context, parameter overrides, and pre-workflow errors.
+paths:
+  /api/v3/runs:
+    get:
+      operationId: get-runs
+      tags:
+      - Runs
+      summary: Returns a paginated list of runs
+      description: Either filter[project_id] or filter[user_id]=me is required. filter[project_id] returns the runs for a single project; filter[user_id]=me returns the caller's own recent runs across projects.
+      parameters:
+      - name: filter[project_id]
+        in: query
+        schema:
+          type: string
+          format: uuid
+      - name: filter[user_id]
+        in: query
+        schema:
+          type: string
+      - name: page[cursor]
+        in: query
+        description: Opaque cursor for the next or previous page. Send back the value of page.next or page.prev from a previous response on this operation, verbatim - it is a cursor value, not a URL, and must not be constructed or decoded. Omit for the first page.
+        schema:
+          type: string
+      - name: page[limit]
+        in: query
+        description: Maximum items in one page. Out-of-range values are rejected with 400 rather than clamped. The maximum is 20.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            created_at:
+                              type: string
+                              format: date-time
+                            current_outcome:
+                              type:
+                              - string
+                              - 'null'
+                            errors:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                properties:
+                                  message:
+                                    type: string
+                                  type:
+                                    type: string
+                                required:
+                                - message
+                                - type
+                            number:
+                              type: integer
+                            phase:
+                              type: string
+                            warnings:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                properties:
+                                  description:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  message:
+                                    type: string
+                                  type:
+                                    type: string
+                                  url:
+                                    type:
+                                    - string
+                                    - 'null'
+                                required:
+                                - message
+                                - type
+                            workflows:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                count_by_outcome:
+                                  type: object
+                                  additionalProperties:
+                                    type: integer
+                                count_by_phase:
+                                  type: object
+                                  additionalProperties:
+                                    type: integer
+                                is_truncated:
+                                  type: boolean
+                                items:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      auto_rerun:
+                                        type:
+                                        - object
+                                        - 'null'
+                                        properties:
+                                          max_reruns:
+                                            type: integer
+                                          number:
+                                            type: integer
+                                        required:
+                                        - max_reruns
+                                        - number
+                                      created_at:
+                                        type:
+                                        - string
+                                        - 'null'
+                                        format: date-time
+                                      current_outcome:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      ended_at:
+                                        type:
+                                        - string
+                                        - 'null'
+                                        format: date-time
+                                      id:
+                                        type: string
+                                        format: uuid
+                                      jobs:
+                                        type:
+                                        - object
+                                        - 'null'
+                                        properties:
+                                          count_by_outcome:
+                                            type: object
+                                            additionalProperties:
+                                              type: integer
+                                          count_by_phase:
+                                            type: object
+                                            additionalProperties:
+                                              type: integer
+                                          is_truncated:
+                                            type: boolean
+                                          items:
+                                            type: array
+                                            items:
+                                              type: object
+                                              properties:
+                                                ended_at:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                  format: date-time
+                                                id:
+                                                  type: string
+                                                  format: uuid
+                                                name:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                number:
+                                                  type:
+                                                  - integer
+                                                  - 'null'
+                                                outcome:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                phase:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                started_at:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                  format: date-time
+                                                type:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                              required:
+                                              - id
+                                          total_count:
+                                            type: integer
+                                        required:
+                                        - count_by_outcome
+                                        - count_by_phase
+                                        - is_truncated
+                                        - items
+                                        - total_count
+                                      name:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      outcome:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      phase:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      tag:
+                                        type:
+                                        - string
+                                        - 'null'
+                                    required:
+                                    - id
+                                total_count:
+                                  type: integer
+                              required:
+                              - count_by_outcome
+                              - count_by_phase
+                              - is_truncated
+                              - items
+                              - total_count
+                          required:
+                          - created_at
+                          - number
+                          - phase
+                        id:
+                          type: string
+                          format: uuid
+                        references:
+                          type: object
+                          properties:
+                            event:
+                              type: object
+                              properties:
+                                attributes:
+                                  type: object
+                                  properties:
+                                    action:
+                                      type:
+                                      - string
+                                      - 'null'
+                                    type:
+                                      type:
+                                      - string
+                                      - 'null'
+                                    vcs:
+                                      type:
+                                      - object
+                                      - 'null'
+                                      properties:
+                                        branch:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        commit:
+                                          type:
+                                          - object
+                                          - 'null'
+                                          properties:
+                                            author:
+                                              type:
+                                              - object
+                                              - 'null'
+                                              properties:
+                                                avatar_url:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                login:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                name:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                            body:
+                                              type:
+                                              - string
+                                              - 'null'
+                                            subject:
+                                              type:
+                                              - string
+                                              - 'null'
+                                            url:
+                                              type:
+                                              - string
+                                              - 'null'
+                                        origin_repository_url:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        provider_name:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        revision:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        tag:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        target_repository_url:
+                                          type:
+                                          - string
+                                          - 'null'
+                              required:
+                              - attributes
+                            pipeline:
+                              type: object
+                              properties:
+                                attributes:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type:
+                                      - string
+                                      - 'null'
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - attributes
+                              - id
+                            project:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - id
+                            trigger:
+                              type: object
+                              properties:
+                                attributes:
+                                  type: object
+                                  properties:
+                                    event_source:
+                                      type: object
+                                      properties:
+                                        type:
+                                          type:
+                                          - string
+                                          - 'null'
+                                    name:
+                                      type:
+                                      - string
+                                      - 'null'
+                                  required:
+                                  - event_source
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - attributes
+                              - id
+                            user:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - id
+                          required:
+                          - event
+                          - pipeline
+                          - project
+                          - trigger
+                      required:
+                      - attributes
+                      - id
+                      - references
+                  page:
+                    type: object
+                    properties:
+                      next:
+                        type:
+                        - string
+                        - 'null'
+                      prev:
+                        type:
+                        - string
+                        - 'null'
+                required:
+                - data
+                - page
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      operationId: post-runs
+      tags:
+      - Runs
+      summary: Fires a run for the pipeline named by pipeline_id, returning the created
+      description: run. The optional filter[project_id] scopes the pipeline to a project directly (mirroring Get/Delete); DB-backed pipelines omit it and derive the project from pipeline_id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        checkout:
+                          type:
+                          - object
+                          - 'null'
+                          properties:
+                            branch:
+                              type:
+                              - string
+                              - 'null'
+                            tag:
+                              type:
+                              - string
+                              - 'null'
+                        config:
+                          type:
+                          - object
+                          - 'null'
+                          properties:
+                            branch:
+                              type:
+                              - string
+                              - 'null'
+                            tag:
+                              type:
+                              - string
+                              - 'null'
+                        parameters:
+                          type:
+                          - object
+                          - 'null'
+                          additionalProperties: {}
+                    references:
+                      type: object
+                      properties:
+                        pipeline:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                          required:
+                          - id
+                      required:
+                      - pipeline
+                  required:
+                  - attributes
+                  - references
+              required:
+              - data
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          created_at:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                      id:
+                        type: string
+                        format: uuid
+                      references:
+                        type: object
+                        properties:
+                          pipeline:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                          project:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                          user:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                        required:
+                        - pipeline
+                        - project
+                        - user
+                    required:
+                    - attributes
+                    - id
+                    - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/runs/facet-values:
+    get:
+      operationId: get-runs-facet-values
+      tags:
+      - Runs
+      summary: Returns a paginated list of distinct values for a single run facet within one…
+      description: 'EXPERIMENTAL — This endpoint is experimental and may change without notice. Field names, request and response shapes, and pagination semantics are not yet stable. Do not depend on this endpoint in production clients.
+
+
+        Values are ordered by most-recently-seen (the most recent pipeline that carried the value). Supported facet keys are actor.id, pipeline.status, pipeline.phase, pipeline.current_outcome, and indexed pipeline values (for example pipeline.git.branch).'
+      parameters:
+      - name: filter[facet]
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: filter[project_id]
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: page[cursor]
+        in: query
+        description: Opaque cursor for the next or previous page. Send back the value of page.next or page.prev from a previous response on this operation, verbatim - it is a cursor value, not a URL, and must not be constructed or decoded. Omit for the first page.
+        schema:
+          type: string
+      - name: page[limit]
+        in: query
+        description: Maximum items in one page. Out-of-range values are rejected with 400 rather than clamped. The maximum is 200.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            count:
+                              type: integer
+                            value:
+                              type: string
+                          required:
+                          - count
+                          - value
+                      required:
+                      - attributes
+                  page:
+                    type: object
+                    properties:
+                      next:
+                        type:
+                        - string
+                        - 'null'
+                      prev:
+                        type:
+                        - string
+                        - 'null'
+                required:
+                - data
+                - page
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/runs/facet-values/search:
+    post:
+      operationId: post-runs-facet-values-search
+      tags:
+      - Runs
+      summary: Returns a paginated list of distinct values for a single run facet across one…
+      description: 'EXPERIMENTAL — This endpoint is experimental and may change without notice. Field names, request and response shapes, and pagination semantics are not yet stable. Do not depend on this endpoint in production clients.
+
+
+        Values are ordered by most-recently-seen (the most recent pipeline that carried the value). Supported facet keys are actor.id, pipeline.status, pipeline.phase, pipeline.current_outcome, and indexed pipeline values (for example pipeline.git.branch).
+
+
+        The optional filter expression pre-filters which pipelines contribute values (same expression grammar as api/v3/runs/search). The optional matches string is a case-insensitive substring match against the facet values themselves. When scope.from or scope.to are omitted, the same default two-week window used by other v3 search endpoints is applied.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                facet:
+                  type: string
+                filter:
+                  type:
+                  - string
+                  - 'null'
+                matches:
+                  type:
+                  - string
+                  - 'null'
+                page:
+                  type: object
+                  properties:
+                    cursor:
+                      type: string
+                    limit:
+                      type: integer
+                  required:
+                  - cursor
+                  - limit
+                scope:
+                  type: object
+                  properties:
+                    from:
+                      type: string
+                      format: date-time
+                    project_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                    to:
+                      type: string
+                      format: date-time
+                  required:
+                  - from
+                  - project_ids
+                  - to
+              required:
+              - facet
+              - page
+              - scope
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            count:
+                              type: integer
+                            value:
+                              type: string
+                          required:
+                          - count
+                          - value
+                      required:
+                      - attributes
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/runs/search:
+    post:
+      operationId: post-runs-search
+      tags:
+      - Runs
+      summary: Search a run
+      description: 'The optional include field requests nested entities on each run. Allowed values are workflows (truncated nested workflows) and workflows.jobs (workflows plus a truncated nested jobs list per workflow). Unknown values are rejected with 400. When include is omitted or empty, attributes.workflows is omitted from each item. Nested workflow lists are capped at 5 items and nested job lists at 20; is_truncated is true when more exist, and total_count / count_by_phase / count_by_outcome cover the full uncapped set.
+
+
+        The optional order_by_workflows field sorts nested workflows when include requests them. It accepts "created asc" or "created desc" (default created desc / newest first). With the truncation cap, "created asc" returns the oldest workflows. Invalid values return 400 even when include is omitted.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: string
+                include:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+                order_by:
+                  type: string
+                order_by_workflows:
+                  type:
+                  - string
+                  - 'null'
+                page:
+                  type: object
+                  properties:
+                    cursor:
+                      type: string
+                    limit:
+                      type: integer
+                  required:
+                  - cursor
+                  - limit
+                scope:
+                  type: object
+                  properties:
+                    from:
+                      type: string
+                      format: date-time
+                    project_ids:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                    to:
+                      type: string
+                      format: date-time
+                  required:
+                  - from
+                  - project_ids
+                  - to
+              required:
+              - filter
+              - order_by
+              - page
+              - scope
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            created_at:
+                              type: string
+                              format: date-time
+                            current_outcome:
+                              type:
+                              - string
+                              - 'null'
+                            errors:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                properties:
+                                  message:
+                                    type: string
+                                  type:
+                                    type: string
+                                required:
+                                - message
+                                - type
+                            number:
+                              type: integer
+                            phase:
+                              type: string
+                            warnings:
+                              type:
+                              - array
+                              - 'null'
+                              items:
+                                type: object
+                                properties:
+                                  description:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  message:
+                                    type: string
+                                  type:
+                                    type: string
+                                  url:
+                                    type:
+                                    - string
+                                    - 'null'
+                                required:
+                                - message
+                                - type
+                            workflows:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                count_by_outcome:
+                                  type: object
+                                  additionalProperties:
+                                    type: integer
+                                count_by_phase:
+                                  type: object
+                                  additionalProperties:
+                                    type: integer
+                                is_truncated:
+                                  type: boolean
+                                items:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      auto_rerun:
+                                        type:
+                                        - object
+                                        - 'null'
+                                        properties:
+                                          max_reruns:
+                                            type: integer
+                                          number:
+                                            type: integer
+                                        required:
+                                        - max_reruns
+                                        - number
+                                      created_at:
+                                        type:
+                                        - string
+                                        - 'null'
+                                        format: date-time
+                                      current_outcome:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      ended_at:
+                                        type:
+                                        - string
+                                        - 'null'
+                                        format: date-time
+                                      id:
+                                        type: string
+                                        format: uuid
+                                      jobs:
+                                        type:
+                                        - object
+                                        - 'null'
+                                        properties:
+                                          count_by_outcome:
+                                            type: object
+                                            additionalProperties:
+                                              type: integer
+                                          count_by_phase:
+                                            type: object
+                                            additionalProperties:
+                                              type: integer
+                                          is_truncated:
+                                            type: boolean
+                                          items:
+                                            type: array
+                                            items:
+                                              type: object
+                                              properties:
+                                                ended_at:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                  format: date-time
+                                                id:
+                                                  type: string
+                                                  format: uuid
+                                                name:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                number:
+                                                  type:
+                                                  - integer
+                                                  - 'null'
+                                                outcome:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                phase:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                started_at:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                  format: date-time
+                                                type:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                              required:
+                                              - id
+                                          total_count:
+                                            type: integer
+                                        required:
+                                        - count_by_outcome
+                                        - count_by_phase
+                                        - is_truncated
+                                        - items
+                                        - total_count
+                                      name:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      outcome:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      phase:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      tag:
+                                        type:
+                                        - string
+                                        - 'null'
+                                    required:
+                                    - id
+                                total_count:
+                                  type: integer
+                              required:
+                              - count_by_outcome
+                              - count_by_phase
+                              - is_truncated
+                              - items
+                              - total_count
+                          required:
+                          - created_at
+                          - number
+                          - phase
+                        id:
+                          type: string
+                          format: uuid
+                        references:
+                          type: object
+                          properties:
+                            event:
+                              type: object
+                              properties:
+                                attributes:
+                                  type: object
+                                  properties:
+                                    action:
+                                      type:
+                                      - string
+                                      - 'null'
+                                    type:
+                                      type:
+                                      - string
+                                      - 'null'
+                                    vcs:
+                                      type:
+                                      - object
+                                      - 'null'
+                                      properties:
+                                        branch:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        commit:
+                                          type:
+                                          - object
+                                          - 'null'
+                                          properties:
+                                            author:
+                                              type:
+                                              - object
+                                              - 'null'
+                                              properties:
+                                                avatar_url:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                login:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                                name:
+                                                  type:
+                                                  - string
+                                                  - 'null'
+                                            body:
+                                              type:
+                                              - string
+                                              - 'null'
+                                            subject:
+                                              type:
+                                              - string
+                                              - 'null'
+                                            url:
+                                              type:
+                                              - string
+                                              - 'null'
+                                        origin_repository_url:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        provider_name:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        revision:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        tag:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        target_repository_url:
+                                          type:
+                                          - string
+                                          - 'null'
+                              required:
+                              - attributes
+                            pipeline:
+                              type: object
+                              properties:
+                                attributes:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type:
+                                      - string
+                                      - 'null'
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - attributes
+                              - id
+                            project:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - id
+                            trigger:
+                              type: object
+                              properties:
+                                attributes:
+                                  type: object
+                                  properties:
+                                    event_source:
+                                      type: object
+                                      properties:
+                                        type:
+                                          type:
+                                          - string
+                                          - 'null'
+                                    name:
+                                      type:
+                                      - string
+                                      - 'null'
+                                  required:
+                                  - event_source
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - attributes
+                              - id
+                            user:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - id
+                          required:
+                          - event
+                          - pipeline
+                          - project
+                          - trigger
+                      required:
+                      - attributes
+                      - id
+                      - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/runs/{id}:
+    get:
+      operationId: get-runs-by-id
+      tags:
+      - Runs
+      summary: Retrieve a single run by its ID
+      description: 'A run uses current_outcome (not outcome) because reruns can change the outcome at any time, it is never truly final.
+
+
+        phase: "queued", "started", "ended" current_outcome: "succeeded", "failed", "canceled", "errored", "not_run", "unauthorized"'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          created_at:
+                            type: string
+                            format: date-time
+                          current_outcome:
+                            type:
+                            - string
+                            - 'null'
+                          errors:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: object
+                              properties:
+                                message:
+                                  type: string
+                                type:
+                                  type: string
+                              required:
+                              - message
+                              - type
+                          number:
+                            type: integer
+                          phase:
+                            type: string
+                          warnings:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: object
+                              properties:
+                                description:
+                                  type:
+                                  - string
+                                  - 'null'
+                                message:
+                                  type: string
+                                type:
+                                  type: string
+                                url:
+                                  type:
+                                  - string
+                                  - 'null'
+                              required:
+                              - message
+                              - type
+                        required:
+                        - created_at
+                        - number
+                        - phase
+                      id:
+                        type: string
+                        format: uuid
+                      references:
+                        type: object
+                        properties:
+                          event:
+                            type: object
+                            properties:
+                              attributes:
+                                type: object
+                                properties:
+                                  action:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  type:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  vcs:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    properties:
+                                      branch:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      commit:
+                                        type:
+                                        - object
+                                        - 'null'
+                                        properties:
+                                          author:
+                                            type:
+                                            - object
+                                            - 'null'
+                                            properties:
+                                              avatar_url:
+                                                type:
+                                                - string
+                                                - 'null'
+                                              login:
+                                                type:
+                                                - string
+                                                - 'null'
+                                              name:
+                                                type:
+                                                - string
+                                                - 'null'
+                                          body:
+                                            type:
+                                            - string
+                                            - 'null'
+                                          subject:
+                                            type:
+                                            - string
+                                            - 'null'
+                                          url:
+                                            type:
+                                            - string
+                                            - 'null'
+                                      origin_repository_url:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      provider_name:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      revision:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      tag:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      target_repository_url:
+                                        type:
+                                        - string
+                                        - 'null'
+                            required:
+                            - attributes
+                          pipeline:
+                            type: object
+                            properties:
+                              attributes:
+                                type: object
+                                properties:
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - attributes
+                            - id
+                          project:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                          trigger:
+                            type: object
+                            properties:
+                              attributes:
+                                type: object
+                                properties:
+                                  event_source:
+                                    type: object
+                                    properties:
+                                      type:
+                                        type:
+                                        - string
+                                        - 'null'
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                required:
+                                - event_source
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - attributes
+                            - id
+                          user:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                        required:
+                        - event
+                        - pipeline
+                        - project
+                        - trigger
+                    required:
+                    - attributes
+                    - id
+                    - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+components:
+  responses:
+    InternalError:
+      description: Internal server error. Safe to retry with backoff; quote error.id when reporting it.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limited. Wait the Retry-After header's seconds, then retry with backoff.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing, invalid or expired token. Do not retry without a new token.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found - the resource does not exist, or the caller is not entitled to know that it does.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden - authenticated but not permitted to perform this action. Do not retry.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      properties:
+        detail:
+          description: Human-readable explanation specific to this occurrence.
+          type: string
+        id:
+          description: Unique identifier for this occurrence. Include it when reporting the problem so support can find the failure.
+          type: string
+        source:
+          description: Identifies the origin of the error in the request.
+          properties:
+            error:
+              description: Underlying parser/validation error message.
+              type: string
+            offset:
+              description: Byte offset in the JSON input where the error was detected.
+              format: int64
+              type: integer
+            pointer:
+              description: JSON Pointer (RFC 6901) to the field that caused the error.
+              type: string
+          type: object
+        title:
+          description: Short, human-readable summary of the problem.
+          type: string
+        type:
+          description: 'Low-cardinality machine-readable error type, present only where an operation sets one explicitly - absent is normal, so branch on the HTTP status first and use this to tell causes apart within one status. A bare token, never a URI to dereference. The value set is open, so treat an unrecognised value as a generic failure for the status. Request-parsing errors use: syntax_error, empty_input, unknown_field, invalid_structure, invalid_format, type_mismatch, validation_error, invalid_route, invalid_path_param.'
+          type: string
+      type: object
+  securitySchemes:
+    bearer_token:
+      scheme: bearer
+      type: http

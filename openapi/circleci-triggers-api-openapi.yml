@@ -1,0 +1,1193 @@
+openapi: 3.2.0
+info:
+  title: CircleCI API V3 Triggers API
+  version: '3.0'
+  description: 'CircleCI''s V3 API. Every route is served under `/api/v3` on `https://circleci.com`.
+
+
+    No standard is implemented. V3 takes the ideas that work from established API designs and
+
+    combines them into one coherent whole, but it is not JSON:API, not `problem+json`, and not HAL.
+
+    Familiar names like `data`, `attributes`, `source.pointer` and `filter[...]` carry no behaviour
+
+    from those specs. Take everything from this document, and do not use a standard-conformant client
+
+    library.
+
+
+    ## Conventions
+
+
+    ### Auth
+
+
+    `Authorization: Bearer `. A token in a query parameter is rejected.
+
+
+    ### Ids
+
+
+    Ids are UUIDs, never slugs or names. Some collections resolve a slug via `filter[slug]`.
+
+
+    ### One resource
+
+
+    `{"data": {"id", "attributes", "references"}}`. Each entry in `references` is an `id`, or an array
+
+    of them, sometimes carrying a nested `attributes` object of denormalised fields from the referenced
+
+    resource. Read the operation''s schema for which fields those are, and fetch the resource itself for
+
+    anything not listed - there is no way to request more inline.
+
+
+    ### A collection
+
+
+    `{"data": [...], "page": {"next", "prev"}}`. `page.next` and `page.prev` are opaque cursor values,
+
+    not URLs - send one back as `page[cursor]`, unmodified, and stop when `page.next` is `null`.
+
+    `page[limit]` bounds are per-operation, and out of range is a 400, not a clamp.
+
+
+    ### Scoping
+
+
+    Scoping uses `filter[...]`. Most list operations require a scope filter such as `filter[org_id]` or
+
+    `filter[project_id]` and return 400 without it, so read the operation''s parameters.
+
+
+    ### Methods
+
+
+    `GET` reads, `POST` creates and performs named actions and partial updates, `PUT` replaces in full,
+
+    `DELETE` removes. There is no `PATCH`.
+
+
+    ### Retrying
+
+
+    `GET`, `PUT` and `DELETE` are idempotent. V3 aims for idempotent `POST` wherever an operation
+
+    allows it, but never assume a given `POST` is replayable: retrying one that timed out can create a
+
+    second resource or fire an action twice. Retry a `POST` only if its own description says it is
+
+    idempotent - otherwise re-read the collection to find out whether the first attempt landed.
+
+
+    ### Destructive operations
+
+
+    `DELETE`, and `POST` actions such as `cancel`, `delete`, `revoke` and `purge`, take effect
+
+    immediately and normally cannot be undone. Treat them as irreversible: no operation here reverses
+
+    another, and there is no dry-run mode. Where recovery is possible at all it is a support matter,
+
+    not an API call.
+
+
+    ### Errors
+
+
+    Errors return a single `error` object, never an `errors` array:
+
+    `{"error": {"type", "id", "title", "detail", "source"}}`. Branch on the status code; every member
+
+    is optional. `error.type`, where present, separates causes within one status and is a bare token,
+
+    not a URI. Never branch on `title` or `detail`. Quote `error.id` in support requests. Invalid input
+
+    is always 400, never 422.
+
+
+    ### Rate limits
+
+
+    On 429, wait the `Retry-After` seconds, then back off exponentially. Responses carry
+
+    `RateLimit-Policy` and `RateLimit`, the policy and the current state against it
+
+    (IETF draft-ietf-httpapi-ratelimit-headers). Limits are per route and are not published: read the
+
+    headers rather than assuming a figure.
+
+
+    ### Caching
+
+
+    Responses carry an `ETag` and a `Cache-Control` directive. Where a response has an `ETag`, send it
+
+    back as `If-None-Match` to make the request conditional and get a 304 when nothing has changed.
+
+
+    ### Deprecation
+
+
+    A deprecated operation is marked `deprecated: true` and its responses carry `Deprecation`, whose
+
+    value is `true` (RFC 9745), `Sunset`, the HTTP-date when the endpoint will be removed (RFC 8594),
+
+    and `Link` with `rel="deprecation"`, pointing at the migration documentation (RFC 8288). Migrate
+
+    before the `Sunset` date. A removed route returns 410, permanently.
+
+
+    ### Additions
+
+
+    Response fields are added without a version change. Ignore members you do not recognise rather
+
+    than failing to parse.'
+servers:
+- url: https://circleci.com
+security:
+- bearer_token: []
+tags:
+- name: Triggers
+  description: 'A trigger defines what causes a pipeline to run: a VCS event, a custom webhook, or a cron schedule.'
+paths:
+  /api/v3/triggers:
+    get:
+      operationId: get-triggers
+      tags:
+      - Triggers
+      summary: Lists a project's triggers
+      description: At least one of filter[project_id] or filter[pipeline_id] is required; both may be given to require triggers to match both. The result includes the project's synthetic OAuth trigger whenever it satisfies the supplied filters (a list not scoped by pipeline, or a filter[pipeline_id] pointing at the synthetic pipeline). A synthetic pipeline id cannot be resolved from the id alone, so a pipeline-only request for it returns 404; supply project_id to surface the synthetic trigger.
+      parameters:
+      - name: filter[pipeline_id]
+        in: query
+        schema:
+          type: string
+          format: uuid
+      - name: filter[project_id]
+        in: query
+        schema:
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                      required:
+                      - id
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      operationId: post-triggers
+      tags:
+      - Triggers
+      summary: Creates a trigger under the pipeline named by pipeline_id
+      description: Returns the full created entity (shape-identical to Get, plus the one-time webhook secret). Only scheduled triggers may carry parameters; supplying them for any other event type is a 400.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    attributes:
+                      type: object
+                      properties:
+                        checkout:
+                          type:
+                          - object
+                          - 'null'
+                          properties:
+                            ref:
+                              type:
+                              - string
+                              - 'null'
+                        config:
+                          type:
+                          - object
+                          - 'null'
+                          properties:
+                            ref:
+                              type:
+                              - string
+                              - 'null'
+                        event:
+                          type: object
+                          properties:
+                            filter:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                preset:
+                                  type:
+                                  - string
+                                  - 'null'
+                                rules:
+                                  type:
+                                  - array
+                                  - 'null'
+                                  items:
+                                    type: object
+                                    properties:
+                                      event_ref:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      event_type:
+                                        type:
+                                        - string
+                                        - 'null'
+                                      rule:
+                                        type: string
+                                    required:
+                                    - rule
+                            schedule:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                attribution_actor:
+                                  type:
+                                  - string
+                                  - 'null'
+                                cron_expression:
+                                  type:
+                                  - string
+                                  - 'null'
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                            type:
+                              type: string
+                            vcs:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                provider:
+                                  type: string
+                                repo_full_name:
+                                  type: string
+                                repo_id:
+                                  type: string
+                              required:
+                              - provider
+                              - repo_full_name
+                              - repo_id
+                            webhook:
+                              type:
+                              - object
+                              - 'null'
+                              properties:
+                                name:
+                                  type:
+                                  - string
+                                  - 'null'
+                                secret:
+                                  type:
+                                  - string
+                                  - 'null'
+                                source:
+                                  type:
+                                  - string
+                                  - 'null'
+                          required:
+                          - type
+                        is_disabled:
+                          type:
+                          - boolean
+                          - 'null'
+                        parameters:
+                          type:
+                          - object
+                          - 'null'
+                          additionalProperties: {}
+                      required:
+                      - event
+                    references:
+                      type: object
+                      properties:
+                        pipeline:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                          required:
+                          - id
+                      required:
+                      - pipeline
+                  required:
+                  - attributes
+                  - references
+              required:
+              - data
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          checkout:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              ref:
+                                type:
+                                - string
+                                - 'null'
+                          config:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              ref:
+                                type:
+                                - string
+                                - 'null'
+                          created_at:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                          event:
+                            type: object
+                            properties:
+                              filter:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  preset:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  rules:
+                                    type:
+                                    - array
+                                    - 'null'
+                                    items:
+                                      type: object
+                                      properties:
+                                        event_ref:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        event_type:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        rule:
+                                          type: string
+                                      required:
+                                      - rule
+                              schedule:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  attribution_actor:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    properties:
+                                      id:
+                                        type: string
+                                        format: uuid
+                                    required:
+                                    - id
+                                  cron_expression:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                              type:
+                                type: string
+                              vcs:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  provider:
+                                    type: string
+                                  repo_full_name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  repo_id:
+                                    type:
+                                    - string
+                                    - 'null'
+                                required:
+                                - provider
+                              webhook:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  secret:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  source:
+                                    type:
+                                    - string
+                                    - 'null'
+                            required:
+                            - type
+                          is_disabled:
+                            type: boolean
+                          parameters:
+                            type:
+                            - object
+                            - 'null'
+                            additionalProperties: {}
+                        required:
+                        - event
+                        - is_disabled
+                      id:
+                        type: string
+                        format: uuid
+                      references:
+                        type: object
+                        properties:
+                          pipeline:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                          project:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                        required:
+                        - pipeline
+                        - project
+                    required:
+                    - attributes
+                    - id
+                    - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/triggers/{id}:
+    get:
+      operationId: get-triggers-by-id
+      tags:
+      - Triggers
+      summary: Gets a trigger by ID
+      description: The optional filter[project_id] query parameter scopes the lookup; it is required to resolve synthetic OAuth triggers, which have no stored row and are derived from the project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          checkout:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              ref:
+                                type:
+                                - string
+                                - 'null'
+                          config:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              ref:
+                                type:
+                                - string
+                                - 'null'
+                          created_at:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                          event:
+                            type: object
+                            properties:
+                              filter:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  preset:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  rules:
+                                    type:
+                                    - array
+                                    - 'null'
+                                    items:
+                                      type: object
+                                      properties:
+                                        event_ref:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        event_type:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        rule:
+                                          type: string
+                                      required:
+                                      - rule
+                              schedule:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  attribution_actor:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    properties:
+                                      id:
+                                        type: string
+                                        format: uuid
+                                    required:
+                                    - id
+                                  cron_expression:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                              type:
+                                type: string
+                              vcs:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  provider:
+                                    type: string
+                                  repo_full_name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  repo_id:
+                                    type:
+                                    - string
+                                    - 'null'
+                                required:
+                                - provider
+                              webhook:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  secret:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  source:
+                                    type:
+                                    - string
+                                    - 'null'
+                            required:
+                            - type
+                          is_disabled:
+                            type: boolean
+                          parameters:
+                            type:
+                            - object
+                            - 'null'
+                            additionalProperties: {}
+                        required:
+                        - event
+                        - is_disabled
+                      id:
+                        type: string
+                        format: uuid
+                      references:
+                        type: object
+                        properties:
+                          pipeline:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                          project:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                        required:
+                        - pipeline
+                        - project
+                    required:
+                    - attributes
+                    - id
+                    - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+    delete:
+      operationId: delete-triggers-by-id
+      tags:
+      - Triggers
+      summary: Deletes a trigger by ID
+      description: The optional filter[project_id] query parameter scopes the lookup; it is required to resolve synthetic OAuth triggers, which have no stored row and are derived from the project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/triggers/{id}/update:
+    post:
+      operationId: post-triggers-by-id-update
+      tags:
+      - Triggers
+      summary: Partially updates a trigger by ID
+      description: The optional filter[project_id] query parameter scopes the lookup; it is required to resolve synthetic OAuth triggers. parameters replaces a scheduled trigger's pipeline parameters wholesale — omitted leaves them unchanged, an empty object clears them — and is a 400 for any other provider.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                checkout:
+                  type:
+                  - object
+                  - 'null'
+                  properties:
+                    ref:
+                      type:
+                      - string
+                      - 'null'
+                config:
+                  type:
+                  - object
+                  - 'null'
+                  properties:
+                    ref:
+                      type:
+                      - string
+                      - 'null'
+                event:
+                  type:
+                  - object
+                  - 'null'
+                  properties:
+                    filter:
+                      type:
+                      - object
+                      - 'null'
+                      properties:
+                        preset:
+                          type:
+                          - string
+                          - 'null'
+                        rules:
+                          type:
+                          - array
+                          - 'null'
+                          items:
+                            type: object
+                            properties:
+                              event_ref:
+                                type:
+                                - string
+                                - 'null'
+                              event_type:
+                                type:
+                                - string
+                                - 'null'
+                              rule:
+                                type: string
+                            required:
+                            - rule
+                    schedule:
+                      type:
+                      - object
+                      - 'null'
+                      properties:
+                        attribution_actor:
+                          type:
+                          - string
+                          - 'null'
+                        cron_expression:
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                    webhook:
+                      type:
+                      - object
+                      - 'null'
+                      properties:
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                        secret:
+                          type:
+                          - string
+                          - 'null'
+                        source:
+                          type:
+                          - string
+                          - 'null'
+                is_disabled:
+                  type:
+                  - boolean
+                  - 'null'
+                parameters:
+                  type:
+                  - object
+                  - 'null'
+                  additionalProperties: {}
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          checkout:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              ref:
+                                type:
+                                - string
+                                - 'null'
+                          config:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              ref:
+                                type:
+                                - string
+                                - 'null'
+                          created_at:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                          event:
+                            type: object
+                            properties:
+                              filter:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  preset:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  rules:
+                                    type:
+                                    - array
+                                    - 'null'
+                                    items:
+                                      type: object
+                                      properties:
+                                        event_ref:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        event_type:
+                                          type:
+                                          - string
+                                          - 'null'
+                                        rule:
+                                          type: string
+                                      required:
+                                      - rule
+                              schedule:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  attribution_actor:
+                                    type:
+                                    - object
+                                    - 'null'
+                                    properties:
+                                      id:
+                                        type: string
+                                        format: uuid
+                                    required:
+                                    - id
+                                  cron_expression:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                              type:
+                                type: string
+                              vcs:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  provider:
+                                    type: string
+                                  repo_full_name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  repo_id:
+                                    type:
+                                    - string
+                                    - 'null'
+                                required:
+                                - provider
+                              webhook:
+                                type:
+                                - object
+                                - 'null'
+                                properties:
+                                  name:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  secret:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  source:
+                                    type:
+                                    - string
+                                    - 'null'
+                            required:
+                            - type
+                          is_disabled:
+                            type: boolean
+                          parameters:
+                            type:
+                            - object
+                            - 'null'
+                            additionalProperties: {}
+                        required:
+                        - event
+                        - is_disabled
+                      id:
+                        type: string
+                        format: uuid
+                      references:
+                        type: object
+                        properties:
+                          pipeline:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                          project:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                        required:
+                        - pipeline
+                        - project
+                    required:
+                    - attributes
+                    - id
+                    - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+components:
+  responses:
+    InternalError:
+      description: Internal server error. Safe to retry with backoff; quote error.id when reporting it.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limited. Wait the Retry-After header's seconds, then retry with backoff.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing, invalid or expired token. Do not retry without a new token.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found - the resource does not exist, or the caller is not entitled to know that it does.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden - authenticated but not permitted to perform this action. Do not retry.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      properties:
+        detail:
+          description: Human-readable explanation specific to this occurrence.
+          type: string
+        id:
+          description: Unique identifier for this occurrence. Include it when reporting the problem so support can find the failure.
+          type: string
+        source:
+          description: Identifies the origin of the error in the request.
+          properties:
+            error:
+              description: Underlying parser/validation error message.
+              type: string
+            offset:
+              description: Byte offset in the JSON input where the error was detected.
+              format: int64
+              type: integer
+            pointer:
+              description: JSON Pointer (RFC 6901) to the field that caused the error.
+              type: string
+          type: object
+        title:
+          description: Short, human-readable summary of the problem.
+          type: string
+        type:
+          description: 'Low-cardinality machine-readable error type, present only where an operation sets one explicitly - absent is normal, so branch on the HTTP status first and use this to tell causes apart within one status. A bare token, never a URI to dereference. The value set is open, so treat an unrecognised value as a generic failure for the status. Request-parsing errors use: syntax_error, empty_input, unknown_field, invalid_structure, invalid_format, type_mismatch, validation_error, invalid_route, invalid_path_param.'
+          type: string
+      type: object
+  securitySchemes:
+    bearer_token:
+      scheme: bearer
+      type: http

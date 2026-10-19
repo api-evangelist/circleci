@@ -211,117 +211,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  parameters:
-    OwnerTypeParam:
-      name: owner-type
-      in: query
-      description: The type of the owner
-      schema:
-        type: string
-        enum:
-        - account
-        - organization
-    ContextIdParam:
-      name: context-id
-      in: path
-      required: true
-      description: The unique identifier of the context
-      schema:
-        type: string
-        format: uuid
-    OwnerSlugParam:
-      name: owner-slug
-      in: query
-      description: The slug for the owner
-      schema:
-        type: string
-    OwnerIdParam:
-      name: owner-id
-      in: query
-      description: The unique identifier of the owner
-      schema:
-        type: string
-        format: uuid
-    EnvVarNameParam:
-      name: env-var-name
-      in: path
-      required: true
-      description: The name of the environment variable
-      schema:
-        type: string
-    PageTokenParam:
-      name: page-token
-      in: query
-      description: Token for retrieving the next page of results
-      schema:
-        type: string
   schemas:
-    EnvironmentVariable:
-      type: object
-      properties:
-        variable:
-          type: string
-          description: The name of the environment variable
-        created_at:
-          type: string
-          format: date-time
-          description: When the variable was created
-        updated_at:
-          type: string
-          format: date-time
-          description: When the variable was last updated
-        context_id:
-          type: string
-          format: uuid
-          description: The ID of the context this variable belongs to
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-    ContextList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Context'
-          description: List of contexts
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    Context:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the context
-        name:
-          type: string
-          description: The name of the context
-        created_at:
-          type: string
-          format: date-time
-          description: When the context was created
     MessageResponse:
       type: object
       properties:
         message:
           type: string
           description: A message describing the result of the operation
-    EnvironmentVariableList:
+    ErrorResponse:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnvironmentVariable'
-          description: List of environment variables
-        next_page_token:
+        message:
           type: string
-          description: Token for retrieving the next page
+          description: A human-readable error message
     CreateContextRequest:
       type: object
       required:
@@ -347,6 +249,104 @@ components:
               - account
               - organization
               description: The owner type
+    Context:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the context
+        name:
+          type: string
+          description: The name of the context
+        created_at:
+          type: string
+          format: date-time
+          description: When the context was created
+    ContextList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Context'
+          description: List of contexts
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    EnvironmentVariableList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvironmentVariable'
+          description: List of environment variables
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
+    EnvironmentVariable:
+      type: object
+      properties:
+        variable:
+          type: string
+          description: The name of the environment variable
+        created_at:
+          type: string
+          format: date-time
+          description: When the variable was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the variable was last updated
+        context_id:
+          type: string
+          format: uuid
+          description: The ID of the context this variable belongs to
+  parameters:
+    OwnerSlugParam:
+      name: owner-slug
+      in: query
+      description: The slug for the owner
+      schema:
+        type: string
+    OwnerTypeParam:
+      name: owner-type
+      in: query
+      description: The type of the owner
+      schema:
+        type: string
+        enum:
+        - account
+        - organization
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
+      schema:
+        type: string
+    ContextIdParam:
+      name: context-id
+      in: path
+      required: true
+      description: The unique identifier of the context
+      schema:
+        type: string
+        format: uuid
+    EnvVarNameParam:
+      name: env-var-name
+      in: path
+      required: true
+      description: The name of the environment variable
+      schema:
+        type: string
+    OwnerIdParam:
+      name: owner-id
+      in: query
+      description: The unique identifier of the owner
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     apiToken:
       type: apiKey

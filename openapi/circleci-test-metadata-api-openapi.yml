@@ -45,18 +45,25 @@ paths:
           description: Unauthorized
 components:
   parameters:
-    ProjectParam:
-      name: project
+    BuildNumParam:
+      name: build_num
       in: path
       required: true
-      description: The repository name
+      description: The build number
       schema:
-        type: string
+        type: integer
     UsernameParam:
       name: username
       in: path
       required: true
       description: The organization or user name
+      schema:
+        type: string
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      description: The repository name
       schema:
         type: string
     VcsTypeParam:
@@ -69,13 +76,6 @@ components:
         enum:
         - github
         - bitbucket
-    BuildNumParam:
-      name: build_num
-      in: path
-      required: true
-      description: The build number
-      schema:
-        type: integer
   schemas:
     TestMetadata:
       type: object

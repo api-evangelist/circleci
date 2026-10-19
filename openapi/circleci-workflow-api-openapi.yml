@@ -165,6 +165,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
     Workflow:
       type: object
       properties:
@@ -210,25 +222,6 @@ components:
           type: string
           format: date-time
           description: When the workflow stopped
-    RerunWorkflowResponse:
-      type: object
-      properties:
-        workflow_id:
-          type: string
-          format: uuid
-          description: The ID of the rerun workflow
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-    MessageResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing the result of the operation
     WorkflowJobList:
       type: object
       properties:
@@ -276,6 +269,13 @@ components:
             type: string
             format: uuid
           description: IDs of jobs this job depends on
+    RerunWorkflowResponse:
+      type: object
+      properties:
+        workflow_id:
+          type: string
+          format: uuid
+          description: The ID of the rerun workflow
   parameters:
     WorkflowIdParam:
       name: id

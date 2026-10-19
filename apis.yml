@@ -197,11 +197,12 @@ apis:
     type: OpenAPI
   - type: JSONSchema
     url: json-schema/circleci-runner-schema.json
-  description: The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted
-    runner infrastructure. It provides endpoints for listing available runners, managing runner tasks,
-    and querying resource classes. The API is hosted separately from the main CircleCI API at runner.circleci.com
-    and supports multiple authentication methods depending on the endpoint. Developers can use this API
-    to integrate self-hosted runner management into their infrastructure automation workflows.
+  description: >-
+    The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted runner
+    infrastructure. It provides endpoints for listing available runners, managing runner tasks, and querying
+    resource classes. The API is hosted separately from the main CircleCI API at runner.circleci.com and
+    supports multiple authentication methods depending on the endpoint. Developers can use this API to
+    integrate self-hosted runner management into their infrastructure automation workflows.
 - aid: circleci:webhooks
   name: CircleCI Webhooks
   tags:
@@ -222,9 +223,10 @@ apis:
     type: Documentation
   - url: asyncapi/circleci-webhooks-asyncapi.yml
     type: AsyncAPI
-  description: CircleCI Webhooks allow developers to receive real-time notifications about events in their
-    CI/CD pipelines by configuring HTTP callbacks. Webhooks can be set up through project settings to
-    notify external services when workflows and jobs complete, fail, or change status. This enables integration
+  description: >-
+    CircleCI Webhooks allow developers to receive real-time notifications about events in their CI/CD
+    pipelines by configuring HTTP callbacks. Webhooks can be set up through project settings to notify
+    external services when workflows and jobs complete, fail, or change status. This enables integration
     with monitoring systems, chat platforms, and custom automation workflows. Webhooks deliver JSON payloads
     containing event details to configured endpoint URLs.
 - aid: circleci:orbs
@@ -240,11 +242,12 @@ apis:
   properties:
   - url: https://circleci.com/developer/orbs
     type: Documentation
-  description: CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify
-    build setup and integration with third-party tools. The Orbs Registry on the CircleCI Developer Hub
-    provides a searchable catalog of community and certified orbs. Developers can browse, publish, and
-    consume orbs to automate repeated processes, speed up project configuration, and integrate services
-    like AWS, Docker, Slack, and Kubernetes into their CI/CD pipelines.
+  description: >-
+    CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify build setup
+    and integration with third-party tools. The Orbs Registry on the CircleCI Developer Hub provides a
+    searchable catalog of community and certified orbs. Developers can browse, publish, and consume orbs
+    to automate repeated processes, speed up project configuration, and integrate services like AWS, Docker,
+    Slack, and Kubernetes into their CI/CD pipelines.
 - aid: circleci:circleci-artifact-api
   name: CircleCI Artifact API
   description: Endpoints for listing and downloading build artifacts.
@@ -263,8 +266,8 @@ apis:
     url: json-schema/circleci-artifact-schema.json
 - aid: circleci:circleci-build-api
   name: CircleCI Build API
-  description: Endpoints for retrieving build details, triggering builds, retrying builds, and canceling
-    builds.
+  description: >-
+    Endpoints for retrieving build details, triggering builds, retrying builds, and canceling builds.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -286,8 +289,8 @@ apis:
     url: json-schema/circleci-build-summary-schema.json
 - aid: circleci:circleci-context-api
   name: CircleCI Context API
-  description: Endpoints for managing contexts, which are used to secure and share environment variables
-    across projects.
+  description: >-
+    Endpoints for managing contexts, which are used to secure and share environment variables across projects.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -313,7 +316,8 @@ apis:
     url: json-schema/circleci-message-response-schema.json
 - aid: circleci:circleci-insights-api
   name: CircleCI Insights API
-  description: Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
+  description: >-
+    Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -335,8 +339,8 @@ apis:
     url: json-schema/circleci-insights-workflow-runs-schema.json
 - aid: circleci:circleci-job-api
   name: CircleCI Job API
-  description: Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline
-    jobs.
+  description: >-
+    Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline jobs.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -412,8 +416,9 @@ apis:
     url: json-schema/circleci-checkout-key-list-schema.json
 - aid: circleci:circleci-resource-class-api
   name: CircleCI Resource Class API
-  description: Endpoints for managing runner resource classes, which define the compute resources available
-    for self-hosted runner jobs.
+  description: >-
+    Endpoints for managing runner resource classes, which define the compute resources available for self-hosted
+    runner jobs.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -543,7 +548,8 @@ apis:
     url: json-schema/circleci-message-response-schema.json
 - aid: circleci:circleci-workflow-api
   name: CircleCI Workflow API
-  description: Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.
+  description: >-
+    Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.
   humanURL: https://circleci.com/docs/api/v2/
   baseURL: https://circleci.com/api/v2
   tags:
@@ -565,6 +571,527 @@ apis:
     url: json-schema/circleci-rerun-workflow-response-schema.json
   - type: JSONSchema
     url: json-schema/circleci-message-response-schema.json
+- aid: circleci:circleci-analysis-api
+  name: CircleCI Analysis API
+  description: Credit spend aggregated by job, workflow or pipeline.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Analysis
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-analysis-api-openapi.yml
+- aid: circleci:circleci-catalog-api
+  name: CircleCI Catalog API
+  description: Resource classes and images available to each executor.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Catalog
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-catalog-api-openapi.yml
+- aid: circleci:circleci-configs-api
+  name: CircleCI Configs API
+  description: Configuration compilation and validation.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Configs
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-configs-api-openapi.yml
+- aid: circleci:circleci-context-restrictions-api
+  name: CircleCI Context Restrictions API
+  description: Restrictions that limit which projects, groups, or expressions may use a context.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Context Restrictions
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-context-restrictions-api-openapi.yml
+- aid: circleci:circleci-contexts-api
+  name: CircleCI Contexts API
+  description: Secret contexts that provide environment variables to jobs at runtime.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Contexts
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-contexts-api-openapi.yml
+- aid: circleci:circleci-deploy-components-api
+  name: CircleCI Deploy Components API
+  description: Release tracker components representing deployable units.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Deploy Components
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-deploy-components-api-openapi.yml
+- aid: circleci:circleci-deploy-config-suggestions-api
+  name: CircleCI Deploy Config Suggestions API
+  description: Async requests to validate a CircleCI config and generate a suggested deploy config.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Deploy Config Suggestions
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-deploy-config-suggestions-api-openapi.yml
+- aid: circleci:circleci-deploy-deployments-api
+  name: CircleCI Deploy Deployments API
+  description: >-
+    A deployment is one attempt to move a deploy component to a target version in an environment. Read
+    in the scope of an organization via filter[org_id].
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Deploy Deployments
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-deploy-deployments-api-openapi.yml
+- aid: circleci:circleci-deploy-diff-summaries-api
+  name: CircleCI Deploy Diff Summaries API
+  description: Async requests to generate a human-readable summary of a code diff.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Deploy Diff Summaries
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-deploy-diff-summaries-api-openapi.yml
+- aid: circleci:circleci-deploy-environments-api
+  name: CircleCI Deploy Environments API
+  description: Release tracker environments for deployment management.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Deploy Environments
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-deploy-environments-api-openapi.yml
+- aid: circleci:circleci-deploy-hooks-api
+  name: CircleCI Deploy Hooks API
+  description: >-
+    Ingest hooks that receive deploy validation payloads from an external monitoring provider and match
+    them against the organization's active validation plans.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Deploy Hooks
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-deploy-hooks-api-openapi.yml
+- aid: circleci:circleci-deploy-settings-api
+  name: CircleCI Deploy Settings API
+  description: >-
+    Per-project deploy configuration — the pipeline definitions run to deploy and to roll back. A singleton
+    per project rather than an independently addressable resource.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Deploy Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-deploy-settings-api-openapi.yml
+- aid: circleci:circleci-groups-api
+  name: CircleCI Groups API
+  description: >-
+    RBAC groups within an organization. Used to scope access to resources such as the contexts a group
+    may execute.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-groups-api-openapi.yml
+- aid: circleci:circleci-jobs-api
+  name: CircleCI Jobs API
+  description: >-
+    Individual units of work within a workflow. Each job runs in its own execution environment and produces
+    artifacts, test results, and logs.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-jobs-api-openapi.yml
+- aid: circleci:circleci-metric-api
+  name: CircleCI Metric API
+  description: >-
+    Time-bucketed count metrics (test result counts and test flake counts) over a time window.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Metric
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-metric-api-openapi.yml
+- aid: circleci:circleci-namespaces-api
+  name: CircleCI Namespaces API
+  description: >-
+    Scoping containers that group orbs under an organization. An orb's full name is namespace/orb-name.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Namespaces
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-namespaces-api-openapi.yml
+- aid: circleci:circleci-notification-channel-configs-api
+  name: CircleCI Notification Channel Configs API
+  description: >-
+    Per-user and per-project notification channel configuration — the email address or Slack channel a
+    notification is delivered to.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Notification Channel Configs
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-notification-channel-configs-api-openapi.yml
+- aid: circleci:circleci-notification-integrations-api
+  name: CircleCI Notification Integrations API
+  description: >-
+    Currently Slack workspace integrations for an organization. Manage the connection used to deliver
+    CircleCI notifications.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Notification Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-notification-integrations-api-openapi.yml
+- aid: circleci:circleci-notification-links-api
+  name: CircleCI Notification Links API
+  description: >-
+    Links between a CircleCI user and an external identity on a third-party connection (e.g. a Slack user).
+    Used to deliver notifications, enable interactivity, and tag authors on that identity. Keyed by user,
+    connection type, and external scope; not UUID-addressable.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Notification Links
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-notification-links-api-openapi.yml
+- aid: circleci:circleci-notification-preferences-api
+  name: CircleCI Notification Preferences API
+  description: >-
+    Per-user and per-project notification preference matrix. Read the matrix or bulk-toggle entries; scoped
+    via filter[scope]=user|project.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Notification Preferences
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-notification-preferences-api-openapi.yml
+- aid: circleci:circleci-orb-categories-api
+  name: CircleCI Orb Categories API
+  description: Taxonomy labels for organizing and discovering orbs in the registry.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Orb Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-orb-categories-api-openapi.yml
+- aid: circleci:circleci-orb-packages-api
+  name: CircleCI Orb Packages API
+  description: >-
+    Reusable configuration packages published to the orb registry. Each orb belongs to a namespace and
+    has one or more versioned releases.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Orb Packages
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-orb-packages-api-openapi.yml
+- aid: circleci:circleci-orb-versions-api
+  name: CircleCI Orb Versions API
+  description: >-
+    Individual published releases of an orb, identified by semantic version. Each version contains the
+    orb's source configuration.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Orb Versions
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-orb-versions-api-openapi.yml
+- aid: circleci:circleci-orgs-api
+  name: CircleCI Orgs API
+  description: >-
+    Organizations are the top-level account entity. All projects, pipelines, and billing belong to an
+    org.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Orgs
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-orgs-api-openapi.yml
+- aid: circleci:circleci-pipelines-api
+  name: CircleCI Pipelines API
+  description: Pipeline definitions describe how to build, test, and deploy a project.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Pipelines
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-pipelines-api-openapi.yml
+- aid: circleci:circleci-projects-api
+  name: CircleCI Projects API
+  description: >-
+    Projects represent a source code repository connected to CircleCI. A project typically contains pipelines,
+    environment variables, and settings.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-projects-api-openapi.yml
+- aid: circleci:circleci-provider-branches-api
+  name: CircleCI Provider Branches API
+  description: VCS provider branches available to a project.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Provider Branches
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-provider-branches-api-openapi.yml
+- aid: circleci:circleci-provider-connections-api
+  name: CircleCI Provider Connections API
+  description: >-
+    Connections between an organization and a VCS provider. Setup returns where to send the user; nothing
+    is connected until they finish at the provider.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Provider Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-provider-connections-api-openapi.yml
+- aid: circleci:circleci-provider-repositories-api
+  name: CircleCI Provider Repositories API
+  description: >-
+    Repositories an organization's provider installation can reach, as the calling user sees them. Scoped
+    via filter[org_id] and filter[provider]; cursor-paged.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Provider Repositories
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-provider-repositories-api-openapi.yml
+- aid: circleci:circleci-runner-agents-api
+  name: CircleCI Runner Agents API
+  description: >-
+    Self-hosted runner agents connected to a resource class. Read-only, scoped via filter[resource_class].
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Runner Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-runner-agents-api-openapi.yml
+- aid: circleci:circleci-runner-fleets-api
+  name: CircleCI Runner Fleets API
+  description: >-
+    Self-hosted runner fleets — active/idle/disconnected agent counts and embedded agent summary for a
+    resource class.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Runner Fleets
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-runner-fleets-api-openapi.yml
+- aid: circleci:circleci-runner-resource-classes-api
+  name: CircleCI Runner Resource Classes API
+  description: >-
+    Self-hosted runner resource classes — the pool identifier agents register against and jobs request
+    work from.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Runner Resource Classes
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-runner-resource-classes-api-openapi.yml
+- aid: circleci:circleci-runner-tokens-api
+  name: CircleCI Runner Tokens API
+  description: Authentication tokens for self-hosted runners.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Runner Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-runner-tokens-api-openapi.yml
+- aid: circleci:circleci-runs-api
+  name: CircleCI Runs API
+  description: >-
+    Runs record each trigger firing and group the workflows they produce. A run carries VCS context, parameter
+    overrides, and pre-workflow errors.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-runs-api-openapi.yml
+- aid: circleci:circleci-sidecar-commands-api
+  name: CircleCI Sidecar Commands API
+  description: Commands sent to a sidecar instance for execution.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Sidecar Commands
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-sidecar-commands-api-openapi.yml
+- aid: circleci:circleci-sidecar-instances-api
+  name: CircleCI Sidecar Instances API
+  description: >-
+    Lightweight microVM environments that mirror a project's stack for inner-loop validation.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Sidecar Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-sidecar-instances-api-openapi.yml
+- aid: circleci:circleci-sidecar-snapshots-api
+  name: CircleCI Sidecar Snapshots API
+  description: Point-in-time snapshots of a sidecar instance's filesystem and state.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Sidecar Snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-sidecar-snapshots-api-openapi.yml
+- aid: circleci:circleci-signing-certificates-api
+  name: CircleCI Signing Certificates API
+  description: Apple code-signing certificates used to sign iOS builds.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Signing Certificates
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-signing-certificates-api-openapi.yml
+- aid: circleci:circleci-signing-configs-api
+  name: CircleCI Signing Configs API
+  description: iOS signing configurations pairing a certificate with provisioning profiles.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Signing Configs
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-signing-configs-api-openapi.yml
+- aid: circleci:circleci-test-flakes-api
+  name: CircleCI Test Flakes API
+  description: >-
+    Occurrences of a test that failed and then later passed within the same pipeline. Read-only, scoped
+    to a project.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Test Flakes
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-test-flakes-api-openapi.yml
+- aid: circleci:circleci-test-results-api
+  name: CircleCI Test Results API
+  description: Test results collected from a job. Read-only, scoped to a job.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Test Results
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-test-results-api-openapi.yml
+- aid: circleci:circleci-tool-releases-api
+  name: CircleCI Tool Releases API
+  description: >-
+    Released versions of the tools CircleCI distributes, such as circleci-cli, chunk-cli and circleci-yaml-language-server.
+    Requires filter[tool], whose values are the tools' GitHub repository names, and returns that tool's
+    latest release.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Tool Releases
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-tool-releases-api-openapi.yml
+- aid: circleci:circleci-triggers-api
+  name: CircleCI Triggers API
+  description: >-
+    A trigger defines what causes a pipeline to run: a VCS event, a custom webhook, or a cron schedule.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Triggers
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-triggers-api-openapi.yml
+- aid: circleci:circleci-usage-api
+  name: CircleCI Usage API
+  description: Usage and billing data exports.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-usage-api-openapi.yml
+- aid: circleci:circleci-users-api
+  name: CircleCI Users API
+  description: >-
+    Authenticated identities (human or machine). Use ?filter[user_id]=me to resolve the authenticated
+    identity.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-users-api-openapi.yml
+- aid: circleci:circleci-webhooks-api
+  name: CircleCI Webhooks API
+  description: Outbound webhook subscriptions that notify external systems of CircleCI events.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-webhooks-api-openapi.yml
+- aid: circleci:circleci-workflows-api
+  name: CircleCI Workflows API
+  description: >-
+    Workflows organise jobs into a dependency graph. A run may produce multiple workflows that execute
+    in parallel or sequence.
+  humanURL: https://circleci.com/docs/runner-api/
+  baseURL: https://runner.circleci.com
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/circleci-workflows-api-openapi.yml
 integrations:
 - name: GitHub
 - name: GitLab

@@ -1,0 +1,1063 @@
+openapi: 3.2.0
+info:
+  title: CircleCI API V3 Projects API
+  version: '3.0'
+  description: 'CircleCI''s V3 API. Every route is served under `/api/v3` on `https://circleci.com`.
+
+
+    No standard is implemented. V3 takes the ideas that work from established API designs and
+
+    combines them into one coherent whole, but it is not JSON:API, not `problem+json`, and not HAL.
+
+    Familiar names like `data`, `attributes`, `source.pointer` and `filter[...]` carry no behaviour
+
+    from those specs. Take everything from this document, and do not use a standard-conformant client
+
+    library.
+
+
+    ## Conventions
+
+
+    ### Auth
+
+
+    `Authorization: Bearer `. A token in a query parameter is rejected.
+
+
+    ### Ids
+
+
+    Ids are UUIDs, never slugs or names. Some collections resolve a slug via `filter[slug]`.
+
+
+    ### One resource
+
+
+    `{"data": {"id", "attributes", "references"}}`. Each entry in `references` is an `id`, or an array
+
+    of them, sometimes carrying a nested `attributes` object of denormalised fields from the referenced
+
+    resource. Read the operation''s schema for which fields those are, and fetch the resource itself for
+
+    anything not listed - there is no way to request more inline.
+
+
+    ### A collection
+
+
+    `{"data": [...], "page": {"next", "prev"}}`. `page.next` and `page.prev` are opaque cursor values,
+
+    not URLs - send one back as `page[cursor]`, unmodified, and stop when `page.next` is `null`.
+
+    `page[limit]` bounds are per-operation, and out of range is a 400, not a clamp.
+
+
+    ### Scoping
+
+
+    Scoping uses `filter[...]`. Most list operations require a scope filter such as `filter[org_id]` or
+
+    `filter[project_id]` and return 400 without it, so read the operation''s parameters.
+
+
+    ### Methods
+
+
+    `GET` reads, `POST` creates and performs named actions and partial updates, `PUT` replaces in full,
+
+    `DELETE` removes. There is no `PATCH`.
+
+
+    ### Retrying
+
+
+    `GET`, `PUT` and `DELETE` are idempotent. V3 aims for idempotent `POST` wherever an operation
+
+    allows it, but never assume a given `POST` is replayable: retrying one that timed out can create a
+
+    second resource or fire an action twice. Retry a `POST` only if its own description says it is
+
+    idempotent - otherwise re-read the collection to find out whether the first attempt landed.
+
+
+    ### Destructive operations
+
+
+    `DELETE`, and `POST` actions such as `cancel`, `delete`, `revoke` and `purge`, take effect
+
+    immediately and normally cannot be undone. Treat them as irreversible: no operation here reverses
+
+    another, and there is no dry-run mode. Where recovery is possible at all it is a support matter,
+
+    not an API call.
+
+
+    ### Errors
+
+
+    Errors return a single `error` object, never an `errors` array:
+
+    `{"error": {"type", "id", "title", "detail", "source"}}`. Branch on the status code; every member
+
+    is optional. `error.type`, where present, separates causes within one status and is a bare token,
+
+    not a URI. Never branch on `title` or `detail`. Quote `error.id` in support requests. Invalid input
+
+    is always 400, never 422.
+
+
+    ### Rate limits
+
+
+    On 429, wait the `Retry-After` seconds, then back off exponentially. Responses carry
+
+    `RateLimit-Policy` and `RateLimit`, the policy and the current state against it
+
+    (IETF draft-ietf-httpapi-ratelimit-headers). Limits are per route and are not published: read the
+
+    headers rather than assuming a figure.
+
+
+    ### Caching
+
+
+    Responses carry an `ETag` and a `Cache-Control` directive. Where a response has an `ETag`, send it
+
+    back as `If-None-Match` to make the request conditional and get a 304 when nothing has changed.
+
+
+    ### Deprecation
+
+
+    A deprecated operation is marked `deprecated: true` and its responses carry `Deprecation`, whose
+
+    value is `true` (RFC 9745), `Sunset`, the HTTP-date when the endpoint will be removed (RFC 8594),
+
+    and `Link` with `rel="deprecation"`, pointing at the migration documentation (RFC 8288). Migrate
+
+    before the `Sunset` date. A removed route returns 410, permanently.
+
+
+    ### Additions
+
+
+    Response fields are added without a version change. Ignore members you do not recognise rather
+
+    than failing to parse.'
+servers:
+- url: https://circleci.com
+security:
+- bearer_token: []
+tags:
+- name: Projects
+  description: Projects represent a source code repository connected to CircleCI. A project typically contains pipelines, environment variables, and settings.
+paths:
+  /api/v3/projects:
+    get:
+      operationId: get-projects
+      tags:
+      - Projects
+      summary: Resolves projects matching the given filters
+      description: 'At least one of filter[slug] (resolving a single project), filter[org_id] (listing an org''s projects), or filter[following] (listing projects followed by the authenticated user) must be provided. If filter[slug] is provided then it must be the only filter. Both filter[org_id] and filter[following] can be used by themselves or together.
+
+
+        filter[name] is optional and narrows the org''s projects by a case-insensitive name search. It can be used with both filter[org_id] and filter[following] but combining it with filter[slug] is a 400.
+
+
+        If filter[following] is provided, it may only be given the value "true". Anything else will result in a 400. Filtering for projects which are not followed is not supported.
+
+
+        order_by chooses the order the projects come back in. It may be given "name", which orders them alphabetically, or "last_active_at", which orders them by how recently they last built. Any other value is a 400. An omitted order_by is "name". A single project resolved by filter[slug] has no order to it, so order_by is accepted and ignored there.
+
+
+        An org that does not exist, or that the caller cannot see, is a 404. A slug that matches no project is an empty collection.
+
+
+        The is_followed attribute reports whether the authenticated caller follows the project. It is returned however the projects were selected, so a listing that did not filter on filter[following] carries a mix of true and false.
+
+
+        Notes on pagination:'
+      parameters:
+      - name: filter[following]
+        in: query
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        schema:
+          type: string
+      - name: filter[org_id]
+        in: query
+        schema:
+          type: string
+          format: uuid
+      - name: filter[slug]
+        in: query
+        schema:
+          type: string
+      - name: order_by
+        in: query
+        schema:
+          type: string
+      - name: page[cursor]
+        in: query
+        description: Opaque cursor for the next or previous page. Send back the value of page.next or page.prev from a previous response on this operation, verbatim - it is a cursor value, not a URL, and must not be constructed or decoded. Omit for the first page.
+        schema:
+          type: string
+      - name: page[limit]
+        in: query
+        description: Maximum items in one page. Out-of-range values are rejected with 400 rather than clamped. The maximum is 50.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            is_followed:
+                              type: boolean
+                            name:
+                              type: string
+                          required:
+                          - is_followed
+                          - name
+                        id:
+                          type: string
+                          format: uuid
+                        references:
+                          type: object
+                          properties:
+                            org:
+                              type: object
+                              properties:
+                                attributes:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                  required:
+                                  - name
+                                id:
+                                  type: string
+                                  format: uuid
+                              required:
+                              - attributes
+                              - id
+                          required:
+                          - org
+                      required:
+                      - attributes
+                      - id
+                      - references
+                  page:
+                    type: object
+                    properties:
+                      next:
+                        type:
+                        - string
+                        - 'null'
+                      prev:
+                        type:
+                        - string
+                        - 'null'
+                required:
+                - data
+                - page
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/projects/{id}:
+    get:
+      operationId: get-projects-by-id
+      tags:
+      - Projects
+      summary: Fetches a project by its UUID
+      description: The is_followed attribute reports whether the authenticated caller follows the project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          is_followed:
+                            type: boolean
+                          name:
+                            type: string
+                        required:
+                        - is_followed
+                        - name
+                      id:
+                        type: string
+                        format: uuid
+                      references:
+                        type: object
+                        properties:
+                          org:
+                            type: object
+                            properties:
+                              attributes:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                required:
+                                - name
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - attributes
+                            - id
+                        required:
+                        - org
+                    required:
+                    - attributes
+                    - id
+                    - references
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/projects/{id}/environment-variables:
+    get:
+      operationId: get-projects-by-id-environment-variables
+      tags:
+      - Projects
+      summary: Returns environment variables for a project
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attributes:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            value:
+                              type: string
+                          required:
+                          - name
+                          - value
+                      required:
+                      - attributes
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      operationId: post-projects-by-id-environment-variables
+      tags:
+      - Projects
+      summary: Sets a project environment variable
+      description: An environment variable is keyed by name within its project, so the data entity does not include an id.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                value:
+                  type: string
+              required:
+              - name
+              - value
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                        required:
+                        - name
+                        - value
+                    required:
+                    - attributes
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/projects/{id}/environment-variables/{name}:
+    delete:
+      operationId: delete-projects-by-id-environment-variables-by-name
+      tags:
+      - Projects
+      summary: Removes a project environment variable
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      - name: name
+        in: path
+        required: true
+        description: The name.
+        schema:
+          type: string
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/projects/{id}/rollback:
+    post:
+      operationId: post-projects-by-id-rollback
+      tags:
+      - Projects
+      summary: Rolls a deployed component back to an earlier version
+      description: 'The component and the environment identify what is running the version being rolled back; current_version must match the version deployed there, so a caller working from stale state cannot roll back a version that has since been superseded.
+
+
+        How the rollback runs depends on the project''s deploy settings: a project with a rollback pipeline configured gets a pipeline run, and one without gets a restore-version command sent to the release agent deployed in that environment. data.id is that run or that command and rollback_type says which, since the two are polled in different places.
+
+
+        The response is 200 rather than 202 because data.id is a handle to work in progress, not a resource newly created at a V3 address there would be a Location to point at.
+
+
+        A component or environment the caller may not deploy to is reported as not found, as is a component and environment that do not describe one deployed thing in this project, so the response does not reveal whether the ids exist.
+
+
+        EXPERIMENTAL — this endpoint is experimental and may change without notice. Field names and response shapes are not yet stable, and the deploy API as a whole is still under review. Do not depend on it in production clients.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                checkout_ref:
+                  type: string
+                component_id:
+                  type: string
+                  format: uuid
+                config_ref:
+                  type: string
+                current_version:
+                  type: string
+                environment_id:
+                  type: string
+                  format: uuid
+                namespace:
+                  type: string
+                parameters:
+                  type:
+                  - object
+                  - 'null'
+                  additionalProperties: {}
+                reason:
+                  type: string
+                target_version:
+                  type: string
+              required:
+              - checkout_ref
+              - component_id
+              - config_ref
+              - current_version
+              - environment_id
+              - namespace
+              - reason
+              - target_version
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          rollback_type:
+                            type: string
+                        required:
+                        - rollback_type
+                      id:
+                        type: string
+                        format: uuid
+                      references:
+                        type: object
+                        properties:
+                          deploy_component:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                          deploy_environment:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                          project:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                            required:
+                            - id
+                        required:
+                        - deploy_component
+                        - deploy_environment
+                        - project
+                    required:
+                    - attributes
+                    - id
+                    - references
+                required:
+                - data
+        400:
+          description: The current version is not the version deployed there.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        409:
+          description: A command for that component instance is already being handled.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/projects/{id}/settings:
+    get:
+      operationId: get-projects-by-id-settings
+      tags:
+      - Projects
+      summary: Returns settings for a project
+      description: Settings are a singleton sub-resource of the project, so the data entity does not include an id - the project's id is in the path.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          can_pass_secrets_to_fork_pr_jobs:
+                            type: boolean
+                          can_set_github_status:
+                            type: boolean
+                          enable_ai_error_summarization:
+                            type: boolean
+                          enable_auto_cancel_redundant_workflows:
+                            type: boolean
+                          enable_building_fork_prs:
+                            type: boolean
+                          enable_dynamic_config:
+                            type: boolean
+                          enable_unversioned_config:
+                            type: boolean
+                          is_admin_required_for_writing_settings:
+                            type: boolean
+                          is_build_prs_only:
+                            type: boolean
+                          is_oss:
+                            type: boolean
+                          is_running_disabled:
+                            type: boolean
+                          is_ssh_disabled:
+                            type: boolean
+                          pr_only_branch_overrides:
+                            type: array
+                            items:
+                              type: string
+                        required:
+                        - can_pass_secrets_to_fork_pr_jobs
+                        - can_set_github_status
+                        - enable_ai_error_summarization
+                        - enable_auto_cancel_redundant_workflows
+                        - enable_building_fork_prs
+                        - enable_dynamic_config
+                        - enable_unversioned_config
+                        - is_admin_required_for_writing_settings
+                        - is_build_prs_only
+                        - is_oss
+                        - is_running_disabled
+                        - is_ssh_disabled
+                        - pr_only_branch_overrides
+                    required:
+                    - attributes
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+  /api/v3/projects/{id}/update-settings:
+    post:
+      operationId: post-projects-by-id-update-settings
+      tags:
+      - Projects
+      summary: Modifies settings for a project
+      description: Settings are a singleton sub-resource of the project, so the data entity does not include an id - the project's id is in the path.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id.
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                can_pass_secrets_to_fork_pr_jobs:
+                  type:
+                  - boolean
+                  - 'null'
+                can_set_github_status:
+                  type:
+                  - boolean
+                  - 'null'
+                enable_ai_error_summarization:
+                  type:
+                  - boolean
+                  - 'null'
+                enable_auto_cancel_redundant_workflows:
+                  type:
+                  - boolean
+                  - 'null'
+                enable_building_fork_prs:
+                  type:
+                  - boolean
+                  - 'null'
+                enable_dynamic_config:
+                  type:
+                  - boolean
+                  - 'null'
+                enable_unversioned_config:
+                  type:
+                  - boolean
+                  - 'null'
+                is_admin_required_for_writing_settings:
+                  type:
+                  - boolean
+                  - 'null'
+                is_build_prs_only:
+                  type:
+                  - boolean
+                  - 'null'
+                is_oss:
+                  type:
+                  - boolean
+                  - 'null'
+                is_running_disabled:
+                  type:
+                  - boolean
+                  - 'null'
+                is_ssh_disabled:
+                  type:
+                  - boolean
+                  - 'null'
+                pr_only_branch_overrides:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        properties:
+                          can_pass_secrets_to_fork_pr_jobs:
+                            type: boolean
+                          can_set_github_status:
+                            type: boolean
+                          enable_ai_error_summarization:
+                            type: boolean
+                          enable_auto_cancel_redundant_workflows:
+                            type: boolean
+                          enable_building_fork_prs:
+                            type: boolean
+                          enable_dynamic_config:
+                            type: boolean
+                          enable_unversioned_config:
+                            type: boolean
+                          is_admin_required_for_writing_settings:
+                            type: boolean
+                          is_build_prs_only:
+                            type: boolean
+                          is_oss:
+                            type: boolean
+                          is_running_disabled:
+                            type: boolean
+                          is_ssh_disabled:
+                            type: boolean
+                          pr_only_branch_overrides:
+                            type: array
+                            items:
+                              type: string
+                        required:
+                        - can_pass_secrets_to_fork_pr_jobs
+                        - can_set_github_status
+                        - enable_ai_error_summarization
+                        - enable_auto_cancel_redundant_workflows
+                        - enable_building_fork_prs
+                        - enable_dynamic_config
+                        - enable_unversioned_config
+                        - is_admin_required_for_writing_settings
+                        - is_build_prs_only
+                        - is_oss
+                        - is_running_disabled
+                        - is_ssh_disabled
+                        - pr_only_branch_overrides
+                    required:
+                    - attributes
+                required:
+                - data
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                properties:
+                  error:
+                    $ref: '#/components/schemas/Error'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        429:
+          $ref: '#/components/responses/TooManyRequests'
+        500:
+          $ref: '#/components/responses/InternalError'
+components:
+  responses:
+    InternalError:
+      description: Internal server error. Safe to retry with backoff; quote error.id when reporting it.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests - rate limited. Wait the Retry-After header's seconds, then retry with backoff.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - missing, invalid or expired token. Do not retry without a new token.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found - the resource does not exist, or the caller is not entitled to know that it does.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden - authenticated but not permitted to perform this action. Do not retry.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      properties:
+        detail:
+          description: Human-readable explanation specific to this occurrence.
+          type: string
+        id:
+          description: Unique identifier for this occurrence. Include it when reporting the problem so support can find the failure.
+          type: string
+        source:
+          description: Identifies the origin of the error in the request.
+          properties:
+            error:
+              description: Underlying parser/validation error message.
+              type: string
+            offset:
+              description: Byte offset in the JSON input where the error was detected.
+              format: int64
+              type: integer
+            pointer:
+              description: JSON Pointer (RFC 6901) to the field that caused the error.
+              type: string
+          type: object
+        title:
+          description: Short, human-readable summary of the problem.
+          type: string
+        type:
+          description: 'Low-cardinality machine-readable error type, present only where an operation sets one explicitly - absent is normal, so branch on the HTTP status first and use this to tell causes apart within one status. A bare token, never a URI to dereference. The value set is open, so treat an unrecognised value as a generic failure for the status. Request-parsing errors use: syntax_error, empty_input, unknown_field, invalid_structure, invalid_format, type_mismatch, validation_error, invalid_route, invalid_path_param.'
+          type: string
+      type: object
+  securitySchemes:
+    bearer_token:
+      scheme: bearer
+      type: http

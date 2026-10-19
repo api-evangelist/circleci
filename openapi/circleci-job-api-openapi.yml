@@ -119,6 +119,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the operation
     ErrorResponse:
       type: object
       properties:
@@ -136,12 +142,6 @@ components:
         next_page_token:
           type: string
           description: Token for retrieving the next page
-    MessageResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing the result of the operation
     TestMetadata:
       type: object
       properties:
@@ -166,17 +166,6 @@ components:
         classname:
           type: string
           description: The class name of the test
-    TestList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestMetadata'
-          description: List of test metadata
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
     Artifact:
       type: object
       properties:
@@ -279,14 +268,18 @@ components:
           type: string
           format: date-time
           description: When the job stopped
+    TestList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestMetadata'
+          description: List of test metadata
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
   parameters:
-    ProjectSlugParam:
-      name: project-slug
-      in: path
-      required: true
-      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
-      schema:
-        type: string
     JobNumberParam:
       name: job-number
       in: path
@@ -294,6 +287,13 @@ components:
       description: The number of the job
       schema:
         type: integer
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+      schema:
+        type: string
   securitySchemes:
     apiToken:
       type: apiKey

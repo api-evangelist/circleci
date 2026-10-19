@@ -153,94 +153,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ScheduleList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Schedule'
-          description: List of schedules
-        next_page_token:
-          type: string
-          description: Token for retrieving the next page
-    Schedule:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the schedule
-        name:
-          type: string
-          description: The name of the schedule
-        description:
-          type: string
-          description: The description of the schedule
-        timetable:
-          $ref: '#/components/schemas/Timetable'
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Pipeline parameters for the schedule
-        project_slug:
-          type: string
-          description: The project slug
-        actor:
-          type: object
-          properties:
-            id:
-              type: string
-              format: uuid
-              description: The actor ID
-            login:
-              type: string
-              description: The actor login
-            name:
-              type: string
-              description: The actor name
-          description: The user who created the schedule
-        created_at:
-          type: string
-          format: date-time
-          description: When the schedule was created
-        updated_at:
-          type: string
-          format: date-time
-          description: When the schedule was last updated
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A human-readable error message
-    UpdateScheduleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the schedule
-        description:
-          type: string
-          description: The description of the schedule
-        timetable:
-          $ref: '#/components/schemas/Timetable'
-        attribution-actor:
-          type: string
-          enum:
-          - current
-          - system
-          description: Who to attribute pipeline triggers to
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Pipeline parameters for the schedule
     MessageResponse:
       type: object
       properties:
         message:
           type: string
           description: A message describing the result of the operation
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message
     Timetable:
       type: object
       required:
@@ -298,6 +222,27 @@ components:
             - NOV
             - DEC
           description: Months to trigger
+    UpdateScheduleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the schedule
+        description:
+          type: string
+          description: The description of the schedule
+        timetable:
+          $ref: '#/components/schemas/Timetable'
+        attribution-actor:
+          type: string
+          enum:
+          - current
+          - system
+          description: Who to attribute pipeline triggers to
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters for the schedule
     CreateScheduleRequest:
       type: object
       required:
@@ -324,12 +269,66 @@ components:
           type: object
           additionalProperties: true
           description: Pipeline parameters for the schedule
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the schedule
+        name:
+          type: string
+          description: The name of the schedule
+        description:
+          type: string
+          description: The description of the schedule
+        timetable:
+          $ref: '#/components/schemas/Timetable'
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Pipeline parameters for the schedule
+        project_slug:
+          type: string
+          description: The project slug
+        actor:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The actor ID
+            login:
+              type: string
+              description: The actor login
+            name:
+              type: string
+              description: The actor name
+          description: The user who created the schedule
+        created_at:
+          type: string
+          format: date-time
+          description: When the schedule was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the schedule was last updated
+    ScheduleList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schedule'
+          description: List of schedules
+        next_page_token:
+          type: string
+          description: Token for retrieving the next page
   parameters:
-    ProjectSlugParam:
-      name: project-slug
-      in: path
-      required: true
-      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
+    PageTokenParam:
+      name: page-token
+      in: query
+      description: Token for retrieving the next page of results
       schema:
         type: string
     ScheduleIdParam:
@@ -340,10 +339,11 @@ components:
       schema:
         type: string
         format: uuid
-    PageTokenParam:
-      name: page-token
-      in: query
-      description: Token for retrieving the next page of results
+    ProjectSlugParam:
+      name: project-slug
+      in: path
+      required: true
+      description: The project slug in the form vcs-slug/org-name/repo-name (e.g., gh/CircleCI-Public/api-preview-docs)
       schema:
         type: string
   securitySchemes:
