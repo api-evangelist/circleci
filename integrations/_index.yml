@@ -382,6 +382,34 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: circleci-500-global
+  label: 500 Global
+  partner: 500-global
+  partner_name: 500 Global
+  category: accelerator portfolio participation
+  type: register
+  channel: standard-directory
+  evidence: https://500.co/companies
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: 500 Global portfolio (500.co/companies; the page's own JSON 500.co/api/startups)
+    standard: null
+    spec_file: null
+    role: accelerator-portfolio-company
+    registered_name: Circleci
+    register_id: https://500.co/companies
+    register_country: United States
+    register_website: circleci.com
+    matched_domain: circleci.com
+    matched_by: domain
+    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-accelerator-portfolios.py
+    detected: '2026-10-21'
+    year: '2012'
+  status: not-a-workflow
+  arazzo: null
 - slug: circleci-docker-hub-docker-verified-publisher
   label: Docker Hub (docker-verified-publisher)
   partner: docker-hub
@@ -421,31 +449,29 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: circleci-500-global
-  label: 500 Global
-  partner: 500-global
-  partner_name: 500 Global
-  category: accelerator portfolio participation
-  type: register
-  channel: standard-directory
-  evidence: https://500.co/companies
+- slug: circleci-opentofu-opentofu-registry
+  label: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_name: OpenTofu (opentofu-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: opentofu-registry
+  channel: partner-built
+  evidence: https://search.opentofu.org/provider/circleci-public/circleci
   source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: 500 Global portfolio (500.co/companies; the page's own JSON 500.co/api/startups)
-    standard: null
-    spec_file: null
-    role: accelerator-portfolio-company
-    registered_name: Circleci
-    register_id: https://500.co/companies
-    register_country: United States
-    register_website: circleci.com
-    matched_domain: circleci.com
-    matched_by: domain
-    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
-      an ownership and participation record, not conformance or certification'
-    detected_by: sweep-accelerator-portfolios.py
-    detected: '2026-10-21'
-    year: '2012'
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: circleci-terraform-terraform-registry
+  label: Terraform (terraform-registry)
+  partner: terraform
+  partner_name: Terraform (terraform-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: terraform-registry
+  channel: partner-built
+  evidence: https://registry.terraform.io/providers/CircleCI-Public/circleci
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
