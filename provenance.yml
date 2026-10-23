@@ -9,8 +9,20 @@ artifacts:
   asyncapi/circleci-webhooks-asyncapi.yml:
     method: unknown
     evidence: no authorship recorded
+  asyncapi/circleci-webhooks.yml:
+    method: searched
+    evidence: declared in the artifact
   authentication/circleci-authentication.yml:
     method: derived
+    evidence: declared in the artifact
+  capabilities/circleci-capability-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  changelog/circleci-changelog.yml:
+    method: searched
+    evidence: declared in the artifact
+  cli/circleci-cli.yml:
+    method: searched
     evidence: declared in the artifact
   collections/circleci-artifact-api.opencollection.json:
     method: derived
@@ -120,13 +132,34 @@ artifacts:
   collections/circleci-workflow-api.postman_collection.json:
     method: derived
     evidence: openapi/circleci-workflow-api
+  conformance/circleci-conformance.yml:
+    method: derived
+    evidence: declared in the artifact
+  data-model/circleci-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
+  errors/circleci-problem-types.yml:
+    method: derived
+    evidence: declared in the artifact
   finops/circleci-finops.yml:
     method: generated
     evidence: declared in the artifact
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/circleci-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/circleci-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
   json-ld/circleci-context.jsonld:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-artifact-list-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-artifact-schema.json:
@@ -135,13 +168,25 @@ artifacts:
   json-schema/circleci-artifactlist-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-build-detail-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-build-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-build-summary-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-builddetail-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-buildsummary-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-checkout-key-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-checkout-key-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-checkoutkey-schema.json:
@@ -153,10 +198,22 @@ artifacts:
   json-schema/circleci-collaboration-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-context-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-context-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-contextlist-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-create-context-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-create-schedule-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-create-webhook-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-createcontextrequest-schema.json:
@@ -168,6 +225,12 @@ artifacts:
   json-schema/circleci-createwebhookrequest-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-environment-variable-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-environment-variable-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-environmentvariable-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -175,6 +238,18 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-errorresponse-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-insights-job-metrics-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-insights-test-metrics-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-insights-workflow-metrics-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-insights-workflow-runs-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-insightsjobmetrics-schema.json:
@@ -192,7 +267,19 @@ artifacts:
   json-schema/circleci-job-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-message-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-messageresponse-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-pipeline-config-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-pipeline-creation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-pipeline-list-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-pipeline-schema.json:
@@ -207,6 +294,12 @@ artifacts:
   json-schema/circleci-pipelinelist-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-project-2-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-project-env-var-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-project-schema.json:
     method: unknown
     evidence: no authorship recorded
@@ -216,7 +309,16 @@ artifacts:
   json-schema/circleci-projectenvvarlist-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-rerun-workflow-response-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-rerunworkflowresponse-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-resource-class-creation-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-resource-class-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-resourceclass-schema.json:
@@ -228,10 +330,19 @@ artifacts:
   json-schema/circleci-runner-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-schedule-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-schedule-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-schedulelist-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-test-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-test-metadata-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-testlist-schema.json:
@@ -243,7 +354,16 @@ artifacts:
   json-schema/circleci-timetable-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-trigger-pipeline-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-triggerpipelinerequest-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-update-schedule-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-update-webhook-request-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-updateschedulerequest-schema.json:
@@ -258,10 +378,22 @@ artifacts:
   json-schema/circleci-webhook-event-schema.json:
     method: unknown
     evidence: no authorship recorded
+  json-schema/circleci-webhook-info-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-webhook-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/circleci-webhookinfo-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-webhooklist-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-workflow-job-list-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/circleci-workflow-list-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/circleci-workflow-schema.json:
@@ -279,127 +411,7 @@ artifacts:
   json-structure/circleci-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -483,12 +495,33 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  llms/circleci-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   llms/circleci-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
   mcp/circleci-mcp.yml:
     method: unknown
     evidence: no authorship recorded
+  openapi/_original/circleci-openapi.yml:
+    method: harvested
+    evidence: byte-identical to https://circleci.com/fullopenapi.yaml (sha256 6fa0fd0fe746, fetched 2026-10-19)
   openapi/_original/circleci-rest-api-v1-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -497,13 +530,52 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/circleci-analysis-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-artifact-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-build-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-catalog-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-configs-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-context-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-context-restrictions-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-contexts-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-deploy-components-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-deploy-config-suggestions-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-deploy-deployments-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-deploy-diff-summaries-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-deploy-environments-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-deploy-hooks-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-deploy-settings-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-groups-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-insights-api-openapi.yml:
@@ -512,39 +584,147 @@ artifacts:
   openapi/circleci-job-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-jobs-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-metric-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-namespaces-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-notification-channel-configs-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-notification-integrations-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-notification-links-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-notification-preferences-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-orb-categories-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-orb-packages-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-orb-versions-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-orgs-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-pipeline-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-pipelines-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-project-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-projects-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-provider-branches-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-provider-connections-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-provider-repositories-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-resource-class-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
+  openapi/circleci-runner-agents-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-runner-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
+  openapi/circleci-runner-fleets-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-runner-resource-classes-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-runner-task-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
+  openapi/circleci-runner-tokens-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-runs-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-schedule-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-sidecar-commands-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-sidecar-instances-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-sidecar-snapshots-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-signing-certificates-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-signing-configs-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-ssh-key-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-test-flakes-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-test-metadata-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-test-results-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-tool-releases-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-triggers-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-usage-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-user-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-users-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-webhook-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-webhooks-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/circleci-workflow-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/circleci-workflows-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/circleci-artifact-api-overlay.yml:
+    method: derived
+    evidence: declared in the artifact
+  packages/circleci-packages.yml:
+    method: unknown
+    evidence: no authorship recorded
   plans/circleci-plans-pricing.yml:
     method: generated
     evidence: declared in the artifact
@@ -617,6 +797,21 @@ artifacts:
   security/circleci-vulnerability-disclosure.yml:
     method: searched
     evidence: declared in the artifact
+  skills/_index.yml:
+    method: generated
+    evidence: declared in the artifact
+  skills/circleci-job-management.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/circleci-manage-workflow.md:
+    method: generated
+    evidence: declared in the artifact
+  skills/circleci-webhook-management.md:
+    method: generated
+    evidence: declared in the artifact
+  vendors/circleci-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
   vocabulary/circleci-vocabulary.yml:
     method: unknown
     evidence: no authorship recorded

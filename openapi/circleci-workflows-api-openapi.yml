@@ -664,3 +664,9 @@ components:
     bearer_token:
       scheme: bearer
       type: http
+x-provenance:
+  method: harvested
+  publisher: CircleCI
+  source: https://circleci.com/fullopenapi.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
