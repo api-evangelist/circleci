@@ -1,4 +1,4 @@
-# CircleCI (circleci)
+# CircleCI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,166 +66,252 @@
 
 CircleCI is a continuous integration and continuous delivery (CI/CD) platform that automates software build, test, and deployment pipelines. Their developer surface includes the REST API v2 (the recommended modern interface), the legacy v1 REST API, a Self-Hosted Runner API, webhooks for real-time event notifications, and the Orbs Registry of reusable configuration packages. Authentication is via a personal or project Circle-Token sent in the Circle-Token header; responses are JSON.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/circleci/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/circleci/refs/heads/main/apis.yml)
+**Areas:** CI/CD · Continuous Integration · Continuous Deployment · DevOps · Pipelines · Workflows · Developer Tools
 
-## Scope
+## CircleCI on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for CircleCI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/circleci/](https://apis.io/providers/circleci/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (18)
 
-- CI/CD
-- Continuous Integration
-- Continuous Deployment
-- DevOps
-- Pipelines
-- Workflows
+- [CircleCI Self-Hosted Runner API](https://apis.io/apis/circleci/runner-api/) — The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted runner infrastructure. It provides endpoints for listing…
+- [CircleCI Webhooks](https://apis.io/apis/circleci/webhooks/) — CircleCI Webhooks allow developers to receive real-time notifications about events in their CI/CD pipelines by configuring HTTP callbacks. Webhooks can be…
+- [CircleCI Orbs Registry](https://apis.io/apis/circleci/orbs/) — CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify build setup and integration with third-party tools. The Orbs Registry…
+- [CircleCI Artifact API](https://apis.io/apis/circleci/circleci-artifact-api/) — Endpoints for listing and downloading build artifacts.
+- [CircleCI Build API](https://apis.io/apis/circleci/circleci-build-api/) — Endpoints for retrieving build details, triggering builds, retrying builds, and canceling builds.
+- [CircleCI Context API](https://apis.io/apis/circleci/circleci-context-api/) — Endpoints for managing contexts, which are used to secure and share environment variables across projects.
+- [CircleCI Insights API](https://apis.io/apis/circleci/circleci-insights-api/) — Endpoints for retrieving workflow and job metrics, summary data, and test performance insights.
+- [CircleCI Job API](https://apis.io/apis/circleci/circleci-job-api/) — Endpoints for retrieving job details, artifacts, and test metadata associated with pipeline jobs.
+- [CircleCI Pipeline API](https://apis.io/apis/circleci/circleci-pipeline-api/) — Endpoints for triggering, retrieving, and managing pipelines and their configurations.
+- [CircleCI Project API](https://apis.io/apis/circleci/circleci-project-api/) — Endpoints for listing followed projects and managing project settings.
+- [CircleCI Resource Class API](https://apis.io/apis/circleci/circleci-resource-class-api/) — Endpoints for managing runner resource classes, which define the compute resources available for self-hosted runner jobs.
+- [CircleCI Runner Task API](https://apis.io/apis/circleci/circleci-runner-task-api/) — Endpoints for querying task counts and managing tasks assigned to self-hosted runners.
+- [CircleCI Schedule API](https://apis.io/apis/circleci/circleci-schedule-api/) — Endpoints for creating, updating, and managing scheduled pipeline triggers.
+- [CircleCI SSH Key API](https://apis.io/apis/circleci/circleci-ssh-key-api/) — Endpoints for managing SSH keys and checkout keys for projects.
+- [CircleCI Test Metadata API](https://apis.io/apis/circleci/circleci-test-metadata-api/) — Endpoints for retrieving test metadata collected during builds.
+- [CircleCI User API](https://apis.io/apis/circleci/circleci-user-api/) — Endpoints for retrieving information about the authenticated user.
+- [CircleCI Webhook API](https://apis.io/apis/circleci/circleci-webhook-api/) — Endpoints for creating, updating, listing, and deleting outbound webhook subscriptions.
+- [CircleCI Workflow API](https://apis.io/apis/circleci/circleci-workflow-api/) — Endpoints for retrieving workflow details, managing workflow status, and rerunning workflows.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-03-05
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (2)
 
-### CircleCI REST API V2
+Event-driven and webhook contracts.
 
-The CircleCI REST API v2 provides programmatic access to CircleCI services for managing pipelines, projects, workflows, jobs, and users. Developers can trigger pipelines, retrieve build status, manage contexts and environment variables, and access usage reports. The API uses token-based authentication via a Circle-Token header and returns JSON responses. It supports operations for project configuration, workflow management, artifact retrieval, and insights into build performance.
+- [Circleci Webhooks](https://apis.io/asyncapis/circleci/circleci-webhooks/)
+- [CircleCI Webhooks](https://apis.io/asyncapis/circleci/circleci-webhooks-asyncapi/)
 
-- **Human URL:** [https://circleci.com/docs/api/v2/](https://circleci.com/docs/api/v2/)
-- **Base URL:** `https://circleci.com/api/v2`
+#### Event channels (1)
 
-#### Tags
+Individual events and webhooks the provider emits.
 
-- CI/CD
-- Continuous Integration
-- DevOps
-- Pipelines
-- Workflows
+- [/webhook](https://apis.io/channels/circleci/webhook/)
 
-#### Properties
+#### MCP servers (1)
 
-- [Documentation](https://circleci.com/docs/api/v2/)
-- [OpenAPI](openapi/circleci-rest-api-v2-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/circleci-rest-api-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-rest-api-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Model Context Protocol servers that expose the API to agents.
 
-### CircleCI REST API V1
+- [circleci](https://apis.io/servers/circleci/circleci/)
 
-The CircleCI REST API v1 is the legacy API that provides access to build information, project details, and user data. While still available, CircleCI recommends migrating to the v2 API for newer features and improved functionality. The v1 API supports operations for retrieving build details, triggering builds, managing SSH keys, and accessing test metadata. Authentication is handled through API tokens passed as query parameters or HTTP headers.
+#### Agentic access (1)
 
-- **Human URL:** [https://circleci.com/docs/api/v1/](https://circleci.com/docs/api/v1/)
-- **Base URL:** `https://circleci.com/api/v1.1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Circleci Agentic Access](https://apis.io/agentic-access/circleci/circleci-agentic-access/)
 
-- Builds
-- CI/CD
-- Continuous Integration
-- Legacy
+#### JSON Schema (83)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://circleci.com/docs/api/v1/)
-- [OpenAPI](openapi/circleci-rest-api-v1-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/circleci-rest-api-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-rest-api-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Artifact](https://apis.io/schemas/circleci/circleci-artifact/)
+- [ArtifactList](https://apis.io/schemas/circleci/circleci-artifact-list/)
+- [ArtifactList](https://apis.io/schemas/circleci/circleci-artifactlist/)
+- [Build](https://apis.io/schemas/circleci/circleci-build/)
+- [BuildDetail](https://apis.io/schemas/circleci/circleci-build-detail/)
+- [BuildSummary](https://apis.io/schemas/circleci/circleci-build-summary/)
+- [BuildDetail](https://apis.io/schemas/circleci/circleci-builddetail/)
+- [BuildSummary](https://apis.io/schemas/circleci/circleci-buildsummary/)
+- [CheckoutKey](https://apis.io/schemas/circleci/circleci-checkout-key/)
+- [CheckoutKeyList](https://apis.io/schemas/circleci/circleci-checkout-key-list/)
+- [CheckoutKey](https://apis.io/schemas/circleci/circleci-checkoutkey/)
+- [CheckoutKeyList](https://apis.io/schemas/circleci/circleci-checkoutkeylist/)
+- [Collaboration](https://apis.io/schemas/circleci/circleci-collaboration/)
+- [Context](https://apis.io/schemas/circleci/circleci-context/)
+- [ContextList](https://apis.io/schemas/circleci/circleci-context-list/)
+- [ContextList](https://apis.io/schemas/circleci/circleci-contextlist/)
+- [CreateContextRequest](https://apis.io/schemas/circleci/circleci-create-context-request/)
+- [CreateScheduleRequest](https://apis.io/schemas/circleci/circleci-create-schedule-request/)
+- [CreateWebhookRequest](https://apis.io/schemas/circleci/circleci-create-webhook-request/)
+- [CreateContextRequest](https://apis.io/schemas/circleci/circleci-createcontextrequest/)
+- [CreateScheduleRequest](https://apis.io/schemas/circleci/circleci-createschedulerequest/)
+- [CreateWebhookRequest](https://apis.io/schemas/circleci/circleci-createwebhookrequest/)
+- [EnvironmentVariable](https://apis.io/schemas/circleci/circleci-environment-variable/)
+- [EnvironmentVariableList](https://apis.io/schemas/circleci/circleci-environment-variable-list/)
+- [EnvironmentVariable](https://apis.io/schemas/circleci/circleci-environmentvariable/)
+- …and 58 more published on APIs.io
 
-### CircleCI Self-Hosted Runner API
+#### JSON Structure (1)
 
-The CircleCI Self-Hosted Runner API enables management and execution of jobs on self-hosted runner infrastructure. It provides endpoints for listing available runners, managing runner tasks, and querying resource classes. The API is hosted separately from the main CircleCI API at runner.circleci.com and supports multiple authentication methods depending on the endpoint. Developers can use this API to integrate self-hosted runner management into their infrastructure automation workflows.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://circleci.com/docs/runner-api/](https://circleci.com/docs/runner-api/)
-- **Base URL:** `https://runner.circleci.com`
+- [Circleci Structure](https://apis.io/json-structure/circleci/circleci-structure/)
 
-#### Tags
+#### JSON-LD (1)
 
-- CI/CD
-- Infrastructure
-- Runners
-- Self-Hosted
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Circleci Context](https://apis.io/jsonld/circleci/circleci-context/)
 
-- [Documentation](https://circleci.com/docs/runner-api/)
-- [OpenAPI](openapi/circleci-runner-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/circleci-runner-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-runner-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-### CircleCI Webhooks
+The provider's domain terms, defined.
 
-CircleCI Webhooks allow developers to receive real-time notifications about events in their CI/CD pipelines by configuring HTTP callbacks. Webhooks can be set up through project settings to notify external services when workflows and jobs complete, fail, or change status. This enables integration with monitoring systems, chat platforms, and custom automation workflows. Webhooks deliver JSON payloads containing event details to configured endpoint URLs.
+- [CircleCI Domain Vocabulary](https://apis.io/vocabularies/circleci/circleci-vocabulary/)
 
-- **Human URL:** [https://circleci.com/docs/webhooks/](https://circleci.com/docs/webhooks/)
-- **Base URL:** `https://api.example.com`
+#### Collections (34)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- CI/CD
-- Events
-- Notifications
-- Webhooks
+- [CircleCI REST API v1 Artifact API](https://apis.io/collections/circleci/open-circleci-artifact-api/)
+- [CircleCI REST API v1 Artifact Build API](https://apis.io/collections/circleci/open-circleci-build-api/)
+- [CircleCI REST API v1 Artifact Context API](https://apis.io/collections/circleci/open-circleci-context-api/)
+- [CircleCI REST API v1 Artifact Insights API](https://apis.io/collections/circleci/open-circleci-insights-api/)
+- [CircleCI REST API v1 Artifact Job API](https://apis.io/collections/circleci/open-circleci-job-api/)
+- [CircleCI REST API v1 Artifact Pipeline API](https://apis.io/collections/circleci/open-circleci-pipeline-api/)
+- [CircleCI REST API v1 Artifact Project API](https://apis.io/collections/circleci/open-circleci-project-api/)
+- [CircleCI REST API v1 Artifact Resource Class API](https://apis.io/collections/circleci/open-circleci-resource-class-api/)
+- [CircleCI REST API v1](https://apis.io/collections/circleci/open-circleci-rest-api-v1/)
+- [CircleCI REST API v2](https://apis.io/collections/circleci/open-circleci-rest-api-v2/)
+- [CircleCI REST API v1 Artifact Runner API](https://apis.io/collections/circleci/open-circleci-runner-api/)
+- [CircleCI REST API v1 Artifact Runner Task API](https://apis.io/collections/circleci/open-circleci-runner-task-api/)
+- [CircleCI REST API v1 Artifact Schedule API](https://apis.io/collections/circleci/open-circleci-schedule-api/)
+- [CircleCI REST API v1 Artifact SSH Key API](https://apis.io/collections/circleci/open-circleci-ssh-key-api/)
+- [CircleCI REST API v1 Artifact Test Metadata API](https://apis.io/collections/circleci/open-circleci-test-metadata-api/)
+- [CircleCI REST API v1 Artifact User API](https://apis.io/collections/circleci/open-circleci-user-api/)
+- [CircleCI REST API v1 Artifact Webhook API](https://apis.io/collections/circleci/open-circleci-webhook-api/)
+- [CircleCI REST API v1 Artifact Workflow API](https://apis.io/collections/circleci/open-circleci-workflow-api/)
+- [CircleCI REST API v1 Artifact API](https://apis.io/collections/circleci/postman-circleci-artifact-api/)
+- [CircleCI REST API v1 Artifact Build API](https://apis.io/collections/circleci/postman-circleci-build-api/)
+- [CircleCI REST API v1 Artifact Context API](https://apis.io/collections/circleci/postman-circleci-context-api/)
+- [CircleCI REST API v1 Artifact Insights API](https://apis.io/collections/circleci/postman-circleci-insights-api/)
+- [CircleCI REST API v1 Artifact Job API](https://apis.io/collections/circleci/postman-circleci-job-api/)
+- [CircleCI REST API v1 Artifact Pipeline API](https://apis.io/collections/circleci/postman-circleci-pipeline-api/)
+- [CircleCI REST API v1 Artifact Project API](https://apis.io/collections/circleci/postman-circleci-project-api/)
+- …and 9 more published on APIs.io
 
-#### Properties
+#### Overlays (1)
 
-- [Documentation](https://circleci.com/docs/webhooks/)
-- [AsyncAPI](asyncapi/circleci-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/circleci-rest-api-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-rest-api-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/circleci-rest-api-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-rest-api-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/circleci-runner-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-runner-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-### CircleCI Orbs Registry
+- [Circleci Artifact Api Overlay](https://apis.io/overlays/circleci/circleci-artifact-api-overlay/)
 
-CircleCI Orbs are shareable, reusable packages of CircleCI configuration that simplify build setup and integration with third-party tools. The Orbs Registry on the CircleCI Developer Hub provides a searchable catalog of community and certified orbs. Developers can browse, publish, and consume orbs to automate repeated processes, speed up project configuration, and integrate services like AWS, Docker, Slack, and Kubernetes into their CI/CD pipelines.
+#### Governance rules (3)
 
-- **Human URL:** [https://circleci.com/developer/orbs](https://circleci.com/developer/orbs)
-- **Base URL:** `https://api.example.com`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [CircleCI — asyncapi rules](https://apis.io/rules/circleci/circleci-asyncapi-spectral-rules/)
+- [CircleCI — jsonschema rules](https://apis.io/rules/circleci/circleci-jsonschema-spectral-rules/)
+- [CircleCI API Rules](https://apis.io/rules/circleci/circleci-rules/)
 
-- CI/CD
-- Configuration
-- Packages
-- Reusable
+#### Security (4)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://circleci.com/developer/orbs)
-- [Postman Collection](collections/circleci-rest-api-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-rest-api-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/circleci-rest-api-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-rest-api-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/circleci-runner-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/circleci-runner-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Circleci Authentication](https://apis.io/security/circleci/circleci-authentication/)
+- [Circleci Domain Security](https://apis.io/security/circleci/circleci-domain-security/)
+- [Circleci Trust Center](https://apis.io/security/circleci/circleci-trust-center/)
+- [Circleci Vulnerability Disclosure](https://apis.io/security/circleci/circleci-vulnerability-disclosure/)
 
-## Common Properties
+#### Plans and pricing (1)
 
-- [GitHub Organization](https://github.com/circleci)
-- [LinkedIn](https://www.linkedin.com/company/circleci)
+Published plans, tiers and prices.
+
+- [Circleci Plans Pricing](https://apis.io/plans/circleci/circleci-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Circleci Rate Limits](https://apis.io/rate-limits/circleci/circleci-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Circleci Finops](https://apis.io/finops/circleci/circleci-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://circleci.com/)
-- [Portal](https://circleci.com/developer)
 - [Documentation](https://circleci.com/docs/)
-- [Status Page](https://status.circleci.com/)
+- [API reference](https://circleci.com/docs/guides/getting-started/getting-started/)
+- [Pricing](https://circleci.com/pricing/)
 - [Support](https://support.circleci.com/)
+- [Changelog](https://circleci.com/changelog/)
 - [Blog](https://circleci.com/blog/)
-- [Privacy Policy](https://circleci.com/privacy/)
-- [Terms of Service](https://circleci.com/terms-of-service/)
-- [Login](https://app.circleci.com/)
-- [JSON-LD](json-ld/circleci-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/circleci-pipeline-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/circleci-workflow-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/circleci-webhook-event-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Spectral Rules](rules/circleci-rules.yml) — [Spectral](https://docs.stoplight.io/docs/spectral)
-- [Features](undefined)
-- [Integrations](https://circleci.com/integrations/)
-- [L L Ms Txt](https://circleci.com/llms.txt)
+- [Security](https://circleci.com/security/)
+- [Compliance](https://trust.circleci.com/)
+- [Terms of service](https://circleci.com/terms-of-service/)
+- [Privacy policy](https://circleci.com/privacy/)
+- [GitHub](https://github.com/circleci)
+- [Status](https://status.circleci.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 66.1** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 76.7 |
+| Contract quality | 69.5 |
+| Contract governance | 31.8 |
+| Operational transparency | 60.5 |
+| Developer ergonomics | 62.5 |
+| Access clarity | 61.8 |
+
+**Agent readiness 56.1** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/circleci/](https://apis.io/providers/circleci/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for CircleCI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/circleci/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
